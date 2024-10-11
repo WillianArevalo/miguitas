@@ -1,0 +1,98 @@
+@import url("constans.css");
+@import url("admin.css");
+@import url("scrollbar.css");
+@import url("animation.css");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/* Invalid input **/
+.is-invalid {
+    border-color: #e3342f;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+/* Invalid input dark */
+.dark .is-invalid {
+    border-color: #e3342f !important;
+    box-shadow: 0 0 0 0.2rem rgba(225, 64, 80, 0.322);
+}
+
+/* Valid input */
+.is-valid {
+    border: 1px solid #38c172;
+    box-shadow: 0 0 0 0.2rem rgba(64, 225, 75, 0.322);
+}
+
+/* Valid input dark */
+.dark .is-valid {
+    border: 1px solid #38c172 !important;
+}
+
+/* Input styles */
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
+input[type="date"] {
+    -webkit-appearance: none;
+    margin: 0;
+    padding-right: 10px;
+}
+
+input[type="color"] {
+    -webkit-appearance: none;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: 8px;
+}
+
+input[type="color"]::-webkit-color-swatch {
+    box-shadow: inset 0 0 0 1px #27272a;
+    border-radius: 8px;
+}
+
+div[modal-backdrop] {
+    display: none !important;
+}
+
+.glass {
+    background: rgba(249, 249, 250, 0.7);
+    box-shadow: 0 1px 25px 0 rgba(31, 38, 135, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Card product store  */
+.text-truncate-multiline {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    line-height: 1.2em;
+    max-height: 5.4em;
+}
+
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Número de líneas que quieres mostrar antes del corte */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Muestra los tres puntitos */
+}

@@ -1,0 +1,189 @@
+.main-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 2vh 3vw;
+}
+
+.info-container{
+    margin: 5vh 0;
+    width: 50%;
+    padding: 4vh 1.5vw;
+    border: 3px solid var(--light-blue);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow:  -25px 21px 0px 0px rgba(147,175,253,0.9);
+}
+
+.facturation-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.facturation-container .detalles-entrega{
+    width: 70%;
+    margin: 2vh 0;
+}
+
+.facturation-container .detalles-entrega .facturacion{
+    margin: 3vh 0;
+}
+
+.facturation-container .detalles-entrega .direccion{
+    margin: 3vh 0;
+}
+
+.direccion .radio-buttons.column{
+    display: flex;
+    flex-direction: column;
+}
+
+.direccion .date-container{
+    width: 100%;
+    gap: 1vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.date-container  .date{
+    width: 40%;
+    gap: 2vw;
+}
+
+.date-container .text{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0 2vw;
+}
+
+.date-container  .date label{
+    margin: 0 1vw;
+    color: var(--light-blue);
+}
+
+.date-container  .date input{
+   width: 60%;
+}
+
+.pedido-container{
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    padding: 2vh 2vw;
+    border: 3px solid var(--light-blue);
+    border-radius: 15px;
+}
+
+.pedido-container .header{
+    width: 100%;
+}
+
+.pedido-container .header .text{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pedido-container .product-info{
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 5vh 0;
+}
+
+.pedido-container .line{
+    width: 100%;
+}
+
+.pedido-container .product-info .product{
+    display: flex; 
+    height: 25%;
+    flex-direction: row;
+    gap: 0 1.5vw;
+    margin: 2vh 0;
+}
+
+.product h2{
+    font-size: 22px;
+    color: var(--light-blue2);
+}
+
+.product-info .img-container{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.product-info .img-container img{
+    width: 80%;
+    border-radius: 15px;
+    width: 17vh;
+    height: 15vh;
+    background-color: var(--pink);
+}
+
+.product-info .item{
+
+    color: var(--light-blue2);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0 0.5vw;
+    margin: 1vh 0;
+}
+
+.pedido-container .finish{
+    height: 10%;
+    display: flex;
+    justify-content: center;
+
+}
+
+.buttons-container{
+    margin: 2vh 2vw;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.buttons-container .buttons{
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.buttons-container .return{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.buttons-container .continue{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+@media (max-width:1250px){
+    .facturation-container{
+        flex-direction: column;
+        align-items: center;
+    }
+    .pedido-container{
+        width: 40%;
+    }
+}

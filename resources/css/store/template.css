@@ -1,0 +1,736 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+header {
+    display: flex;
+    width: calc(100vw - 30px);
+    padding: 15px;
+    gap: 20px;
+    overflow: hidden;
+}
+
+header .logo,
+.logo img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    user-select: none;
+}
+
+header .container {
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+header .container .nav {
+    display: flex;
+    width: 100%;
+    height: 50%;
+}
+
+header .container .nav .input {
+    display: flex;
+    width: 95%;
+}
+
+header .container .nav .input input {
+    border: 3px solid var(--l-blue);
+    border-right: 0px;
+    padding: 0px 20px 0px 20px;
+    width: calc(95% - 30px);
+    background-color: white;
+    border-radius: 20px 0px 0px 20px;
+}
+
+header .container .nav .input input:focus {
+    border: 3px solid var(--blue-selected);
+    border-right: 0px;
+    outline: none;
+}
+
+header .container .nav .input .icon {
+    background-color: var(--pink);
+    border-radius: 0px 20px 20px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: calc(100% - 6px);
+    border: 3px solid var(--l-blue);
+    border-left: 0px;
+    margin-right: 10px;
+}
+
+header .container .nav .input input:focus + .icon {
+    background-color: var(--pink-selected);
+    border: 3px solid var(--blue-selected);
+    border-left: 0px;
+}
+
+header .container .nav .icons {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+    margin-left: 30px;
+    margin-right: 30px;
+    fill: var(--l-blue);
+    border: 3px solid var(--l-blue);
+    padding: 5px 20px;
+    border-radius: 25px;
+}
+
+header .container .nav .icons svg {
+    transition: all 0.2s ease;
+    margin: 0 5px;
+}
+
+header .container .nav .icons svg:hover .svg-header-fixer {
+    fill: var(--l-blue);
+}
+
+header .container .button-navigation {
+    display: flex;
+    width: calc(100% - 25px);
+    justify-content: center;
+    align-items: center;
+    gap: 45px;
+    padding-right: 25px;
+    overflow: hidden;
+}
+
+header .container .button-navigation a,
+header .container .button-navigation .nav {
+    text-transform: uppercase;
+    color: var(--l-blue);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 15px;
+    width: fit-content;
+    text-wrap: nowrap;
+    user-select: none;
+}
+
+header .container .button-navigation .nav a {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+header .container .button-navigation a.nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    fill: var(--l-blue);
+}
+header .container .button-navigation a.nav:hover {
+    color: white;
+}
+
+header .container .button-navigation .nav p {
+    cursor: pointer;
+    position: relative;
+}
+
+header .container .button-navigation .nav a .icon svg {
+    fill: var(--l-blue);
+}
+
+header .container .button-navigation .nav {
+    padding: 10px 15px;
+    border-radius: 20px;
+
+    .container {
+        display: none;
+        z-index: 100;
+        position: absolute;
+        transform: translateX(-30%);
+        margin-top: 28px !important;
+        padding: 30px 15px 15px 25px !important;
+        background-color: whitesmoke !important;
+        width: 400px !important;
+        height: 430px;
+        border-radius: 35px;
+        flex-direction: column;
+        flex-wrap: wrap;
+        transition: transform 0.3s;
+        box-shadow: 4px 24px 52px 10px rgba(0, 0, 0, 0.32);
+        -webkit-box-shadow: 4px 24px 52px 10px rgba(0, 0, 0, 0.32);
+        -moz-box-shadow: 4px 24px 52px 10px rgba(0, 0, 0, 0.32);
+    }
+
+    .container::before {
+        content: "";
+        position: absolute;
+        top: 0px; /* Ajusta según sea necesario */
+        transform: translateX(-50%);
+        left: 32%;
+        rotate: 180deg;
+        width: 0;
+        height: 0;
+        border-left: 20px solid transparent; /* Tamaño y color del triángulo */
+        border-right: 20px solid transparent;
+        border-bottom: 20px solid var(--l-blue); /* Color del triángulo */
+    }
+    .container.p-f::before {
+        content: "";
+        position: absolute;
+        top: 0px; /* Ajusta según sea necesario */
+        transform: translateX(-50%);
+        left: 40%;
+        rotate: 180deg;
+        width: 0;
+        height: 0;
+        border-left: 30px solid transparent; /* Tamaño y color del triángulo */
+        border-right: 30px solid transparent;
+        border-bottom: 20px solid var(--l-blue); /* Color del triángulo */
+    }
+
+    .container.p-f {
+        width: 500px;
+        height: auto;
+        display: none;
+        flex-direction: column;
+    }
+
+    .container.p-f .sub-container {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .container.p-f .sub-container span {
+        font-size: 18px;
+    }
+
+    .container.p-f .sub-container .col1 svg {
+        fill: var(--l-blue);
+    }
+    .container.p-f .sub-container .col1 {
+        width: 20%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .container.p-f .sub-container .col2 {
+        margin-top: 10px;
+        width: 70%;
+    }
+
+    .container.p-f .sub-container .col2 .content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container.p-f .sub-container section {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container.p-f .sub-container summary {
+        cursor: pointer;
+        display: block;
+        text-wrap: wrap;
+        width: 100%;
+        font-family: "dine-r";
+        font-size: 14px;
+        color: var(--gray);
+        padding: 2vh 5px;
+        border-bottom: 1px solid var(--gray);
+    }
+
+    .container.p-f .sub-container section p {
+        font-family: "dine-r";
+        font-size: 12px;
+        color: var(--gray);
+        width: 100%;
+        text-wrap: wrap;
+        margin: 1vh 0;
+    }
+
+    .container.p-f .sub-container .col2 .content a {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 10px;
+        width: 100%;
+        font-size: 12px;
+        color: var(--pink);
+    }
+
+    .container.p-f .sub-container .col2 .content a:hover {
+        color: var(--pink-selected);
+    }
+
+    .container .item {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        margin: 0 !important;
+        gap: 0 !important;
+    }
+    .container .item .icon {
+        margin-right: 10px !important;
+    }
+    .container .item .icon svg {
+        fill: var(--l-blue);
+    }
+    .container .item .text {
+        text-align: left;
+        text-wrap: wrap;
+        width: 150px !important;
+    }
+}
+
+header .container .button-navigation .nav:hover {
+    background-color: var(--l-blue);
+
+    z-index: 3;
+    .container {
+        transition: transform 0.3s;
+        display: flex;
+        z-index: 2;
+    }
+    p {
+        color: white;
+    }
+    a .icon svg {
+        fill: white;
+    }
+}
+
+header .container .button-navigation .nav-pf:hover {
+    .container.p-f {
+        display: flex;
+    }
+}
+
+header .container .button-navigation a:hover,
+header .container .button-navigation div p:hover {
+    color: var(--blue-selected);
+}
+
+header .container .button-navigation a svg path {
+    transition: all 0.2s ease;
+}
+
+header .container .button-navigation a:hover svg path {
+    fill: var(--blue-selected);
+}
+
+@media screen and (width < 1600px) {
+    header .container .nav .input {
+        width: 80%;
+    }
+    header .container .nav .icons {
+        width: 20%;
+    }
+}
+
+@media screen and (width < 1400px) {
+    header .container .nav .input {
+        width: calc(100% - 150px);
+    }
+    header .container .nav .icons {
+        width: 30%;
+        min-width: 100px;
+    }
+    header .container .nav .icons a {
+        width: 20% !important;
+        min-width: 25px;
+        height: auto;
+
+        svg {
+            width: calc(100% - 4px) !important;
+            height: auto;
+            min-height: 40px;
+        }
+    }
+}
+
+@media screen and (width < 1240px) {
+    header .container .button-navigation {
+        gap: 40px;
+    }
+    header .container .button-navigation a {
+        font-size: 15px;
+    }
+}
+
+@media screen and (width < 1170px) {
+    header .container .button-navigation {
+        width: 100%;
+        gap: 3%;
+    }
+    header .container .button-navigation a {
+        font-size: 15px;
+    }
+}
+
+@media screen and (width < 945px) {
+    header .container .nav {
+        display: flex;
+
+        height: 35%;
+    }
+    header .container .button-navigation {
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+    header .container .button-navigation a {
+        font-size: 15px;
+    }
+}
+
+@media screen and (width < 610px) {
+    header .container .button-navigation .nav {
+        .container {
+            width: 220px !important;
+            height: auto;
+            margin-top: 51px;
+            transform: translateX(-5%);
+        }
+        .container.p-f {
+            width: 250px !important;
+            transform: translateX(-10%);
+        }
+        .container::before {
+            left: 40%;
+        }
+        .container.p-f::before {
+            left: 40%;
+        }
+    }
+
+    header .container .nav {
+        flex-direction: column;
+        align-items: center;
+        height: 50px;
+        width: 100%;
+        gap: 5px;
+    }
+
+    header .container .nav .input {
+        width: 100%;
+        height: 45px;
+    }
+
+    header .container .button-navigation {
+        right: 10px;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        margin-top: 30px;
+    }
+
+    header .logo,
+    .logo img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        user-select: none;
+    }
+}
+
+/* FOOTER */
+
+footer {
+    background-color: var(--l-blue);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 40px 0px 40px 0px;
+}
+
+footer .main-container {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    justify-content: center;
+    align-items: center;
+}
+
+footer .main-container .first-row {
+    display: flex;
+    gap: 50px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+footer .main-container .first-row img {
+    width: 175px;
+    height: 175px;
+}
+
+footer .main-container .first-row .container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 70%;
+}
+
+footer .main-container .first-row .container span {
+    color: white;
+    font-size: 50px;
+}
+
+footer .main-container .first-row .container p {
+    color: white;
+    font-size: 20px;
+    font-family: "din-r";
+    font-weight: 100;
+}
+
+footer .main-container .second-row {
+    display: flex;
+    gap: 40px;
+}
+
+footer .main-container .second-row div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+footer .main-container .second-row div .title,
+footer .main-container .second-row .info span {
+    color: var(--l-pink);
+    font-size: 20px;
+    font-family: "dine-r";
+    font-weight: 600;
+}
+
+footer .main-container .second-row .main a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    display: flex;
+    gap: 10px;
+    align-items: space-between;
+    font-family: "dine-r";
+}
+
+footer .main-container .second-row .main.contact a svg path {
+    fill: white;
+}
+
+footer .main-container .second-row .main.contact a span {
+    font-family: "dine-r";
+    font-weight: 100;
+}
+footer .main-container .second-row .main.contact a p {
+    font-family: "dine-r";
+    font-weight: 100;
+}
+
+footer .main-container .second-row .main.contact a.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    width: 300px;
+}
+footer .main-container .second-row .main.contact a.wrapper.left {
+    justify-content: start;
+}
+
+footer .main-container .second-row .main.contact a.wrapper p {
+    text-wrap: wrap;
+}
+
+footer .main-container .second-row .main.contact a.wrapper .extras .info {
+    display: flex;
+    flex-direction: row;
+    width: 290px;
+}
+
+footer .main-container .second-row .main.contact a.wrapper .extras .info p {
+    width: 45%;
+}
+
+footer .main-container .second-row .main.contact a.wrapper .extras span {
+    color: var(--l-pink);
+}
+
+footer .main-container .second-row .info {
+    width: 200px;
+}
+
+footer .main-container .second-row .info span {
+    color: var(--l-pink);
+    text-align: center;
+}
+
+footer .main-container .second-row .info div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+footer .main-container .second-row .info .images {
+    margin-top: 60px;
+}
+
+footer .main-container .second-row .info .images img {
+    width: 50%;
+    object-fit: contain;
+}
+
+footer .main-container .third-row {
+    width: 100vw;
+    background-color: var(--pink);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer .main-container .third-row .main-container-t {
+    display: flex;
+    width: 80%;
+    margin: 10px;
+}
+
+footer .main-container .third-row .main-container-t .text {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    color: var(--l-blue);
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+footer .main-container .third-row .main-container-t .text .margin {
+    margin-top: 25px;
+}
+
+footer .main-container .third-row .main-container-t .text span {
+    font-family: "din-r";
+    font-size: 20px;
+}
+
+footer .main-container .third-row .main-container-t .img {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+footer .main-container .third-row .main-container-t .images img {
+    width: 45%;
+    object-fit: contain;
+}
+@media screen and (width < 1480px) {
+    footer .main-container {
+        width: 95%;
+    }
+}
+
+@media screen and (width < 1170px) {
+    footer .main-container {
+        width: 90%;
+    }
+}
+
+@media screen and (width < 1255px) {
+    footer .main-container {
+        width: 93%;
+    }
+}
+
+@media screen and (width < 903px) {
+    footer .main-container {
+        width: 80%;
+        display: flex;
+    }
+
+    footer .main-container .second-row {
+        flex-wrap: wrap;
+        flex-direction: row;
+    }
+
+    footer .main-container .second-row .main {
+        width: 47%;
+    }
+}
+
+@media screen and (width < 835px) {
+    footer .main-container {
+        width: 90%;
+        display: flex;
+    }
+
+    footer .main-container .second-row .main {
+        width: 45%;
+    }
+}
+
+@media screen and (width < 850px) {
+    footer {
+        padding: 30px 0px 30px 0px;
+    }
+
+    footer .main-container {
+        width: 80%;
+        display: flex;
+    }
+
+    footer .main-container .second-row .main {
+        width: 100%;
+        text-align: center;
+        align-items: center;
+    }
+
+    footer .main-container .first-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    footer .main-container .first-row .container {
+        width: 100%;
+    }
+
+    footer .main-container .second-row .info {
+        width: 100%;
+    }
+
+    footer .main-container .second-row .info .images {
+        margin-top: 10px;
+    }
+
+    footer .main-container .second-row .info .images img {
+        width: 30%;
+    }
+
+    footer .main-container .third-row .main-container-t .text {
+        text-align: center;
+        width: 90%;
+    }
+
+    footer .main-container .third-row .main-container-t {
+        flex-direction: column;
+        margin-bottom: 30px;
+    }
+
+    footer .main-container .second-row .main.contact a.wrapper div {
+        width: fit-content;
+    }
+}

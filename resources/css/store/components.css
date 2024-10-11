@@ -1,0 +1,798 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-weight: 200;
+    text-decoration: none;
+    color: inherit;
+}
+
+.btn-primary {
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    padding: 7px 25px 7px 25px;
+    background-color: var(--light-blue2);
+    color: white;
+    font-size: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary.lg {
+    padding: 10px 30px 10px 30px;
+    font-size: 30px;
+}
+
+.btn-primary.sm {
+    padding: 5px 15px 5px 15px;
+    font-size: 20px;
+}
+
+.btn-primary:hover {
+    background-color: var(--light-blue2-selected);
+}
+
+.main-container-title {
+    font-weight: 600;
+}
+
+.main-container-text {
+    font-weight: 500;
+}
+
+/* ESTILO PARA LAS CARDS DE PRODUCTOS DESTACADOS 1 (featured-card */
+
+/* Estilo para la caja donde se muestran las cards */
+.featured-cards-container-box {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0 20px 0;
+}
+/* Estilo para el contenedor de las cards*/
+.featured-card-container {
+    background-color: var(--light-gray);
+    width: 28%;
+    margin: 15px;
+    border-radius: 2px;
+    position: relative;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 80%, 79% 100%, 0% 100%);
+}
+/* Estilo para establecer el doblez en la esquina inferior derecha */
+.featured-card-container::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 30%;
+    height: 20%;
+    background-color: var(--pink);
+    clip-path: polygon(40% 20%, 100% 0, 30% 100%);
+}
+
+/* Estilo para el cuerpo de la card */
+.featured-card-body {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    border-radius: 2px;
+}
+/* Estilo para el div de la imagen */
+.featured-card-img {
+    height: 30vh;
+    background-color: var(--peach);
+    margin: 25px 35px 15px 35px;
+}
+/* Estilo para el título de la card */
+.featured-card-title h1 {
+    font-size: 24px;
+    font-weight: 500;
+    text-align: center;
+    color: var(--light-blue2);
+}
+
+.featured-card-title {
+    margin: 0 15px 5px 15px;
+}
+/* Estilo para los precios */
+.featured-card-prices {
+    margin: 10px 15px 40px 15px;
+}
+
+.featured-card-prices p {
+    font-family: "dine-r";
+    font-weight: 100;
+    font-size: 22px;
+    text-align: center;
+    color: var(--gray);
+}
+/* Estilo para el div de acciones de la card */
+.featured-card-actions {
+    display: flex;
+    flex-direction: row;
+    margin: 5px 0px 10px 0px;
+}
+
+.featured-card-actions div {
+    flex: 2;
+}
+
+.featured-card-actions svg {
+    flex: 1;
+    cursor: pointer;
+}
+.featured-card-actions a {
+    margin-left: 2vw;
+}
+
+.featured-card-actions svg.favorite:hover {
+    fill: var(--dark-blue-selected);
+}
+
+/* ESTILO PARA LAS CARDS DE PRODUCTOS DESTACADOS 2 (featured2-card) */
+
+/* Estilo para la caja donde se muestran las cards */
+.featured2-cards-container-box {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 2vw 20px 2vw;
+}
+/* Estilo para el contenedor de la card */
+.featured2-card-container {
+    border: 3px solid var(--dark-blue);
+    width: 28%;
+    margin: 20px;
+    padding: 5px 5px 10px 5px;
+    border-radius: 30px;
+}
+/* Estilo para el header de la card */
+.featured2-card-header {
+    display: flex;
+    flex-direction: row;
+    margin: 5px 5px 10px 20px;
+}
+/* Estilo para el ícono del header */
+.feautured2-card-header-icon {
+    margin: 5px 0px 0px 5px;
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--light-blue);
+    border-radius: 50%;
+}
+/* Estilo para la caja de la informacion del header */
+.featured2-card-header-info {
+    display: flex;
+    flex-direction: column;
+    align-items: self-start;
+    margin: 5px 0px 0px 5px;
+}
+/* Estilo para los elementos h2 de la informacion del header */
+.featured2-card-header-info h2 {
+    font-weight: 500;
+    font-size: 17px;
+}
+
+.featured2-card-header-info .header-title {
+    color: var(--light-blue2);
+}
+
+.featured2-card-header-info .header-subtitle {
+    color: var(--gray);
+}
+/* Estilo para la imagen de la card */
+.featured2-card-img {
+    height: 30vh;
+    background-color: var(--light-blue);
+    margin: 5px 25px 15px 25px;
+}
+/* Estilo para la caja de los botones de accion */
+.featured2-card-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px 25px 5px 25px;
+}
+/* Estilo para los botones (iconos) de interaccion social */
+.featured2-card-actions .social-interaction {
+    display: flex;
+    gap: 10px; /* Espacio entre los íconos de interacción social */
+}
+
+.featured2-card-actions .social-interaction svg:hover {
+    fill: var(--dark-blue-selected);
+    cursor: pointer;
+}
+/* Estilo para el botón del carrito */
+.featured2-card-actions .shop {
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+}
+/* Estilo para las vistas del producto */
+.featured2-card-views h2 {
+    font-weight: 500;
+    font-size: 17px;
+    color: var(--gray);
+    text-align: start;
+    margin: 0px 0px 0px 25px;
+}
+
+.featured2-card-product-info {
+    display: flex;
+}
+/* Estilo para la caja de la informacion del producto */
+.featured2-card-product-info .product {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+/* Estilo para las etiquetas h1 de la informacion del producto */
+.featured2-card-product-info h1 {
+    font-size: 20px;
+    font-weight: 500;
+    text-align: start;
+    margin: 10px 0px 0px 25px;
+}
+
+.featured2-card-product-info .product-name {
+    color: var(--light-blue2);
+}
+
+.featured2-card-product-info .product-price {
+    font-family: "dine-r";
+    font-size: 20px;
+    color: var(--gray);
+}
+
+/* Estilo para el botón de informacion de la card o producto */
+.featured2-card-info {
+    display: flex;
+    flex-direction: column;
+    align-items: self-end;
+    margin: 40px 20px 20px 0px;
+    width: 20%;
+    height: 65px;
+}
+/* Estilo para el icono */
+.featured2-card-info .icon {
+    background-color: var(--pink);
+    height: 100%;
+    width: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 5px solid var(--light-blue);
+    position: relative;
+    cursor: pointer;
+}
+
+.featured2-card-info .icon svg {
+    margin: 10px 5px 10px 10px;
+}
+
+/* ESTILOS PARA LAS CARDS DE PRODUCTOS SUGERIDOS (suggested-card) */
+
+.suggested-container-box .prev {
+    margin-left: 2vw;
+    width: 10%;
+}
+
+.suggested-container-box .prev svg {
+    cursor: pointer;
+}
+
+.suggested-container-box .next {
+    width: 10%;
+}
+
+.suggested-container-box .next svg {
+    cursor: pointer;
+}
+
+/* Estilo para la caja dónde se mostrarán las cards */
+.suggested-card-container-box {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0px;
+}
+/* Estilo para el contenedor de la card */
+.suggested-card-container {
+    display: flex;
+    flex-direction: column;
+    width: 23%;
+    padding: 5px 5px 30px 5px;
+}
+/* Estilo para la imágen de la card */
+.suggested-card-img {
+    width: 18vw;
+    height: 30vh;
+    background-color: var(--pink);
+    margin: 5px 25px 15px 25px;
+    border-radius: 25px;
+}
+/* Estilo para la informacion de la card */
+.suggested-card-info {
+    display: flex;
+    flex-direction: row;
+    gap: 25%;
+    align-items: space-between;
+    margin: 5px 25px 15px 35px;
+}
+.suggested-card-info .social-interaction svg:hover {
+    fill: var(--dark-blue-selected);
+    cursor: pointer;
+}
+
+.suggested-card-info .product {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+/* Estilo para las etiquetas h2 de la card */
+.suggested-card-info h2 {
+    font-family: "dine-r";
+    font-size: 20px;
+    color: var(--light-blue2);
+    margin: 5px 0;
+}
+
+/* ESTILO PARA LAS CARDS DE LOS PRODUCTOS FAVORITOS (favorite-card */
+
+/* Estilo para la caja donde se muestran las cards */
+.favorite-card-container-box {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0 20px 0;
+}
+
+.favorite-card-container-box .none-products {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.favorite-card-container-box .none-products h1 {
+    color: var(--light-blue);
+    font-size: 40px;
+    margin: 2vh 0;
+}
+
+.favorite-card-container-box .none-products button {
+    margin: 2vh 0;
+}
+
+/* Estilo para el contenedor de las cards*/
+.favorite-card-container {
+    background-color: var(--light-gray);
+    width: 21%;
+    margin: 15px;
+    border-radius: 2px;
+    border: none;
+    position: relative;
+    border: none;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 80%, 82% 100%, 0% 100%);
+}
+/* Estilo para establecer el doblez en la esquina inferior derecha */
+.favorite-card-container::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 25%;
+    height: 20%;
+    background-color: var(--pink);
+    clip-path: polygon(40% 20%, 100% 0, 30% 100%);
+}
+
+/* Estilo para el cuerpo de la card */
+.favorite-card-body {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    border-radius: 2px;
+}
+/* Estilo para el div de la imagen */
+.favorite-card-img {
+    height: 30vh;
+    background-color: var(--peach);
+    margin: 25px 35px 15px 35px;
+}
+/* Estilo para el título de la card */
+.favorite-card-title h1 {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--light-blue2);
+    text-align: center;
+}
+
+.favorite-card-title {
+    margin: 0 15px 20px 15px;
+}
+/* Estilo para los precios */
+.favorite-card-prices {
+    margin: 10px 15px 5px 15px;
+}
+
+.favorite-card-prices p {
+    font-family: "dine-r";
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--gray);
+    text-align: center;
+}
+/* Estilo para el div de acciones de la card */
+.favorite-card-actions {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 5px 5px 10px 15px;
+}
+
+.favorite-card-actions svg {
+    cursor: pointer;
+}
+
+/* ESTILOS PARA LAS CARDS DEL BLOG (blog-card) */
+/* Estilo para la caja donde se mostrarán las cards */
+.blog-card-container-box {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 8vh 3vw;
+}
+/* Estilo para el contenedor de la card */
+.blog-card-container {
+    display: flex;
+    flex-direction: column;
+    width: 23%;
+    border-radius: 35px;
+    margin: 10px;
+    border: 3px solid var(--light-blue);
+}
+/* Estilo para la imagen de la card */
+.blog-card-img {
+    margin: -3px;
+    border-radius: 35px;
+    border: 3px solid var(--light-blue);
+    background-color: var(--pink);
+    height: 30vh;
+}
+/* Estilo para la información de la card */
+.blog-card-info {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    align-items: flex-start;
+    margin: 10px 25px 10px 25px;
+}
+/* Estilo para el titulo de la card */
+.blog-card-info .card-title {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--light-blue);
+    margin: 5px 0;
+}
+/* Estilo para el texto de la card */
+.blog-card-info .card-text {
+    font-family: "dine-r";
+    font-size: medium;
+    color: var(--gray);
+    margin: 5px 0;
+}
+/* Estilo para el botón de la card */
+.blog-card-info .card-button {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.blog-card-info .card-button .card-info {
+    background-color: var(--light-blue2);
+    color: white;
+    font-weight: 500;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 20px;
+    cursor: pointer;
+}
+
+.blog-card-info .card-button .card-info:hover {
+    background-color: var(--light-blue2-selected);
+}
+
+/* Estilo para los botones */
+
+h1.light-blue {
+    color: var(--light-blue);
+}
+
+h1.light-blue2 {
+    color: var(--light-blue2);
+}
+
+.light-blue {
+    color: var(--light-blue);
+}
+
+.light-blue2 {
+    color: var(--light-blue2);
+}
+
+.gray {
+    color: var(--gray);
+}
+
+p.gray {
+    color: var(--gray);
+}
+
+p.light-blue {
+    color: var(--light-blue);
+}
+
+p.light-blue2 {
+    color: var(--light-blue2);
+}
+
+.prev svg {
+    transform: rotate(180deg);
+}
+
+.line {
+    width: 90%;
+    height: 3px;
+    background-color: var(--light-blue);
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.inputs-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2vh 1vw;
+    margin: 1vh 0;
+}
+
+.inputs-container input {
+    font-family: "dine-r";
+    font-size: 18px;
+    width: 45%;
+    padding: 10px;
+    border: 2px solid var(--light-blue);
+    color: var(--light-blue2);
+    border-radius: 10px;
+}
+
+.inputs-container input.full {
+    width: 93%;
+}
+
+.inputs-container input::placeholder {
+    color: var(--light-blue2);
+}
+
+.inputs-container input:focus {
+    outline: none;
+    border: 2px solid var(--light-blue2-selected);
+}
+
+.radio-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 2vh 1vw;
+    font-size: 20px;
+    color: var(--light-blue2);
+    margin: 2vh 0;
+}
+
+.radio-buttons label {
+    cursor: pointer;
+}
+
+.select-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0 1vw;
+}
+
+.select-container select {
+    font-family: "dine-r";
+    font-size: 17px;
+    padding: 10px;
+    border: 2px solid var(--light-blue);
+    outline: none;
+    color: var(--gray);
+    border-radius: 10px;
+}
+.select-container select option {
+    font-family: "dine-r";
+    font-size: 17px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Responsive para pantallas grandes (min-width: 1250px) */
+@media (min-width: 1250px) {
+    .featured-card-container,
+    .featured2-card-container,
+    .suggested-card-container,
+    .favorite-card-container {
+        width: 25%;
+        margin: 20px 15px;
+    }
+    .featured-card-img,
+    .featured2-card-img,
+    .suggested-card-img,
+    .favorite-card-img {
+        height: 35vh;
+        margin: 25px 30px;
+    }
+    .blog-card-img {
+        height: 35vh;
+    }
+    .featured-card-title h1,
+    .favorite-card-title h1,
+    .blog-card-info .card-title {
+        font-size: 26px;
+    }
+    .featured-card-prices p,
+    .favorite-card-prices p,
+    .suggested-card-info h2,
+    .blog-card-info .card-text {
+        font-size: 24px;
+    }
+    .blog-card-info .card-button .card-info {
+        font-size: 22px;
+    }
+}
+
+/* Responsive para pantallas medianas (max-width: 992px) */
+@media (max-width: 992px) {
+    .featured-card-container,
+    .featured2-card-container,
+    .favorite-card-container,
+    .blog-card-container {
+        width: 35%;
+        margin: 15px 10px;
+    }
+    .suggested-card-container {
+        width: 30%;
+        padding: 5px 5px 20px 5px;
+    }
+    .featured-card-img,
+    .featured2-card-img,
+    .suggested-card-img,
+    .favorite-card-img,
+    .blog-card-img {
+        height: 25vh;
+        margin: 20px 25px 10px 25px;
+    }
+    .featured-card-title h1,
+    .favorite-card-title h1,
+    .blog-card-info .card-title {
+        font-size: 20px;
+    }
+    .featured-card-prices p,
+    .favorite-card-prices p,
+    .suggested-card-info h2,
+    .blog-card-info .card-text {
+        font-size: 20px;
+    }
+    .blog-card-info .card-button .card-info {
+        font-size: 18px;
+    }
+    .inputs-container {
+        justify-content: center;
+        align-items: center;
+    }
+    .inputs-container input {
+        align-self: center;
+        width: 80%;
+    }
+}
+
+/* Responsive para pantallas pequeñas (max-width: 768px) */
+@media (max-width: 768px) {
+    .featured-card-container,
+    .featured2-card-container,
+    .favorite-card-container,
+    .blog-card-container {
+        width: 45%;
+        margin: 10px 5px;
+    }
+    .suggested-card-container {
+        width: 40%;
+        padding: 5px 5px 15px 5px;
+    }
+    .featured-card-img,
+    .featured2-card-img,
+    .suggested-card-img,
+    .favorite-card-img,
+    .blog-card-img {
+        align-self: center;
+        width: 80%;
+        height: 20vh;
+        margin: 15px 20px 10px 20px;
+    }
+    .featured-card-title h1,
+    .favorite-card-title h1,
+    .blog-card-info .card-title {
+        font-size: 18px;
+    }
+    .featured-card-prices p,
+    .favorite-card-prices p,
+    .suggested-card-info h2,
+    .blog-card-info .card-text {
+        font-size: 18px;
+    }
+    .blog-card-info .card-button .card-info {
+        font-size: 16px;
+    }
+}
+
+/* Responsive para pantallas muy pequeñas (max-width: 576px) */
+@media (max-width: 576px) {
+    .featured-card-container,
+    .featured2-card-container,
+    .favorite-card-container,
+    .blog-card-container {
+        width: 59%;
+        margin: 5px 2.5%;
+    }
+    .suggested-card-container {
+        width: 85%;
+        padding: 5px 5px 10px 5px;
+    }
+    .featured-card-img,
+    .featured2-card-img,
+    .suggested-card-img,
+    .favorite-card-img,
+    .blog-card-img {
+        width: 60%;
+        height: 18vh;
+        margin: 10px 15px 5px 15px;
+    }
+    .featured-card-title h1,
+    .favorite-card-title h1,
+    .blog-card-info .card-title {
+        font-size: 16px;
+    }
+    .featured-card-prices p,
+    .favorite-card-prices p,
+    .suggested-card-info h2,
+    .blog-card-info .card-text {
+        font-size: 16px;
+    }
+    .blog-card-info .card-button .card-info {
+        font-size: 14px;
+    }
+}

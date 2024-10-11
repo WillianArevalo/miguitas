@@ -1,0 +1,63 @@
+@font-face {
+    font-family: "pluto-m";
+    src: url("../fonts/pluto-m.otf");
+}
+
+@font-face {
+    font-family: "pluto-r";
+    src: url("../fonts/pluto-r.otf");
+}
+
+/* DIN */
+
+@font-face {
+    font-family: "din-b";
+    src: url("../fonts/din-b.otf");
+}
+
+@font-face {
+    font-family: "din-i";
+    src: url("../fonts/din-i.otf");
+}
+
+@font-face {
+    font-family: "din-r";
+    src: url("../fonts/din-r.otf");
+}
+
+/* DIN Exp */
+
+@font-face {
+    font-family: "dine-b";
+    src: url("../fonts/dine-b.otf");
+}
+
+@font-face {
+    font-family: "dine-i";
+    src: url("../fonts/dine-i.otf");
+}
+
+@font-face {
+    font-family: "dine-r";
+    src: url("../fonts/dine-r.otf");
+}
+
+/* DIN Condensed */
+
+@font-face {
+    font-family: "dinc-r";
+    src: url("../fonts/dinc-r.otf");
+}
+
+@font-face {
+    font-family: "dinc-b";
+    src: url("../fonts/dinc-b.otf");
+}
+
+* {
+    font-family: "pluto-m";
+}
+
+.din {
+    font-family: "dine-r";
+}

@@ -1,0 +1,29 @@
+.admin ::-webkit-scrollbar {
+    width: 10px;
+    height: 8px;
+}
+
+.admin ::-webkit-scrollbar-thumb {
+    background: #5a5a5a;
+    border-radius: 5px;
+}
+
+.admin ::-webkit-scrollbar-track {
+    background: #ddd;
+}
+
+.admin ::-webkit-scrollbar-thumb:hover {
+    background: #888;
+}
+
+.dark .admin ::-webkit-scrollbar-thumb {
+    background: #fff;
+}
+
+.dark .admin ::-webkit-scrollbar-track {
+    background: #101010;
+}
+
+.admin ::-webkit-scrollbar-thumb:hover {
+    background: #ddd;
+}

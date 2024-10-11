@@ -1,0 +1,7 @@
+@import url("store/constantes.css");
+@import url("store/fonts.css");
+@import url("store/template.css");
+@import url("store/components.css");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
