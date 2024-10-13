@@ -88,4 +88,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function getFullNameAttribute(): string
+    {
+        return "{$this->name} {$this->last_name}";
+    }
 }
