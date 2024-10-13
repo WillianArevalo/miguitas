@@ -38,8 +38,8 @@
 
     // Tipos de botones (estilos únicos para la tienda)
     $buttonTypes = [
-        'primary' => 'bg-primary text-white hover:bg-secondary bg-gradient',
-        'secondary' => 'bg-white text-zinc-600 border border-zinc-300 hover:bg-zinc-100',
+        'primary' => 'bg-blue-store text-white hover:bg-blue-selected bg-gradient',
+        'secondary' => 'bg-white text-blue-store border-2 border-blue-store hover:bg-zinc-100',
         'danger' => 'bg-red-500 text-white hover:bg-red-600',
         'warning' => 'bg-yellow-500 text-white hover:bg-yellow-600',
         'success' => 'bg-green-100 text-green-500 hover:bg-green-600 hover:text-white',
@@ -61,16 +61,16 @@
             <x-icon-store icon="spinner" class="{{ $sizes[$size]['icon'] }} animate-spin text-white" />
         @else
             @if ($iconAlign === 'left' && !$onlyIcon)
-                <x-icon-store :icon="$icon" class="{{ $sizes[$size]['icon'] }} text-current" />
+                <x-icon-store :icon="$icon" class="{{ $sizes[$size]['icon'] }} fill-current" />
             @endif
             @if (!$onlyIcon)
                 <span class="{{ $sizes[$size]['text'] }}">{{ $text }}</span>
             @endif
             @if ($iconAlign === 'right' && !$onlyIcon)
-                <x-icon-store :icon="$icon" class="{{ $sizes[$size]['icon'] }} text-current" />
+                <x-icon-store :icon="$icon" class="{{ $sizes[$size]['icon'] }} fill-current" />
             @endif
             @if ($onlyIcon)
-                <x-icon-store :icon="$icon" class="{{ $sizes[$size]['icon'] }} text-current" />
+                <x-icon-store :icon="$icon" class="{{ $sizes[$size]['icon'] }} fill-current" />
             @endif
         @endif
     </a>
@@ -82,16 +82,16 @@
             <x-icon-store icon="spinner" class="{{ $sizes[$size]['icon'] }} animate-spin text-white" />
         @else
             @if ($iconAlign === 'left' && !$onlyIcon)
-                <x-icon-store :icon="$icon" class="{{ $sizes[$size]['icon'] }} text-current" />
+                <x-icon-store :icon="$icon" class="{{ $sizes[$size]['icon'] }} fill-current" />
             @endif
             @if (!$onlyIcon)
                 <span class="{{ $sizes[$size]['text'] }}">{{ $text }}</span>
             @endif
             @if ($iconAlign === 'right' && !$onlyIcon)
-                <x-icon-store :icon="$icon" class="{{ $sizes[$size]['icon'] }} text-current" />
+                <x-icon-store :icon="$icon" class="{{ $sizes[$size]['icon'] }} fill-current" />
             @endif
             @if ($onlyIcon)
-                <x-icon-store :icon="$icon" class="{{ $sizes[$size]['icon'] }} text-current" />
+                <x-icon-store :icon="$icon" class="{{ $sizes[$size]['icon'] }} fill-current" />
             @endif
         @endif
     </button>
