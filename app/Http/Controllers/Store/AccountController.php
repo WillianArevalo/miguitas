@@ -13,7 +13,8 @@ class AccountController extends Controller
 {
     public function index()
     {
-        return view("account.index");
+        $user = auth()->user();
+        return view("store.account.index", ["user" => $user]);
     }
 
     public function settings()
