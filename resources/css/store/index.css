@@ -11,7 +11,7 @@
     background-size: cover;
     background-position: center;
     justify-content: flex-end;
-    width: 100vw;
+    width: 100%;
     height: 90vh;
 }
 
@@ -25,7 +25,7 @@
     width: 100vw;
     height: 400px;
     position: relative;
-    background-color: var(--l-blue);
+    background-color: var(--light-blue);
     overflow: hidden;
 }
 
@@ -90,7 +90,7 @@
     margin-inline: auto;
 
     span {
-        color: var(--l-blue);
+        color: var(--light-blue);
         font-size: 35px;
     }
 
@@ -114,8 +114,8 @@
 }
 
 .decorator-perrito-image-cumple {
-    background-color: var(--l-blue);
-    width: 100vw;
+    background-color: var(--light-blue);
+    width: 100%;
     height: 300px;
     overflow: hidden;
     display: flex;

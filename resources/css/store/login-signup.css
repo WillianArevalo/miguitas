@@ -1,76 +1,74 @@
- .main-container{
+.main-container {
     display: flex;
     justify-content: center;
     margin: 3vh 0 5vh 0;
 }
 
-.form-container{
+.form-container {
     width: 80vw;
     display: flex;
     flex-direction: column;
 }
 
-.form-header{
+.form-header {
     display: flex;
     height: 5vh;
     gap: 0 0.5vw;
 }
 
-.form-header .rectangules{
+.form-header .rectangules {
     width: 96%;
     height: 100%;
     display: flex;
 }
 
-.rectangules .rectangule1{
+.rectangules .rectangule1 {
     width: 40%;
     height: 100%;
     background-color: var(--pink);
 }
 
-.rectangules .rectangule2{
+.rectangules .rectangule2 {
     width: 60%;
     height: 100%;
     background-color: var(--light-blue);
 }
 
-.form-header .square{
+.form-header .square {
     width: 3.5%;
     height: 100%;
     background-color: var(--light-blue);
 }
 
-.form-content{
+.form-content {
     display: flex;
     justify-content: center;
     width: 100%;
-    
     gap: 0 0.5vw;
 }
 
-.form-content .left-rectangule{
+.form-content .left-rectangule {
     width: 3.5%;
     height: 100%;
     background-color: var(--pink);
 }
 
-.form-content .right-rectangule{
+.form-content .right-rectangule {
     width: 3.55%;
     height: 105%;
     margin: 1vh 0 0 0;
     background-color: var(--light-blue);
 }
 
-.form-content .container{
+.form-content .container {
     width: 93%;
     height: calc(100% - 1vh);
     display: flex;
     flex-direction: row;
     margin: 1vh 0;
-
 }
 
-.container .info{
+.container .info {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -80,17 +78,17 @@
     gap: 2vh 2vw;
 }
 
-.info h1{
+.info h1 {
     color: var(--dark-pink);
-    font-family: 'dine-b';
+    font-family: "dine-b";
 }
 
-.info p{
+.info p {
     color: white;
     margin: 0 2vw;
 }
 
-.container .form{
+.container .form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -100,39 +98,37 @@
     gap: 2vh 0;
 }
 
-.form .header{
+.form .header {
     color: white;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     gap: 1vh 0;
     margin: 4vh 0 2vh 0;
-    
 }
 
-.header h1{
-    font-family: 'dine-b';
+.header h1 {
+    font-family: "dine-b";
     font-size: 50px;
 }
 
-.form .header .icons{
+.form .header .icons {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 0 2vw;
 }
 
-form{
-
+form {
     width: 70%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;    
+    justify-content: space-around;
     gap: 2vh 0;
     margin: 2vh 0;
 }
 
-.form .inputs{
+.form .inputs {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -140,8 +136,8 @@ form{
     gap: 1.5vh 0;
 }
 
-.inputs input{
-    font-family: 'dine-r';
+.inputs input {
+    font-family: "dine-r";
     font-size: 18px;
     width: 100%;
     padding: 10px;
@@ -151,16 +147,16 @@ form{
     border-radius: 10px;
 }
 
-.inputs input::placeholder{
+.inputs input::placeholder {
     color: white;
 }
 
-.inputs input:focus{
+.inputs input:focus {
     outline: none;
     border: 2px solid var(--light-gray);
 }
 
-form .actions{
+form .actions {
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -168,89 +164,98 @@ form .actions{
     margin: 1vh 0 3vh 0;
 }
 
-.actions button{
+.actions button {
     width: 30%;
     background-color: white;
-    color: var(--light-blue2);
+    color: var(--light-blue-2);
     font-size: 20px;
     border-radius: 5px;
     align-self: center;
-    font-family: 'dine-r';
-
+    font-family: "dine-r";
 }
 
-.actions button:hover{
+.actions button:hover {
     background-color: var(--light-gray);
-    color: var(--light-blue2);
+    color: var(--light-blue-2);
 }
 
-.actions a{
+.actions a {
     width: 20%;
     align-self: center;
 }
 
-.actions b{
-    font-family: 'dine-r';
-    color: var(--light-blue2);
+.actions b {
+    font-family: "dine-r";
+    color: var(--light-blue-2);
 }
 
-.form-footer{
+.form-footer {
     display: flex;
     height: 5vh;
     margin-top: 1vh;
     gap: 0 0.5vw;
 }
 
-.form-footer .rectangules{
+.form-footer .rectangules {
     width: 96%;
     height: 100%;
     display: flex;
 }
 
-.form-footer .rectangule1{
+.form-footer .rectangule1 {
     width: 35.7%;
 }
 
-.form-footer .rectangule2{
+.form-footer .rectangule2 {
     width: 64.5%;
 }
 
-.form-footer .square{
+.form-footer .square {
     width: 3.5%;
     height: 100%;
     background-color: var(--pink);
 }
 
-.form-container.signup .rectangule1{
+.form-container.signup .rectangule1 {
     background-color: var(--light-blue);
     width: 64.3%;
 }
 
-.form-container.signup .rectangule2{
+.form-container.signup .rectangule2 {
     width: 35.8%;
     background-color: var(--pink);
 }
 
-.signup .form-header .square{
+.signup .form-header .square {
     background-color: var(--pink);
 }
 
-.signup .left-rectangule{
+.signup .left-rectangule {
     background-color: var(--light-blue);
 }
 
-.signup .right-rectangule{
+.signup .right-rectangule {
     background-color: var(--pink);
 }
 
-.signup .form-footer .square{
+.signup .form-footer .square {
     background-color: var(--light-blue);
 }
 
-.signup .form-footer .rectangule1{
+.signup .form-footer .rectangule1 {
     width: 60%;
 }
 
-.signup .form-footer .rectangule2{
+.signup .form-footer .rectangule2 {
     width: 40.1%;
+}
+
+@media (max-width: 1024px) {
+    .main-container {
+        margin: 20px 0;
+    }
+
+    .form-container {
+        width: 100vh;
+    }
 }

@@ -11,7 +11,7 @@
     border: none;
     outline: none;
     padding: 7px 25px 7px 25px;
-    background-color: var(--light-blue2);
+    background-color: var(--light-blue-2);
     color: white;
     font-size: 25px;
     font-weight: 500;
@@ -30,7 +30,7 @@
 }
 
 .btn-primary:hover {
-    background-color: var(--light-blue2-selected);
+    background-color: var(--light-blue-2-selected);
 }
 
 .main-container-title {
@@ -91,7 +91,7 @@
     font-size: 24px;
     font-weight: 500;
     text-align: center;
-    color: var(--light-blue2);
+    color: var(--light-blue-2);
 }
 
 .featured-card-title {
@@ -178,7 +178,7 @@
 }
 
 .featured2-card-header-info .header-title {
-    color: var(--light-blue2);
+    color: var(--light-blue-2);
 }
 
 .featured2-card-header-info .header-subtitle {
@@ -240,7 +240,7 @@
 }
 
 .featured2-card-product-info .product-name {
-    color: var(--light-blue2);
+    color: var(--light-blue-2);
 }
 
 .featured2-card-product-info .product-price {
@@ -342,7 +342,7 @@
 .suggested-card-info h2 {
     font-family: "dine-r";
     font-size: 20px;
-    color: var(--light-blue2);
+    color: var(--light-blue-2);
     margin: 5px 0;
 }
 
@@ -415,7 +415,7 @@
 .favorite-card-title h1 {
     font-size: 24px;
     font-weight: 500;
-    color: var(--light-blue2);
+    color: var(--light-blue-2);
     text-align: center;
 }
 
@@ -504,7 +504,7 @@
 }
 
 .blog-card-info .card-button .card-info {
-    background-color: var(--light-blue2);
+    background-color: var(--light-blue-2);
     color: white;
     font-weight: 500;
     font-size: 20px;
@@ -515,7 +515,7 @@
 }
 
 .blog-card-info .card-button .card-info:hover {
-    background-color: var(--light-blue2-selected);
+    background-color: var(--light-blue-2-selected);
 }
 
 /* Estilo para los botones */
@@ -524,16 +524,16 @@ h1.light-blue {
     color: var(--light-blue);
 }
 
-h1.light-blue2 {
-    color: var(--light-blue2);
+h1.light-blue-2 {
+    color: var(--light-blue-2);
 }
 
 .light-blue {
     color: var(--light-blue);
 }
 
-.light-blue2 {
-    color: var(--light-blue2);
+.light-blue-2 {
+    color: var(--light-blue-2);
 }
 
 .gray {
@@ -548,8 +548,8 @@ p.light-blue {
     color: var(--light-blue);
 }
 
-p.light-blue2 {
-    color: var(--light-blue2);
+p.light-blue-2 {
+    color: var(--light-blue-2);
 }
 
 .prev svg {
@@ -579,7 +579,7 @@ p.light-blue2 {
     width: 45%;
     padding: 10px;
     border: 2px solid var(--light-blue);
-    color: var(--light-blue2);
+    color: var(--light-blue-2);
     border-radius: 10px;
 }
 
@@ -588,12 +588,12 @@ p.light-blue2 {
 }
 
 .inputs-container input::placeholder {
-    color: var(--light-blue2);
+    color: var(--light-blue-2);
 }
 
 .inputs-container input:focus {
     outline: none;
-    border: 2px solid var(--light-blue2-selected);
+    border: 2px solid var(--light-blue-2-selected);
 }
 
 .radio-buttons {
@@ -601,7 +601,7 @@ p.light-blue2 {
     flex-direction: row;
     gap: 2vh 1vw;
     font-size: 20px;
-    color: var(--light-blue2);
+    color: var(--light-blue-2);
     margin: 2vh 0;
 }
 

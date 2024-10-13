@@ -54,7 +54,7 @@
 }
 
 .suggested-container h1 {
-    color: var(--light-blue2);
+    color: var(--light-blue-2);
     font-size: 40px;
     margin: 2vh 7vw;
 }

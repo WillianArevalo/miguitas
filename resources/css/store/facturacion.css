@@ -1,4 +1,4 @@
-.main-container{
+.main-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -6,7 +6,7 @@
     margin: 2vh 3vw;
 }
 
-.info-container{
+.info-container {
     margin: 5vh 0;
     width: 50%;
     padding: 4vh 1.5vw;
@@ -16,34 +16,34 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-shadow:  -25px 21px 0px 0px rgba(147,175,253,0.9);
+    box-shadow: -25px 21px 0px 0px rgba(147, 175, 253, 0.9);
 }
 
-.facturation-container{
+.facturation-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
-.facturation-container .detalles-entrega{
+.facturation-container .detalles-entrega {
     width: 70%;
     margin: 2vh 0;
 }
 
-.facturation-container .detalles-entrega .facturacion{
+.facturation-container .detalles-entrega .facturacion {
     margin: 3vh 0;
 }
 
-.facturation-container .detalles-entrega .direccion{
+.facturation-container .detalles-entrega .direccion {
     margin: 3vh 0;
 }
 
-.direccion .radio-buttons.column{
+.direccion .radio-buttons.column {
     display: flex;
     flex-direction: column;
 }
 
-.direccion .date-container{
+.direccion .date-container {
     width: 100%;
     gap: 1vw;
     display: flex;
@@ -51,12 +51,12 @@
     justify-content: flex-start;
 }
 
-.date-container  .date{
+.date-container .date {
     width: 40%;
     gap: 2vw;
 }
 
-.date-container .text{
+.date-container .text {
     width: 60%;
     display: flex;
     flex-direction: column;
@@ -64,16 +64,16 @@
     gap: 0 2vw;
 }
 
-.date-container  .date label{
+.date-container .date label {
     margin: 0 1vw;
     color: var(--light-blue);
 }
 
-.date-container  .date input{
-   width: 60%;
+.date-container .date input {
+    width: 60%;
 }
 
-.pedido-container{
+.pedido-container {
     width: 25%;
     display: flex;
     flex-direction: column;
@@ -83,48 +83,48 @@
     border-radius: 15px;
 }
 
-.pedido-container .header{
+.pedido-container .header {
     width: 100%;
 }
 
-.pedido-container .header .text{
+.pedido-container .header .text {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
 
-.pedido-container .product-info{
+.pedido-container .product-info {
     height: 80%;
     display: flex;
     flex-direction: column;
     gap: 5vh 0;
 }
 
-.pedido-container .line{
+.pedido-container .line {
     width: 100%;
 }
 
-.pedido-container .product-info .product{
-    display: flex; 
+.pedido-container .product-info .product {
+    display: flex;
     height: 25%;
     flex-direction: row;
     gap: 0 1.5vw;
     margin: 2vh 0;
 }
 
-.product h2{
+.product h2 {
     font-size: 22px;
-    color: var(--light-blue2);
+    color: var(--light-blue-2);
 }
 
-.product-info .img-container{
+.product-info .img-container {
     display: flex;
     flex-direction: column;
     text-align: center;
 }
 
-.product-info .img-container img{
+.product-info .img-container img {
     width: 80%;
     border-radius: 15px;
     width: 17vh;
@@ -132,9 +132,8 @@
     background-color: var(--pink);
 }
 
-.product-info .item{
-
-    color: var(--light-blue2);
+.product-info .item {
+    color: var(--light-blue-2);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -142,14 +141,13 @@
     margin: 1vh 0;
 }
 
-.pedido-container .finish{
+.pedido-container .finish {
     height: 10%;
     display: flex;
     justify-content: center;
-
 }
 
-.buttons-container{
+.buttons-container {
     margin: 2vh 2vw;
     width: 100%;
     display: flex;
@@ -158,32 +156,31 @@
     justify-content: flex-start;
 }
 
-.buttons-container .buttons{
+.buttons-container .buttons {
     width: 70%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.buttons-container .return{
+.buttons-container .return {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.buttons-container .continue{
+.buttons-container .continue {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-
-@media (max-width:1250px){
-    .facturation-container{
+@media (max-width: 1250px) {
+    .facturation-container {
         flex-direction: column;
         align-items: center;
     }
-    .pedido-container{
+    .pedido-container {
         width: 40%;
     }
 }

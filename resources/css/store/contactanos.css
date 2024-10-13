@@ -60,17 +60,17 @@
     height: 10vh;
     padding: 10px;
     border: 2px solid var(--light-blue);
-    color: var(--light-blue2);
+    color: var(--light-blue-2);
     border-radius: 10px;
 }
 
 .escribenos .msg::placeholder {
-    color: var(--light-blue2);
+    color: var(--light-blue-2);
 }
 
 .escribenos .msg:focus {
     outline: none;
-    border: 2px solid var(--light-blue2-selected);
+    border: 2px solid var(--light-blue-2-selected);
 }
 
 @media (max-width: 992px) {

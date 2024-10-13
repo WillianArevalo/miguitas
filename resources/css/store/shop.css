@@ -59,7 +59,7 @@
 }
 
 .category .category-img img {
-    background-color: var(--light-blue2);
+    background-color: var(--light-blue-2);
     border-radius: 50%;
     padding: 5px;
     border: 4px solid white;

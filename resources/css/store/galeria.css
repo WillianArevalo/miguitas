@@ -83,13 +83,13 @@
     grid-row: span 3;
 }
 .image-item:nth-child(2) {
-    background-color: var(--light-blue2);
+    background-color: var(--light-blue-2);
     grid-column: span 1;
     grid-row: span 3;
 }
 
 .image-item:nth-child(5n) {
-    background-color: var(--light-blue2);
+    background-color: var(--light-blue-2);
     grid-column: span 1;
     grid-row: span 3;
 }
