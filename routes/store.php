@@ -74,7 +74,7 @@ Route::get("/categories", [CategoryController::class, "showCategoriesStore"])->n
 Route::middleware("auth")->group(function () {
 
     // Account Management
-    Route::prefix("account")->name("account.")->group(function () {
+    Route::prefix("cuenta")->name("account.")->group(function () {
         Route::get("/", [AccountController::class, "index"])->name("index");
         Route::get("/settings", [AccountController::class, "settings"])->name("settings");
         Route::get("/settings-edit", [AccountController::class, "settingsEdit"])->name("settings-edit");
