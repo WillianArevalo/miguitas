@@ -1,40 +1,124 @@
-@extends('layouts.__partials.store.template-profile')
-@section('profile-content')
-    <div class="flex items-center justify-between">
-        <h2 class="font-league-spartan text-3xl font-bold text-secondary">
-            Pedidos
-        </h2>
-        <div class="link-item mt-2 w-max">
-            <a href="{{ Route('orders.index') }}"
-                class="link-item-content flex items-center justify-between gap-2 text-sm text-blue-500 hover:font-bold">
-                Ver todos
-                <span class="icon-link">
-                    <x-icon-store icon="arrow-right-02" class="h-5 w-5 text-current" />
-                </span>
-            </a>
+@extends('layouts.template')
+@section('title', 'Miguitas | Mi cuenta')
+@section('content')
+    <div class="py-4">
+        <div class="text-center">
+            <h1 class="text-4xl font-bold text-light-blue">Mi cuenta</h1>
         </div>
-    </div>
-    <div class="mt-4 flex items-center gap-4 border-t border-zinc-400 px-4 pb-4 pt-8 text-sm">
-        <a href="#"
-            class="flex flex-col items-center justify-center gap-2 rounded-xl border border-zinc-400 p-6 text-zinc-800 hover:border-blue-300 hover:bg-blue-100 hover:text-blue-500">
-            <x-icon-store icon="payment-pendient" class="h-8 w-8 text-current" />
-            Pendientes
-        </a>
-        <a href="#"
-            class="flex flex-col items-center justify-center gap-2 rounded-xl border border-zinc-400 p-6 text-zinc-800 hover:border-green-300 hover:bg-green-100 hover:text-green-500">
-            <x-icon-store icon="shopping-basket-done" class="h-8 w-8 text-current" />
-            Procesados
-        </a>
-        <a href="#"
-            class="flex flex-col items-center justify-center gap-2 rounded-xl border border-zinc-400 p-6 text-zinc-800 hover:border-red-300 hover:bg-red-100 hover:text-red-500">
-            <x-icon-store icon="shopping-basket-remove" class="h-8 w-8 text-current" />
-            Cancelados
-        </a>
-    </div>
-    <div class="mt-4 border-t border-zinc-400 p-2">
-        <a href="#" class="flex items-center justify-start gap-2 pt-2 text-sm">
-            <x-icon-store icon="dollar-circle" class="h-5 w-5 text-current" />
-            Reeeembolsos y devoluciones
-        </a>
+        <div class="mx-auto flex w-3/4 gap-8 py-10">
+            <div>
+                <img src="{{ Storage::url($user->profile) }}"
+                    class="h-24 w-24 rounded-full object-cover sm:h-28 sm:w-28 md:h-48 md:w-48"
+                    alt="Imagen {{ $user->name }}">
+            </div>
+            <div>
+                <h2 class="text-2xl font-bold text-light-blue">{{ $user->full_name }}</h2>
+                <p class="text-lg text-zinc-800">{{ $user->email }}</p>
+            </div>
+        </div>
+        <div class="mx-auto mt-4 w-full px-4 md:w-4/5 lg:w-3/4">
+            <form action="" class="flex flex-col gap-4">
+                <div class="flex flex-col gap-4 sm:flex-row">
+                    <div class="flex flex-[2] flex-col gap-2">
+                        <x-input-store type="text" name="name" placeholder="Nombre" value="{{ $user->name }}"
+                            label="Nombre" />
+                    </div>
+                    <div class="flex flex-[2] flex-col gap-2">
+                        <x-input-store type="text" name="last_name" placeholder="Apellido" value="{{ $user->last_name }}"
+                            label="Apellido" />
+                    </div>
+                    <div class="flex flex-1 flex-col gap-2">
+                        <x-input-store type="text" name="username" placeholder="Usuario" icon="user"
+                            value="{{ $user->username }}" label="Usuario" />
+                    </div>
+                </div>
+                <div class="flex flex-col gap-4 sm:flex-row">
+                    <div class="flex flex-[2] flex-col gap-2">
+                        <x-input-store type="email" name="email" label="Correco electrónico"
+                            placeholder="Correo electrónico" icon="email" value="{{ $user->email }}" />
+                    </div>
+                    <div class="flex flex-1 flex-col gap-2">
+                        <x-input-store type="text" name="phone" placeholder="+ 503 XXXX XXXX" icon="phone"
+                            value="{{ $user->phone }}" label="Telefono" />
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="flex flex-1 flex-col gap-2">
+                        <x-input-store type="text" name="address_line_1" placeholder="Dirección línea 1" icon="location"
+                            label="Dirección (línea 1)" />
+                    </div>
+                </div>
+                <div class="flex flex-col gap-4 sm:flex-row">
+                    <div class="flex flex-[3] flex-col gap-2">
+                        <x-input-store type="text" name="address_line_2" placeholder="Dirección línea 2"
+                            label="Dirección (línea 2)" icon="location" />
+                    </div>
+                    <div class="flex flex-1 flex-col gap-2">
+                        <x-input-store type="text" name="country" placeholder="País" label="País" />
+                    </div>
+                    <div class="flex flex-[2] flex-col gap-2">
+                        <x-input-store type="text" name="city" placeholder="Ciudad" label="Ciudad" />
+                    </div>
+                </div>
+                <div class="flex items-center justify-center">
+                    <x-button-store text="Actualizar datos" class="w-full sm:w-auto" icon="save" typeButton="primary" />
+                </div>
+            </form>
+
+            <div class="mt-8">
+                <div class="text-center">
+                    <h1 class="text-4xl font-bold text-light-blue">Datos de tu mascota</h1>
+                </div>
+
+                <form action="" class="mt-4 flex flex-col gap-4">
+                    <div class="flex flex-col gap-4 sm:flex-row">
+                        <div class="flex flex-[2] flex-col gap-2">
+                            <x-input-store type="text" name="name_pet" placeholder="Nombre" label="Nombre" />
+                        </div>
+                        <div class="flex flex-1 flex-col gap-2">
+                            <x-input-store type="number" name="year_pet" placeholder="Edad" label="Edad" />
+                        </div>
+                        <div class="flex flex-1 flex-col gap-2">
+                            <x-select-store id="gender_pet" :options="['Macho' => 'Macho', 'Hembra' => 'Hembra']" name="gender_pet" label="Género" />
+                        </div>
+                    </div>
+                    <div class="mt-2 flex items-center gap-8">
+                        <div class="flex items-center gap-2">
+                            <label for="" class="text-start text-sm font-medium text-zinc-600 md:text-base">
+                                Gato
+                            </label>
+                            <input type="radio" name="pet" value="cat">
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label for="" class="text-start text-sm font-medium text-zinc-600 md:text-base">
+                                Perro
+                            </label>
+                            <input type="radio" name="pet" value="dog">
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-4 sm:flex-row">
+                        <div class="flex flex-1 flex-col gap-2">
+                            <x-input-store type="textarea" name="info_pet"
+                                placeholder="Menciona si padece alguna enfermedad" />
+                        </div>
+                        <div class="flex flex-1 flex-col gap-2">
+                            <x-input-store type="textarea" name="color_pet"
+                                placeholder="Menciona algún requisito en tu pedido" />
+                        </div>
+                    </div>
+                    <div class="mt-4 flex">
+                        <div class="flex flex-1 flex-col gap-2">
+                            <x-input-store type="textarea" name="description_pet"
+                                placeholder="Cuentanos más acerca de tu mascota" />
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center">
+                        <x-button-store text="Guardar cambios" class="w-full sm:w-auto" icon="save"
+                            typeButton="primary" />
+                    </div>
+                </form>
+            </div>
+
+        </div>
     </div>
 @endsection
