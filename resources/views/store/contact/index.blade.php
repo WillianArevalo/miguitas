@@ -10,7 +10,7 @@
         </div>
 
         <div class="info-container">
-            <h1 class="light-blue2 text-2xl">CONTÁCTANOS</h1>
+            <h1 class="light-blue-2 text-2xl">CONTÁCTANOS</h1>
             <div class="info flex flex-col items-center justify-center">
                 <div class="info-item">
                     <svg width="35" height="30" viewBox="0 0 137 137" fill="none"
@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div class="horarios">
-                <h2 class="light-blue2">Horarios</h2>
+                <h2 class="light-blue-2">Horarios</h2>
                 <p class="gray">Atención en REDES: Martes a Viernes 9:00 am a 6 pm y Sábados 9:00 am a 4:00 pm</p>
                 <p class="gray">Entregas a DOMICILIO: Martes a Viernes 10:00 am a 3:00 pm Sábados 9:00 am a 4:00 pm</p>
                 <p class="gray">PAWstry Shop la Sultana: Martes a Viernes 11:00 am a 6:00 pm y Sábados 10:00 am a 4:00
@@ -61,7 +61,7 @@
                     Envío a domicilio o RETIRO en tienda.</p>
             </div>
             <div class="escribenos">
-                <h1 class="light-blue2">ESCRÍBENOS</h1>
+                <h1 class="light-blue-2">ESCRÍBENOS</h1>
                 <div class="inputs-container">
                     <input type="text" placeholder="Nombre">
                     <input type="text" placeholder="Apellido">
@@ -69,7 +69,7 @@
                     <input type="tel" placeholder="Teléfono">
                 </div>
                 <div class="msg-container">
-                    <label class="din light-blue2" for="mensaje">Mensaje:</label>
+                    <label class="din light-blue-2" for="mensaje">Mensaje:</label>
                     <textarea class="msg" rows="4" cols="50"></textarea>
                 </div>
 

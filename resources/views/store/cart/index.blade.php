@@ -162,7 +162,7 @@
             </div>
         </div>
         <div class="suggested-container">
-            <h1 class="light-blue2">¡TU PELUDO TIENE QUE PROBARLOS!</h1>
+            <h1 class="light-blue-2">¡TU PELUDO TIENE QUE PROBARLOS!</h1>
             <div class="line"></div>
 
             <div class="suggested-container-box">
