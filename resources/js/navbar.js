@@ -51,7 +51,9 @@ $(document).ready(function () {
             .addClass("-translate-x-full");
     });
 
-    $("#btn-hamburger").on("click", function () {
-        $("#mobile-menu").toggleClass("active");
+    /* STORE */
+    $(".btn-nav-accordion").click(function () {
+        const target = $(this).data("target");
+        $(target).toggleClass("hidden");
     });
 });
