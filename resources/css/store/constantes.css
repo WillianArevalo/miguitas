@@ -1,23 +1,35 @@
 :root {
     /* Colores Principales */
     --pink: #ffc9fa;
-    --dark-pink: #ff69b4;
+    --green: #5ca49b;
+    --gray: #8f8f8f;
     --blue: #6e83be;
-    --l-blue: #93affd;
+    --peach: #e8cad2;
+
+    --light-gray: #e9efff;
+    --light-blue: #93affd;
+    --light-pink: #fcdcf9;
+    --light-blue-2: #6e83be;
+
+    --dark-pink: #ff69b4;
+    --dark-blue: #254183;
 
     --blue-selected: #41507a;
     --pink-selected: #e296e2;
-
-    --dark-blue: #254183;
-    --green: #5ca49b;
-    --gray: #8f8f8f;
-    --light-gray: #e9efff;
-    --light-blue: #93affd;
-    --light-blue2: #6e83be;
-    --peach: #e8cad2;
-
-    --dark-blue-selected: #84a0e3;
-    --pink-selected: #e296e2;
     --green-selected: #34756b;
-    --light-blue2-selected: #236baf;
+    --dark-blue-selected: #84a0e3;
+}
+
+input,
+textarea,
+select,
+option {
+    font-family: "pluto-r" !important;
+}
+
+input::placeholder,
+textarea::placeholder,
+select {
+    color: var(--gray);
+    font-family: "pluto-r";
 }
