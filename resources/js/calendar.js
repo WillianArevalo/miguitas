@@ -27,7 +27,7 @@ $(document).ready(function () {
     $(document).click(function (e) {
         if (
             !$(e.target).closest(
-                "#calendar, #date-input, .prev-month, .next-month",
+                "#calendar, #date-input, .prev-month, .next-month"
             ).length
         ) {
             $calendar.hide();
@@ -43,21 +43,24 @@ $(document).ready(function () {
 
         const calendarHeader = $(`
             <div class="flex justify-between items-center mb-4">
-                <button class="prev-month text-white p-2 rounded-xl bg-secondary hover:bg-blue-950">
-                    <svg class="w-5 h-5 text-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none">
-                        <path d="M15 6C15 6 9.00001 10.4189 9 12C8.99999 13.5812 15 18 15 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
+                <button class="prev-month text-blue-store p-2 rounded-xl bg-blue-100 hover:bg-blue-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 fill-current" viewBox="0 0 320 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
                 </button>
                 <div class="flex items-center space-x-2">
                     <select id="month-select" class="text-zinc-800 p-2 rounded-xl border border-zinc-400 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 text-xs sm:text-sm">
-                        ${months.map((m, i) => `<option value="${i}" ${i === month ? "selected" : ""} class="hover:bg-zinc-100">${m}</option>`).join("")}
+                        ${months
+                            .map(
+                                (m, i) =>
+                                    `<option value="${i}" ${
+                                        i === month ? "selected" : ""
+                                    } class="hover:bg-zinc-100">${m}</option>`
+                            )
+                            .join("")}
                     </select>
                     <input type="number" id="year-input" class="text-xs sm:text-sm border border-zinc-400 text-zinc-800 p-2 w-20 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200" value="${year}">
                 </div>
-                <button class="next-month text-white p-2 rounded-xl bg-secondary hover:bg-blue-950">
-                    <svg class="w-5 h-5 text-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none">
-                        <path d="M9.00005 6C9.00005 6 15 10.4189 15 12C15 13.5812 9 18 9 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
+                <button class="next-month text-blue-store p-2 rounded-xl bg-blue-100 hover:bg-blue-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 fill-current" viewBox="0 0 320 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
                 </button>
             </div>
         `);
@@ -100,11 +103,13 @@ $(document).ready(function () {
                 year === today.getFullYear();
 
             const cellClass = isToday
-                ? "bg-secondary text-white hover:bg-blue-900"
+                ? "bg-blue-store text-white hover:bg-blue-900"
                 : "hover:bg-gray-200 text-zinc-800";
 
             const cell = $(
-                `<td class="p-2 text-xs sm:text-sm cursor-pointer rounded-xl ${cellClass}" data-day="${day}" data-month="${month + 1}" data-year="${year}">${day}</td>`,
+                `<td class="p-2 text-xs sm:text-sm cursor-pointer rounded-xl ${cellClass}" data-day="${day}" data-month="${
+                    month + 1
+                }" data-year="${year}">${day}</td>`
             );
             cell.click(function () {
                 $dateInput.val(`${year}-${month + 1}-${day}`);
