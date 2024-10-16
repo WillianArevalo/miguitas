@@ -1,105 +1,14 @@
-.main-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.card-diagonal {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 80%, 82% 100%, 0% 100%);
 }
 
-.header-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: start;
-    padding: 20px 0px;
-    margin-bottom: 20px;
-    width: 100%;
-    height: 30vh;
-    gap: 4%;
-    background-size: cover;
-    background-position: center;
-}
-
-.header-container .icon {
-    margin: 10px 30px;
+.card-diagonal::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 25%;
+    height: 20%;
     background-color: var(--pink);
-    height: 65px;
-    width: 65px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    position: relative;
-    cursor: pointer;
-}
-
-.header-container .icon svg {
-    margin: 22px 15px 20px 8px;
-    transform: rotate(180deg);
-}
-
-.header-container h1 {
-    text-align: end;
-    width: 50%;
-    font-size: 90px;
-    color: white;
-}
-
-.suggested-container {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: flex-start;
-    width: 100%;
-}
-
-.suggested-container h1 {
-    color: var(--light-blue-2);
-    font-size: 40px;
-    margin: 2vh 7vw;
-}
-
-.suggested-container .line {
-    width: 90%;
-    height: 3px;
-    background-color: var(--light-blue);
-    margin: 0 auto;
-    margin-bottom: 20px;
-}
-
-.suggested-container-box {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
-
-.suggested-container-box .prev {
-    margin-left: 2vw;
-    width: 10%;
-}
-
-.suggested-container-box .prev svg {
-    cursor: pointer;
-}
-
-.suggested-container-box .next {
-    width: 10%;
-}
-
-.suggested-container-box .next svg {
-    cursor: pointer;
-}
-
-.img-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 2vh 0;
-}
-
-.img-container img {
-    width: 80%;
-    height: 60%;
+    clip-path: polygon(40% 20%, 100% 0, 30% 100%);
 }
