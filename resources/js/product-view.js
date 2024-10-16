@@ -1,21 +1,10 @@
 $(document).ready(function () {
-    $(".accordion-header").click(function () {
+    $(".tab-btn").click(function () {
+        $(".tab-btn").removeClass("active-tab");
+        $(this).addClass("active-tab");
+        $(".tab-panel").addClass("hidden");
         const target = $(this).data("target");
-        const iconId = `#icon-${$(this).data("target").substring(1)}`;
-        if ($(target).hasClass("open")) {
-            $(target).removeClass("open").css("max-height", "0px");
-            $(iconId).removeClass("rotate-180");
-        } else {
-            $(".accordion-content")
-                .removeClass("open")
-                .css("max-height", "0px");
-            $(".accordion-header .w-5").removeClass("rotate-180");
-            const panelHeight = $(target)[0].scrollHeight;
-            $(target)
-                .addClass("open")
-                .css("max-height", panelHeight + "px");
-            $(iconId).addClass("rotate-180");
-        }
+        $(target).removeClass("hidden");
     });
 
     $("#btn-plus").on("click", function () {
@@ -35,7 +24,7 @@ $(document).ready(function () {
         }
     });
 
-    $(".secondary-image").on("click", function () {
+    /*   $(".secondary-image").on("click", function () {
         $(".container-secondary-image").removeClass("selected");
         $(this).parent().addClass("selected");
         const newSrc = $(this).attr("src");
@@ -94,7 +83,7 @@ $(document).ready(function () {
 
     updateStars(
         $("#star-rating-edit .star-edit"),
-        $("#rating-value-edit").val(),
+        $("#rating-value-edit").val()
     );
 
     $("#star-rating .star").on("click", function () {
@@ -127,5 +116,5 @@ $(document).ready(function () {
     $("#star-rating-edit .star-edit").on("mouseout", function () {
         var value = $("#rating-value-edit").val() || 0;
         updateStars($("#star-rating-edit .star-edit"), value);
-    });
+    }); */
 });
