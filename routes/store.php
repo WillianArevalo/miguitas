@@ -32,13 +32,13 @@ Route::get("/", [HomeController::class, "index"])->name("home");
 // Pages
 Route::get("/conócenos", [AboutController::class, "index"])->name("about");
 Route::get("/preguntas-frecuentes", [FAQController::class, "index"])->name("faq");
-Route::get("/contáctanos", [ContactController::class, "index"])->name("contact");
+Route::get("/contactanos", [ContactController::class, "index"])->name("contact");
 Route::get("/blog", [BlogController::class, "index"])->name("blog");
 Route::get("/galería", [GaleryController::class, "index"])->name("galery");
 
 // Products
 Route::controller(ProductController::class)->group(function () {
-    Route::get("/products/{slug}", "details")->name("products.details");
+    Route::get("/producto/{slug}/detalles", "details")->name("products.details");
     Route::post("/products/filter", [ProductController::class, "filter"])->name("products.filter");
     Route::post("/products/search", [ProductController::class, "search"])->name("products.search");
 });
@@ -105,7 +105,7 @@ Route::middleware("auth")->group(function () {
     Route::get("/my-coupons", [CouponController::class, "index"])->name("mycoupons");
 
     // Checkout
-    Route::get("/checkout", [CheckoutController::class, "index"])->name("checkout");
+    Route::get("/facturación", [CheckoutController::class, "index"])->name("checkout");
 
     // Reviews
     Route::resource("/reviews", ReviewController::class);
