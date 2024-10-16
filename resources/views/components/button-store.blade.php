@@ -25,7 +25,7 @@
         ],
         'large' => [
             'padding' => 'px-5 py-4',
-            'text' => 'text-lg',
+            'text' => 'text-base sm:text-lg',
             'icon' => 'h-6 w-6',
         ],
     ];
@@ -34,14 +34,14 @@
     $padding = $onlyIcon ? 'p-2' : $sizes[$size]['padding'];
 
     // Clases base
-    $baseClasses = 'rounded-xl flex items-center justify-center gap-2 transition-colors duration-300 ' . $padding;
+    $baseClasses = 'rounded-full flex items-center justify-center gap-2 transition-colors duration-300 ' . $padding;
 
     // Tipos de botones (estilos únicos para la tienda)
     $buttonTypes = [
         'primary' => 'bg-blue-store text-white hover:bg-blue-selected bg-gradient',
         'secondary' => 'bg-white text-blue-store border-2 border-blue-store hover:bg-zinc-100',
-        'danger' => 'bg-red-500 text-white hover:bg-red-600',
-        'warning' => 'bg-yellow-500 text-white hover:bg-yellow-600',
+        'danger' => 'bg-red-500 text-red-600 hover:bg-red-600',
+        'warning' => 'bg-yellow-500 text-yellow-600 hover:bg-yellow-600',
         'success' => 'bg-green-100 text-green-500 hover:bg-green-600 hover:text-white',
         'default' => 'bg-white text-zinc-600 border border-zinc-400 hover:bg-zinc-100',
     ];
