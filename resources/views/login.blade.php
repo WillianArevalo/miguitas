@@ -1,7 +1,7 @@
 @extends('layouts.template')
 @section('title', 'Miguitas | Inicio de sesión')
 @section('content')
-    <div class="m-0 md:p-4 lg:m-10">
+    <div class="m-0 md:p-4 lg:mx-10 lg:mb-10">
         <div class="relative mx-auto flex h-full w-full flex-col overflow-hidden border md:flex-row xl:w-4/5">
 
             <div class="absolute left-5 top-4 h-2 w-full bg-white md:left-10 md:top-8"></div>
@@ -43,7 +43,8 @@
                             <a href="#" class="dine-r text-white underline">¿Olvidaste tu contraseña?</a>
                             <x-button-store type="submit" text="Iniciar sesión" icon="login" typeButton="primary" />
                             <p class="pluto-r text-white">
-                                ¿No tienes una cuenta? <a href="#" class="dine-r text-white underline">Regístrate</a>
+                                ¿No tienes una cuenta? <a href="{{ Route('register') }}"
+                                    class="dine-r text-white underline">Regístrate</a>
                             </p>
                         </div>
                     </form>
