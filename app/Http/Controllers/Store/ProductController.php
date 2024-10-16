@@ -14,7 +14,7 @@ class ProductController extends Controller
 {
     public function details(string $slug)
     {
-        $user = Auth::check() ? Auth::user() : null;
+        /*  $user = Auth::check() ? Auth::user() : null;
         $product = Product::with([
             'categories',
             'brands',
@@ -47,8 +47,8 @@ class ProductController extends Controller
             $userReview = $product->reviews->where('user_id', $user->id)->first();
             Favorites::get($user, $products);
             Favorites::get($user, collect([$product]));
-        }
-        return view('products.view', compact('product', 'products', 'purchase', 'user', 'userReview', "reviews"));
+        } */
+        return view('store.products.view');
     }
 
     private function extractDimensions(Product $product)
