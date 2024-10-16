@@ -1,8 +1,12 @@
 export function initSwiper() {
     if (document.querySelector(".mySwiper")) {
         new Swiper(".mySwiper", {
-            slidesPerView: 3,
+            slidesPerView: 4,
             spaceBetween: 20,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
             navigation: {
                 nextEl: ".button-next",
                 prevEl: ".button-prev",
@@ -21,7 +25,7 @@ export function initSwiper() {
                     spaceBetween: 20,
                 },
                 1024: {
-                    slidesPerView: 3,
+                    slidesPerView: 4,
                     spaceBetween: 20,
                 },
             },
@@ -38,16 +42,16 @@ export function initSwiper() {
             },
             breakpoints: {
                 320: {
-                    slidesPerView: 3,
-                    spaceBetween: 20,
+                    slidesPerView: 1,
+                    spaceBetween: 10,
                 },
                 640: {
-                    slidesPerView: 3,
-                    spaceBetween: 20,
+                    slidesPerView: 2,
+                    spaceBetween: 10,
                 },
                 1024: {
                     slidesPerView: 3,
-                    spaceBetween: 20,
+                    spaceBetween: 10,
                 },
             },
         });
