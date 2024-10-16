@@ -19,7 +19,7 @@ class FavoriteController extends Controller
         }
         $favorites = User::findOrFail(Auth::id())->favorites;
         Favorites::get(Auth::user(), $favorites);
-        return view('favorites.index', compact('favorites'));
+        return view('store.favorites.index', compact('favorites'));
     }
 
     public function addFavorite(Request $request, string $id)
