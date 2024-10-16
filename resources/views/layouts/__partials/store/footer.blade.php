@@ -1,131 +1,143 @@
-     <footer>
-         <div class="main-container">
-             <div class="first-row">
-                 <div class="logo">
-                     <img src="{{ asset('img/logo.png') }}" alt="Logo">
-                 </div>
-                 <div class="container">
-                     <span>MIGUITAS PET TREATS</span>
-                     <p>Horneamos todos los días para los consentidos de cuatro patitas. ¡Elaboramos pasteles, pupcakes
-                         y galletas de diferentes sabores, tamaño y forma para que cada día puedas consentir a tu
-                         perrito o
-                         gatito de la mejor manera: natural!</p>
-                 </div>
-             </div>
-             <div class="second-row">
-                 <div class="main">
-                     <span class="title">MENÚ</span>
-                     <a href="index.html">Inicio</a>
-                     <a href="preguntas-frecuentes.html">Preguntas Frecuentes FAQ</a>
-                     <a href="conocenos.html">Conócenos</a>
-                     <a href="blog.html">Blog</a>
-                     <a href="contactanos.html">Contáctanos</a>
-                 </div>
-                 <div class="main contact">
-                     <span class="title">CONTÁCTANOS</span>
-                     <a class="wrapper">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                             style="fill: rgb(0, 0, 0); --darkreader-inline-fill: #e8e6e3;"
-                             data-darkreader-inline-fill="">
-                             <path
-                                 d="M2.002 9.538c-.023.411.207.794.581.966l7.504 3.442 3.442 7.503c.164.356.52.583.909.583l.057-.002a1 1 0 0 0 .894-.686l5.595-17.032c.117-.358.023-.753-.243-1.02s-.66-.358-1.02-.243L2.688 8.645a.997.997 0 0 0-.686.893z">
-                             </path>
-                         </svg>
-                         <div>
-                             <p>Antiguo Cuscatlán, La Libertad, El Salvador</p>
-                         </div>
-                     </a>
-                     <a>
-                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                             style="fill: rgb(0, 0, 0); --darkreader-inline-fill: #e8e6e3;"
-                             data-darkreader-inline-fill="">
-                             <path
-                                 d="m20.487 17.14-4.065-3.696a1.001 1.001 0 0 0-1.391.043l-2.393 2.461c-.576-.11-1.734-.471-2.926-1.66-1.192-1.193-1.553-2.354-1.66-2.926l2.459-2.394a1 1 0 0 0 .043-1.391L6.859 3.513a1 1 0 0 0-1.391-.087l-2.17 1.861a1 1 0 0 0-.29.649c-.015.25-.301 6.172 4.291 10.766C11.305 20.707 16.323 21 17.705 21c.202 0 .326-.006.359-.008a.992.992 0 0 0 .648-.291l1.86-2.171a.997.997 0 0 0-.085-1.39z">
-                             </path>
-                         </svg>
-                         <span>(503) 2243-4190</span>
-                     </a>
-                     <a>
-                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                             style="fill: rgb(0, 0, 0); --darkreader-inline-fill: #e8e6e3;"
-                             data-darkreader-inline-fill="">
-                             <path fill-rule="evenodd" clip-rule="evenodd"
-                                 d="M18.403 5.633A8.919 8.919 0 0 0 12.053 3c-4.948 0-8.976 4.027-8.978 8.977 0 1.582.413 3.126 1.198 4.488L3 21.116l4.759-1.249a8.981 8.981 0 0 0 4.29 1.093h.004c4.947 0 8.975-4.027 8.977-8.977a8.926 8.926 0 0 0-2.627-6.35m-6.35 13.812h-.003a7.446 7.446 0 0 1-3.798-1.041l-.272-.162-2.824.741.753-2.753-.177-.282a7.448 7.448 0 0 1-1.141-3.971c.002-4.114 3.349-7.461 7.465-7.461a7.413 7.413 0 0 1 5.275 2.188 7.42 7.42 0 0 1 2.183 5.279c-.002 4.114-3.349 7.462-7.461 7.462m4.093-5.589c-.225-.113-1.327-.655-1.533-.73-.205-.075-.354-.112-.504.112s-.58.729-.711.879-.262.168-.486.056-.947-.349-1.804-1.113c-.667-.595-1.117-1.329-1.248-1.554s-.014-.346.099-.458c.101-.1.224-.262.336-.393.112-.131.149-.224.224-.374s.038-.281-.019-.393c-.056-.113-.505-1.217-.692-1.666-.181-.435-.366-.377-.504-.383a9.65 9.65 0 0 0-.429-.008.826.826 0 0 0-.599.28c-.206.225-.785.767-.785 1.871s.804 2.171.916 2.321c.112.15 1.582 2.415 3.832 3.387.536.231.954.369 1.279.473.537.171 1.026.146 1.413.089.431-.064 1.327-.542 1.514-1.066.187-.524.187-.973.131-1.067-.056-.094-.207-.151-.43-.263">
-                             </path>
-                         </svg>
-                         <span>(503) 7910-1241</span>
-                     </a>
-                     <a>
-                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                             style="fill: rgb(0, 0, 0); --darkreader-inline-fill: #e8e6e3;"
-                             data-darkreader-inline-fill="">
-                             <path
-                                 d="M20 4H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm0 2v.511l-8 6.223-8-6.222V6h16zM4 18V9.044l7.386 5.745a.994.994 0 0 0 1.228 0L20 9.044 20.002 18H4z">
-                             </path>
-                         </svg>
-                         <span>administracion@miguitassv.com</span>
-                     </a>
-                 </div>
-                 <div class="main contact">
-                     <span class="title">PAWSTRY SHOP</span>
-                     <a class="wrapper">
-                         <div>
-                             <p>AVE. ANTIGUO CUSCATLAN #12, COL.
-                                 LA SULTANA, ANTIGUO CUSCATLAN,
-                                 LA LIBERTAD, EL SALVADOR</p>
-                         </div>
-                     </a>
-                     <a class="wrapper left">
-                         <div class="extras">
-                             <span>Horario en tienda:</span>
-                             <div class="info">
-                                 <b>MAR - VIER</b>
-                                 <p>11.00am a 6.00pm</p>
-                             </div>
-                             <div class="info">
-                                 <b>SABADO</b>
-                                 <p>10.00am a 4.00pm</p>
-                             </div>
-                         </div>
-                     </a>
-                 </div>
-                 <div class="info">
-                     <span>Sigamos en contacto</span>
-                     <div class="icons">
-                         <svg width="60" height="60" viewBox="0 0 32 32" fill="none"
-                             xmlns="http://www.w3.org/2000/svg">
-                             <path
-                                 d="M16 0C7.16392 0 0 7.20717 0 16.0966C0 24.1296 5.85019 30.7878 13.5006 32V20.7506H9.43614V16.0966H13.5006V12.5502C13.5006 8.51273 15.8896 6.28635 19.5428 6.28635C21.2933 6.28635 23.1271 6.60026 23.1271 6.60026V10.5588H21.1045C19.1203 10.5588 18.4995 11.8016 18.4995 13.075V16.0934H22.9335L22.2246 20.7474H18.4995V31.9968C26.1498 30.791 32 24.1312 32 16.0966C32 7.20717 24.8361 0 16 0Z"
-                                 fill="white" />
-                         </svg>
-                         <svg width="60" height="60" viewBox="0 0 32 32" fill="none"
-                             xmlns="http://www.w3.org/2000/svg">
-                             <circle cx="16" cy="16" r="16" fill="white" />
-                             <path
-                                 d="M15.997 11.372C14.7706 11.372 13.5945 11.8592 12.7273 12.7263C11.8602 13.5935 11.373 14.7696 11.373 15.996C11.373 17.2224 11.8602 18.3985 12.7273 19.2657C13.5945 20.1328 14.7706 20.62 15.997 20.62C17.2234 20.62 18.3995 20.1328 19.2667 19.2657C20.1338 18.3985 20.621 17.2224 20.621 15.996C20.621 14.7696 20.1338 13.5935 19.2667 12.7263C18.3995 11.8592 17.2234 11.372 15.997 11.372ZM15.997 18.999C15.2003 18.999 14.4362 18.6825 13.8729 18.1191C13.3095 17.5558 12.993 16.7917 12.993 15.995C12.993 15.1983 13.3095 14.4342 13.8729 13.8708C14.4362 13.3075 15.2003 12.991 15.997 12.991C16.7937 12.991 17.5578 13.3075 18.1212 13.8708C18.6845 14.4342 19.001 15.1983 19.001 15.995C19.001 16.7917 18.6845 17.5558 18.1212 18.1191C17.5578 18.6825 16.7937 18.999 15.997 18.999Z"
-                                 fill="#93affd" />
-                             <path
-                                 d="M20.804 12.28C21.3994 12.28 21.882 11.7974 21.882 11.202C21.882 10.6066 21.3994 10.124 20.804 10.124C20.2086 10.124 19.726 10.6066 19.726 11.202C19.726 11.7974 20.2086 12.28 20.804 12.28Z"
-                                 fill="#93affd" />
-                             <path
-                                 d="M24.531 10.106C24.2995 9.50818 23.9457 8.96528 23.4923 8.51206C23.0389 8.05883 22.4959 7.70527 21.898 7.474C21.1983 7.21136 20.4592 7.06934 19.712 7.054C18.749 7.012 18.444 7 16.002 7C13.56 7 13.247 7 12.292 7.054C11.5454 7.06856 10.8068 7.2106 10.108 7.474C9.50994 7.705 8.96676 8.05847 8.51333 8.51173C8.0599 8.96499 7.70623 9.50802 7.475 10.106C7.2123 10.8056 7.07061 11.5448 7.056 12.292C7.013 13.254 7 13.559 7 16.002C7 18.444 7 18.755 7.056 19.712C7.071 20.46 7.212 21.198 7.475 21.899C7.70688 22.4968 8.0609 23.0396 8.51444 23.4928C8.96798 23.946 9.51106 24.2996 10.109 24.531C10.8064 24.8042 11.5454 24.9564 12.294 24.981C13.257 25.023 13.562 25.036 16.004 25.036C18.446 25.036 18.759 25.036 19.714 24.981C20.4611 24.9658 21.2002 24.8241 21.9 24.562C22.4978 24.3302 23.0406 23.9763 23.494 23.523C23.9473 23.0696 24.3012 22.5268 24.533 21.929C24.796 21.229 24.937 20.491 24.952 19.743C24.995 18.781 25.008 18.476 25.008 16.033C25.008 13.59 25.008 13.28 24.952 12.323C24.9404 11.5653 24.7979 10.8152 24.531 10.106ZM23.313 19.638C23.3066 20.2143 23.2014 20.7852 23.002 21.326C22.8518 21.7149 22.6219 22.068 22.3271 22.3627C22.0322 22.6574 21.679 22.8871 21.29 23.037C20.7552 23.2354 20.1904 23.3406 19.62 23.348C18.67 23.392 18.402 23.403 15.966 23.403C13.528 23.403 13.279 23.403 12.311 23.348C11.7409 23.341 11.1763 23.2358 10.642 23.037C10.2517 22.888 9.897 22.6587 9.60089 22.364C9.30478 22.0692 9.07384 21.7156 8.923 21.326C8.72645 20.791 8.62131 20.2268 8.612 19.657C8.569 18.707 8.559 18.439 8.559 16.003C8.559 13.566 8.559 13.317 8.612 12.348C8.61846 11.772 8.72366 11.2014 8.923 10.661C9.228 9.872 9.853 9.251 10.642 8.949C11.1766 8.75114 11.741 8.64596 12.311 8.638C13.262 8.595 13.529 8.583 15.966 8.583C18.403 8.583 18.653 8.583 19.62 8.638C20.1904 8.64486 20.7554 8.75007 21.29 8.949C21.6789 9.09927 22.0321 9.3292 22.327 9.62403C22.6218 9.91886 22.8517 10.2721 23.002 10.661C23.1986 11.1959 23.3037 11.7602 23.313 12.33C23.356 13.281 23.367 13.548 23.367 15.985C23.367 18.421 23.367 18.683 23.324 19.639H23.313V19.638Z"
-                                 fill="#93affd" />
-                         </svg>
-                     </div>
-                 </div>
-             </div>
-             <div class="third-row">
-                 <div class="main-container-t">
-                     <div class="text">
-                         <span>Miguitas Pet Treats® NIT: 0614-120690-129-7</span>
-                         <span>Patricia Eugenia Solórzano Rivera</span>
-                         <span class="margin">Miguitas Pet Treats © 2020 Desarrollado X Innovadesa.</span>
-                     </div>
-                     <div class="images">
-                         <img class="two" src="../../resources/img/sello1.png" alt="">
-                         <img class="two" src="../../resources/img/sello2.png" alt="">
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </footer>
+<footer class="w-full bg-light-blue">
+    <div class="mx-auto w-full p-10 lg:w-4/5">
+        <div class="flex flex-col gap-8 sm:flex-row">
+            <img src="{{ asset('img/logo.png') }}" alt="Logo Miguitas" class="h-44 w-44">
+            <div class="flex flex-1 flex-col items-center justify-center gap-4">
+                <h2 class="text-2xl font-bold text-white md:text-3xl lg:text-4xl xl:text-5xl">
+                    MIGUITAS PET TREATS
+                </h2>
+                <p class="dine-r text-center text-base text-white md:text-lg">
+                    Horneamos todos los días para los consentidos de cuatro patitas. ¡Elaboramos pasteles, pupcakes y
+                    galletas de diferentes sabores, tamaño y forma para que cada día puedas consentir a tu perrito o
+                    gatito de la mejor manera: natural!
+                </p>
+            </div>
+        </div>
+        <div class="mt-8">
+            <div class="flex flex-col flex-wrap justify-between gap-8 md:flex-row">
+                <div class="flex-1">
+                    <h3 class="text-center text-xl font-bold uppercase text-light-pink md:text-left md:text-2xl">
+                        Menú
+                    </h3>
+                    <ul class="mt-4 flex flex-col gap-2 text-center md:text-left">
+                        <li class="text-sm text-white md:text-base">
+                            <a class="link dine-r" href="{{ route('home') }}">Inicio</a>
+                        </li>
+                        <li class="text-sm text-white md:text-base">
+                            <a class="link dine-r" href="{{ route('store') }}">
+                                Tienda
+                            </a>
+                        </li>
+                        <li class="text-sm text-white md:text-base">
+                            <a class="link dine-r" href="{{ route('home') }}">
+                                Ordenar
+                            </a>
+                        </li>
+                        <li class="text-sm text-white md:text-base">
+                            <a class="link dine-r" href="{{ route('faq') }}">
+                                Preguntas frecuentes (FAQ)
+                            </a>
+                        </li>
+                        <li class="text-sm text-white md:text-base">
+                            <a class="link dine-r" href="{{ route('contact') }}">
+                                Contáctanos
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="flex-1">
+                    <h3 class="text-center text-xl font-bold uppercase text-light-pink md:text-left md:text-2xl">
+                        Contáctanos
+                    </h3>
+                    <div class="mt-4 flex flex-col gap-2">
+                        <div class="flex items-center justify-center gap-2 md:justify-start">
+                            <x-icon-store class="h-5 w-5 fill-white" icon="location-arrow" />
+                            <p class="dine-r text-sm text-white md:text-base">
+                                Antiguo Cuscatlán, La Libertad, El Salvador
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-center gap-2 md:justify-start">
+                            <x-icon-store class="h-5 w-5 fill-white" icon="phone" />
+                            <p class="dine-r text-sm text-white md:text-base">
+                                (+503) 2243-4190
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-center gap-2 md:justify-start">
+                            <x-icon-store class="h-5 w-5 fill-white" icon="whatsapp" />
+                            <p class="dine-r text-sm text-white md:text-base">
+                                (503) 7910-1241
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-center gap-2 md:justify-start">
+                            <x-icon-store class="h-5 w-5 fill-white" icon="email" />
+                            <p class="dine-r text-sm text-white md:text-base">
+                                administracion@miguitassv.com
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <h3 class="text-center text-xl font-bold uppercase text-light-pink md:text-left md:text-2xl">
+                        PAWSTRY SHOP
+                    </h3>
+                    <p class="dine-r mt-4 text-center text-sm text-white md:text-left md:text-base">
+                        VE. ANTIGUO CUSCATLAN #12, COL. LA SULTANA, ANTIGUO CUSCATLAN, LA LIBERTAD, EL SALVADOR
+                    </p>
+                    <p class="dine-r mt-4 text-center text-sm text-light-pink md:text-left md:text-base">
+                        Horario en tienda:
+                    </p>
+                    <p class="text-center md:text-left">
+                        <span class="pluto-r text-sm font-bold text-white md:text-base">
+                            MAR - VIER
+                        </span>
+                        <span class="dine-r ms-4 text-sm text-white md:text-base">
+                            11:00 AM - 6:00 PM
+                        </span>
+                    </p>
+                    <p class="text-center md:text-left">
+                        <span class="pluto-r text-sm font-bold text-white md:text-base">
+                            SÁBADO
+                        </span>
+                        <span class="dine-r ms-4 text-sm text-white md:text-base">
+                            10:00 AM - 4:00 PM
+                        </span>
+                    </p>
+                </div>
+                <div class="flex-1">
+                    <h3 class="text-center text-lg font-bold uppercase text-light-pink md:text-left md:text-xl">
+                        Sigamos en contacto
+                    </h3>
+                    <div class="mt-4 flex items-center justify-center gap-4 md:justify-start">
+                        <a href="https://www.facebook.com/miguitaselsalvador" target="_blank" rel="noopener noreferrer"
+                            class="transform hover:scale-105">
+                            <x-icon-store class="h-8 w-8 fill-white" icon="facebook" />
+                        </a>
+                        <a href="https://www.instagram.com/miguitaselsalvador/" target="_blank"
+                            rel="noopener noreferrer" class="transform hover:scale-105">
+                            <x-icon-store class="h-8 w-8 fill-white" icon="instagram" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full bg-light-pink p-10">
+        <div class="mx-auto flex w-full flex-col justify-between sm:flex-row lg:w-4/5">
+            <div class="flex flex-col gap-4">
+                <p class="dine-r text-base text-dark-blue md:text-lg">
+                    Miguitas Pet Treats® NIT: 0614-120690-129-7<br>
+                    Patricia Eugenia Solórzano Rivera
+                </p>
+                <p class="dine-r text-sm text-dark-blue md:text-base">
+                    Miguitas Pet Treats © 2020 Desarrollado X Innovadesa.
+                </p>
+            </div>
+            <div class="flex items-center gap-4">
+                <img src="{{ asset('img/sello1.png') }}" alt="Logo Innovadesa" class="h-28 w-28">
+                <img src="{{ asset('img/sello2.png') }}" alt="Logo Innovadesa" class="h-28 w-28">
+            </div>
+        </div>
+    </div>
+
+</footer>
