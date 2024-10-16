@@ -1,4 +1,4 @@
-<header class="border border-b border-zinc-100 p-2 sm:p-4">
+<header class="p-2 sm:p-4">
     <div class="flex w-full items-center">
         <!-- Btn hamburger -->
         <div class="flex items-center justify-center lg:hidden">
@@ -31,13 +31,13 @@
                 <div class="hidden h-14 items-center justify-center rounded-2xl border-[3px] border-light-blue lg:flex">
                     <ul class="flex items-center gap-4 px-4 py-2">
                         <li>
-                            <a href="" class="group">
+                            <a href="{{ Route('cart') }}" class="group">
                                 <x-icon-store icon="bag"
                                     class="h-8 w-8 fill-light-blue transition-transform group-hover:scale-110"></x-icon-store>
                             </a>
                         </li>
                         <li>
-                            <a href="" class="group">
+                            <a href="{{ Route('favorites') }}" class="group">
                                 <x-icon-store icon="heart"
                                     class="h-8 w-8 fill-light-blue transition-transform group-hover:scale-110"></x-icon-store>
                             </a>
@@ -58,8 +58,13 @@
                         <li>
                             <a href="{{ Route('account.index') }}" class="group">
                                 @if (Auth::check())
-                                    <img src="{{ Storage::url(auth()->user()->profile) }}" alt="User image"
-                                        class="h-10 w-10 rounded-full object-cover">
+                                    @if (auth()->user()->google_id)
+                                        <img src="{{ auth()->user()->google_profile }}" alt="User image"
+                                            class="h-10 w-10 rounded-full object-cover">
+                                    @else
+                                        <img src="{{ Storage::url(auth()->user()->profile) }}" alt="User image"
+                                            class="h-10 w-10 rounded-full object-cover">
+                                    @endif
                                 @else
                                     <x-icon-store icon="user"
                                         class="h-8 w-8 fill-light-blue transition-transform group-hover:scale-110"></x-icon-store>
@@ -203,7 +208,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="" class="group rounded-xl px-4 py-2 hover:bg-light-blue hover:text-white">
+                            <a href="{{ Route('about') }}"
+                                class="group rounded-xl px-4 py-2 hover:bg-light-blue hover:text-white">
                                 Conócenos
                             </a>
                         </li>
@@ -261,7 +267,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ Route('home') }}"
+                        <a href="{{ Route('store') }}"
                             class="group flex items-center gap-2 rounded-xl px-4 py-2 hover:bg-light-blue hover:text-white">
                             Tienda
                         </a>
