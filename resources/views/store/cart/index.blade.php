@@ -1,272 +1,172 @@
 @extends('layouts.template')
 @section('title', 'Miguitas | Carrito de compras')
-@push('styles')
-    @vite('resources/css/store/carrito.css')
-@endpush
 @section('content')
-    <div class="main-container">
-        <div class="header-container" style="background-image: url({{ asset('img/bg-image.png') }});">
-            <div class="icon">
-                <a href="index.html">
-                    <svg width="45" height="45" viewBox="0 0 226 380" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M46 46L172.322 172.322C182.085 182.085 182.085 197.915 172.322 207.678L46 334"
-                            stroke="#8fadff" stroke-width="91" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </a>
-            </div>
-            <h1>Carrito de compras</h1>
-            <div class="sp"></div>
+    <div>
+        <div class="py-20 text-center" style="background-image: url({{ asset('img/bg-image.png') }});">
+            <h1 class="text-5xl font-bold text-white">Carrito de compras</h1>
         </div>
-        <div class="carrito">
-            <div class="product-info-container">
-                <div class="content">
-                    <div class="columns-header">
-                        <div class="product">
-                            <h1>Producto</h1>
-                        </div>
-                        <div class="quantity">
-                            <h1>Cantidad</h1>
-                        </div>
-                        <div class="total">
-                            <h1>Total</h1>
-                        </div>
+
+        <div class="my-10 flex flex-col gap-8 lg:flex-row lg:gap-0">
+            <div class="flex-[2] border-blue-store px-4 lg:border-e-2">
+                <!-- Header -->
+                <div class="hidden gap-4 md:flex">
+                    <div class="flex-[3]">
+                        <h2 class="text-2xl font-bold text-dark-pink">Producto</h2>
                     </div>
-                    <div class="product-container">
-                        <div class="product-card">
-                            <div class="product-info">
-                                <div class="product-img">
-                                    <img src="" alt="">
-                                </div>
-                                <div class="product">
-                                    <h2>Lorem ipsum dolor sit</h2>
-                                    <h2>$4.50</h2>
-                                </div>
-                            </div>
-                            <div class="quantity">
-                                <div class="input-container">
-                                    <button class="decrement">-</button>
-                                    <input type="number" class="number-input" value="1" min="1">
-                                    <button class="increment">+</button>
-                                </div>
-                            </div>
-                            <div class="total">
-                                <h2>$4.50</h2>
-                                <div class="delete">
-                                    <svg width="38" height="40" viewBox="0 0 18 20" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M3 5H2V18C2 18.5304 2.21071 19.0391 2.58579 19.4142C2.96086 19.7893 3.46957 20 4 20H14C14.5304 20 15.0391 19.7893 15.4142 19.4142C15.7893 19.0391 16 18.5304 16 18V5H3ZM13.618 2L12 0H6L4.382 2H0V4H18V2H13.618Z"
-                                            fill="white" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-card">
-                            <div class="product-info">
-                                <div class="product-img">
-                                    <img src="" alt="">
-                                </div>
-                                <div class="product">
-                                    <h2>Lorem ipsum dolor sit</h2>
-                                    <h2>$4.50</h2>
-                                </div>
-                            </div>
-                            <div class="quantity">
-                                <div class="input-container">
-                                    <button class="decrement">-</button>
-                                    <input type="number" class="number-input" value="1" min="1">
-                                    <button class="increment">+</button>
-                                </div>
-                            </div>
-                            <div class="total">
-                                <h2>$4.50</h2>
-                                <div class="delete">
-                                    <svg width="38" height="40" viewBox="0 0 18 20" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M3 5H2V18C2 18.5304 2.21071 19.0391 2.58579 19.4142C2.96086 19.7893 3.46957 20 4 20H14C14.5304 20 15.0391 19.7893 15.4142 19.4142C15.7893 19.0391 16 18.5304 16 18V5H3ZM13.618 2L12 0H6L4.382 2H0V4H18V2H13.618Z"
-                                            fill="white" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-card">
-                            <div class="product-info">
-                                <div class="product-img">
-                                    <img src="" alt="">
-                                </div>
-                                <div class="product">
-                                    <h2>Lorem ipsum dolor sit</h2>
-                                    <h2>$4.50</h2>
-                                </div>
-                            </div>
-                            <div class="quantity">
-                                <div class="input-container">
-                                    <button class="decrement">-</button>
-                                    <input type="number" class="number-input" value="1" min="1">
-                                    <button class="increment">+</button>
-                                </div>
-                            </div>
-                            <div class="total">
-                                <h2>$4.50</h2>
-                                <div class="delete">
-                                    <svg width="38" height="40" viewBox="0 0 18 20" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M3 5H2V18C2 18.5304 2.21071 19.0391 2.58579 19.4142C2.96086 19.7893 3.46957 20 4 20H14C14.5304 20 15.0391 19.7893 15.4142 19.4142C15.7893 19.0391 16 18.5304 16 18V5H3ZM13.618 2L12 0H6L4.382 2H0V4H18V2H13.618Z"
-                                            fill="white" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="flex-1">
+                        <h2 class="text-2xl font-bold text-dark-pink">Cantidad</h2>
+                    </div>
+                    <div class="flex-1 text-center">
+                        <h2 class="text-2xl font-bold text-dark-pink">Total</h2>
+                    </div>
+                    <div class="flex-1">
                     </div>
                 </div>
-
+                <!-- Products -->
+                @for ($i = 0; $i < 3; $i++)
+                    <div
+                        class="mt-4 flex flex-col items-center gap-4 rounded-2xl border border-zinc-200 p-4 md:flex-row md:border-none">
+                        <div class="flex-[3]">
+                            <div class="flex gap-4">
+                                <div>
+                                    <img src="{{ asset('img/image.jpg') }}" alt="Producto"
+                                        class="h-20 w-20 rounded-xl object-cover">
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-dark-pink">Producto 1</h3>
+                                    <p class="dine-r text-sm text-zinc-700">Descripción del producto</p>
+                                    <p class="dine-r text-sm text-zinc-700">
+                                        $100.00
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-1 text-blue-store">
+                            <div
+                                class="flex h-10 w-max items-center gap-6 overflow-hidden rounded-xl border-2 border-dark-pink">
+                                <button
+                                    class="flex h-10 items-center justify-center border-e-2 border-dark-pink px-3 hover:bg-dark-pink hover:text-white">
+                                    <x-icon-store icon="minus" class="h-4 w-4 fill-current" />
+                                </button>
+                                <span class="text-base font-bold">1</span>
+                                <button class="h-10 border-s-2 border-dark-pink px-3 hover:bg-dark-pink hover:text-white">
+                                    <x-icon-store icon="plus" class="h-4 w-4 fill-current" />
+                                </button>
+                            </div>
+                        </div>
+                        <div class="flex-1 text-center">
+                            <h3 class="dine-r text-xl font-bold text-blue-store">$ 100.00</h3>
+                        </div>
+                        <div class="flex flex-1 items-center justify-center">
+                            <x-button-store type="button" icon="trash" onlyIcon="true" typeButton="secondary"
+                                size="small" />
+                        </div>
+                    </div>
+                @endfor
             </div>
-            <div class="pedido-info">
-                <div class="content">
-                    <div class="header">
-                        <h1>Resumen del pedido</h1>
-                        <div class="line"></div>
+            <div class="h-max flex-1 px-4">
+                <div class="flex justify-center border-b-2 border-blue-store pb-2 lg:justify-start">
+                    <h2 class="pluto-m text-xl font-bold text-dark-pink sm:text-2xl md:text-3xl">
+                        Resumen del pedido
+                    </h2>
+                </div>
+                <div class="mt-4 flex flex-col gap-2">
+                    <div class="flex justify-between">
+                        <p class="text-sm text-light-blue sm:text-base md:text-lg">
+                            Subtotal
+                        </p>
+                        <p class="text-sm text-blue-store sm:text-base md:text-lg">
+                            $300.00
+                        </p>
                     </div>
-
-                    <div class="detalles">
-                        <div class="item">
-                            <h2>Subtotal:</h2>
-                            <h2>$4.50</h2>
-                        </div>
-                        <div class="item">
-                            <h2>Impuestos:</h2>
-                            <h2>------</h2>
-                        </div>
-                        <div class="item">
-                            <h2>Envío:</h2>
-                            <h2>------</h2>
-                        </div>
+                    <div class="flex justify-between">
+                        <p class="text-sm text-light-blue sm:text-base md:text-lg">
+                            Impuestos
+                        </p>
+                        <p class="text-sm text-blue-store sm:text-base md:text-lg">
+                            ---
+                        </p>
                     </div>
-                    <div class="footer">
-                        <div class="line"></div>
-                        <div class="total">
-                            <h2>Total del pedido:</h2>
-                            <h2>$13.50</h2>
-                        </div>
+                    <div class="flex justify-between border-b-2 border-blue-store pb-4">
+                        <p class="text-sm text-light-blue sm:text-base md:text-lg">
+                            Envío
+                        </p>
+                        <p class="text-sm text-light-blue sm:text-base md:text-lg">
+                            ---
+                        </p>
                     </div>
-
-                    <div class="finish">
-                        <a href="facturacion.html">
-                            <button>Finalizar la compra</button>
-                        </a>
+                    <div class="flex justify-between">
+                        <p class="text-xl text-light-blue">
+                            Total del pedido
+                        </p>
+                        <p class="text-xl text-blue-store">
+                            $300.00
+                        </p>
                     </div>
                 </div>
-
+                <div class="mt-10 flex items-center justify-center">
+                    <x-button-store text="Finalizar compra" type="a" href="{{ Route('checkout') }}"
+                        typeButton="primary" />
+                </div>
             </div>
         </div>
-        <div class="suggested-container">
-            <h1 class="light-blue-2">¡TU PELUDO TIENE QUE PROBARLOS!</h1>
-            <div class="line"></div>
 
-            <div class="suggested-container-box">
-                <div class="prev">
-                    <svg width="40" height="45" viewBox="0 0 192 336" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path d="M24 24L168 168L24 312" stroke="var(--dark-blue)" stroke-width="48"
-                            stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </div>
-                <!-- Contenedor dónde se mostrarán las cards de productos sugeridos -->
-                <div class="suggested-card-container-box">
-
-                    <!-- Contenedor de la card -->
-                    <div class="suggested-card-container">
-                        <!-- Imágen de la card -->
-                        <div class="suggested-card-img">
-                            <img src="" alt="">
-                        </div>
-                        <!-- Información del producto -->
-                        <div class="suggested-card-info">
-
-                            <div class="product">
-                                <!-- Nombre del producto -->
-                                <h2 class="product-name">Lorem ipsum dolor sit</h2>
-                                <!-- Precio del producto -->
-                                <h2 class="product-price">$4.50</h2>
+        <div class="mt-4 px-0 sm:px-4 md:px-10">
+            <h2
+                class="my-4 border-b-4 border-blue-store text-center text-xl text-blue-store sm:text-2xl md:text-4xl lg:text-left">
+                ¡Tu peludo tiene que probarlos!
+            </h2>
+            <div class="">
+                <div class="swiper mySwiper w-100 h-full px-4">
+                    <div class="swiper-wrapper pb-10">
+                        @for ($i = 0; $i < 8; $i++)
+                            <div class="swiper-slide relative rounded-3xl border border-zinc-200 p-2 shadow-xl sm:p-6">
+                                <div class="card-image">
+                                    <img src="{{ asset('img/image.jpg') }}" alt="Featured2 image"
+                                        class="h-48 w-full rounded-xl object-cover md:h-60">
+                                </div>
+                                <div class="card-body mt-4">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-3">
+                                            <a href="">
+                                                <x-icon-store icon="heart"
+                                                    class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
+                                            </a>
+                                            <a href="">
+                                                <x-icon-store icon="comment"
+                                                    class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
+                                            </a>
+                                            <a href="">
+                                                <x-icon-store icon="send"
+                                                    class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
+                                            </a>
+                                        </div>
+                                        <button>
+                                            <x-icon-store icon="cart" class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
+                                        </button>
+                                    </div>
+                                    <div class="pb-6">
+                                        <small class="mt-2 block text-start">
+                                            <p class="pluto-m text-xs text-gray-store sm:text-sm">13,355 view</p>
+                                        </small>
+                                        <h2
+                                            class="pluto-r text-start text-sm font-semibold text-blue-store sm:text-base md:text-lg">
+                                            #Cake Corazón FurryLove
+                                        </h2>
+                                        <p class="text-start">
+                                            <span class="dine-r text-lg text-gray-store">$</span>
+                                            <span class="dine-r text-lg text-gray-store">25.00</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <a href=""
+                                    class="absolute bottom-0 right-0 m-2 rounded-full border-2 border-blue-store bg-pink-store p-2 sm:m-4">
+                                    <x-icon-store icon="arrow-right" class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
+                                </a>
                             </div>
-
-                            <div class="social-interaction">
-                                <svg width="37" height="34" viewBox="0 0 39 36" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path class="svg-header-fixer"
-                                        d="M28.8382 1C22.5832 1 19.5 7.18178 19.5 7.18178C19.5 7.18178 16.4168 1 10.1618 1C5.07848 1 1.05301 5.26351 1.00098 10.351C0.895006 20.9112 9.35734 28.4211 18.6329 34.7323C18.8886 34.9067 19.1907 35 19.5 35C19.8093 35 20.1115 34.9067 20.3671 34.7323C29.6417 28.4211 38.104 20.9112 37.999 10.351C37.947 5.26351 33.9215 1 28.8382 1Z"
-                                        stroke="#254183" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-                            </div>
-                        </div>
+                        @endfor
                     </div>
-
-                    <!-- Contenedor de la card -->
-                    <div class="suggested-card-container">
-                        <!-- Imágen de la card -->
-                        <div class="suggested-card-img">
-                            <img src="" alt="">
-                        </div>
-                        <!-- Información del producto -->
-                        <div class="suggested-card-info">
-
-                            <div class="product">
-                                <!-- Nombre del producto -->
-                                <h2 class="product-name">Lorem ipsum dolor sit</h2>
-                                <!-- Precio del producto -->
-                                <h2 class="product-price">$4.50</h2>
-                            </div>
-
-                            <div class="social-interaction">
-                                <svg width="37" height="34" viewBox="0 0 39 36" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path class="svg-header-fixer"
-                                        d="M28.8382 1C22.5832 1 19.5 7.18178 19.5 7.18178C19.5 7.18178 16.4168 1 10.1618 1C5.07848 1 1.05301 5.26351 1.00098 10.351C0.895006 20.9112 9.35734 28.4211 18.6329 34.7323C18.8886 34.9067 19.1907 35 19.5 35C19.8093 35 20.1115 34.9067 20.3671 34.7323C29.6417 28.4211 38.104 20.9112 37.999 10.351C37.947 5.26351 33.9215 1 28.8382 1Z"
-                                        stroke="#254183" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Contenedor de la card -->
-                    <div class="suggested-card-container">
-                        <!-- Imágen de la card -->
-                        <div class="suggested-card-img">
-                            <img src="" alt="">
-                        </div>
-                        <!-- Información del producto -->
-                        <div class="suggested-card-info">
-
-                            <div class="product">
-                                <!-- Nombre del producto -->
-                                <h2 class="product-name">Lorem ipsum dolor sit</h2>
-                                <!-- Precio del producto -->
-                                <h2 class="product-price">$4.50</h2>
-                            </div>
-
-                            <div class="social-interaction">
-                                <svg width="37" height="34" viewBox="0 0 39 36" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path class="svg-header-fixer"
-                                        d="M28.8382 1C22.5832 1 19.5 7.18178 19.5 7.18178C19.5 7.18178 16.4168 1 10.1618 1C5.07848 1 1.05301 5.26351 1.00098 10.351C0.895006 20.9112 9.35734 28.4211 18.6329 34.7323C18.8886 34.9067 19.1907 35 19.5 35C19.8093 35 20.1115 34.9067 20.3671 34.7323C29.6417 28.4211 38.104 20.9112 37.999 10.351C37.947 5.26351 33.9215 1 28.8382 1Z"
-                                        stroke="#254183" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="next">
-                    <svg width="40" height="45" viewBox="0 0 192 336" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path d="M24 24L168 168L24 312" stroke="var(--dark-blue)" stroke-width="48"
-                            stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
+                    <div class="swiper-pagination"></div>
                 </div>
             </div>
         </div>

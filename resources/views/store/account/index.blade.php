@@ -7,9 +7,15 @@
         </div>
         <div class="mx-auto flex w-3/4 gap-8 py-10">
             <div>
-                <img src="{{ Storage::url($user->profile) }}"
-                    class="h-24 w-24 rounded-full object-cover sm:h-28 sm:w-28 md:h-48 md:w-48"
-                    alt="Imagen {{ $user->name }}">
+                @if ($user->google_id)
+                    <img src="{{ $user->google_profile }}"
+                        class="h-24 w-24 rounded-full object-cover sm:h-28 sm:w-28 md:h-48 md:w-48"
+                        alt="Imagen {{ $user->name }}">
+                @else
+                    <img src="{{ Storage::url($user->profile) }}"
+                        class="h-24 w-24 rounded-full object-cover sm:h-28 sm:w-28 md:h-48 md:w-48"
+                        alt="Imagen {{ $user->name }}">
+                @endif
             </div>
             <div>
                 <h2 class="text-2xl font-bold text-light-blue">{{ $user->full_name }}</h2>
