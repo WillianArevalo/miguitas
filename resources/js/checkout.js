@@ -1,16 +1,6 @@
 import { showToast } from "./toast";
 
 $(document).ready(function () {
-    $("#btn-edit-user-info").on("click", function () {
-        $("#user-info").hide();
-        $("#form-user-info").show();
-    });
-
-    $("#btn-cancel-user-info").on("click", function () {
-        $("#form-user-info").hide();
-        $("#user-info").show();
-    });
-
     const tabs = $(".tab-content");
     const step = $(".steps");
     const btnPrev = $("#prev-step");
@@ -58,6 +48,7 @@ $(document).ready(function () {
 
     showTab(currentTab);
 
+    // Formato de tarjeta de crédito
     $("#card_number").on("input", function () {
         let input = $(this).val().replace(/\D/g, "");
         let cardType = "";
@@ -67,7 +58,17 @@ $(document).ready(function () {
         $(this).val(cardType.trim());
     });
 
-    $("input[name='payment_method']").on("change", function () {
+    $(".shipping-method").on("click", function () {
+        $(".shipping-method").removeClass("shipping-method-selected");
+        $(this).addClass("shipping-method-selected");
+    });
+
+    $(".payment-method").on("click", function () {
+        $(".payment-method").removeClass("method-payment-selected");
+        $(this).addClass("method-payment-selected");
+    });
+
+    /*  $("input[name='payment_method']").on("change", function () {
         $(".payment-methods").removeClass("method-payment-selected");
 
         $(".payment-method").hide();
@@ -90,5 +91,5 @@ $(document).ready(function () {
                 }
             },
         });
-    });
+    }); */
 });
