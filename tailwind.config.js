@@ -42,6 +42,7 @@ export default {
                 },
                 "pink-store": "var(--pink)",
                 "blue-store": "var(--blue)",
+                "brown-store": "var(--brown)",
                 "green-store": "var(--green)",
                 "gray-store": "var(--gray)",
                 "peach-store": "var(--peach)",
@@ -63,5 +64,9 @@ export default {
             },
         },
     },
-    plugins: [require("flowbite/plugin"), require("tailwindcss-animated")],
+    plugins: [
+        require("flowbite/plugin"),
+        require("tailwindcss-animated"),
+        require("tailwindcss-textshadow"),
+    ],
 };
