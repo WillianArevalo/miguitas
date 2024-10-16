@@ -20,7 +20,7 @@ class CheckoutController extends Controller
 
     public function index()
     {
-        $cart = CartHelper::get();
+    /*     $cart = CartHelper::get();
         $products = Product::all();
         $user = auth()->user();
         $countries = $this->getAllCountries();
@@ -34,19 +34,9 @@ class CheckoutController extends Controller
         $customer = $user->customer;
         if ($customer) {
             $address = $customer->address()->where("type", "shipping_address")->first();
-        }
+        } */
 
-        return view("checkout.index", [
-            "products" => $products,
-            "user" => $user,
-            "cart" => $cart,
-            "customer" => $customer,
-            "address" => $address ?? null,
-            "countries" => $countries,
-            "payment_methods" => $payment_methods,
-            "payment" => $payment_method,
-            "carts_totals" => CartHelper::totals()
-        ]);
+        return view("store.checkout.index");
     }
 
     public function getAllCountries()
