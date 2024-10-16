@@ -20,4 +20,12 @@ $(document).ready(function () {
         const $next = $(this).next();
         $next.toggleClass("hidden");
     });
+
+    $(".accordion-header").click(function () {
+        const target = $(this).data("target");
+
+        $(this).find("svg").toggleClass("rotate-90");
+
+        $(target).toggleClass("hidden");
+    });
 });
