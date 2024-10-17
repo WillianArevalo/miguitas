@@ -1,7 +1,7 @@
 <footer class="w-full bg-light-blue">
     <div class="mx-auto w-full p-10 lg:w-4/5">
         <div class="flex flex-col gap-8 sm:flex-row">
-            <img src="{{ asset('img/logo.png') }}" alt="Logo Miguitas" class="h-44 w-44">
+            <img src="{{ asset('img/logo.png') }}" alt="Logo Miguitas" class="mx-auto h-44 w-44">
             <div class="flex flex-1 flex-col items-center justify-center gap-4">
                 <h2 class="text-2xl font-bold text-white md:text-3xl lg:text-4xl xl:text-5xl">
                     MIGUITAS PET TREATS
