@@ -1,27 +1,142 @@
 {
-  "public/fonts/MysticalWoodsRoughScript.woff": {
-    "file": "assets/MysticalWoodsRoughScript-CGvg9NjA.woff",
-    "src": "public/fonts/MysticalWoodsRoughScript.woff"
-  },
-  "public/fonts/Poppins-Black.ttf": {
-    "file": "assets/Poppins-Black-yHqY0KRU.ttf",
-    "src": "public/fonts/Poppins-Black.ttf"
-  },
-  "public/fonts/Poppins-Regular.ttf": {
-    "file": "assets/Poppins-Regular-CTKNfV9P.ttf",
-    "src": "public/fonts/Poppins-Regular.ttf"
-  },
-  "public/images/fondo4.jpg": {
-    "file": "assets/fondo4-DUQIuQYn.jpg",
-    "src": "public/images/fondo4.jpg"
-  },
   "resources/css/app.css": {
-    "file": "assets/app-D5GL_L95.css",
+    "file": "assets/app-CjWPBiqf.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
+  "resources/css/store.css": {
+    "file": "assets/store-BSYCMy3G.css",
+    "src": "resources/css/store.css",
+    "isEntry": true
+  },
+  "resources/css/store/404.css": {
+    "file": "assets/404-B1eabPY7.css",
+    "src": "resources/css/store/404.css",
+    "isEntry": true
+  },
+  "resources/css/store/blog.css": {
+    "file": "assets/blog-BT40snXu.css",
+    "src": "resources/css/store/blog.css",
+    "isEntry": true
+  },
+  "resources/css/store/carrito.css": {
+    "file": "assets/carrito-CSr-wMd5.css",
+    "src": "resources/css/store/carrito.css",
+    "isEntry": true
+  },
+  "resources/css/store/category.css": {
+    "file": "assets/category-BELPpf5a.css",
+    "src": "resources/css/store/category.css",
+    "isEntry": true
+  },
+  "resources/css/store/conocenos.css": {
+    "file": "assets/conocenos--l3y1Q_X.css",
+    "src": "resources/css/store/conocenos.css",
+    "isEntry": true
+  },
+  "resources/css/store/contactanos.css": {
+    "file": "assets/contactanos-Cs-fvbJc.css",
+    "src": "resources/css/store/contactanos.css",
+    "isEntry": true
+  },
+  "resources/css/store/facturacion.css": {
+    "file": "assets/facturacion-l0sNRNKZ.js",
+    "name": "facturacion",
+    "src": "resources/css/store/facturacion.css",
+    "isEntry": true
+  },
+  "resources/css/store/faq.css": {
+    "file": "assets/faq-DzhPJCqD.css",
+    "src": "resources/css/store/faq.css",
+    "isEntry": true
+  },
+  "resources/css/store/favorite.css": {
+    "file": "assets/favorite-KjPAtz7Y.css",
+    "src": "resources/css/store/favorite.css",
+    "isEntry": true
+  },
+  "resources/css/store/galeria.css": {
+    "file": "assets/galeria-C-P4RJgq.css",
+    "src": "resources/css/store/galeria.css",
+    "isEntry": true
+  },
+  "resources/css/store/index.css": {
+    "file": "assets/index-Ba4NXxur.css",
+    "src": "resources/css/store/index.css",
+    "isEntry": true
+  },
+  "resources/css/store/info-productos.css": {
+    "file": "assets/info-productos-DhlqK0cV.css",
+    "src": "resources/css/store/info-productos.css",
+    "isEntry": true
+  },
+  "resources/css/store/login-signup.css": {
+    "file": "assets/login-signup-B5QMVLcd.css",
+    "src": "resources/css/store/login-signup.css",
+    "isEntry": true
+  },
+  "resources/css/store/product-info.css": {
+    "file": "assets/product-info-0e35oot_.css",
+    "src": "resources/css/store/product-info.css",
+    "isEntry": true
+  },
+  "resources/css/store/profile.css": {
+    "file": "assets/profile-DunK5gu-.css",
+    "src": "resources/css/store/profile.css",
+    "isEntry": true
+  },
+  "resources/css/store/shop.css": {
+    "file": "assets/shop-jphEubHr.css",
+    "src": "resources/css/store/shop.css",
+    "isEntry": true
+  },
+  "resources/css/store/terms-conditions.css": {
+    "file": "assets/terms-conditions-BZrAH7yd.css",
+    "src": "resources/css/store/terms-conditions.css",
+    "isEntry": true
+  },
+  "resources/fonts/din-b.otf": {
+    "file": "assets/din-b-Bzmc2g8M.otf",
+    "src": "resources/fonts/din-b.otf"
+  },
+  "resources/fonts/din-i.otf": {
+    "file": "assets/din-i-BK5IkEPo.otf",
+    "src": "resources/fonts/din-i.otf"
+  },
+  "resources/fonts/din-r.otf": {
+    "file": "assets/din-r-DHIKp7DE.otf",
+    "src": "resources/fonts/din-r.otf"
+  },
+  "resources/fonts/dinc-b.otf": {
+    "file": "assets/dinc-b-BJfKghvt.otf",
+    "src": "resources/fonts/dinc-b.otf"
+  },
+  "resources/fonts/dinc-r.otf": {
+    "file": "assets/dinc-r-Cc9eD15Q.otf",
+    "src": "resources/fonts/dinc-r.otf"
+  },
+  "resources/fonts/dine-b.otf": {
+    "file": "assets/dine-b-DuSuJIpJ.otf",
+    "src": "resources/fonts/dine-b.otf"
+  },
+  "resources/fonts/dine-i.otf": {
+    "file": "assets/dine-i-DRDHjHW6.otf",
+    "src": "resources/fonts/dine-i.otf"
+  },
+  "resources/fonts/dine-r.otf": {
+    "file": "assets/dine-r-CO0kwd1S.otf",
+    "src": "resources/fonts/dine-r.otf"
+  },
+  "resources/fonts/pluto-m.otf": {
+    "file": "assets/pluto-m-C-F2TnQ_.otf",
+    "src": "resources/fonts/pluto-m.otf"
+  },
+  "resources/fonts/pluto-r.otf": {
+    "file": "assets/pluto-r-CrmnJJ8-.otf",
+    "src": "resources/fonts/pluto-r.otf"
+  },
   "resources/js/app.js": {
-    "file": "assets/app-Ns7TbP8x.js",
+    "file": "assets/app-CilfwW2t.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true
