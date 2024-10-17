@@ -1,57 +1,57 @@
 @font-face {
     font-family: "pluto-m";
-    src: url("../fonts/pluto-m.otf");
+    src: url("../../fonts/pluto-m.otf") format("opentype");
 }
 
 @font-face {
     font-family: "pluto-r";
-    src: url("../fonts/pluto-r.otf");
+    src: url("../../fonts/pluto-r.otf") format("opentype");
 }
 
 /* DIN */
 
 @font-face {
     font-family: "din-b";
-    src: url("../fonts/din-b.otf");
+    src: url("../../fonts/din-b.otf");
 }
 
 @font-face {
     font-family: "din-i";
-    src: url("../fonts/din-i.otf");
+    src: url("../../fonts/din-i.otf");
 }
 
 @font-face {
     font-family: "din-r";
-    src: url("../fonts/din-r.otf");
+    src: url("../../fonts/din-r.otf");
 }
 
 /* DIN Exp */
 
 @font-face {
     font-family: "dine-b";
-    src: url("../fonts/dine-b.otf");
+    src: url("../../fonts/dine-b.otf");
 }
 
 @font-face {
     font-family: "dine-i";
-    src: url("../fonts/dine-i.otf");
+    src: url("../../fonts/dine-i.otf");
 }
 
 @font-face {
     font-family: "dine-r";
-    src: url("../fonts/dine-r.otf");
+    src: url("../../fonts/dine-r.otf");
 }
 
 /* DIN Condensed */
 
 @font-face {
     font-family: "dinc-r";
-    src: url("../fonts/dinc-r.otf");
+    src: url("../../fonts/dinc-r.otf");
 }
 
 @font-face {
     font-family: "dinc-b";
-    src: url("../fonts/dinc-b.otf");
+    src: url("../../fonts/dinc-b.otf");
 }
 
 * {
