@@ -58,8 +58,7 @@
                             <h3 class="dine-r text-xl font-bold text-blue-store">$ 100.00</h3>
                         </div>
                         <div class="flex flex-1 items-center justify-center">
-                            <x-button-store type="button" icon="trash" onlyIcon="true" typeButton="secondary"
-                                size="small" />
+                            <x-button-store type="button" icon="trash" onlyIcon="true" typeButton="secondary" />
                         </div>
                     </div>
                 @endfor
@@ -116,54 +115,11 @@
                 class="my-4 border-b-4 border-blue-store text-center text-xl text-blue-store sm:text-2xl md:text-4xl lg:text-left">
                 ¡Tu peludo tiene que probarlos!
             </h2>
-            <div class="">
+            <div>
                 <div class="swiper mySwiper w-100 h-full px-4">
                     <div class="swiper-wrapper pb-10">
                         @for ($i = 0; $i < 8; $i++)
-                            <div class="swiper-slide relative rounded-3xl border border-zinc-200 p-2 shadow-xl sm:p-6">
-                                <div class="card-image">
-                                    <img src="{{ asset('img/image.jpg') }}" alt="Featured2 image"
-                                        class="h-48 w-full rounded-xl object-cover md:h-60">
-                                </div>
-                                <div class="card-body mt-4">
-                                    <div class="flex items-center justify-between">
-                                        <div class="flex items-center gap-3">
-                                            <a href="">
-                                                <x-icon-store icon="heart"
-                                                    class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
-                                            </a>
-                                            <a href="">
-                                                <x-icon-store icon="comment"
-                                                    class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
-                                            </a>
-                                            <a href="">
-                                                <x-icon-store icon="send"
-                                                    class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
-                                            </a>
-                                        </div>
-                                        <button>
-                                            <x-icon-store icon="cart" class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
-                                        </button>
-                                    </div>
-                                    <div class="pb-6">
-                                        <small class="mt-2 block text-start">
-                                            <p class="pluto-m text-xs text-gray-store sm:text-sm">13,355 view</p>
-                                        </small>
-                                        <h2
-                                            class="pluto-r text-start text-sm font-semibold text-blue-store sm:text-base md:text-lg">
-                                            #Cake Corazón FurryLove
-                                        </h2>
-                                        <p class="text-start">
-                                            <span class="dine-r text-lg text-gray-store">$</span>
-                                            <span class="dine-r text-lg text-gray-store">25.00</span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <a href=""
-                                    class="absolute bottom-0 right-0 m-2 rounded-full border-2 border-blue-store bg-pink-store p-2 sm:m-4">
-                                    <x-icon-store icon="arrow-right" class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
-                                </a>
-                            </div>
+                            <x-card-product2 />
                         @endfor
                     </div>
                     <div class="swiper-pagination"></div>
