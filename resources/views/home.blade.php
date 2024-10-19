@@ -18,7 +18,7 @@
                     <p class="text-lg text-zinc-800 sm:text-xl md:text-2xl">Excelente</p>
                     <div class="flex items-center gap-2">
                         @for ($i = 0; $i < 5; $i++)
-                            <x-icon-store icon="star" class="h-5 w-5 fill-zinc-800" />
+                            <x-icon-store icon="star" class="h-5 w-5 text-zinc-800" />
                         @endfor
                     </div>
                     <p class="text-base text-zinc-800 sm:text-lg md:text-xl">3,250 review</p>
@@ -33,50 +33,7 @@
                 <div class="swiper mySwiper w-100 h-full px-4">
                     <div class="swiper-wrapper pb-10">
                         @for ($i = 0; $i < 8; $i++)
-                            <div class="swiper-slide relative rounded-3xl border border-zinc-200 p-2 shadow-xl sm:p-6">
-                                <div class="card-image">
-                                    <img src="{{ asset('img/image.jpg') }}" alt="Featured2 image"
-                                        class="h-48 w-full rounded-xl object-cover md:h-60">
-                                </div>
-                                <div class="card-body mt-4">
-                                    <div class="flex items-center justify-between">
-                                        <div class="flex items-center gap-3">
-                                            <a href="">
-                                                <x-icon-store icon="heart"
-                                                    class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
-                                            </a>
-                                            <a href="">
-                                                <x-icon-store icon="comment"
-                                                    class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
-                                            </a>
-                                            <a href="">
-                                                <x-icon-store icon="send"
-                                                    class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
-                                            </a>
-                                        </div>
-                                        <button>
-                                            <x-icon-store icon="cart" class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
-                                        </button>
-                                    </div>
-                                    <div class="pb-6">
-                                        <small class="mt-2 block text-start">
-                                            <p class="pluto-m text-xs text-gray-store sm:text-sm">13,355 view</p>
-                                        </small>
-                                        <h2
-                                            class="pluto-r text-start text-sm font-semibold text-blue-store sm:text-base md:text-lg">
-                                            #Cake Corazón FurryLove
-                                        </h2>
-                                        <p class="text-start">
-                                            <span class="dine-r text-lg text-gray-store">$</span>
-                                            <span class="dine-r text-lg text-gray-store">25.00</span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <a href="{{ Route('products.details', 'name-product') }}"
-                                    class="absolute bottom-0 right-0 m-2 rounded-full border-2 border-blue-store bg-pink-store p-2 sm:m-4">
-                                    <x-icon-store icon="arrow-right" class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
-                                </a>
-                            </div>
+                            <x-card-product2 />
                         @endfor
                     </div>
                     <div class="swiper-pagination"></div>
@@ -96,7 +53,7 @@
                         @for ($i = 0; $i < 3; $i++)
                             <div class="flex items-start justify-center gap-4">
                                 <span class="mt-1 flex items-center justify-center">
-                                    <x-icon-store icon="circle-check" class="h-5 w-5 fill-blue-store" />
+                                    <x-icon-store icon="circle-check" class="h-8 w-8 text-blue-store" />
                                 </span>
                                 <div class="flex w-1/2 flex-col gap-2 text-left">
                                     <p class="text-lg text-blue-store sm:text-xl md:text-2xl">
@@ -146,13 +103,13 @@
                         <div class="flex items-center justify-start">
                             <div class="flex items-center gap-3">
                                 <a href="">
-                                    <x-icon-store icon="heart" class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
+                                    <x-icon-store icon="heart" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
                                 </a>
                                 <a href="">
-                                    <x-icon-store icon="comment" class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
+                                    <x-icon-store icon="comment" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
                                 </a>
                                 <a href="">
-                                    <x-icon-store icon="send" class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
+                                    <x-icon-store icon="send" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
                                 </a>
                             </div>
                         </div>
@@ -183,13 +140,13 @@
                         <div class="flex items-center justify-start">
                             <div class="flex items-center gap-3">
                                 <a href="">
-                                    <x-icon-store icon="heart" class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
+                                    <x-icon-store icon="heart" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
                                 </a>
                                 <a href="">
-                                    <x-icon-store icon="comment" class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
+                                    <x-icon-store icon="comment" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
                                 </a>
                                 <a href="">
-                                    <x-icon-store icon="send" class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
+                                    <x-icon-store icon="send" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
                                 </a>
                             </div>
                         </div>
@@ -220,13 +177,13 @@
                         <div class="flex items-center justify-start">
                             <div class="flex items-center gap-3">
                                 <a href="">
-                                    <x-icon-store icon="heart" class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
+                                    <x-icon-store icon="heart" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
                                 </a>
                                 <a href="">
-                                    <x-icon-store icon="comment" class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
+                                    <x-icon-store icon="comment" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
                                 </a>
                                 <a href="">
-                                    <x-icon-store icon="send" class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
+                                    <x-icon-store icon="send" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
                                 </a>
                             </div>
                         </div>
@@ -257,7 +214,7 @@
                         <div class="flex items-center justify-start">
                             <div class="flex items-center gap-3">
                                 <a href="">
-                                    <x-icon-store icon="heart" class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
+                                    <x-icon-store icon="heart" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
                                 </a>
                                 <a href="">
                                     <x-icon-store icon="comment" class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
@@ -366,52 +323,7 @@
                     <div class="swiper mySwiper w-100 h-full px-4">
                         <div class="swiper-wrapper pb-10">
                             @for ($i = 0; $i < 8; $i++)
-                                <div class="swiper-slide relative rounded-3xl border border-zinc-200 p-2 shadow-xl sm:p-6">
-                                    <div class="ribbon"><span>10%</span></div>
-                                    <div class="card-image">
-                                        <img src="{{ asset('img/image.jpg') }}" alt="Featured2 image"
-                                            class="h-48 w-full rounded-xl object-cover md:h-60">
-                                    </div>
-                                    <div class="card-body mt-4">
-                                        <div class="flex items-center justify-between">
-                                            <div class="flex items-center gap-3">
-                                                <a href="">
-                                                    <x-icon-store icon="heart"
-                                                        class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
-                                                </a>
-                                                <a href="">
-                                                    <x-icon-store icon="comment"
-                                                        class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
-                                                </a>
-                                                <a href="">
-                                                    <x-icon-store icon="send"
-                                                        class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
-                                                </a>
-                                            </div>
-                                            <button>
-                                                <x-icon-store icon="cart"
-                                                    class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
-                                            </button>
-                                        </div>
-                                        <div class="pb-6">
-                                            <small class="mt-2 block text-start">
-                                                <p class="pluto-m text-xs text-gray-store sm:text-sm">13,355 view</p>
-                                            </small>
-                                            <h2
-                                                class="pluto-r text-start text-sm font-semibold text-blue-store sm:text-base md:text-lg">
-                                                #Cake Corazón FurryLove
-                                            </h2>
-                                            <p class="text-start">
-                                                <span class="dine-r text-lg text-gray-store">$</span>
-                                                <span class="dine-r text-lg text-gray-store">25.00</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <a href=""
-                                        class="absolute bottom-0 right-0 m-2 rounded-full border-2 border-blue-store bg-pink-store p-2 sm:m-4">
-                                        <x-icon-store icon="arrow-right" class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
-                                    </a>
-                                </div>
+                                <x-card-product2 />
                             @endfor
                         </div>
                         <div class="swiper-pagination"></div>
@@ -451,7 +363,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="relative mx-auto mt-56 flex w-full px-4 sm:mt-20 xl:w-1/2">
                 <div
                     class="absolute -bottom-36 left-0 z-10 flex-1 rotate-6 transform shadow-2xl sm:relative sm:-top-5 sm:left-2">
@@ -487,15 +398,15 @@
                     MiguiNews
                 </h2>
                 <p class="dine-r text-sm font-medium text-dark-pink sm:text-base md:text-lg">
-                    Conoce mas sobre nosotros y lo que estamos haciendo en nuestro blog.
+                    Conoce mas sobre nosotros y lo que estamos haciendo en nuestro
+                    <a href="{{ Route('blog') }}" class="text-blue-store underline">blog</a>
                 </p>
             </div>
             <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
                 <div
-                    class="card relative h-max w-80 overflow-hidden rounded-[50px] border border-zinc-200 shadow-xl md:h-[540px]">
+                    class="card relative h-[450px] w-80 overflow-hidden rounded-[50px] border border-zinc-200 shadow-xl md:h-[540px]">
                     <div class="card-img">
-                        <img src="{{ asset('img/perro con lentes.jpg') }}" alt="Blog 1"
-                            class="h-56 w-full object-cover">
+                        <img src="{{ asset('img/blog-img-2.jpg') }}" alt="Blog 1" class="h-56 w-full object-cover">
                     </div>
                     <div class="relative -top-10 flex flex-col gap-4 p-6">
                         <h5 class="text-sm text-blue-store sm:text-base md:text-lg">
@@ -509,13 +420,13 @@
                         <div class="flex justify-between">
                             <div class="flex items-center gap-2">
                                 <span class="rounded-full bg-rose-100 p-2">
-                                    <x-icon-store icon="user" class="h-3 w-3 fill-dark-pink" />
+                                    <x-icon-store icon="user" class="h-3 w-3 text-dark-pink" />
                                 </span>
                                 <span class="dine-r text-xs text-gray-store sm:text-sm">Autor</span>
                             </div>
                             <div class="flex items-center gap-2">
                                 <span class="rounded-full bg-rose-100 p-2">
-                                    <x-icon-store icon="clock" class="h-3 w-3 fill-dark-pink" />
+                                    <x-icon-store icon="clock" class="h-3 w-3 text-dark-pink" />
                                 </span>
                                 <span class="dine-r text-xs text-gray-store sm:text-sm">
                                     hace 2 horas
@@ -543,13 +454,13 @@
 
                             <div class="flex items-center gap-2">
                                 <span class="rounded-full bg-rose-100 p-2">
-                                    <x-icon-store icon="user" class="h-3 w-3 fill-dark-pink" />
+                                    <x-icon-store icon="user" class="h-3 w-3 text-dark-pink" />
                                 </span>
                                 <span class="dine-r text-xs text-gray-store sm:text-sm">Autor</span>
                             </div>
                             <div class="flex items-center gap-2">
                                 <span class="rounded-full bg-rose-100 p-2">
-                                    <x-icon-store icon="clock" class="h-3 w-3 fill-dark-pink" />
+                                    <x-icon-store icon="clock" class="h-3 w-3 text-dark-pink" />
                                 </span>
                                 <span class="dine-r text-xs text-gray-store sm:text-sm">
                                     hace 2 horas
@@ -578,13 +489,13 @@
                         <div class="flex justify-between">
                             <div class="flex items-center gap-2">
                                 <span class="rounded-full bg-rose-100 p-2">
-                                    <x-icon-store icon="user" class="h-3 w-3 fill-dark-pink" />
+                                    <x-icon-store icon="user" class="h-3 w-3 text-dark-pink" />
                                 </span>
                                 <span class="dine-r text-xs text-gray-store sm:text-sm">Autor</span>
                             </div>
                             <div class="flex items-center gap-2">
                                 <span class="rounded-full bg-rose-100 p-2">
-                                    <x-icon-store icon="clock" class="h-3 w-3 fill-dark-pink" />
+                                    <x-icon-store icon="clock" class="h-3 w-3 text-dark-pink" />
                                 </span>
                                 <span class="dine-r text-xs text-gray-store sm:text-sm">
                                     hace 2 horas
@@ -611,13 +522,13 @@
                         <div class="flex justify-between">
                             <div class="flex items-center gap-2">
                                 <span class="rounded-full bg-rose-100 p-2">
-                                    <x-icon-store icon="user" class="h-3 w-3 fill-dark-pink" />
+                                    <x-icon-store icon="user" class="h-3 w-3 text-dark-pink" />
                                 </span>
                                 <span class="dine-r text-xs text-gray-store sm:text-sm">Autor</span>
                             </div>
                             <div class="flex items-center gap-2">
                                 <span class="rounded-full bg-rose-100 p-2">
-                                    <x-icon-store icon="clock" class="h-3 w-3 fill-dark-pink" />
+                                    <x-icon-store icon="clock" class="h-3 w-3 text-dark-pink" />
                                 </span>
                                 <span class="dine-r text-xs text-gray-store sm:text-sm">
                                     hace 2 horas
