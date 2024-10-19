@@ -28,7 +28,7 @@
 @if ($icon)
     <div class="relative w-full">
         <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
-            <x-icon-store icon="{{ $icon }}" class="h-4 w-4 fill-blue-store sm:h-5 sm:w-5" />
+            <x-icon-store icon="{{ $icon }}" class="h-4 w-4 text-blue-store sm:h-5 sm:w-5" />
         </div>
         <input type="{{ $type }}" name="{{ $name }}" id="{{ $id }}"
             placeholder="{{ $placeholder }}" value="{{ $value }}" class="{{ $classes }} w-full pl-12"

@@ -11,4 +11,9 @@ class BlogController extends Controller
     {
         return view("store.blog.index");
     }
+
+    public function show(string $slug)
+    {
+        return view("store.blog.show", compact("slug"));
+    }
 }

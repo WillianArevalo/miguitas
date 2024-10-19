@@ -4,197 +4,50 @@
     @vite('resources/css/store/blog.css')
 @endpush
 @section('content')
-    <div class="main-container">
-        <div class="header-container" style="background-image: url({{ asset('img/bg-image.png') }});">
-            <div class="icon">
-                <a href="{{ Route('home') }}">
-                    <svg width="45" height="45" viewBox="0 0 226 380" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M46 46L172.322 172.322C182.085 182.085 182.085 197.915 172.322 207.678L46 334"
-                            stroke="#8fadff" stroke-width="91" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </a>
-            </div>
-            <h1>BLOG</h1>
+    <div>
+        <div class="py-20 text-center" style="background-image: url({{ asset('img/bg-image.png') }});">
+            <h1 class="text-5xl font-bold text-white">
+                Blog
+            </h1>
         </div>
-
-        <!-- Caja dónde se mostrarán las cards de blog (blog-cards) -->
-        <div class="blog-card-container-box">
-            <!-- Contenedor de la card -->
-            <div class="blog-card-container">
-                <!-- Imágen de la card -->
-                <div class="blog-card-img">
-                    <img src="" alt="">
-                </div>
-                <!-- Información de la card -->
-                <div class="blog-card-info">
-                    <!-- Título de la card -->
-                    <h1 class="card-title">Lorem ipsum dolor
-                        sit amet</h1>
-                    <!-- Texto de la card -->
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetuer
-                        adipiscing elit, sed diam nonummy nibh euis-
-                        mod tincidunt ut laoreet dolore magna ali-
-                        quam erat volutpat.</p>
-                    <!-- Botón de la card -->
-                    <div class="card-button">
-                        <button class="card-info">VER MÁS</button>
+        <div class="my-8">
+            <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+                @for ($i = 0; $i < 5; $i++)
+                    <div
+                        class="card relative h-[450px] w-80 overflow-hidden rounded-[50px] border border-zinc-200 shadow-xl md:h-[540px]">
+                        <div class="card-img">
+                            <img src="{{ asset('img/blog-img-2.jpg') }}" alt="Blog 1" class="h-56 w-full object-cover">
+                        </div>
+                        <div class="relative -top-10 flex flex-col gap-4 p-6">
+                            <h5 class="text-sm text-blue-store sm:text-base md:text-lg">
+                                Título del blog
+                            </h5>
+                            <p class="dine-r text-xs text-gray-store sm:text-sm md:text-base">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere aut sapiente velit laborum,
+                                totam dicta, sint incidunt similique, obcaecati nemo architecto inventore ea quidem
+                                reprehenderit dignissimos eveniet atque quo
+                            </p>
+                            <div class="flex justify-between">
+                                <div class="flex items-center gap-2">
+                                    <span class="rounded-full bg-rose-100 p-2">
+                                        <x-icon-store icon="user" class="h-3 w-3 text-dark-pink" />
+                                    </span>
+                                    <span class="dine-r text-xs text-gray-store sm:text-sm">Autor</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="rounded-full bg-rose-100 p-2">
+                                        <x-icon-store icon="clock" class="h-3 w-3 text-dark-pink" />
+                                    </span>
+                                    <span class="dine-r text-xs text-gray-store sm:text-sm">
+                                        hace 2 horas
+                                    </span>
+                                </div>
+                            </div>
+                            <x-button-store type="a" href="{{ Route('blog.show', 'mi-blog') }}" typeButton="primary"
+                                text="Leer más" />
+                        </div>
                     </div>
-                </div>
-            </div>
-            <!-- Contenedor de la card -->
-            <div class="blog-card-container">
-                <!-- Imágen de la card -->
-                <div class="blog-card-img">
-                    <img src="" alt="">
-                </div>
-                <!-- Información de la card -->
-                <div class="blog-card-info">
-                    <!-- Título de la card -->
-                    <h1 class="card-title">Lorem ipsum dolor
-                        sit amet</h1>
-                    <!-- Texto de la card -->
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetuer
-                        adipiscing elit, sed diam nonummy nibh euis-
-                        mod tincidunt ut laoreet dolore magna ali-
-                        quam erat volutpat.</p>
-                    <!-- Botón de la card -->
-                    <div class="card-button">
-                        <a href="blog-info.html"> <button class="card-info">VER MÁS</button></a>
-
-                    </div>
-                </div>
-            </div>
-            <!-- Contenedor de la card -->
-            <div class="blog-card-container">
-                <!-- Imágen de la card -->
-                <div class="blog-card-img">
-                    <img src="" alt="">
-                </div>
-                <!-- Información de la card -->
-                <div class="blog-card-info">
-                    <!-- Título de la card -->
-                    <h1 class="card-title">Lorem ipsum dolor
-                        sit amet</h1>
-                    <!-- Texto de la card -->
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetuer
-                        adipiscing elit, sed diam nonummy nibh euis-
-                        mod tincidunt ut laoreet dolore magna ali-
-                        quam erat volutpat.</p>
-                    <!-- Botón de la card -->
-                    <div class="card-button">
-                        <button class="card-info">VER MÁS</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Contenedor de la card -->
-            <div class="blog-card-container">
-                <!-- Imágen de la card -->
-                <div class="blog-card-img">
-                    <img src="" alt="">
-                </div>
-                <!-- Información de la card -->
-                <div class="blog-card-info">
-                    <!-- Título de la card -->
-                    <h1 class="card-title">Lorem ipsum dolor
-                        sit amet</h1>
-                    <!-- Texto de la card -->
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetuer
-                        adipiscing elit, sed diam nonummy nibh euis-
-                        mod tincidunt ut laoreet dolore magna ali-
-                        quam erat volutpat.</p>
-                    <!-- Botón de la card -->
-                    <div class="card-button">
-                        <button class="card-info">VER MÁS</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Contenedor de la card -->
-            <div class="blog-card-container">
-                <!-- Imágen de la card -->
-                <div class="blog-card-img">
-                    <img src="" alt="">
-                </div>
-                <!-- Información de la card -->
-                <div class="blog-card-info">
-                    <!-- Título de la card -->
-                    <h1 class="card-title">Lorem ipsum dolor
-                        sit amet</h1>
-                    <!-- Texto de la card -->
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetuer
-                        adipiscing elit, sed diam nonummy nibh euis-
-                        mod tincidunt ut laoreet dolore magna ali-
-                        quam erat volutpat.</p>
-                    <!-- Botón de la card -->
-                    <div class="card-button">
-                        <button class="card-info">VER MÁS</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Contenedor de la card -->
-            <div class="blog-card-container">
-                <!-- Imágen de la card -->
-                <div class="blog-card-img">
-                    <img src="" alt="">
-                </div>
-                <!-- Información de la card -->
-                <div class="blog-card-info">
-                    <!-- Título de la card -->
-                    <h1 class="card-title">Lorem ipsum dolor
-                        sit amet</h1>
-                    <!-- Texto de la card -->
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetuer
-                        adipiscing elit, sed diam nonummy nibh euis-
-                        mod tincidunt ut laoreet dolore magna ali-
-                        quam erat volutpat.</p>
-                    <!-- Botón de la card -->
-                    <div class="card-button">
-                        <button class="card-info">VER MÁS</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Contenedor de la card -->
-            <div class="blog-card-container">
-                <!-- Imágen de la card -->
-                <div class="blog-card-img">
-                    <img src="" alt="">
-                </div>
-                <!-- Información de la card -->
-                <div class="blog-card-info">
-                    <!-- Título de la card -->
-                    <h1 class="card-title">Lorem ipsum dolor
-                        sit amet</h1>
-                    <!-- Texto de la card -->
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetuer
-                        adipiscing elit, sed diam nonummy nibh euis-
-                        mod tincidunt ut laoreet dolore magna ali-
-                        quam erat volutpat.</p>
-                    <!-- Botón de la card -->
-                    <div class="card-button">
-                        <button class="card-info">VER MÁS</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Contenedor de la card -->
-            <div class="blog-card-container">
-                <!-- Imágen de la card -->
-                <div class="blog-card-img">
-                    <img src="" alt="">
-                </div>
-                <!-- Información de la card -->
-                <div class="blog-card-info">
-                    <!-- Título de la card -->
-                    <h1 class="card-title">Lorem ipsum dolor
-                        sit amet</h1>
-                    <!-- Texto de la card -->
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetuer
-                        adipiscing elit, sed diam nonummy nibh euis-
-                        mod tincidunt ut laoreet dolore magna ali-
-                        quam erat volutpat.</p>
-                    <!-- Botón de la card -->
-                    <div class="card-button">
-                        <button class="card-info">VER MÁS</button>
-                    </div>
-                </div>
+                @endfor
             </div>
         </div>
     </div>

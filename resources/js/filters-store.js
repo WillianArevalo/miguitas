@@ -33,7 +33,7 @@ $(document).ready(function () {
         $form.append(
             '<input type="hidden" name="filters" value=\'' +
                 filtersString +
-                "' >",
+                "' >"
         );
         sendFilters();
     }
@@ -53,7 +53,7 @@ $(document).ready(function () {
             error: function (xhr, status, error) {
                 console.error(
                     "Error al obtener los productos filtrados:",
-                    error,
+                    error
                 );
                 $("#loader").addClass("hidden");
             },
@@ -82,6 +82,7 @@ $(document).ready(function () {
 
     $(".accordion-header-filter").click(function () {
         const target = $(this).data("target");
+        $(this).find("svg:last").toggleClass("rotate-180");
         if ($(target).hasClass("open")) {
             $(target).removeClass("open").css("max-height", "0px");
         } else {

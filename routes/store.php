@@ -34,6 +34,7 @@ Route::get("/conócenos", [AboutController::class, "index"])->name("about");
 Route::get("/preguntas-frecuentes", [FAQController::class, "index"])->name("faq");
 Route::get("/contactanos", [ContactController::class, "index"])->name("contact");
 Route::get("/blog", [BlogController::class, "index"])->name("blog");
+Route::get("/blog/{slug}", [BlogController::class, "show"])->name("blog.show");
 Route::get("/galería", [GaleryController::class, "index"])->name("galery");
 
 // Products

@@ -39,6 +39,16 @@
                             </a>
                         </li>
                         <li class="text-sm text-white md:text-base">
+                            <a class="link dine-r" href="{{ route('about') }}">
+                                Conocenos
+                            </a>
+                        </li>
+                        <li class="text-sm text-white md:text-base">
+                            <a class="link dine-r" href="{{ route('blog') }}">
+                                Blog
+                            </a>
+                        </li>
+                        <li class="text-sm text-white md:text-base">
                             <a class="link dine-r" href="{{ route('contact') }}">
                                 Contáctanos
                             </a>
@@ -51,25 +61,25 @@
                     </h3>
                     <div class="mt-4 flex flex-col gap-2">
                         <div class="flex items-center justify-center gap-2 md:justify-start">
-                            <x-icon-store class="h-5 w-5 fill-white" icon="location-arrow" />
+                            <x-icon-store class="h-5 w-5 text-white" icon="location-arrow" />
                             <p class="dine-r text-sm text-white md:text-base">
                                 Antiguo Cuscatlán, La Libertad, El Salvador
                             </p>
                         </div>
                         <div class="flex items-center justify-center gap-2 md:justify-start">
-                            <x-icon-store class="h-5 w-5 fill-white" icon="phone" />
+                            <x-icon-store class="h-5 w-5 text-white" icon="phone" />
                             <p class="dine-r text-sm text-white md:text-base">
                                 (+503) 2243-4190
                             </p>
                         </div>
                         <div class="flex items-center justify-center gap-2 md:justify-start">
-                            <x-icon-store class="h-5 w-5 fill-white" icon="whatsapp" />
+                            <x-icon-store class="h-5 w-5 text-white" icon="whatsapp" />
                             <p class="dine-r text-sm text-white md:text-base">
                                 (503) 7910-1241
                             </p>
                         </div>
                         <div class="flex items-center justify-center gap-2 md:justify-start">
-                            <x-icon-store class="h-5 w-5 fill-white" icon="email" />
+                            <x-icon-store class="h-5 w-5 text-white" icon="email" />
                             <p class="dine-r text-sm text-white md:text-base">
                                 administracion@miguitassv.com
                             </p>
@@ -110,18 +120,17 @@
                     <div class="mt-4 flex items-center justify-center gap-4 md:justify-start">
                         <a href="https://www.facebook.com/miguitaselsalvador" target="_blank" rel="noopener noreferrer"
                             class="transform hover:scale-105">
-                            <x-icon-store class="h-8 w-8 fill-white" icon="facebook" />
+                            <x-icon-store class="h-8 w-8 text-white" icon="facebook" />
                         </a>
                         <a href="https://www.instagram.com/miguitaselsalvador/" target="_blank"
                             rel="noopener noreferrer" class="transform hover:scale-105">
-                            <x-icon-store class="h-8 w-8 fill-white" icon="instagram" />
+                            <x-icon-store class="h-8 w-8 text-white" icon="instagram" />
                         </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="w-full bg-light-pink p-10">
         <div class="mx-auto flex w-full flex-col justify-between sm:flex-row lg:w-4/5">
             <div class="flex flex-col gap-4">
@@ -139,5 +148,4 @@
             </div>
         </div>
     </div>
-
 </footer>

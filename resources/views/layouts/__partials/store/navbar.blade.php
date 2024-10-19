@@ -4,7 +4,7 @@
         <div class="flex items-center justify-center lg:hidden">
             <button data-drawer-target="nav-mobile" data-drawer-show="nav-mobile" aria-controls="nav-mobile"
                 class="flex h-12 w-12 items-center justify-center text-light-blue hover:bg-white hover:text-blue-store">
-                <x-icon-store icon="bars" class="h-6 w-6 fill-current"></x-icon-store>
+                <x-icon-store icon="bars" class="h-8 w-8 fill-current"></x-icon-store>
             </button>
         </div>
         <!-- Logo -->
@@ -22,8 +22,8 @@
                     <input type="search" placeholder="Buscar..."
                         class="h-full w-full border-none px-6 py-2 outline-none">
                     <button
-                        class="group absolute right-0 top-0 flex h-full w-14 items-center justify-center bg-pink-store hover:bg-dark-pink sm:w-20">
-                        <x-icon-store icon="search" class="h-4 w-4 fill-light-blue sm:h-6 sm:w-6"></x-icon-store>
+                        class="group absolute right-0 top-0 flex h-full w-14 items-center justify-center bg-light-pink hover:bg-pink-store sm:w-20">
+                        <x-icon-store icon="search" class="h-4 w-4 text-light-blue sm:h-6 sm:w-6"></x-icon-store>
                     </button>
                 </div>
 
@@ -33,25 +33,25 @@
                         <li>
                             <a href="{{ Route('cart') }}" class="group">
                                 <x-icon-store icon="bag"
-                                    class="h-8 w-8 fill-light-blue transition-transform group-hover:scale-110"></x-icon-store>
+                                    class="h-8 w-8 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
                             </a>
                         </li>
                         <li>
                             <a href="{{ Route('favorites') }}" class="group">
                                 <x-icon-store icon="heart"
-                                    class="h-8 w-8 fill-light-blue transition-transform group-hover:scale-110"></x-icon-store>
+                                    class="h-8 w-8 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
                             </a>
                         </li>
                         <li>
                             <a href="" class="group">
                                 <x-icon-store icon="whatsapp"
-                                    class="h-8 w-8 fill-light-blue transition-transform group-hover:scale-110"></x-icon-store>
+                                    class="h-8 w-8 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
                             </a>
                         </li>
                         <li>
                             <a href="" class="group">
                                 <x-icon-store icon="location"
-                                    class="h-8 w-8 fill-light-blue transition-transform group-hover:scale-110">
+                                    class="h-8 w-8 text-light-blue transition-transform group-hover:scale-110">
                                 </x-icon-store>
                             </a>
                         </li>
@@ -67,7 +67,7 @@
                                     @endif
                                 @else
                                     <x-icon-store icon="user"
-                                        class="h-8 w-8 fill-light-blue transition-transform group-hover:scale-110"></x-icon-store>
+                                        class="h-8 w-8 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
                                 @endif
                             </a>
                         </li>
@@ -77,7 +77,7 @@
                 <!-- Icons mobile -->
                 <div class="flex items-center justify-center lg:hidden">
                     <button class="flex h-12 w-12 items-center justify-center sm:hidden">
-                        <x-icon-store icon="search" class="h-6 w-6 fill-light-blue"></x-icon-store>
+                        <x-icon-store icon="search" class="h-6 w-6 text-light-blue"></x-icon-store>
                     </button>
                     <a href="{{ Route('account.index') }}" class="group">
                         @if (Auth::check())
@@ -85,7 +85,7 @@
                                 class="h-10 w-10 rounded-full object-cover">
                         @else
                             <x-icon-store icon="user"
-                                class="h-8 w-8 fill-light-blue transition-transform group-hover:scale-110"></x-icon-store>
+                                class="h-8 w-8 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
                         @endif
                     </a>
                 </div>
@@ -111,7 +111,7 @@
                             <a href=""
                                 class="flex items-center gap-2 rounded-xl px-4 py-2 hover:bg-light-blue hover:text-white">
                                 Ordenar
-                                <x-icon-store icon="arrow-down" class="h-4 w-4 fill-current"></x-icon-store>
+                                <x-icon-store icon="arrow-down" class="h-4 w-4 text-current"></x-icon-store>
                             </a>
                             <div
                                 class="content-nav absolute z-50 hidden animate-fade-down rounded-3xl border border-zinc-50 bg-white p-10 shadow-2xl animate-duration-300 group-hover:block">
@@ -224,8 +224,8 @@
         class="fixed left-0 top-0 z-40 h-screen w-80 -translate-x-full overflow-y-auto bg-white p-4 transition-transform"
         tabindex="-1" aria-labelledby="drawer-label">
         <button type="button" data-drawer-hide="nav-mobile" aria-controls="nav-mobile"
-            class="absolute end-2.5 top-2.5 flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-zinc-400 hover:bg-zinc-200 hover:text-zinc-900 dark:hover:text-white">
-            <x-icon-store icon="close" class="h-6 w-6 fill-current"></x-icon-store>
+            class="absolute end-2.5 top-2.5 flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-blue-store hover:bg-zinc-200 hover:text-zinc-900">
+            <x-icon-store icon="close" class="h-6 w-6 text-current"></x-icon-store>
             <span class="sr-only">Close menu</span>
         </button>
         <div class="mt-8">
@@ -234,13 +234,13 @@
                     <li>
                         <a href="" class="group">
                             <x-icon-store icon="bag"
-                                class="h-6 w-6 fill-light-blue transition-transform group-hover:scale-110"></x-icon-store>
+                                class="h-6 w-6 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
                         </a>
                     </li>
                     <li>
                         <a href="" class="group">
                             <x-icon-store icon="heart"
-                                class="h-6 w-6 fill-light-blue transition-transform group-hover:scale-110"></x-icon-store>
+                                class="h-6 w-6 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
                         </a>
                     </li>
                     <li>
@@ -252,7 +252,7 @@
                     <li>
                         <a href="" class="group">
                             <x-icon-store icon="location"
-                                class="h-6 w-6 fill-light-blue transition-transform group-hover:scale-110">
+                                class="h-6 w-6 text-light-blue transition-transform group-hover:scale-110">
                             </x-icon-store>
                         </a>
                     </li>
