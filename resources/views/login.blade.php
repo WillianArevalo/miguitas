@@ -21,13 +21,13 @@
                 <h1 class="dine-r text-xl font-bold text-light-gray sm:text-2xl md:text-4xl">Inicio de sesión</h1>
                 <div class="my-4 flex items-center justify-center gap-4">
                     <a href="#">
-                        <x-icon-store icon="facebook" class="h-8 w-8 fill-white" />
+                        <x-icon-store icon="facebook" class="h-8 w-8 text-white" />
                     </a>
                     <a href="#">
-                        <x-icon-store icon="google" class="h-8 w-8 fill-white" />
+                        <x-icon-store icon="google" class="h-8 w-8 text-white" />
                     </a>
                     <a href="#">
-                        <x-icon-store icon="linkedin" class="h-8 w-8 fill-white" />
+                        <x-icon-store icon="linkedin" class="h-8 w-8 text-white" />
                     </a>
                 </div>
                 <div class="mt-4 w-4/5 md:w-2/3">
