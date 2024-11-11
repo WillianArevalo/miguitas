@@ -14,30 +14,36 @@ class ProductController extends Controller
 {
     public function details(string $slug)
     {
-        /*  $user = Auth::check() ? Auth::user() : null;
+        $user = Auth::check() ? Auth::user() : null;
         $product = Product::with([
             'categories',
-            'brands',
             'taxes',
             'labels',
             'images',
-            'reviews'
+            'reviews',
+            'options.option'
         ])
             ->where('slug', $slug)
             ->firstOrFail();
 
-        $this->extractDimensions($product);
-        $purchase = $user ? $this->userHasPurchaseProduct($user->id, $product->id) : false;
+        $categoryId = $product->categorie_id;
+
+        if ($user->customer) {
+            $purchase = $user ? $this->userHasPurchaseProduct($user->id, $product->id) : false;
+        } else {
+            $purchase = false;
+        }
         $product->images->prepend((object)['image' => $product->main_image]);
         $products = Product::with([
             'categories',
             'subcategories',
-            'brands',
             'taxes',
             'labels',
             'images'
         ])
             ->where("id", "!=", $product->id)
+            ->where("categorie_id", $categoryId)
+            ->take(25)
             ->paginate(10);
 
         $reviews = $product->reviews->where('is_approved', 1);
@@ -47,17 +53,10 @@ class ProductController extends Controller
             $userReview = $product->reviews->where('user_id', $user->id)->first();
             Favorites::get($user, $products);
             Favorites::get($user, collect([$product]));
-        } */
-        return view('store.products.view');
+        }
+        return view('store.products.view', compact('product', 'products', 'reviews', 'userReview', 'purchase'));
     }
 
-    private function extractDimensions(Product $product)
-    {
-        if (strpos($product->dimensions, ' ') !== false) {
-            list($dimensions, $unit) = explode(' ', $product->dimensions);
-            list($product['length'], $product['width'], $product['height']) = explode('x', $dimensions);
-        }
-    }
 
     private function userHasPurchaseProduct($userId, $productId)
     {

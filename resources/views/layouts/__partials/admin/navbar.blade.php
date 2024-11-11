@@ -14,7 +14,7 @@
                             <x-icon icon="logo" class="me-2 h-8 w-8 text-primary-700 dark:text-primary-700" />
                             <span
                                 class="self-center whitespace-nowrap font-league-spartan text-xl font-bold text-primary-600 sm:text-2xl">
-                                Entre Cheros
+                                Miguitas
                             </span>
                         </a>
                         <a href="{{ Route('home') }}" data-tooltip-target="tooltip-default" target="_blank">
@@ -239,12 +239,6 @@
                         <a href="{{ route('admin.categories.index') }}"
                             class="group flex w-full items-center rounded-lg p-2 pl-11 text-zinc-900 transition duration-75 dark:text-white">
                             {{ __('messages.categories') }}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.brands.index') }}"
-                            class="group flex w-full items-center rounded-lg p-2 pl-11 text-zinc-900 transition duration-75 dark:text-white">
-                            {{ __('messages.brands') }}
                         </a>
                     </li>
                     <li>

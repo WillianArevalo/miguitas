@@ -17,8 +17,11 @@
                             </span>
                         </div>
                         <div class="mt-2 flex w-full items-center gap-2 sm:mt-0 sm:w-auto">
-                            <x-button type="button" icon="import" class="w-full sm:w-auto" typeButton="secondary"
-                                text="Importar" />
+                            <x-button type="button" icon="delete" text="Eliminar productos seleccionados"
+                                data-modal-target="deleteProducts" data-modal-toggle="deleteProducts" typeButton="danger"
+                                class="hidden w-full sm:w-auto" id="btn-delete-all-products" />
+                            <x-button type="button" data-modal-target="importProducts" data-modal-toggle="importProducts"
+                                icon="import" class="w-full sm:w-auto" typeButton="secondary" text="Importar" />
                             <x-button type="button" icon="export" class="w-full sm:w-auto" typeButton="secondary"
                                 text="Exportar" />
                         </div>
@@ -102,8 +105,8 @@
                         <x-table>
                             <x-slot name="thead">
                                 <x-tr>
-                                    <x-th>
-                                        <input id="default-checkbox" type="checkbox" value=""
+                                    <x-th class="w-10">
+                                        <input id="default-checkbox-products" type="checkbox" value=""
                                             class="h-4 w-4 rounded border-2 border-zinc-400 bg-zinc-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-zinc-800 dark:bg-zinc-950 dark:ring-offset-zinc-800 dark:focus:ring-primary-600">
                                     </x-th>
                                     <x-th>
@@ -137,11 +140,20 @@
                                     @foreach ($products as $product)
                                         <x-tr section="body">
                                             <x-td>
-                                                <input id="default-checkbox" type="checkbox" value=""
-                                                    class="h-4 w-4 rounded border-2 border-zinc-400 bg-zinc-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-zinc-800 dark:bg-zinc-950 dark:ring-offset-zinc-800 dark:focus:ring-primary-600">
+                                                <input type="checkbox" value="{{ $product->id }}" name="products_ids[]"
+                                                    class="checkboxs-products h-4 w-4 rounded border-2 border-zinc-400 bg-zinc-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-zinc-800 dark:bg-zinc-950 dark:ring-offset-zinc-800 dark:focus:ring-primary-600">
                                             </x-td>
                                             <x-td>
-                                                <span>{{ $product->name }}</span>
+                                                <div class="flex flex-col gap-1">
+                                                    @if ($product->is_top)
+                                                        <span
+                                                            class="text-nowrap flex w-max items-center gap-2 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:bg-opacity-20 dark:text-green-300">
+                                                            <x-icon icon="star" class="h-3 w-3" />
+                                                            Top
+                                                        </span>
+                                                    @endif
+                                                    <span>{{ $product->name }}</span>
+                                                </div>
                                             </x-td>
                                             <x-td>
                                                 <img src="{{ Storage::url($product->main_image) }}"
@@ -149,7 +161,10 @@
                                                     class="min-w-16 h-16 w-16 rounded-lg object-cover">
                                             </x-td>
                                             <x-td>
-                                                <span>${{ $product->price }}</span>
+                                                <span>
+                                                    ${{ $product->price }}
+                                                    {{ $product->max_price ? ' - $' . $product->max_price : '' }}
+                                                </span>
                                             </x-td>
                                             <x-td>
                                                 <span>{{ $product->sku }}</span>
@@ -158,10 +173,21 @@
                                                 <span>{{ $product->stock }} en stock</span>
                                             </x-td>
                                             <x-td>
-                                                <span
-                                                    class="text-nowrap w-max rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:bg-opacity-20 dark:text-blue-300">
-                                                    {{ $product->categories->name }}
-                                                </span>
+                                                <div class="flex flex-col gap-1">
+                                                    <span
+                                                        class="text-nowrap w-max rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:bg-opacity-20 dark:text-green-300">
+                                                        {{ $product->categories->name }}
+                                                    </span>
+                                                    <span
+                                                        class="text-nowrap w-max rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:bg-opacity-20 dark:text-blue-300">
+                                                        @foreach ($product->subcategories as $subcategory)
+                                                            {{ $subcategory->name }}
+                                                            @if (!$loop->last)
+                                                                /
+                                                            @endif
+                                                        @endforeach
+                                                    </span>
+                                                </div>
                                             </x-td>
                                             <x-td>
                                                 <x-badge-status :status="$product->is_active" />
@@ -216,7 +242,99 @@
                 </div>
             </div>
         </div>
+
         <x-delete-modal modalId="deleteModal" title="¿Estás seguro de eliminar el producto?"
             message="No podrás recuperar este registro" action="" />
+
+        <div id="deleteProducts" tabindex="-1" aria-hidden="true"
+            class="deleteModal fixed inset-0 left-0 right-0 top-0 z-[100] hidden h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-70">
+            <div class="relative flex h-full w-full max-w-md items-center justify-center p-4 md:h-auto">
+                <!-- Modal content -->
+                <div
+                    class="relative w-full animate-jump-in rounded-lg bg-white text-center shadow animate-duration-300 animate-once dark:bg-zinc-950">
+                    <div class="p-4">
+                        <button type="button"
+                            class="closeModal absolute right-2.5 top-2.5 ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-zinc-400 hover:bg-zinc-200 hover:text-zinc-900 dark:hover:bg-zinc-900 dark:hover:text-white"
+                            data-modal-toggle="deleteProducts">
+                            <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                        <svg class="mx-auto mb-3.5 h-11 w-11 text-zinc-400 dark:text-zinc-500" aria-hidden="true"
+                            fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        <p class="mb-4 text-zinc-500 dark:text-zinc-300">
+                            ¿Estás seguro de eliminar los productos seleccionados?
+                        </p>
+                        <p class="mb-6 text-sm text-zinc-500 dark:text-zinc-400">
+                            No podrás recuperar estos registros.
+                        </p>
+                    </div>
+                    <div
+                        class="flex items-center justify-center space-x-4 border-t border-zinc-300 py-4 dark:border-zinc-900">
+                        <x-button type="button" data-modal-toggle="deleteProducts" class="closeModal"
+                            text="No, cancelar" icon="cancel" typeButton="secondary" />
+                        <form method="POST" id="formDeleteProducts"
+                            action="{{ Route('admin.products.deleteSelected') }}">
+                            @csrf
+                            @method('DELETE')
+                            <x-button type="submit" text="Sí, eliminar" icon="delete" typeButton="danger" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="importProducts" tabindex="-1" aria-hidden="true"
+            class="deleteModal fixed inset-0 left-0 right-0 top-0 z-[100] hidden h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-70">
+            <div class="relative flex h-full w-full max-w-md items-center justify-center p-4 md:h-auto">
+                <!-- Modal content -->
+                <div
+                    class="relative w-full animate-jump-in rounded-lg bg-white text-center shadow animate-duration-300 animate-once dark:bg-zinc-950">
+                    <div class="p-4">
+                        <button type="button"
+                            class="closeModal absolute right-2.5 top-2.5 ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-zinc-400 hover:bg-zinc-200 hover:text-zinc-900 dark:hover:bg-zinc-900 dark:hover:text-white"
+                            data-modal-toggle="importProducts">
+                            <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                        <h4 class="mb-4 font-medium text-zinc-500 dark:text-zinc-300">
+                            Importar productos
+                        </h4>
+                    </div>
+                    <div
+                        class="flex items-center justify-center space-x-4 border-t border-zinc-300 py-4 dark:border-zinc-900">
+                        <form method="POST" id="formDeleteProducts" action="{{ Route('admin.products.import') }}"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <div class="px-4">
+                                <input type="file" name="document" id="file" accept=".csv, .xlsx" />
+                                @if ($errors->has('document'))
+                                    <span class="text-xs text-red-500">{{ $errors->first('document') }}</span>
+                                @endif
+                            </div>
+                            <div class="mt-4 flex items-center justify-center gap-4">
+                                <x-button type="submit" text="Import" icon="import" typeButton="primary" />
+                                <x-button type="button" data-modal-toggle="importProducts" class="closeModal"
+                                    text="No, cancelar" icon="cancel" typeButton="secondary" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 @endsection

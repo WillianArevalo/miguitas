@@ -17,7 +17,7 @@ class SubCategorie extends Model
 
     public function products()
     {
-        return $this->hasMany(Product::class, "subcategorie_id");
+        return $this->belonsToMany(Product::class, "product_subcategorie");
     }
 
     /**

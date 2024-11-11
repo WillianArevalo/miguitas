@@ -25,7 +25,7 @@ class StoreController extends Controller
 
     public function index()
     {
-        $products = Product::all();
+        $products = Product::where("is_active", 1)->take(20)->get();
         $categories = Categorie::all();
         Favorites::get($this->user, $products);
         return view('store.index', ["products" => $products, "categories" => $categories]);
@@ -33,13 +33,12 @@ class StoreController extends Controller
 
     public function products()
     {
-        $products = Product::all();
+        $products = Product::where("is_active", 1)->get();
         $categories = Categorie::all();
-        $subcategories = SubCategorie::all();
+        $subcategories = SubCategorie::select('name')->distinct()->get();
         $labels = Label::all();
-        $brands = Brand::all();
         Favorites::get($this->user, $products);
-        return view("store.products", ["products" => $products, "categories" => $categories, "subcategories" => $subcategories, "labels" => $labels, "brands" => $brands]);
+        return view("store.products", ["products" => $products, "categories" => $categories, "subcategories" => $subcategories, "labels" => $labels]);
     }
 
     public function search(string $search, string $value)

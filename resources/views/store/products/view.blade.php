@@ -4,9 +4,9 @@
     <div class="my-4">
         <div class="flex flex-col gap-8 px-4 lg:flex-row lg:px-10">
             <div class="flex flex-1 flex-col items-center lg:items-start">
-                <div class="main-image relative">
-                    <img src="{{ asset('img/image.jpg') }}" alt=""
-                        class="h-80 w-full max-w-xl rounded-2xl object-cover">
+                <div class="main-image relative flex w-full items-center justify-center">
+                    <img src="{{ Storage::url($product->main_image) }}" alt="Imagen {{ $product->name }}"
+                        class="h-96 w-full max-w-xl rounded-2xl object-cover">
 
                     <button class="absolute right-0 top-0 m-4 rounded-full bg-white p-2">
                         <x-icon-store icon="heart" class="h-4 w-4 fill-rose-400 sm:w-6 md:h-6" />
@@ -19,13 +19,16 @@
                     </button>
                     <div class="swiper swiper-images-secondarys w-[230px] sm:w-[250px] md:w-[350px] lg:w-[450px]">
                         <div class="swiper-wrapper">
-                            @for ($i = 0; $i < 5; $i++)
-                                <div
-                                    class="swiper-slide container-secondary-image {{ $i === 1 ? 'selected' : '' }} cursor-pointer overflow-hidden rounded-lg">
-                                    <img src="{{ asset('img/image.jpg') }}" alt="Imagen secundaria"
-                                        class="secondary-image mx-auto h-20 w-40 object-cover sm:w-60 lg:w-full">
-                                </div>
-                            @endfor
+                            @if ($product->images->count() > 0)
+                                @foreach ($product->images as $i => $image)
+                                    <div
+                                        class="swiper-slide container-secondary-image {{ $i === 1 ? 'selected' : '' }} cursor-pointer overflow-hidden rounded-lg border">
+                                        <img src="{{ Storage::url($image->image) }}"
+                                            alt="Imagen secundaria {{ $product->name }}"
+                                            class="secondary-image mx-auto h-24 w-40 object-cover sm:w-60 lg:w-full">
+                                    </div>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                     <button class="button-next-images cursor-pointer rounded-full fill-dark-blue p-1">
@@ -38,7 +41,7 @@
                     <div class="flex justify-between">
                         <div>
                             <h1 class="text2xl font-bold text-light-blue sm:text-3xl md:text-4xl">
-                                Bandanas
+                                {{ $product->name }}
                             </h1>
                         </div>
                         <div class="flex items-center gap-2">
@@ -48,41 +51,50 @@
                         </div>
                     </div>
                     <div>
-                        <p class="dine-r text-xl text-gray-500 sm:text-2xl md:text-3xl">
-                            $ 10.00
-                        </p>
+                        <div class="flex gap-4">
+                            <p class="dine-r text-xl text-gray-500 sm:text-2xl md:text-3xl">
+                                $ {{ $product->price }}
+                            </p>
+                            @if ($product->max_price)
+                                <p class="dine-r text-xl text-gray-500 sm:text-2xl md:text-3xl">
+                                    - $ {{ $product->max_price }}
+                                </p>
+                            @endif
+                        </div>
                         <p class="din-r mt-2 text-sm text-gray-400 sm:text-base md:text-lg">
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sapiente quidem quo nobis eum, odit
-                            soluta
-                            aspernatur eaque fugit ad? Optio obcaecati atque iste eius nobis maxime suscipit est iusto qui.
+                            {!! $product->short_description !!}
                         </p>
                     </div>
                     <div class="mt-4 flex items-center">
                         <h2 class="text-lg font-semibold text-light-blue sm:text-xl md:text-2xl">
                             Categoría:
                         </h2>
-                        <p class="dine-r ml-2 text-sm uppercase text-gray-400 sm:text-base md:text-lg">
-                            Accesorios
-                        </p>
-                    </div>
-                    <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
-                        <div class="mt-4 flex gap-4">
-                            <button
-                                class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 p-2 text-lg text-blue-store hover:bg-blue-200 sm:h-12 sm:w-12 sm:text-xl md:h-14 md:w-14 md:text-2xl">
-                                S
-                            </button>
-                            <button
-                                class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 p-2 text-lg text-blue-store hover:bg-blue-200 sm:h-12 sm:w-12 sm:text-xl md:h-14 md:w-14 md:text-2xl">
-                                M
-                            </button>
-                            <button
-                                class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 p-2 text-lg text-blue-store hover:bg-blue-200 sm:h-12 sm:w-12 sm:text-xl md:h-14 md:w-14 md:text-2xl">
-                                L
-                            </button>
+                        <div class="flex items-center gap-2">
+                            @foreach ($product->subcategories as $category)
+                                <p class="dine-r ml-2 text-sm uppercase text-gray-400 sm:text-base md:text-lg">
+                                    {{ $category->name }},
+                                </p>
+                            @endforeach
                         </div>
-                        <div class="w-60">
-                            <x-select-store :options="['red' => 'Rojo', 'blue' => 'Azul', 'green' => 'Verde']" id="color" name="color" label="Color"
-                                text="Selecciona un color" />
+                    </div>
+                    <div class="mt-4 flex flex-col items-center justify-start gap-4 sm:flex-row">
+                        <div class="w-72">
+                            @if ($product->options->count() > 0)
+                                @php
+                                    $groupedOptions = $product->options->groupBy(function ($item) {
+                                        return $item->option->name;
+                                    });
+                                @endphp
+                                <div class="flex flex-col gap-4">
+                                    @foreach ($groupedOptions as $optionName => $optionValues)
+                                        <div class="flex flex-col">
+                                            <x-select-store :options="$optionValues->pluck('value', 'id')->toArray()" id="{{ $optionName }}"
+                                                name="{{ $optionName }}" label="{{ $optionName }}"
+                                                text="Selecciona un {{ strtolower($optionName) }}" />
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div class="mt-4 flex flex-col items-center justify-between gap-4 md:flex-row">
@@ -131,9 +143,7 @@
                             <div class="tabs-content rounded-b-lg bg-white p-2 sm:p-4 md:p-6">
                                 <div id="tab-description" class="tab-panel">
                                     <p class="dine-r text-sm text-zinc-500 md:text-base">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro maiores at magni
-                                        quod. Exercitationem necessitatibus provident omnis ducimus ullam libero nobis magni
-                                        quo! Porro, cumque nisi. Illo necessitatibus veniam repellat.
+                                        {!! $product->long_description !!}
                                     </p>
                                 </div>
                                 <div id="tab-information" class="tab-panel hidden">
@@ -216,53 +226,9 @@
             <div>
                 <div class="swiper mySwiper w-100 h-full px-4">
                     <div class="swiper-wrapper pb-10">
-                        @for ($i = 0; $i < 8; $i++)
-                            <div class="swiper-slide relative rounded-3xl border border-zinc-200 p-2 shadow-xl sm:p-6">
-                                <div class="ribbon"><span>10%</span></div>
-                                <div class="card-image">
-                                    <img src="{{ asset('img/image.jpg') }}" alt="Featured2 image"
-                                        class="h-48 w-full rounded-xl object-cover md:h-60">
-                                </div>
-                                <div class="card-body mt-4">
-                                    <div class="flex items-center justify-between">
-                                        <div class="flex items-center gap-3">
-                                            <a href="">
-                                                <x-icon-store icon="heart"
-                                                    class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
-                                            </a>
-                                            <a href="">
-                                                <x-icon-store icon="comment"
-                                                    class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
-                                            </a>
-                                            <a href="">
-                                                <x-icon-store icon="send"
-                                                    class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
-                                            </a>
-                                        </div>
-                                        <button>
-                                            <x-icon-store icon="cart" class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
-                                        </button>
-                                    </div>
-                                    <div class="pb-6">
-                                        <small class="mt-2 block text-start">
-                                            <p class="pluto-m text-xs text-gray-store sm:text-sm">13,355 view</p>
-                                        </small>
-                                        <h2
-                                            class="pluto-r text-start text-sm font-semibold text-blue-store sm:text-base md:text-lg">
-                                            #Cake Corazón FurryLove
-                                        </h2>
-                                        <p class="text-start">
-                                            <span class="dine-r text-lg text-gray-store">$</span>
-                                            <span class="dine-r text-lg text-gray-store">25.00</span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <a href=""
-                                    class="absolute bottom-0 right-0 m-2 rounded-full border-2 border-blue-store bg-pink-store p-2 sm:m-4">
-                                    <x-icon-store icon="arrow-right" class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
-                                </a>
-                            </div>
-                        @endfor
+                        @foreach ($products as $product)
+                            <x-card-product2 :product="$product" />
+                        @endforeach
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>

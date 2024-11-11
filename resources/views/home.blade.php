@@ -25,24 +25,28 @@
                 </div>
             </div>
         </div>
-        <div class="mb-10 mt-20 px-0 sm:px-4 md:px-10">
-            <h2 class="my-4 text-center text-3xl text-light-blue sm:text-4xl md:text-5xl">
-                Top productos
-            </h2>
-            <div class="mt-4">
-                <div class="swiper mySwiper w-100 h-full px-4">
-                    <div class="swiper-wrapper pb-10">
-                        @for ($i = 0; $i < 8; $i++)
-                            <x-card-product2 />
-                        @endfor
+
+        @if ($topProducts->count() > 0)
+            <div class="mb-10 mt-20 px-0 sm:px-4 md:px-10">
+                <h2 class="my-4 text-center text-3xl text-light-blue sm:text-4xl md:text-5xl">
+                    Top productos
+                </h2>
+                <div class="mt-4">
+                    <div class="swiper mySwiper w-100 h-full px-4">
+                        <div class="swiper-wrapper pb-10">
+                            @foreach ($topProducts as $product)
+                                <x-card-product2 :product="$product" />
+                            @endforeach
+                        </div>
+                        <div class="swiper-pagination"></div>
                     </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-                <div class="mt-4 flex items-center justify-center">
-                    <x-button-store type="button" typeButton="primary" text="Ver más" />
+                    <div class="mt-4 flex items-center justify-center">
+                        <x-button-store type="button" typeButton="primary" text="Ver más" />
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
+
         <div>
             <div class="flex flex-col gap-8 bg-pink-store py-4 xl:flex-row">
                 <div class="flex-1 text-center">
@@ -317,23 +321,25 @@
             </div>
         </div>
 
-        <div class="mt-20">
-            <div class="mt-4 px-0 sm:px-4 md:px-10">
-                <div>
-                    <div class="swiper mySwiper w-100 h-full px-4">
-                        <div class="swiper-wrapper pb-10">
-                            @for ($i = 0; $i < 8; $i++)
-                                <x-card-product2 />
-                            @endfor
+        @if ($products->count() > 0)
+            <div class="mt-20">
+                <div class="mt-4 px-0 sm:px-4 md:px-10">
+                    <div>
+                        <div class="swiper mySwiper w-100 h-full px-4">
+                            <div class="swiper-wrapper pb-10">
+                                @foreach ($products as $product)
+                                    <x-card-product2 :product="$product" />
+                                @endforeach
+                            </div>
+                            <div class="swiper-pagination"></div>
                         </div>
-                        <div class="swiper-pagination"></div>
                     </div>
                 </div>
+                <div class="mt-4 flex items-center justify-center">
+                    <x-button-store type="button" typeButton="primary" text="Ver más" />
+                </div>
             </div>
-            <div class="mt-4 flex items-center justify-center">
-                <x-button-store type="button" typeButton="primary" text="Ver más" />
-            </div>
-        </div>
+        @endif
 
         <div class="my-20">
             <div class="relative mx-auto flex w-full px-4 xl:w-1/2">

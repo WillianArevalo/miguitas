@@ -9,25 +9,10 @@
         </div>
         <div class="mt-8 p-2 sm:p-4 md:p-6">
             <div class="flex flex-wrap items-center gap-2 uppercase md:gap-4">
-                <x-button-store type="a" href="{{ route('store.products') }}" typeButton="primary" text="Sale" />
-                <x-button-store type="a" href="{{ route('store.products') }}" typeButton="primary" text="New" />
-                <x-button-store type="a" href="{{ route('store.products') }}" typeButton="primary" text="Cake" />
-                <x-button-store type="a" href="{{ route('store.products') }}" typeButton="primary"
-                    text="Pawty Packs" />
-                <x-button-store type="a" href="{{ route('store.products') }}" typeButton="primary"
-                    text="Bath & cleanup" />
-                <x-button-store type="a" href="{{ route('store.products') }}" typeButton="primary"
-                    text="Supplementsbath" />
-                <x-button-store type="a" href="{{ route('store.products') }}" typeButton="primary"
-                    text="Pupcakestreats" />
-                <x-button-store type="a" href="{{ route('store.products') }}" typeButton="primary"
-                    text="Frozen treats" />
-                <x-button-store type="a" href="{{ route('store.products') }}" typeButton="primary" text="Toys" />
-                <x-button-store type="a" href="{{ route('store.products') }}" typeButton="primary"
-                    text="Accesories" />
-                <x-button-store type="a" href="{{ route('store.products') }}" typeButton="primary" text="Cookies" />
-                <x-button-store type="a" href="{{ route('store.products') }}" typeButton="primary"
-                    text="Pupcakestreats" />
+                @foreach ($subcategories as $subcategory)
+                    <x-button-store type="a" href="{{ route('store.products') }}" typeButton="primary"
+                        text="{{ $subcategory->name }}" />
+                @endforeach
             </div>
         </div>
         <div class="mt-8 flex flex-col xl:flex-row">
@@ -110,28 +95,20 @@
                                     <div id="panel2"
                                         class="accordion-content-filter max-h-0 overflow-hidden px-4 transition-all duration-500 ease-in-out">
                                         <div class="mt-4 flex flex-col gap-2">
-                                            <div class="flex items-center gap-4">
-                                                <div class="checkbox-wrapper-19">
-                                                    <input id="category-1" type="checkbox">
-                                                    <label class="check-box" for="category-1">
+                                            @foreach ($categories as $category)
+                                                <div class="flex items-center gap-4">
+                                                    <div class="checkbox-wrapper-19">
+                                                        <input id="category-{{ $category->id }}" type="checkbox"
+                                                            value="{{ $category->id }}">
+                                                        <label class="check-box" for="category-{{ $category->id }}">
+                                                        </label>
+                                                    </div>
+                                                    <label for="category-1"
+                                                        class="dine-r text-sm font-medium text-zinc-500 md:text-base">
+                                                        {{ $category->name }}
                                                     </label>
                                                 </div>
-                                                <label for="category-1"
-                                                    class="dine-r text-sm font-medium text-zinc-500 md:text-base">
-                                                    Categoría 1
-                                                </label>
-                                            </div>
-                                            <div class="flex items-center gap-4">
-                                                <div class="checkbox-wrapper-19">
-                                                    <input id="category-2" type="checkbox">
-                                                    <label class="check-box" for="category-2">
-                                                    </label>
-                                                </div>
-                                                <label for="category-2"
-                                                    class="dine-r text-sm font-medium text-zinc-500 md:text-base">
-                                                    Categoría 2
-                                                </label>
-                                            </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
@@ -186,9 +163,9 @@
             </div>
             <div class="flex-[3]">
                 <div class="grid grid-cols-3 gap-4 px-2 max-[840px]:grid-cols-2 xl:grid-cols-3">
-                    @for ($i = 0; $i < 8; $i++)
-                        <x-card-product />
-                    @endfor
+                    @foreach ($products as $product)
+                        <x-card-product :product="$product" />
+                    @endforeach
                 </div>
             </div>
         </div>

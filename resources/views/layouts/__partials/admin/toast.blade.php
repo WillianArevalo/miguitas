@@ -1,6 +1,6 @@
 @if (Session::has('success') || Session::has('error') || Session::has('info'))
     <div id="toast"
-        class="fixed right-5 top-5 z-50 flex w-full max-w-xs animate-fade-left items-center justify-between gap-4 rounded-lg bg-white p-4 font-secondary text-zinc-500 shadow animate-duration-300 animate-once dark:bg-zinc-950 dark:text-zinc-400"
+        class="font-secondary fixed right-5 top-5 z-[100] flex w-full max-w-xs animate-fade-left items-center justify-between gap-4 rounded-lg bg-white p-4 text-zinc-500 shadow animate-duration-300 animate-once dark:bg-zinc-950 dark:text-zinc-400"
         role="alert">
         @if ($message = Session::get('success'))
             <div

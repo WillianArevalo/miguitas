@@ -22,7 +22,7 @@
     <main>
         @include('layouts.__partials.store.toast-store', ['top' => 'top-28'])
         @include('layouts.__partials.toast-container', [
-            'class' => 'left-0 right-0 sm:right-5 sm:mx-auto top-20',
+            'class' => 'left-0 right-0 sm:right-5 sm:mx-auto top-10',
         ])
         @yield('content')
     </main>

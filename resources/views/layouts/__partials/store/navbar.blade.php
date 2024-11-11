@@ -37,9 +37,14 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ Route('favorites') }}" class="group">
+                            <a href="{{ Route('favorites') }}" class="group relative">
                                 <x-icon-store icon="heart"
                                     class="h-8 w-8 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
+                                <span
+                                    class="absolute -right-2 -top-2 rounded-full bg-blue-store px-1.5 py-0.5 text-xs text-white"
+                                    id="favorite-count">
+                                    {{ \App\Helpers\Favorites::count() }}
+                                </span>
                             </a>
                         </li>
                         <li>

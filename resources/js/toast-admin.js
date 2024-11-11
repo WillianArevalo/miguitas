@@ -4,7 +4,7 @@ export function showToast(message, type) {
     const currentToastId = `toast-admin-${toasCount++}`;
     const div = $(`<div id="${currentToastId}"></div>`);
     div.addClass(
-        "z-50 flex w-full max-w-xs animate-fade-left items-center justify-between gap-4 rounded-lg bg-white p-4 font-secondary text-zinc-500 shadow animate-duration-300 animate-once dark:bg-zinc-950 dark:text-zinc-400",
+        "z-[100] flex w-full max-w-xs animate-fade-left items-center justify-between gap-4 rounded-lg bg-white p-4 font-secondary text-zinc-500 shadow animate-duration-300 animate-once dark:bg-zinc-950 dark:text-zinc-400"
     );
 
     let svg = "";

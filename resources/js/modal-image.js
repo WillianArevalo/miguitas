@@ -1,11 +1,11 @@
 $(document).ready(function () {
+    const body = $("body");
+    const modal = $("#modal-image");
+    const imageModal = $("#image-modal");
+
     $(document).on("click", function (e) {
         if (e.target.classList.contains("main-image")) {
             const mainImage = e.target;
-            const modal = $("#modal-image");
-            const imageModal = $("#image-modal");
-            const body = $("body");
-
             modal.css("display", "block");
             body.addClass("overflow-hidden");
             imageModal.attr("src", mainImage.src);
@@ -23,9 +23,6 @@ $(document).ready(function () {
     });
 
     function closeModal() {
-        const modal = $("#modal-image");
-        const body = $("body");
-
         modal.css("display", "none");
         body.removeClass("overflow-hidden");
     }

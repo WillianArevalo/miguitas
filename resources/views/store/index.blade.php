@@ -41,9 +41,9 @@
 
         <!-- Contenedor donde se mostrarán las cards de productos destacados 2 (featured2-card) -->
         <div class="grid grid-cols-3 gap-4 px-4 max-[840px]:grid-cols-2 xl:grid-cols-4">
-            @for ($i = 0; $i < 8; $i++)
-                <x-card-product />
-            @endfor
+            @foreach ($products as $product)
+                <x-card-product :product="$product" />
+            @endforeach
         </div>
 
         <div

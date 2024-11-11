@@ -22,7 +22,7 @@ class FavoriteController extends Controller
         return view('store.favorites.index', compact('favorites'));
     }
 
-    public function addFavorite(Request $request, string $id)
+    public function addFavorite(string $id)
     {
         try {
 

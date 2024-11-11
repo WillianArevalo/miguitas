@@ -15,6 +15,8 @@ use App\Http\Controllers\Admin\{
     FAQController,
     FlashOfferController,
     LabelController,
+    OptionController,
+    OptionValueController,
     OrderController,
     PaymentController,
     PoliciesController,
@@ -31,6 +33,7 @@ use App\Http\Controllers\Admin\{
     TicketCommentController,
     UserController
 };
+
 
 // Public Admin Routes
 Route::get("/admin/login", [AdminController::class, "login"])->name("admin.login");
@@ -55,12 +58,18 @@ Route::middleware("role:admin")->prefix("admin")->name("admin.")->group(function
 
     // Products
     Route::resource("/products", ProductController::class);
+    Route::delete("/products-delete", [ProductController::class, "deleteSelected"])->name("products.deleteSelected");
+    Route::post("/products/import", [ProductController::class, "import"])->name("products.import");
 
     // Taxes
     Route::resource("/taxes", TaxController::class);
 
     // Labels
     Route::resource("/labels", LabelController::class);
+
+    //Options products
+    Route::resource("/options", OptionController::class);
+    Route::resource("/options-values", OptionValueController::class);
 
     // Flash Offers
     Route::resource("/flash-offers", FlashOfferController::class);

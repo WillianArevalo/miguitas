@@ -3,29 +3,29 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Helpers\Favorites;
 use App\Helpers\ImageHelper;
 use App\Http\Requests\ProductEditRequest;
 use App\Http\Requests\ProductRequest;
-use App\Models\Brand;
+use App\Imports\ProductImport;
 use App\Models\Categorie;
 use App\Models\Label;
-use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\ProductOption;
+use App\Models\ProductOptionValue;
+use App\Models\SubCategorie;
 use App\Models\Tax;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with(['categories', 'subcategories', 'brands', 'taxes', 'labels', 'images'])->paginate(10);
+        $products = Product::with(['categories', 'subcategories', 'taxes', 'labels', 'images'])->paginate(20);
         $count = Product::count();
         return view('admin.products.index', compact('products', 'count'));
     }
@@ -33,11 +33,11 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Categorie::all();
-        $brands = Brand::all();
         $taxes = Tax::all();
         $labels = Label::all();
+        $options = ProductOption::with('values')->get();
 
-        return view('admin.products.create', compact('categories', 'brands', 'taxes', 'labels'));
+        return view('admin.products.create', compact('categories', 'taxes', 'labels', 'options'));
     }
 
     public function store(ProductRequest $request)
@@ -45,28 +45,48 @@ class ProductController extends Controller
         DB::beginTransaction();
         try {
             $validated = $request->validated();
-            $validated['dimensions'] = $this->formatDimensions($request);
             $validated['offer_active'] = $request->has('offer_active') ? 1 : 0;
             $validated['is_active'] = $request->has('is_active') ? 1 : 0;
-
             $product = Product::create($validated);
+
+            $optionsValues = $request->input('options');
+
+            if ($optionsValues !== null) {
+                $optionsValues = array_map(function ($option) {
+                    return json_decode($option, true);
+                }, $optionsValues);
+
+                foreach ($optionsValues as $option) {
+                    $createdOption =
+                        ProductOptionValue::create([
+                            "product_option_id" => $option["option_id"],
+                            "value" => $option["value"]
+                        ]);
+
+                    $options[] = [
+                        "product_option_value_id" => $createdOption->id,
+                        "stock" => $option["stock"],
+                        "price" => $option["price"]
+                    ];
+                }
+                $product->options()->attach($options);
+            }
+
+            $product->subcategories()->attach($request->subcategories);
             $folderPath = $this->getProductImageFolder($request->input('name'));
             $this->handleImages($request, $product, $folderPath);
             $this->syncTaxesAndLabels($request, $product);
-
             DB::commit();
-            return redirect()->route('admin.products.index')->with('success', 'Producto creado correctamente');
+            return response()->json(['success' => 'Producto creado correctamente', "redirect" => route('admin.products.index')]);
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('admin.products.index')->with('error', 'Error al crear el producto. Error:' . $e->getMessage());
+            return response()->json(['error' => 'Error al crear el producto', 'message' => $e->getMessage()]);
         }
     }
 
     public function show(string $id)
     {
-        $product = Product::with(['categories', 'brands', 'taxes', 'labels', 'reviews'])->findOrFail($id);
-        $this->extractDimensions($product);
-
+        $product = Product::with(['categories', 'taxes', 'labels', 'reviews', 'options.option'])->findOrFail($id);
         $nextProduct = Product::where('id', '>', $id)->first();
         $previousProduct = Product::where('id', '<', $id)->first();
 
@@ -99,17 +119,49 @@ class ProductController extends Controller
         }
     }
 
+    public function deleteSelected(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $products = Product::whereIn('id', $request->input('products_ids'))->get();
+            $isArray = is_array($request->input('products_ids'));
+
+            if (!$isArray) {
+                $products = [$products];
+            }
+
+            foreach ($products as $product) {
+                $images = ProductImage::where('product_id', $product->id)->get();
+
+                if ($product->main_image) {
+                    ImageHelper::deleteImage($product->main_image);
+                }
+
+                foreach ($images as $image) {
+                    ImageHelper::deleteImage($image->image);
+                }
+
+                ImageHelper::deleteDirectory($this->getProductImageFolder($product->name));
+            }
+
+            Product::whereIn('id', $request->input('products_ids'))->delete();
+            DB::commit();
+            return redirect()->route('admin.products.index')->with('success', 'Productos eliminados correctamente');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('admin.products.index')->with('error', 'Error al eliminar los productos');
+        }
+    }
+
     public function edit(string $id)
     {
-        $product = Product::with(['categories', 'brands', 'taxes', 'labels', 'images'])->findOrFail($id);
+        $product = Product::with(['categories', 'taxes', 'labels', 'images', 'options.option'])->findOrFail($id);
         $categories = Categorie::all();
-        $brands = Brand::all();
         $taxes = Tax::all();
         $labels = Label::all();
-
-        $this->extractDimensions($product);
-
-        return view('admin.products.edit', compact('product', 'categories', 'brands', 'taxes', 'labels'));
+        $options = ProductOption::with('values')->get();
+        $subcategories = SubCategorie::where('categorie_id', $product->categorie_id)->get();
+        return view('admin.products.edit', compact('product', 'categories', 'taxes', 'labels', 'options', 'subcategories'));
     }
 
     public function update(ProductEditRequest $request, string $id)
@@ -118,9 +170,9 @@ class ProductController extends Controller
         try {
             $product = Product::findOrFail($id);
             $validated = $request->validated();
-            $validated['dimensions'] = $this->formatDimensions($request);
             $validated['offer_active'] = $request->has('offer_active') ? 1 : 0;
             $validated['is_active'] = $request->has('is_active') ? 1 : 0;
+            $validated['is_top'] = $request->has('is_top') ? 1 : 0;
 
             $currentFolderPath = $this->getProductImageFolder($request->input("name"));
             $newFolderPath = $this->getProductImageFolder($request->input('name'), $product->created_at);
@@ -132,26 +184,12 @@ class ProductController extends Controller
             $product->update($validated);
             $this->syncTaxesAndLabels($request, $product);
             $this->handleImages($request, $product, $newFolderPath);
-
+            $product->subcategories()->sync($request->subcategories);
             DB::commit();
             return redirect()->route('admin.products.index')->with('success', 'Producto actualizado correctamente');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->route('admin.products.index')->with('error', 'Error al actualizar el producto');
-        }
-    }
-
-    // Helper methods
-    private function formatDimensions(Request $request)
-    {
-        return $request->input('long') . 'x' . $request->input('width') . 'x' . $request->input('height') . ' cm';
-    }
-
-    private function extractDimensions(Product $product)
-    {
-        if (strpos($product->dimensions, ' ') !== false) {
-            list($dimensions, $unit) = explode(' ', $product->dimensions);
-            list($product['length'], $product['width'], $product['height']) = explode('x', $dimensions);
         }
     }
 
@@ -224,5 +262,45 @@ class ProductController extends Controller
     private function getProductImageFolder($name, $createdAt = null)
     {
         return 'images/products/' . Str::slug($name);
+    }
+
+    public function import(Request $request)
+    {
+        // Obtén el archivo CSV del request
+        $file = $request->file('document');
+
+        // Abre el archivo en modo de solo lectura
+        if (($handle = fopen($file->getRealPath(), 'r')) !== false) {
+            // Lee la primera fila para ignorar los encabezados
+            $header = fgetcsv($handle, 1000, ',');
+
+            // Recorre cada fila del CSV
+            while (($data = fgetcsv($handle, 1000, ',')) !== false) {
+                // Mapea los datos del CSV a los campos de la base de datos
+
+                $productData = [
+                    'name' => $data[0],
+                    'is_active' => (bool) $data[1],
+                    'is_top' => (bool) $data[2],
+                    'short_description' => $data[3],
+                    'long_description' => $data[4],
+                    'stock' => (int) $data[5] ?? 0,
+                    'price' => (float) $data[6] ?? 0,
+                    'main_image' => $data[7] ?? 'default.jpg',
+                    'sku' => "XXXX",
+                    'categorie_id' => 1,
+                ];
+
+                // Crea un nuevo producto en la base de datos
+                Product::create($productData);
+            }
+
+            // Cierra el archivo
+            fclose($handle);
+
+            return response()->json(['success' => 'Productos importados correctamente.'], 200);
+        }
+
+        return response()->json(['error' => 'No se pudo abrir el archivo CSV.'], 500);
     }
 }

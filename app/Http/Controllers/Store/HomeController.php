@@ -15,7 +15,12 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $products = Product::with("labels")->whereDoesntHave("flash_offers")->get();
+        $products = Product::with("labels")
+            ->whereDoesntHave("flash_offers")
+            ->where("is_top", false)
+            ->take(10)
+            ->get();
+        $topProducts = Product::with("labels")->where("is_top", true)->get();
         $categories = Categorie::all();
         $flashOffers = Product::whereHas('flash_offers', function ($query) {
             $query->where('is_showing', true)
@@ -26,8 +31,8 @@ class HomeController extends Controller
         }])->get();
 
         Favorites::get($user, $products);
-        Favorites::get($user, $flashOffers);
+        Favorites::get($user, $topProducts);
 
-        return view('home', ["products" => $products, "flashOffers" => $flashOffers, "categories" => $categories]);
+        return view('home', ["products" => $products, "topProducts" => $topProducts, "flashOffers" => $flashOffers, "categories" => $categories]);
     }
 }

@@ -17,12 +17,7 @@ class Product extends Model
 
     public function subcategories()
     {
-        return $this->belongsTo(SubCategorie::class, "subcategorie_id");
-    }
-
-    public function brands()
-    {
-        return $this->belongsTo(Brand::class, "brand_id");
+        return $this->belongsToMany(SubCategorie::class, "product_subcategorie", "product_id", "subcategorie_id");
     }
 
     public function taxes()
@@ -55,12 +50,21 @@ class Product extends Model
         return $this->hasMany(Review::class);
     }
 
+    public function options()
+    {
+        return $this->belongsToMany(ProductOptionValue::class, "product_product_option_value")
+            ->withPivot("stock")
+            ->withPivot("price")
+            ->withPivot("id");
+    }
+
     protected $fillable = [
         "name",
         "short_description",
         "long_description",
         "main_image",
         "price",
+        "max_price",
         "offer_price",
         "offer_active",
         "offer_start_date",
@@ -72,11 +76,9 @@ class Product extends Model
         "min_stock",
         "barcode",
         "weight",
-        "dimensions",
+        "status",
+        "is_top",
         "categorie_id",
-        "subcategorie_id",
-        "brand_id",
-        "status"
     ];
 
     protected static function boot()

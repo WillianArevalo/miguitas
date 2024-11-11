@@ -33,8 +33,8 @@
                                         General
                                     </h4>
                                     <div
-                                        class="h-max rounded-lg border border-zinc-400 bg-transparent p-4 dark:border-zinc-800 dark:bg-black">
-                                        <div class="flex flex-col gap-4">
+                                        class="h-max rounded-lg border border-zinc-400 bg-transparent dark:border-zinc-800 dark:bg-black">
+                                        <div class="flex flex-col gap-4 p-4">
                                             <div>
                                                 <x-input label="Nombre" type="text" id="name" name="name"
                                                     placeholder="Escribe el nombre del producto aquí" required="required"
@@ -60,69 +60,114 @@
                                                         icon="weight-scale" />
                                                 </div>
                                                 <div>
-                                                    <p
-                                                        class="mb-2 block text-sm font-medium text-zinc-900 after:ml-0.5 after:text-red-500 after:content-['*'] dark:text-white">
-                                                        Dimensiones (cm)
-                                                    </p>
-                                                    <div class="flex items-center gap-2">
-                                                        <div>
-                                                            <x-input type="number" label="Largo" id="long"
-                                                                name="long" value="{{ $product->length }}"
-                                                                placeholder="10" min="1" required="required"
-                                                                error="{{ false }}" />
-                                                        </div>
-                                                        <span
-                                                            class="mt-7 rounded-lg border border-zinc-400 bg-zinc-100 p-2 text-zinc-900 dark:border-zinc-800 dark:bg-black dark:text-white">
-                                                            <x-icon icon="x"
-                                                                class="h-3 w-3 text-current sm:h-4 sm:w-4" />
-                                                        </span>
-                                                        <div>
-                                                            <x-input type="number" label="Ancho" id="width"
-                                                                name="width" value="{{ $product->width }}"
-                                                                placeholder="20" min="1" required="required"
-                                                                error="{{ false }}" />
-                                                        </div>
-                                                        <span
-                                                            class="mt-7 rounded-lg border border-zinc-400 bg-zinc-100 p-2 text-zinc-900 dark:border-zinc-800 dark:bg-black dark:text-white">
-                                                            <x-icon icon="x"
-                                                                class="h-3 w-3 text-current sm:h-4 sm:w-4" />
-                                                        </span>
-                                                        <div>
-                                                            <x-input type="number" label="Alto" id="height"
-                                                                name="height" value="{{ $product->height }}"
-                                                                placeholder="10" min="1" required="required"
-                                                                error="false" error="{{ false }}" />
-                                                        </div>
-                                                    </div>
-                                                    @if ($errors->has('long') || $errors->has('width') || $errors->has('height'))
-                                                        <span class="text-sm text-red-500">
-                                                            Las dimensions son obligatorias
-                                                        </span>
-                                                    @endif
-                                                </div>
-                                                <div>
                                                     <x-input type="checkbox" name="is_active" id="is_active"
                                                         label="Producto activo" value="{{ $product->is_active }}"
                                                         checked="{{ $product->is_active === 1 }}" />
                                                 </div>
+                                                <div>
+                                                    <x-input type="checkbox" name="is_top" id="is_active"
+                                                        label="Marcar como producto destacado"
+                                                        value="{{ $product->is_top }}"
+                                                        checked="{{ $product->is_top === 1 }}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="border-t border-zinc-400 p-4 dark:border-zinc-800">
+                                            <div class="flex items-center justify-between">
+                                                <h4 class="text-base font-semibold text-black dark:text-white">
+                                                    Opciones
+                                                </h4>
+                                                <x-button type="button" typeButton="secondary" id="showModalOption"
+                                                    data-modal-target="addOption" data-modal-toggle="addOption"
+                                                    text="Agregar opción" icon="plus" />
+                                            </div>
+                                            <div class="mt-4" id="list-options">
+                                                @if ($options->count() > 0)
+                                                    <div class="flex w-full flex-col gap-4">
+                                                        @foreach ($options as $option)
+                                                            <div class="flex items-center justify-between">
+                                                                <div class="flex flex-1 flex-col justify-center gap-2">
+                                                                    <label for="{{ $option->name }}"
+                                                                        class="flex items-center gap-2">
+                                                                        <span
+                                                                            class="text-sm font-medium text-zinc-500 dark:text-zinc-300">
+                                                                            {{ $option->name }}
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="flex flex-1 items-center justify-end gap-2">
+                                                                    <x-button type="button" typeButton="secondary"
+                                                                        size="small" text="Agregar opciones"
+                                                                        icon="plus"
+                                                                        data-modal-target="addOptionValueEdit"
+                                                                        class="showModalOptionValueEdit"
+                                                                        data-modal-toggle="addOptionValueEdit"
+                                                                        data-id="{{ $option->id }}" />
+                                                                </div>
+                                                            </div>
+                                                            @if ($product->options->count() > 0)
+                                                                <div class="flex w-full flex-wrap gap-2">
+                                                                    @foreach ($product->options as $optionProduct)
+                                                                        @if ($optionProduct->product_option_id === $option->id)
+                                                                            <div
+                                                                                class="flex justify-between gap-4 rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-2 text-sm dark:border-zinc-900 dark:bg-zinc-950 dark:text-zinc-300">
+                                                                                <div class="font-medium">
+                                                                                    <span class="text-blue-500">
+                                                                                        {{ $optionProduct->value }}
+                                                                                    </span>
+                                                                                    -
+                                                                                    ${{ number_format($optionProduct->pivot->price, 2) }}
+                                                                                    ({{ $optionProduct->pivot->stock }})
+                                                                                </div>
+                                                                                <div class="flex items-center gap-1">
+                                                                                    <button type="button"
+                                                                                        class="btnEditOption"
+                                                                                        data-id-product="{{ $product->id }}"
+                                                                                        data-id-option="{{ $optionProduct->pivot->id }}"
+                                                                                        data-url="{{ Route('admin.options-values.edit', $optionProduct->id) }}"
+                                                                                        data-modal-target="editOptionValue"
+                                                                                        data-modal-toggle="editOptionValue"
+                                                                                        data-action="{{ Route('admin.options-values.update', $optionProduct->id) }}">
+                                                                                        <x-icon icon="edit"
+                                                                                            class="h-4 w-4 text-green-500" />
+                                                                                    </button>
+                                                                                    <button type="button"
+                                                                                        class="buttonDeleteOption"
+                                                                                        data-url="{{ Route('admin.options-values.destroy', $optionProduct->id) }}"
+                                                                                        data-modal-target="deleteModalOption"
+                                                                                        data-modal-toggle="deleteModalOption">
+                                                                                        <x-icon icon="delete"
+                                                                                            class="h-4 w-4 text-red-500" />
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        @endif
+                                                                    @endforeach
+                                                                </div>
+                                                            @endif
+                                                        @endforeach
+                                                    </div>
+                                                @else
+                                                    <x-paragraph>
+                                                        Sin opciones registradas
+                                                    </x-paragraph>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- End general info -->
 
-
                                 <!-- SEO info -->
                                 <div>
                                     <h4
                                         class="mb-2 text-base font-semibold text-primary-800 dark:text-primary-500 md:text-lg">
-                                        Categoría y Etiquetas
+                                        Categoría y subcategorías
                                     </h4>
                                     <div
                                         class="h-max rounded-lg border border-zinc-400 bg-transparent p-4 dark:border-zinc-800 dark:bg-black">
-
                                         <div class="flex flex-col gap-4">
-                                            <div class="flex flex-col gap-4 sm:flex-row">
+                                            <div class="flex flex-col gap-4">
                                                 <div class="flex-1">
                                                     <x-select label="Categoría del producto" id="categorie_id"
                                                         name="categorie_id" :options="$categories->pluck('name', 'id')->toArray()"
@@ -134,34 +179,64 @@
                                                         class="mb-2 block text-sm font-medium text-zinc-900 after:ml-0.5 after:text-red-500 after:content-['*'] dark:text-white">
                                                         Subcategoría del producto
                                                     </label>
-                                                    <input type="hidden" name="subcategorie_id" id="subcategorie_id"
-                                                        value="{{ old('categorie_id') }}">
+                                                    <input type="hidden" name="subcategorie_id" id="subcategories_names"
+                                                        value="{{ $product->subcategories->pluck('name')->implode(', ') }}">
                                                     <div class="relative">
                                                         <div
-                                                            class="selected @error('subcategorie_id') is-invalid @enderror flex w-full items-center justify-between rounded-lg border border-zinc-400 bg-zinc-50 px-4 py-2.5 text-sm dark:border-zinc-800 dark:bg-zinc-950 dark:text-white">
-                                                            <span class="itemSelected" id="selectedSubCategorie">
-                                                                Selecciona una subcategoría
+                                                            class="selectedCategorie @error('subcategorie_id') is-invalid @enderror flex w-full items-center justify-between rounded-lg border border-zinc-400 bg-zinc-50 px-4 py-2.5 text-sm dark:border-zinc-800 dark:bg-zinc-950 dark:text-white">
+                                                            <span
+                                                                class="itemsSelectedSubcategories flex w-full flex-wrap items-center gap-2">
+                                                                @if ($product->subcategories->count() > 0)
+                                                                    @foreach ($product->subcategories as $subcategorie)
+                                                                        <div class="flex items-center justify-between gap-2 rounded-xl bg-zinc-100 px-2 py-1 text-xs text-zinc-800 dark:bg-zinc-900 dark:text-zinc-300"
+                                                                            data-name="{{ $subcategorie->name }}">
+                                                                            <span>{{ $subcategorie->name }}</span>
+                                                                            <button data-name="{{ $subcategorie->name }}"
+                                                                                type="button"
+                                                                                class="removeSubcategorie text-current hover:text-primary-600">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                    class="h-4 w-4" viewBox="0 0 24 24"
+                                                                                    width="24" height="24"
+                                                                                    fill="none" stroke="currentColor"
+                                                                                    stroke-width="2"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round">
+                                                                                    <path d="M19 5L5 19" />
+                                                                                    <path d="M5 5L19 19" />
+                                                                                </svg>
+                                                                            </button>
+                                                                        </div>
+                                                                    @endforeach
+                                                                @endif
                                                             </span>
                                                             <x-icon icon="arrow-down"
                                                                 class="h-5 w-5 text-zinc-500 dark:text-white" />
                                                         </div>
-                                                        <ul class="selectOptionsSubCategories absolute z-10 mt-2 hidden w-full rounded-lg border border-zinc-400 bg-white p-2 shadow-lg dark:border-zinc-800 dark:bg-zinc-950"
+                                                        <ul class="optionsSubcategories absolute z-10 mt-2 hidden w-full rounded-lg border border-zinc-400 bg-white p-2 shadow-lg dark:border-zinc-800 dark:bg-zinc-950"
                                                             id="listSubcategories">
-                                                            <li class="itemOption rounded-lg px-4 py-2.5 text-sm text-zinc-900 hover:bg-zinc-100 dark:text-white dark:hover:bg-zinc-900"
-                                                                data-value="" data-input="#subcategorie_id">
-                                                                Ninguna categoría principal seleccionada
-                                                            </li>
+                                                            @if ($subcategories->count() > 0)
+                                                                @foreach ($subcategories as $subcategorie)
+                                                                    <li class="itemOptionSubcategorie flex gap-2 rounded-lg px-4 py-2.5 text-sm text-zinc-900 hover:bg-zinc-100 dark:text-white dark:hover:bg-zinc-900"
+                                                                        data-value="{{ $subcategorie->id }}"
+                                                                        data-input="#subcategorie_id">
+                                                                        <div>
+                                                                            <x-input type="checkbox"
+                                                                                value="{{ $subcategorie->id }}"
+                                                                                name="subcategories[]"
+                                                                                class="subcategories_checkbox"
+                                                                                data-name="{{ $subcategorie->name }}"
+                                                                                checked="{{ $product->subcategories->contains($subcategorie->id) }}" />
+                                                                        </div>
+                                                                        {{ $subcategorie->name }}
+                                                                    </li>
+                                                                @endforeach
+                                                            @endif
                                                         </ul>
                                                     </div>
                                                     @error('subcategorie_id')
                                                         <span class="text-sm text-red-500">{{ $message }}</span>
                                                     @enderror
                                                 </div>
-                                            </div>
-                                            <div>
-                                                <x-select label="Marca del producto" id="brand_id" name="brand_id"
-                                                    :options="$brands->pluck('name', 'id')->toArray()" value="{{ $product->brand_id }}"
-                                                    selected="{{ $product->brand_id }}" />
                                             </div>
                                         </div>
                                     </div>
@@ -181,12 +256,21 @@
                                                 <div class="flex gap-4">
                                                     <div class="flex-1">
                                                         <x-input label="Precio" icon="dollar" type="number"
-                                                            id="price" name="price" step="0.1" min="0.1"
+                                                            id="price" name="price" step="0.01" min="0.01"
                                                             placeholder="0.00" value="{{ $product->price }}" />
                                                     </div>
                                                     <div class="flex-1">
+                                                        <x-input label="Precio máximo" icon="dollar" type="number"
+                                                            id="max_price" name="max_price" step="0.01"
+                                                            min="0.01" placeholder="0.00"
+                                                            value="{{ $product->max_price }}" />
+                                                    </div>
+
+                                                </div>
+                                                <div class="mt-4 flex">
+                                                    <div class="flex-1">
                                                         <x-input label="Precio de oferta" icon="dollar" type="number"
-                                                            id="offer_price" name="offer_price" step="0.1"
+                                                            id="offer_price" name="offer_price" step="0.01"
                                                             min="0.1" placeholder="0.00"
                                                             value="{{ $product->offer_price }}" />
                                                     </div>
@@ -479,6 +563,196 @@
                     @csrf
                     <input type="hidden" name="categorie_id" id="categorieIdSearch">
                 </form>
+                <form method="POST" id="formDeleteOption">
+                    @csrf
+                    @method('DELETE')
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal agregar etiqueta -->
+        <div id="addOption" tabindex="-1" aria-hidden="true"
+            class="fixed left-0 right-0 top-0 z-50 hidden h-modal w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-90 md:inset-0 md:h-full">
+            <div class="relative h-full w-full max-w-md p-4 md:h-auto">
+                <!-- Modal content -->
+                <div
+                    class="relative animate-jump-in rounded-lg bg-white p-4 shadow animate-duration-300 dark:bg-zinc-950 sm:p-5">
+                    <!-- Modal header -->
+                    <div
+                        class="mb-4 flex items-center justify-between rounded-t border-b pb-4 dark:border-zinc-800 sm:mb-5">
+                        <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">
+                            Agregar opción
+                        </h3>
+                        <button type="button"
+                            class="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-zinc-400 hover:bg-zinc-200 hover:text-zinc-900 dark:hover:bg-zinc-900 dark:hover:text-white"
+                            data-modal-toggle="addOption">
+                            <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+                    <form action="{{ route('admin.options.store') }}" id="formAddOption" method="POST">
+                        @csrf
+                        <div class="flex flex-col gap-4">
+                            <div>
+                                <x-input label="Nombre" id="name-option" name="name"
+                                    data-message="#message-name-option" placeholder="Escribe el nombre de la opción"
+                                    required="required" type="text" />
+                                <span class="invalid-feedback hidden text-sm text-red-500"
+                                    id="message-name-option"></span>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex justify-end gap-2">
+                            <x-button type="button" id="addOptionButton" text="Agregar" icon="plus"
+                                typeButton="primary" />
+                            <x-button type="button" data-modal-toggle="addOption" text="Cancelar"
+                                typeButton="secondary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal agregar valor de cada opción -->
+        <div id="addOptionValueEdit" tabindex="-1" aria-hidden="true"
+            class="fixed left-0 right-0 top-0 z-50 hidden h-modal w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-90 md:inset-0 md:h-full">
+            <div class="relative h-full w-full max-w-md p-4 md:h-auto">
+                <!-- Modal content -->
+                <div
+                    class="relative animate-jump-in rounded-lg bg-white p-4 shadow animate-duration-300 dark:bg-zinc-950 sm:p-5">
+                    <!-- Modal header -->
+                    <div
+                        class="mb-4 flex items-center justify-between rounded-t border-b pb-4 dark:border-zinc-800 sm:mb-5">
+                        <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">
+                            Agregar opciones
+                        </h3>
+                        <button type="button"
+                            class="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-zinc-400 hover:bg-zinc-200 hover:text-zinc-900 dark:hover:bg-zinc-900 dark:hover:text-white"
+                            data-modal-toggle="addOptionValueEdit">
+                            <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+                    <form action="{{ Route('admin.options-values.store') }}" method="POST" id="formAddOptionEdit">
+                        @csrf
+                        <div class="flex flex-col gap-4">
+                            <div>
+                                <input type="text" id="option_id" name="option_id" class="hidden">
+                                <input type="text" id="product_id" name="product_id" class="hidden"
+                                    value="{{ $product->id }}">
+                                <div>
+                                    <x-input label="Nombre" id="name-option-value" name="value"
+                                        data-message="#message-name-option-value"
+                                        placeholder="Escribe el nombre de la opción" required="required"
+                                        type="text" />
+                                    <span class="invalid-feedback hidden text-sm text-red-500"
+                                        id="message-name-option-value"></span>
+                                </div>
+                                <div class="mt-2">
+                                    <x-input label="Precio" id="price-option-value" name="price"
+                                        data-message="#message-price-option-value" icon="dollar" required="required"
+                                        type="number" placeholder="0.00" step="0.01" min="0.01" />
+                                    <span class="invalid-feedback hidden text-sm text-red-500"
+                                        id="message-price-option-value"></span>
+                                </div>
+                                <div class="mt-2">
+                                    <x-input label="Stock" id="stock-option-value" name="stock"
+                                        data-message="#message-stock-option-value" required="required" type="number"
+                                        step="0.01" min="0.01" icon="cube" placeholder="#" />
+                                    <span class="invalid-feedback hidden text-sm text-red-500"
+                                        id="message-stock-option-value"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex justify-end gap-2">
+                            <x-button type="button" id="addOptionValueButtonEdit" text="Agregar" icon="plus"
+                                typeButton="primary" />
+                            <x-button type="button" data-modal-toggle="addOptionValueEdit" text="Cancelar"
+                                typeButton="secondary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal editar valor de cada opción -->
+        <div id="editOptionValue" tabindex="-1" aria-hidden="true"
+            class="fixed left-0 right-0 top-0 z-50 hidden h-modal w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-90 md:inset-0 md:h-full">
+            <div class="relative h-full w-full max-w-md p-4 md:h-auto">
+                <!-- Modal content -->
+                <div
+                    class="relative animate-jump-in rounded-lg bg-white p-4 shadow animate-duration-300 dark:bg-zinc-950 sm:p-5">
+                    <!-- Modal header -->
+                    <div
+                        class="mb-4 flex items-center justify-between rounded-t border-b pb-4 dark:border-zinc-800 sm:mb-5">
+                        <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">
+                            Editar opción
+                        </h3>
+                        <button type="button"
+                            class="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-zinc-400 hover:bg-zinc-200 hover:text-zinc-900 dark:hover:bg-zinc-900 dark:hover:text-white"
+                            data-modal-toggle="editOptionValue">
+                            <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+                    <form method="POST" id="formEditOption">
+                        @csrf
+                        @method('PUT')
+                        <div class="flex flex-col gap-4">
+                            <div>
+                                <input type="text" id="option_id_edit" name="option_id" class="hidden">
+                                <input type="text" id="product_id_edit" name="product_id" class="hidden"
+                                    value="{{ $product->id }}">
+                                <input type="text" id="option_value_id" name="option_value_id" class="hidden">
+                                <div>
+                                    <x-input label="Nombre" id="name_option_edit" name="value"
+                                        data-message="#message-name_option_edit"
+                                        placeholder="Escribe el nombre de la opción" required="required"
+                                        type="text" />
+                                    <span class="invalid-feedback hidden text-sm text-red-500"
+                                        id="message-name_option_edit"></span>
+                                </div>
+                                <div class="mt-2">
+                                    <x-input label="Precio" id="price_option_edit" name="price"
+                                        data-message="#message-price_option_edit" icon="dollar" required="required"
+                                        type="number" placeholder="0.00" step="0.01" min="0.01" />
+                                    <span class="invalid-feedback hidden text-sm text-red-500"
+                                        id="message-price_option_edit"></span>
+                                </div>
+                                <div class="mt-2">
+                                    <x-input label="Stock" id="stock_option_edit" name="stock"
+                                        data-message="#message-stock_option_edit" required="required" type="number"
+                                        step="0.01" min="0.01" icon="cube" placeholder="#" />
+                                    <span class="invalid-feedback hidden text-sm text-red-500"
+                                        id="message-stock_option_edit"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex justify-end gap-2">
+                            <x-button type="button" id="editOptionValueButton" text="Editar" icon="edit"
+                                typeButton="primary" />
+                            <x-button type="button" data-modal-toggle="editOptionValue" text="Cancelar"
+                                typeButton="secondary" />
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
 
@@ -579,5 +853,48 @@
                 </div>
             </div>
         </div>
+
+        <div id="deleteModalOption" tabindex="-1" aria-hidden="true"
+            class="deleteModal fixed inset-0 left-0 right-0 top-0 z-[100] hidden h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-70">
+            <div class="relative flex h-full w-full max-w-md items-center justify-center p-4 md:h-auto">
+                <!-- Modal content -->
+                <div
+                    class="relative w-full animate-jump-in rounded-lg bg-white text-center shadow animate-duration-300 animate-once dark:bg-zinc-950">
+                    <div class="p-4">
+                        <button type="button"
+                            class="closeModal absolute right-2.5 top-2.5 ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-zinc-400 hover:bg-zinc-200 hover:text-zinc-900 dark:hover:bg-zinc-900 dark:hover:text-white"
+                            data-modal-toggle="deleteModalOption">
+                            <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                        <svg class="mx-auto mb-3.5 h-11 w-11 text-zinc-400 dark:text-zinc-500" aria-hidden="true"
+                            fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        <p class="mb-4 text-zinc-500 dark:text-zinc-300">
+                            ¿Estás seguro de eliminar esta opción?
+                        </p>
+                        <p class="mb-6 text-sm text-zinc-500 dark:text-zinc-400">
+                            Esta acción no se puede deshacer.
+                        </p>
+                    </div>
+                    <div
+                        class="flex items-center justify-center space-x-4 border-t border-zinc-300 py-4 dark:border-zinc-900">
+                        <x-button type="button" data-modal-toggle="deleteModalOption" class="closeModal"
+                            text="No, cancelar" icon="cancel" typeButton="secondary" />
+                        <x-button type="button" class="confirmDeleteOption" text="Sí, eliminar" icon="delete"
+                            typeButton="danger" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 @endsection

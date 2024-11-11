@@ -35,7 +35,7 @@
 
     // Clases base
     $baseClasses =
-        'font-medium rounded-lg flex items-center justify-center gap-2 transition-colors transition duration-300 ' .
+        'font-medium rounded-lg flex items-center justify-center gap-2 transition-colors transition duration-300 text-nowrap  ' .
         $padding;
 
     // Tipos de botones
@@ -43,7 +43,7 @@
         'primary' =>
             'bg-primary-500 text-white hover:bg-primary-600 dark:bg-primary-700 dark:text-white dark:hover:bg-primary-600',
         'secondary' =>
-            'border text-zinc-600 hover:bg-zinc-100 border-zinc-200 dark:border-zinc-900 dark:text-white dark:hover:bg-zinc-900',
+            'border text-zinc-600 hover:bg-zinc-100 border-zinc-400 dark:border-zinc-800 dark:text-white dark:hover:bg-zinc-900',
         'danger' =>
             'bg-red-100 border border-transparent text-red-500 dark:bg-red-950 dark:text-red-300 hover:bg-red-200  dark:hover:bg-opacity-100 dark:bg-opacity-50',
         'warning' => 'bg-yellow-500 text-white hover:bg-yellow-600',

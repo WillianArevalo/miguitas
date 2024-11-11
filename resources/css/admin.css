@@ -37,6 +37,24 @@
     }
 }
 
+.ql-toolbar.ql-snow,
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+    @apply bg-zinc-100 dark:bg-zinc-950 text-zinc-800 dark:text-zinc-300 border-zinc-400 dark:border-zinc-800 rounded-t-lg;
+}
+
+.ql-toolbar.ql-snow span,
+.ql-toolbar.ql-snow button {
+    @apply text-zinc-800 dark:text-zinc-300;
+}
+
+.ql-editor.ql-blank::before {
+    @apply text-zinc-400 dark:text-zinc-600;
+}
+
+.ql-container.ql-snow {
+    @apply bg-zinc-100  dark:bg-zinc-950 text-zinc-800 dark:text-zinc-300 border-zinc-400 dark:border-zinc-800 rounded-b-lg;
+}
+
 /* Dimensions box */
 .dimension-box {
     position: relative;

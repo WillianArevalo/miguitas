@@ -6,17 +6,14 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class CardProduct extends Component
+class Badge extends Component
 {
-
-    public $product;
-
     /**
      * Create a new component instance.
      */
-    public function __construct($product = "")
+    public function __construct()
     {
-        $this->product = $product;
+        //
     }
 
     /**
@@ -24,6 +21,6 @@ class CardProduct extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.card-product');
+        return view('components.badge');
     }
 }
