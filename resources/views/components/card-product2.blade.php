@@ -23,15 +23,9 @@
                     </div>
                 </form>
                 <a href="">
-                    <x-icon-store icon="comment" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
-                </a>
-                <a href="">
                     <x-icon-store icon="send" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
                 </a>
             </div>
-            <button>
-                <x-icon-store icon="cart" class="h-6 w-6 text-blue-store sm:h-8 sm:w-8" />
-            </button>
         </div>
         <div class="pb-6">
             <small class="mt-2 block text-start">
