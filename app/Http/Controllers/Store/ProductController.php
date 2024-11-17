@@ -28,7 +28,7 @@ class ProductController extends Controller
 
         $categoryId = $product->categorie_id;
 
-        if ($user->customer) {
+        if ($user && $user->customer) {
             $purchase = $user ? $this->userHasPurchaseProduct($user->id, $product->id) : false;
         } else {
             $purchase = false;
@@ -148,5 +148,13 @@ class ProductController extends Controller
         $search = $request->input("search");
         $products = Product::where("name", "like", "%$search%")->get();
         return response()->json(["html" => view('layouts.__partials.ajax.store.product-list', compact('products'))->render()]);
+    }
+
+    public function getOption(Request $request)
+    {
+        $product = Product::find($request->input("product_id"));
+        $option = $product->options->where("id", $request->input("option_id"))->first();
+        $option->pivot->price = number_format($option->pivot->price, 2);
+        return response()->json(["option" => $option]);
     }
 }
