@@ -30,4 +30,9 @@ class Cart extends Model
     {
         return $this->belongsTo(ShippingMethod::class);
     }
+
+    public function paymentMethod()
+    {
+        return $this->belongsTo(PaymentMethod::class);
+    }
 }
