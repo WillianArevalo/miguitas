@@ -37,7 +37,6 @@ class OrderController extends Controller
         DB::beginTransaction();
         $cart = Cart::get();
         $currency = session()->get("currency");
-        $payment_method = session()->get("payment_method");
         try {
             $data = [
                 "number_order" => $this->generateNumberOrder(),
@@ -51,21 +50,23 @@ class OrderController extends Controller
                 "currency_id" => $currency->id,
                 "user_id" => auth()->id(),
                 "shipping_method_id" => $cart->shipping_method_id,
-                "payment_method_id" => $payment_method->id,
+                "payment_method_id" =>  $cart->payment_method_id,
                 "address_id" => auth()->user()->customer->address->id,
             ];
             $order = Order::create($data);
             foreach ($cart->items as $item) {
-                $price = $item->product->offer_price ?? $item->product->price;
                 $order->items()->create([
                     "product_id" => $item->product->id,
                     "quantity" => $item->quantity,
-                    "price" => $price,
-                    "total" => $price * $item->quantity
+                    "price" => $item->price,
+                    "total" => $item->price * $item->quantity
                 ]);
             }
+
+            Cart::clear();
+
             DB::commit();
-            return redirect()->route("checkout")->with("success", "Orden creada correctamente");
+            return redirect()->route("account.index")->with("success", "Orden creada correctamente");
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with("error", "Error al crear la orden: " . $e->getMessage());
@@ -75,7 +76,7 @@ class OrderController extends Controller
     public function show(string $numberOrder)
     {
         $order = Order::with("items.product", "customer", "address", "currency", "shipping_method", "payment_method")->where("number_order", $numberOrder)->firstOrFail();
-        return view("orders.show", compact("order"));
+        return view("store.orders.show", compact("order"));
     }
 
     public function cancel(string $id)
