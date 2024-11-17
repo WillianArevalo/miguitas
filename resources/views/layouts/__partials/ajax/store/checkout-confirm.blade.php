@@ -1,0 +1,95 @@
+<div class="flex flex-col gap-2">
+    <h3 class="text-sm uppercase text-blue-store sm:text-base md:text-lg">
+        Datos de facturación
+    </h3>
+    <div class="flex items-center gap-2">
+        <h5 class="flex items-center gap-1 text-zinc-800">
+            <x-icon-store icon="user" class="h-5 w-5 text-current" />
+            Nombre completo:
+        </h5>
+        <p class="pluto-r text-zinc-600">
+            {{ $user->fullName }}
+        </p>
+    </div>
+    <div class="flex items-center">
+        <div class="flex flex-[2] items-center gap-2">
+            <h5 class="flex items-center gap-1 text-zinc-800">
+                <x-icon-store icon="email" class="h-5 w-5 text-current" />
+                Correo electrónico:
+            </h5>
+            <p class="pluto-r text-zinc-600">
+                {{ $user->email }}
+            </p>
+        </div>
+        <div class="flex flex-1 items-center gap-2">
+            <h5 class="flex items-center gap-1 text-zinc-800">
+                <x-icon-store icon="phone" class="h-5 w-5 text-current" />
+                Teléfono:
+            </h5>
+            <p class="pluto-r text-zinc-600">
+                {{ $user->customer ? $user->customer->phone : '' }}
+            </p>
+        </div>
+    </div>
+</div>
+<div class="mt-8 flex flex-col gap-2">
+    <h3 class="text-sm uppercase text-blue-store sm:text-base md:text-lg">
+        Dirección de envío
+    </h3>
+    <div class="flex items-center gap-2">
+        <h5 class="text-zinc-800">
+            Dirección:
+        </h5>
+        <p class="pluto-r text-zinc-600">
+            {{ $address->address_line_1 }}
+        </p>
+    </div>
+    <div class="flex items-center">
+        <div class="flex flex-[2] items-center gap-2">
+            <h5 class="text-zinc-800">
+                Ciudad:
+            </h5>
+            <p class="pluto-r text-zinc-600">
+                {{ $address->city }}
+            </p>
+        </div>
+        <div class="flex flex-1 items-center gap-2">
+            <h5 class="text-zinc-800">
+                Departamento:
+            </h5>
+            <p class="pluto-r text-zinc-600">
+                {{ $address->state }}
+            </p>
+        </div>
+    </div>
+</div>
+<div class="mt-8 flex flex-col gap-2">
+    <h3 class="text-sm uppercase text-blue-store sm:text-base md:text-lg">
+        Método de envío
+    </h3>
+    <div class="flex items-center">
+        <p class="pluto-r text-zinc-600">
+            {{ $cart->shippingMethod->name }}
+        </p>
+    </div>
+    <div class="flex items-center">
+        <div class="flex items-center gap-2">
+            <h5 class="text-zinc-800">
+                Precio:
+            </h5>
+            <p class="pluto-r text-zinc-600">
+                ${{ $cart->shippingMethod->cost }}
+            </p>
+        </div>
+    </div>
+</div>
+<div class="mt-8 flex flex-col gap-2">
+    <h3 class="text-sm uppercase text-blue-store sm:text-base md:text-lg">
+        Método de pago
+    </h3>
+    <div class="flex items-center">
+        <p class="pluto-r text-zinc-600">
+            {{ $cart->paymentMethod->name }}
+        </p>
+    </div>
+</div>
