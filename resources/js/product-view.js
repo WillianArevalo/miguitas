@@ -1,3 +1,5 @@
+import { showToast } from "./toast";
+
 $(document).ready(function () {
     $(".tab-btn").click(function () {
         $(".tab-btn").removeClass("active-tab");
@@ -21,6 +23,78 @@ $(document).ready(function () {
         if (qty > 1) {
             qty--;
             $("#quantity").val(qty);
+        }
+    });
+
+    $(".options_values").on("Changed", function () {
+        const option_id = $(this).val();
+        const product_id = $("#product_id").val();
+        const url = $(this).data("url");
+        const container = $(this).parent().parent().next();
+        $.ajax({
+            type: "GET",
+            url: url,
+            data: {
+                product_id: product_id,
+                option_id: option_id,
+            },
+            success: function (response) {
+                const data = response.option;
+                let price = data.pivot.price;
+                let stock = data.pivot.stock;
+                if (price !== 0.0) {
+                    let formattedPrice = "$" + price;
+                    let div = $("<div>").addClass("flex items-center gap-4");
+                    let spanPrice = $("<span>").text(formattedPrice);
+                    spanPrice.addClass("text-blue-store text-xl");
+                    let spanStock = $("<span>");
+                    spanStock.addClass(
+                        "text-gray-500  flex items-center gap-1 din-r"
+                    );
+                    spanStock.append(
+                        `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M15.493 6.935a.75.75 0 0 1 .072 1.058l-7.857 9a.75.75 0 0 1-1.13 0l-3.143-3.6a.75.75 0 0 1 1.13-.986l2.578 2.953l7.292-8.353a.75.75 0 0 1 1.058-.072m5.025.085c.3.285.311.76.025 1.06l-8.571 9a.75.75 0 0 1-1.14-.063l-.429-.563a.75.75 0 0 1 1.076-1.032l7.978-8.377a.75.75 0 0 1 1.06-.026" clip-rule="evenodd"/></svg>`
+                    );
+                    spanStock.append(stock + " disponibles");
+
+                    div.append(spanPrice, spanStock);
+                    container.html(div);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            },
+        });
+    });
+
+    $("#add-to-cart").on("click", function () {
+        const form = $("#form-add-to-cart");
+        let options = [];
+        const optionsValues = $(".options_values");
+
+        if (optionsValues.length > 0) {
+            $(".options_values").each(function () {
+                const value = $(this).val();
+                if (value) {
+                    options.push(value);
+                }
+            });
+        }
+
+        if (options.length === 0 && optionsValues.length > 0) {
+            showToast("Debes seleccionar una opción", "error");
+        } else {
+            $.ajax({
+                type: "POST",
+                url: form.attr("action"),
+                data: form.serialize(),
+                success: function (response) {
+                    showToast(response.message, "success");
+                    $("#cart-count").text(response.total);
+                },
+                error: function (error) {
+                    console.log(error);
+                },
+            });
         }
     });
 

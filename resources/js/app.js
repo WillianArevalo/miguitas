@@ -33,6 +33,7 @@ import "./reviews";
 import "./ticket";
 import "./register";
 import "./filters-store";
+import "./account";
 import { initSwiper } from "./swiper";
 
 initSwiper();

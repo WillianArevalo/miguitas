@@ -31,6 +31,7 @@ $(document).ready(function () {
     }
 
     btnPrev.on("click", function () {
+        $("#btn-completed-order").addClass("hidden");
         if (currentTab > 0) {
             currentTab--;
             showTab(currentTab);
@@ -39,11 +40,49 @@ $(document).ready(function () {
     });
 
     btnNext.on("click", function () {
-        if (currentTab < tabs.length - 1) {
-            currentTab++;
-            showTab(currentTab);
-            updateSteps(currentTab);
+        const paymentMethod = $("input[name='payment_method']:checked").val();
+        const shippingMethod = $("input[name='shipping_method']:checked").val();
+
+        if (paymentMethod === undefined) {
+            showToast("Seleccione un método de pago", "error");
+            return;
+        } else if (shippingMethod === undefined) {
+            showToast("Seleccione un método de envío", "error");
+            return;
+        } else if (
+            paymentMethod === undefined &&
+            shippingMethod === undefined
+        ) {
+            showToast("Seleccione un método de pago", "error");
+            showToast("Seleccione un método de envío", "error");
+            return;
         }
+
+        const form = $("#checkout-form");
+
+        $.ajax({
+            url: form.attr("action"),
+            method: form.attr("method"),
+            data: form.serialize(),
+            success: function (response) {
+                if (response.status === "success") {
+                    $("#confirm-data").html(response.html);
+                    if (currentTab < tabs.length - 1) {
+                        currentTab++;
+                        showTab(currentTab);
+                        updateSteps(currentTab);
+                    }
+                    $("#btn-completed-order").removeClass("hidden");
+                }
+            },
+            error: function (response) {
+                if (response.status === "error") {
+                    showToast(response.message, "error");
+                    console.log(response);
+                }
+                console.log(response);
+            },
+        });
     });
 
     showTab(currentTab);
@@ -58,38 +97,29 @@ $(document).ready(function () {
         $(this).val(cardType.trim());
     });
 
-    $(".shipping-method").on("click", function () {
-        $(".shipping-method").removeClass("shipping-method-selected");
-        $(this).addClass("shipping-method-selected");
-    });
-
-    $(".payment-method").on("click", function () {
-        $(".payment-method").removeClass("method-payment-selected");
-        $(this).addClass("method-payment-selected");
-    });
-
-    /*  $("input[name='payment_method']").on("change", function () {
-        $(".payment-methods").removeClass("method-payment-selected");
-
-        $(".payment-method").hide();
-        const name = $(this).data("name");
-        const form = $(this).closest("form");
-        if (name == "Tarjeta de crédito") {
-            $(".credit-card").show();
+    $("input[name='shipping_method'], input[name='payment_method']").on(
+        "change",
+        function () {
+            const id = $(this).val();
+            const url = $(this).data("url");
+            $.ajax({
+                url: url,
+                method: "GET",
+                data: { id: id },
+                success: function (response) {
+                    if (response.status === "success") {
+                        $("#price-shipping-method").text(response.price);
+                        $("#checkout-total").text(response.total);
+                    }
+                },
+                error: function (response) {
+                    if (response.status === "error") {
+                        showToast(response.message, "error");
+                        console.log(response);
+                    }
+                    console.log(error);
+                },
+            });
         }
-
-        $(this).parent().addClass("method-payment-selected");
-
-        $.ajax({
-            url: form.attr("action"),
-            method: "POST",
-            data: form.serialize(),
-            success: function (response) {
-                if (response.success) {
-                    showToast(response.success, "success");
-                    $("#payment-method-selected").html(response.html);
-                }
-            },
-        });
-    }); */
+    );
 });

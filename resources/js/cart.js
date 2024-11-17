@@ -59,10 +59,9 @@ $(document).ready(function () {
             success: function (response) {
                 console.log(response);
                 if (response.status === "success") {
-                    $("#tableCart").html(response.html); // Update table
-                    $("#cart-mobile").html(response.html_mobile);
-                    $("#cart-count").text(response.total); // Update cart count
-                    $("#totalPriceCart").text(response.totalPrice); // Update total price
+                    $("#cart").html(response.html);
+                    $("#cart-count").text(response.total);
+                    $("#totalPriceCart").text(response.totalPrice);
                     $("#totalTaxes").text(response.totalTaxes);
                     $("#totalWithTaxes").text(response.totalWithTaxes);
                     $("#discount").text(response.totalDiscount);
