@@ -96,9 +96,15 @@
                                             <x-td>
                                                 <div class="flex gap-4">
                                                     <div>
-                                                        <img src="{{ Storage::url($order->customer->user->profile) }}"
-                                                            alt="{{ $order->customer->user->name }} profile"
-                                                            class="min-h-10 min-w-10 h-10 w-10 rounded-full object-cover">
+                                                        @if ($order->customer->user->google_id)
+                                                            <img src="{{ $order->customer->user->google_profile }}"
+                                                                alt="{{ $order->customer->user->name }} profile"
+                                                                class="min-h-10 min-w-10 h-10 w-10 rounded-full object-cover">
+                                                        @else
+                                                            <img src="{{ Storage::url($order->customer->user->profile) }}"
+                                                                alt="{{ $order->customer->user->name }} profile"
+                                                                class="min-h-10 min-w-10 h-10 w-10 rounded-full object-cover">
+                                                        @endif
                                                     </div>
                                                     <div class="flex flex-col items-start justify-center gap-1 text-sm">
                                                         <p>{{ $order->customer->user->name }}</p>
