@@ -1,84 +1,77 @@
- @if ($cart && $cart->items->count())
-     @foreach ($cart->items as $item)
-         <tr>
-             <td class="whitespace-nowrap px-6 py-4">
-                 <div class="flex items-center">
-                     <div class="flex h-16 w-16 flex-shrink-0 items-center justify-center">
-                         <img class="h-full w-full rounded-lg border border-zinc-100 object-cover"
-                             src="{{ Storage::url($item->product->main_image) }}" alt="{{ $item->product->name }}">
-                     </div>
-                     <div class="ml-4">
-                         <div class="font-secondary text-base font-semibold text-secondary">
-                             {{ $item->product->name ?? 'Sin nombre' }}
-                         </div>
-                         <div class="font-secondary text-sm text-zinc-500">
-                             @if ($item->product->offer_price)
-                                 <div>
-                                     <div>
-                                         <span class="text-sm text-zinc-700">
-                                             ${{ $item->product->offer_price }}
-                                         </span>
-                                         <span class="text-xs line-through">
-                                             ${{ $item->product->price }}
-                                         </span>
-                                     </div>
-                                     <span
-                                         class="font-secondary me-2 mt-1 block w-max rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-semibold text-purple-800">
-                                         En oferta
-                                     </span>
-                                 </div>
-                             @else
-                                 <span class="text-sm text-zinc-700">
-                                     {{ $item->product->price_in_currency }}
-                                 </span>
-                             @endif
-                         </div>
-                     </div>
-                 </div>
-             </td>
-             <td class="whitespace-nowrap px-6 py-4 text-sm text-zinc-500">
-                 <div class="flex items-center">
-                     <form action="{{ route('cart.update', $item->product->id) }}" method="POST"
-                         id="form-minus-cart-{{ $item->product->id }}">
-                         @csrf
-                         <input type="hidden" name="action" value="minus">
-                         <button type="button" data-form="#form-minus-cart-{{ $item->product->id }}"
-                             class="btnMinusCart flex h-8 w-8 items-center justify-center rounded-full border border-zinc-400 hover:bg-zinc-100">
-                             <x-icon-store icon="minus" class="h-4 w-4 text-secondary" />
-                         </button>
-                     </form>
-                     <input type="text" name="quantity" id="quantity"
-                         class="font-secondary h-12 w-16 rounded-lg border-none text-center text-sm focus:border-none focus:outline-none"
-                         readonly value="{{ $item->quantity }}" min="1">
-                     <form action="{{ route('cart.update', $item->product->id) }}" method="POST"
-                         id="form-plus-cart-{{ $item->product->id }}">
-                         @csrf
-                         <input type="hidden" name="action" value="plus">
-                         <button type="button" data-form="#form-plus-cart-{{ $item->product->id }}"
-                             class="btnPlusCart flex h-8 w-8 items-center justify-center rounded-full border border-zinc-400 hover:bg-zinc-100">
-                             <x-icon-store icon="plus" class="h-4 w-4 text-secondary" />
-                         </button>
-                     </form>
-                 </div>
-             </td>
-             <td class="font-secondary whitespace-nowrap px-6 py-4 text-sm text-zinc-500">
-                 ${{ number_format($item->sub_total, 2) }}
-             </td>
-             <td class="whitespace-nowrap px-6 py-4 text-start text-sm font-medium">
-                 <form action="{{ route('cart.remove', $item->product->id) }}" method="POST"
-                     id="form-remove-cart-{{ $item->product->id }}">
-                     @csrf
-                     <x-button-store type="button" typeButton="danger"
-                         data-form="#form-remove-cart-{{ $item->product->id }}" onlyIcon="true" icon="delete"
-                         id="btnRemoveCart-{{ $item->product->id }}" class="btnRemoveCart" size="small" />
-                 </form>
-             </td>
-         </tr>
-     @endforeach
- @else
-     <tr class="border-t border-zinc-100">
-         <td class="whitespace-nowrap px-6 py-4 text-center font-league-spartan text-sm text-zinc-500" colspan="4">
-             Carrito vacío
-         </td>
-     </tr>
- @endif
+@if ($cart && $cart->items->count() > 0)
+    @foreach ($cart->items as $item)
+        <div class="mt-4 flex flex-col items-center gap-4 rounded-2xl border border-zinc-200 p-4 shadow-sm md:flex-row">
+            <div class="flex-[3]">
+                <div class="flex gap-4">
+                    <div>
+                        <img src="{{ Storage::url($item->product->main_image) }}" alt="{{ $item->product->name }}"
+                            class="h-20 w-20 rounded-xl object-cover">
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-dark-pink">
+                            {{ $item->product->name }}
+                        </h3>
+                        <ul>
+                            @foreach ($item->options as $option)
+                                <li class="pluto-r text-sm text-zinc-700">
+                                    <span class="font-medium">
+                                        {{ $option->productOptionValue->option->name }}:
+                                    </span>
+                                    {{ $option->productOptionValue->value }}
+                                </li>
+                            @endforeach
+                        </ul>
+                        <p class="dine-r text-sm text-zinc-700">
+                            $ {{ $item->price }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-1 text-blue-store">
+                <div class="flex h-10 w-max items-center gap-6 overflow-hidden rounded-xl border-2 border-dark-pink">
+                    <form action="{{ route('cart.update', $item->product->id) }}" method="POST"
+                        id="form-minus-cart-{{ $item->product->id }}">
+                        @csrf
+                        <input type="hidden" name="action" value="minus">
+                        <button type="button" data-form="#form-minus-cart-{{ $item->product->id }}"
+                            class="btnMinusCart flex h-10 items-center justify-center border-e-2 border-dark-pink px-3 hover:bg-dark-pink hover:text-white">
+                            <x-icon-store icon="minus" class="h-4 w-4 fill-current" />
+                        </button>
+                    </form>
+                    <span class="text-base font-bold">
+                        {{ $item->quantity }}
+                    </span>
+                    <form action="{{ route('cart.update', $item->product->id) }}" method="POST"
+                        id="form-plus-cart-{{ $item->product->id }}">
+                        @csrf
+                        <input type="hidden" name="action" value="plus">
+                        <button type="button" data-form="#form-plus-cart-{{ $item->product->id }}"
+                            class="btnPlusCart flex h-10 items-center justify-center border-s-2 border-dark-pink px-3 hover:bg-dark-pink hover:text-white">
+                            <x-icon-store icon="plus" class="h-4 w-4 fill-current" />
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="flex-1 text-center">
+                <h3 class="dine-r text-xl font-bold text-blue-store">
+                    $ {{ number_format($item->sub_total, 2) }}
+                </h3>
+            </div>
+            <div class="flex flex-1 items-center justify-center">
+                <form action="{{ Route('cart.remove', $item->product->id) }}" method="POST"
+                    id="form-remove-cart-{{ $item->product->id }}">
+                    @csrf
+                    <x-button-store data-form="#form-remove-cart-{{ $item->product->id }}" type="button"
+                        icon="trash" class="btnRemoveCart" onlyIcon="true" typeButton="secondary" />
+                </form>
+            </div>
+        </div>
+    @endforeach
+@else
+    <div class="flex h-96 flex-col items-center justify-center">
+        <x-icon-store icon="cart" class="h-20 w-20 fill-current text-zinc-200" />
+        <p class="text-lg text-zinc-200">
+            No hay productos en el carrito
+        </p>
+    </div>
+@endif
