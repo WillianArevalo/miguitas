@@ -13,7 +13,8 @@ class CartItem extends Model
         "cart_id",
         "product_id",
         "quantity",
-        "sub_total"
+        "sub_total",
+        "price",
     ];
 
     public function cart()
@@ -29,5 +30,10 @@ class CartItem extends Model
     public function total()
     {
         return $this->quantity * $this->product->price;
+    }
+
+    public function options()
+    {
+        return $this->hasMany(CartItemOption::class, "cart_item_id");
     }
 }
