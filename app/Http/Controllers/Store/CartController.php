@@ -12,6 +12,7 @@ use App\Helpers\Cart as CartHelper;
 use App\Models\Coupon;
 use App\Models\Currency;
 use App\Models\PaymentMethod;
+use App\Models\ProductOptionValue;
 use App\Utils\CouponRules;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,12 +31,12 @@ class CartController extends Controller
         $cart = CartHelper::get();
         $currency = Currency::getDefault();
         if (auth()->check()) {
-            $cart = Cart::with("items.product")->firstOrCreate(["user_id" => auth()->id()]);
+            $cart = Cart::with("items.product")->with("items.options")->firstOrCreate(["user_id" => auth()->id()]);
         } else {
             $cart = session()->get('cart', null);
         }
         $shipping_methods = ShippingMethod::all();
-        $products = Product::all();
+        $products = Product::where("is_active", true)->take(10)->get();
         $carts_totals = CartHelper::totals();
         return view("store.cart.index", [
             "cart" => $cart,
@@ -50,31 +51,83 @@ class CartController extends Controller
     {
         $product = Product::find($id);
         $user = auth()->user();
+        $optionValues = $request->input("options_values", []);
+        $quantity = $request->input("quantity") ?? 1;
         DB::beginTransaction();
+
         try {
             $cart = Cart::firstOrCreate(["user_id" => $user->id]);
-            $cartItem = $cart->items()->where("product_id", $product->id)->first();
-            $price = $product->offer_price ?? $product->price;
+            $subTotal = 0;
+            $itemPrice = 0;
+
+            if (!empty($optionValues)) {
+                foreach ($optionValues as $optionId) {
+                    $optionValue = $product->options->where("id", $optionId)->first();
+                    if ($optionValue) {
+                        $optionPrice = $optionValue->pivot->price;
+                        $itemPrice += $optionPrice;
+                    }
+                }
+                $subTotal = $itemPrice * $quantity;
+            } else {
+                $itemPrice = $product->offer_price ?? $product->price;
+                $subTotal = $itemPrice * $quantity;
+            }
+
+            $cartItemQuery = $cart->items()->where("product_id", $product->id);
+
+            if (!empty($optionValues)) {
+                $cartItemQuery->whereHas(
+                    "options",
+                    function ($query) use ($optionValues) {
+                        $query->whereIn("product_option_value_id", $optionValues);
+                    },
+                    "=",
+                    count($optionValues)
+                );
+            }
+
+            $cartItem = $cartItemQuery->first();
+
             if ($cartItem) {
-                $cartItem->quantity += 1;
-                $cartItem->sub_total += $price;
+                $cartItem->quantity += $quantity;
+                $cartItem->sub_total += $subTotal;
+                $cartItem->price = $itemPrice;
                 $cartItem->save();
                 DB::commit();
                 return $this->responseJson("success", "Product quantity updated");
             } else {
-                $cart->items()->create([
+                $cartItem = $cart->items()->create([
                     "product_id" => $product->id,
-                    "quantity" => $request->input("quantity") ?? 1,
-                    "sub_total" => $price
+                    "quantity" => $quantity,
+                    "sub_total" => $subTotal,
+                    "price" => $itemPrice
                 ]);
-                DB::commit();
-                return $this->responseJson("success", "Product added to cart");
+
+                if (!empty($optionValues)) {
+                    foreach ($optionValues as $optionId) {
+                        $optionValue = $product->options->where("id", $optionId)->first();
+                        if ($optionValue) {
+                            $optionPrice = $optionValue->pivot->price;
+                            $cartItem->options()->create([
+                                "product_option_value_id" => $optionValue->id,
+                                "option_price" => $optionPrice,
+                            ]);
+                        }
+                    }
+
+                    $cartItem->save();
+                }
             }
+
+            DB::commit();
+            return $this->responseJson("success", "Product added to cart");
         } catch (\Exception $e) {
             DB::rollBack();
             return $this->responseJson("error", "An error occurred while adding product to cart. Error: " . $e->getMessage());
         }
     }
+
 
     public function update(Request $request, string $id)
     {
@@ -83,7 +136,7 @@ class CartController extends Controller
         try {
             $cart = Cart::firstOrCreate(["user_id" => auth()->id()]);
             $cartItem = $cart->items()->where("product_id", $product->id)->first();
-            $price = $product->offer_price ?? $product->price;
+            $price = $cartItem->price;
             if ($cartItem) {
                 if ($request->input("action") === "plus") {
                     $cartItem->quantity += 1;
@@ -147,7 +200,6 @@ class CartController extends Controller
             "subtotal" => $this->priceFormat(CartHelper::subtotal()),
             "totalWithShippingMethod" => $this->priceFormat(CartHelper::totalWithShippingMethod()),
             "html" => view("layouts.__partials.ajax.store.row-cart", compact("cart"))->render(),
-            "html_mobile" => view("layouts.__partials.ajax.store.cart-mobile", compact("cart"))->render()
         ]);
     }
 
@@ -238,9 +290,9 @@ class CartController extends Controller
         }
     }
 
-    public function applyShippingMethod(Request $request)
+    public function applyShippingMethod(string $id)
     {
-        $shipping_method = ShippingMethod::find($request->input("shipping_method"));
+        $shipping_method = ShippingMethod::find($id);
         if (!$shipping_method) return response()->json(["status" => "error", "message" => "Shipping method not found"]);
         $cart = CartHelper::get();
         DB::beginTransaction();
@@ -251,6 +303,7 @@ class CartController extends Controller
             return response()->json([
                 "status" => "success",
                 "message" => "Shipping method applied",
+                "price" => $this->priceFormat($shipping_method->cost),
                 "total" => $this->priceFormat(CartHelper::totalWithShippingMethod()),
             ]);
         } catch (\Exception $e) {
@@ -258,17 +311,23 @@ class CartController extends Controller
         }
     }
 
-    public function applyPaymentMethod(Request $request)
+    public function applyPaymentMethod(string $id)
     {
-        $paymentMethod = PaymentMethod::find($request->input("payment_method"));
-        if (!$paymentMethod) {
-            return response()->json(["error" => "Método de pago no encontrado"]);
+        $payment_method = PaymentMethod::find($id);
+        if (!$payment_method) return response()->json(["status" => "error", "message" => "Payment  method not found"]);
+        $cart = CartHelper::get();
+        DB::beginTransaction();
+        try {
+            $cart->paymentMethod()->associate($payment_method);
+            $cart->save();
+            DB::commit();
+            return response()->json([
+                "status" => "success",
+                "message" => "Payment method applied",
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(["status" => "error", "message" => "An error occurred while applying the payment method. Error: " . $e->getMessage()]);
         }
-        session()->put("payment_method", $paymentMethod);
-        return response()->json([
-            "success" => "Método de pago aplicado",
-            "html" => view("layouts.__partials.ajax.store.payment-method", ["payment" => $paymentMethod])->render()
-        ]);
     }
 
     public function destroy()
