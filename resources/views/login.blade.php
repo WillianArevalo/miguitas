@@ -23,7 +23,7 @@
                     <a href="#">
                         <x-icon-store icon="facebook" class="h-8 w-8 text-white" />
                     </a>
-                    <a href="#">
+                    <a href="{{ Route('auth.google') }}">
                         <x-icon-store icon="google" class="h-8 w-8 text-white" />
                     </a>
                     <a href="#">
