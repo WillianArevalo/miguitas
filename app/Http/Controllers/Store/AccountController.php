@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Store;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AccountUpdateRequest;
+use App\Models\Address;
+use App\Models\Customer;
 use App\Models\User;
+use App\Utils\Addresses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -14,21 +17,40 @@ class AccountController extends Controller
     public function index()
     {
         $user = auth()->user();
-        return view("store.account.index", ["user" => $user]);
+        $customer =  Customer::where("user_id", $user->id)->first();
+
+        $addressesCustomer = $customer
+            ? Address::where("customer_id", $customer->id)->get()
+            : [];
+
+
+        $orders =
+            $customer
+            ? $customer->orders()->with("items")->get()
+            : collect();
+
+        $addresses = Addresses::getAddresses();
+        return view("store.account.index", [
+            "user" => $user,
+            "customer" => $customer,
+            "addresses" => $addresses,
+            "addressesCustomer" => $addressesCustomer,
+            "orders" => $orders
+        ]);
     }
 
     public function settings()
     {
         $auth = auth()->user();
         $user = User::with("customer")->find($auth->id);
-        return view("account.settings.index", ["user" => $user]);
+        return view("account.index", ["user" => $user]);
     }
 
     public function settingsEdit()
     {
         $auth = auth()->user();
         $user = User::with("customer")->find($auth->id);
-        return view("account.settings.settings-edit", ["user" => $user]);
+        return view("account.index", ["user" => $user]);
     }
 
     public function settingsUpdate(AccountUpdateRequest $request)
@@ -36,7 +58,7 @@ class AccountController extends Controller
         $validated = $request->validated();
         $auth = auth()->user();
         $user = User::find($auth->id);
-        if (!$user) return redirect()->route("account.settings-edit")->with("error", "Usuario no encontrado");
+        if (!$user) return redirect()->route("account.index")->with("error", "Usuario no encontrado");
         DB::beginTransaction();
         try {
             $user->update($validated);
@@ -46,10 +68,10 @@ class AccountController extends Controller
                 $user->customer()->create($validated);
             }
             DB::commit();
-            return redirect()->route("account.settings")->with("success", "Datos actualizados correctamente");
+            return redirect()->route("account.index")->with("success", "Datos actualizados correctamente");
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route("account.settings-edit")->with("error", "Error al actualizar los datos. Error: " . $e->getMessage());
+            return redirect()->route("account.index")->with("error", "Error al actualizar los datos. Error: " . $e->getMessage());
         }
     }
 
@@ -77,7 +99,7 @@ class AccountController extends Controller
                     $user->password = Hash::make($validated["new-password"]);
                     $user->save();
                     DB::commit();
-                    return redirect()->route("account.settings")->with("success", "Contraseña actualizada correctamente");
+                    return redirect()->route("account.index")->with("success", "Contraseña actualizada correctamente");
                 } catch (\Exception $e) {
                     DB::rollBack();
                     return redirect()->route("account.change-password")->with("error", "Error al actualizar la contraseña");
