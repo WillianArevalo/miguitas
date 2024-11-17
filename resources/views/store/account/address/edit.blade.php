@@ -1,12 +1,13 @@
-@extends('layouts.__partials.store.template-profile')
-@section('profile-content')
-    <div class="flex flex-col">
+@extends('layouts.template')
+@section('title', 'Miguitas | Editar dirección')
+@section('content')
+    <div class="mx-auto flex w-full flex-col px-4 sm:w-3/4">
         <div class="py-2">
-            <h2 class="font-league-spartan text-3xl font-bold text-secondary">
+            <h2 class="text-3xl font-bold text-blue-store">
                 Editar dirección
             </h2>
         </div>
-        <div class="border-t border-zinc-400">
+        <div>
             <form action="{{ Route('account.addresses.update', $address->id) }}" method="POST" class="mt-4">
                 @csrf
                 @method('PUT')
@@ -51,8 +52,8 @@
                 <div class="my-4 flex items-center justify-center gap-4">
                     <x-button-store type="submit" text="Editar dirección" icon="edit-01" class="w-max text-sm"
                         typeButton="primary" />
-                    <x-button-store type="a" href="{{ Route('account.addresses.index') }}" text="Regresar"
-                        icon="return" class="w-max text-sm" typeButton="secondary" />
+                    <x-button-store type="a" href="{{ Route('account.index') }}" text="Regresar" icon="return"
+                        class="w-max text-sm" typeButton="secondary" />
                 </div>
             </form>
         </div>
