@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId("shipping_method_id")->nullable()->constrained()->onDelete("set null");
+            $table->foreignId("payment_method_id")->nullable()->constrained()->onDelete("set null");
             $table->foreignId("coupon_id")->nullable()->constrained()->onDelete("set null");
             $table->timestamps();
         });
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->foreignId("product_id")->constrained()->onDelete("cascade");
             $table->integer("quantity");
             $table->decimal("sub_total", 10, 2);
+            $table->decimal("price", 10, 2);
             $table->timestamps();
         });
     }
