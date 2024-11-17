@@ -42,6 +42,7 @@ Route::controller(ProductController::class)->group(function () {
     Route::get("/producto/{slug}/detalles", "details")->name("products.details");
     Route::post("/products/filter", [ProductController::class, "filter"])->name("products.filter");
     Route::post("/products/search", [ProductController::class, "search"])->name("products.search");
+    Route::get("/product/get-option", [ProductController::class, "getOption"])->name("product.get-option");
 });
 
 // Policies
@@ -62,8 +63,8 @@ Route::controller(CartController::class)->group(function () {
     Route::post("/cart/update/{id}", "update")->name("cart.update");
     Route::get("/cart/applied-coupon/{id}", "appliedCoupon")->name("cart.applied-coupon");
     Route::post("/cart/apply-coupon", "applyCoupon")->name("cart.apply-coupon");
-    Route::post("/cart/apply-shipping-method", "applyShippingMethod")->name("cart.apply-shipping-method");
-    Route::post("/cart/apply-payment-method", "applyPaymentMethod")->name("cart.apply-payment-method");
+    Route::get("/cart/apply-shipping-method/{id}", "applyShippingMethod")->name("cart.apply-shipping-method");
+    Route::get("/cart/apply-payment-method/{id}", "applyPaymentMethod")->name("cart.apply-payment-method");
     Route::post("/cart/remove-coupon/{id}", "removeCoupon")->name("cart.remove-coupon");
     Route::post("/cart/destroy", "destroy")->name("cart.destroy");
 });
@@ -73,7 +74,6 @@ Route::get("/categories", [CategoryController::class, "showCategoriesStore"])->n
 
 // Authenticated Routes
 Route::middleware("auth")->group(function () {
-
     // Account Management
     Route::prefix("cuenta")->name("account.")->group(function () {
         Route::get("/", [AccountController::class, "index"])->name("index");
@@ -82,18 +82,18 @@ Route::middleware("auth")->group(function () {
         Route::post("/settings-update", [AccountController::class, "settingsUpdate"])->name("settings-update");
         Route::get("/change-password", [AccountController::class, "changePassword"])->name("change-password");
         Route::post("/edit-password", [AccountController::class, "editPassword"])->name("edit-password");
-        Route::resource("/addresses", AddressController::class);
+        Route::resource("/dirección", AddressController::class)->names("addresses");
         Route::resource("/tickets", SupportTicketController::class);
         Route::post("/tickets/{id}/close", [SupportTicketController::class, "close"])->name("tickets.close");
     });
 
     // Orders
     Route::post("/orders/info-add", [CustomerController::class, "store"])->name("customer.store");
-    Route::get("/orders/{number_order}", [OrderController::class, "show"])->name("orders.show");
     Route::post("/order/cancel/{id}", [OrderController::class, "cancel"])->name("order.cancel");
     Route::post("/order/add-comment/{id}", [OrderController::class, "addComment"])->name("order.add-comment");
     Route::post("/order-remove-comment/{id}", [OrderController::class, "removeComment"])->name("order.remove-comment");
     Route::resource("/orders", OrderController::class);
+    Route::get("/orden/{number_order}", [OrderController::class, "show"])->name("orders.show");
 
     // Favorites
     Route::controller(FavoriteController::class)->group(function () {
@@ -107,6 +107,7 @@ Route::middleware("auth")->group(function () {
 
     // Checkout
     Route::get("/facturación", [CheckoutController::class, "index"])->name("checkout");
+    Route::post("/facturación/update", [CheckoutController::class, "update"])->name("checkout.update");
 
     // Reviews
     Route::resource("/reviews", ReviewController::class);
