@@ -13,17 +13,6 @@ use Illuminate\Support\Facades\DB;
 class AddressController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $user = auth()->user();
-        $customer =  Customer::where("user_id", $user->id)->first();
-        $addresses = Address::where("customer_id", $customer->id)->get();
-        return view("account.address.index", ["customer" => $customer, "addresses" => $addresses]);
-    }
-
-    /**
      * Show the form for creating a new resource.
      */
     public function create()
@@ -40,14 +29,19 @@ class AddressController extends Controller
         $validated = $request->validated();
         $user =  auth()->user();
         $customer = Customer::where("user_id", $user->id)->first();
-        if (!$customer) return redirect()->route("account.addresses.index")->with("error", "Cliente no encontrado");
+
+        if (!$customer) {
+            $customer = new Customer();
+            $customer->user_id = $user->id;
+            $customer->save();
+        }
 
         $existingAddress = Address::where("customer_id", $customer->id)
             ->where("type", $validated["type"])
             ->first();
 
         if ($existingAddress) {
-            return redirect()->route("account.addresses.index")->with("error", "Ya existe una dirección con el mismo tipo");
+            return redirect()->route("account.index")->with("error", "Ya existe una dirección con el mismo tipo");
         }
 
         DB::beginTransaction();
@@ -57,10 +51,10 @@ class AddressController extends Controller
             $address->customer_id = $customer->id;
             $address->save();
             DB::commit();
-            return redirect()->route("account.addresses.index")->with("success", "Dirección guardada correctamente");
+            return redirect()->route("account.index")->with("success", "Dirección guardada correctamente");
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route("account.addresses.index")->with("error", "Error al guardar la dirección. Error: " . $e->getMessage());
+            return redirect()->route("account.index")->with("error", "Error al guardar la dirección. Error: " . $e->getMessage());
         }
     }
 
@@ -70,9 +64,9 @@ class AddressController extends Controller
     public function edit(string $slug)
     {
         $address = Address::where("slug", $slug)->first();
-        if (!$address) return redirect()->route("account.addresses.index")->with("error", "Dirección no encontrada");
+        if (!$address) return redirect()->route("account.index")->with("error", "Dirección no encontrada");
         $addresses = Addresses::getAddresses();
-        return view("account.address.edit", ["address" => $address, "addresses" => $addresses]);
+        return view("store.account.address.edit", ["address" => $address, "addresses" => $addresses]);
     }
 
     /**
@@ -83,7 +77,7 @@ class AddressController extends Controller
         $validated = $request->validated();
         $address = Address::find($id);
 
-        if (!$address) return redirect()->route("account.addresses.index")->with("error", "Dirección no encontrada");
+        if (!$address) return redirect()->route("account.index")->with("error", "Dirección no encontrada");
 
         $existingAddress = Address::where("customer_id", $address->customer_id)
             ->where("type", $validated["type"])
@@ -91,7 +85,7 @@ class AddressController extends Controller
             ->first();
 
         if ($existingAddress) {
-            return redirect()->route("account.addresses.index")->with("error", "Ya existe una dirección con el mismo tipo");
+            return redirect()->route("account.index")->with("error", "Ya existe una dirección con el mismo tipo");
         }
 
         DB::beginTransaction();
@@ -99,10 +93,10 @@ class AddressController extends Controller
             $address->fill($validated);
             $address->save();
             DB::commit();
-            return redirect()->route("account.addresses.index")->with("success", "Dirección actualizada correctamente");
+            return redirect()->route("account.index")->with("success", "Dirección actualizada correctamente");
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route("account.addresses.index")->with("error", "Error al actualizar la dirección. Error: " . $e->getMessage());
+            return redirect()->route("account.index")->with("error", "Error al actualizar la dirección. Error: " . $e->getMessage());
         }
     }
 
@@ -112,15 +106,15 @@ class AddressController extends Controller
     public function destroy(string $id)
     {
         $address = Address::find($id);
-        if (!$address) return redirect()->route("account.addresses.index")->with("error", "Dirección no encontrada");
+        if (!$address) return redirect()->route("account.index")->with("error", "Dirección no encontrada");
         DB::beginTransaction();
         try {
             $address->delete();
             DB::commit();
-            return redirect()->route("account.addresses.index")->with("success", "Dirección eliminada correctamente");
+            return redirect()->route("account.index")->with("success", "Dirección eliminada correctamente");
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route("account.addresses.index")->with("error", "Error al eliminar la dirección. Error: " . $e->getMessage());
+            return redirect()->route("account.index")->with("error", "Error al eliminar la dirección. Error: " . $e->getMessage());
         }
     }
 }
