@@ -77,47 +77,57 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="mt-4 flex flex-col items-center justify-start gap-4 sm:flex-row">
-                        <div class="w-72">
-                            @if ($product->options->count() > 0)
-                                @php
-                                    $groupedOptions = $product->options->groupBy(function ($item) {
-                                        return $item->option->name;
-                                    });
-                                @endphp
-                                <div class="flex flex-col gap-4">
-                                    @foreach ($groupedOptions as $optionName => $optionValues)
-                                        <div class="flex flex-col">
-                                            <x-select-store :options="$optionValues->pluck('value', 'id')->toArray()" id="{{ $optionName }}"
-                                                name="{{ $optionName }}" label="{{ $optionName }}"
-                                                text="Selecciona un {{ strtolower($optionName) }}" />
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @endif
+                    <form action="{{ Route('cart.add', $product->id) }}" id="form-add-to-cart" method="POST">
+                        @csrf
+                        <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}">
+                        <div class="mt-4 flex flex-col items-center justify-start gap-4 sm:flex-row">
+                            <div class="w-72">
+                                @if ($product->options->count() > 0)
+                                    @php
+                                        $groupedOptions = $product->options->groupBy(function ($item) {
+                                            return $item->option->name;
+                                        });
+                                    @endphp
+                                    <div class="flex flex-col gap-2">
+                                        @foreach ($groupedOptions as $optionName => $optionValues)
+                                            <div class="flex flex-col">
+                                                <x-select-store :options="$optionValues->pluck('value', 'id')->toArray()" id="{{ $optionName }}"
+                                                    class="options_values"
+                                                    data-container="#price-option-{{ $optionName }}"
+                                                    name="options_values[]" label="{{ $optionName }}"
+                                                    text="Selecciona un {{ strtolower($optionName) }}"
+                                                    data-url="{{ Route('product.get-option') }}" />
+                                            </div>
+                                            <div class="price-option mt-2 flex items-center justify-center"
+                                                id="price-option-{{ $optionName }}">
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
                         </div>
-                    </div>
-                    <div class="mt-4 flex flex-col items-center justify-between gap-4 md:flex-row">
-                        <div class="flex h-10 w-max items-center overflow-hidden rounded-xl border-2 border-blue-store">
-                            <button
-                                class="flex h-10 items-center justify-center border-e-2 border-blue-store px-3 text-blue-store hover:bg-blue-store hover:text-white"
-                                id="btn-minus">
-                                <x-icon-store icon="minus" class="h-4 w-4 fill-current" />
-                            </button>
-                            <input readonly
-                                class="h-full w-20 border-none ps-6 text-center text-base font-bold text-blue-store outline-none"
-                                id="quantity" name="quantity" type="number" value="1" max="5" />
-                            <button
-                                class="h-10 border-s-2 border-blue-store px-3 text-blue-store hover:bg-blue-store hover:text-white"
-                                id="btn-plus">
-                                <x-icon-store icon="plus" class="h-4 w-4 fill-current" />
-                            </button>
+                        <div class="mt-4 flex flex-col items-center justify-between gap-4 md:flex-row">
+                            <div class="flex h-10 w-max items-center overflow-hidden rounded-xl border-2 border-blue-store">
+                                <button type="button"
+                                    class="flex h-10 items-center justify-center border-e-2 border-blue-store px-3 text-blue-store hover:bg-blue-store hover:text-white"
+                                    id="btn-minus">
+                                    <x-icon-store icon="minus" class="h-4 w-4 fill-current" />
+                                </button>
+                                <input readonly
+                                    class="h-full w-20 border-none ps-6 text-center text-base font-bold text-blue-store outline-none"
+                                    id="quantity" name="quantity" type="number" value="1" max="5" />
+                                <button type="button"
+                                    class="h-10 border-s-2 border-blue-store px-3 text-blue-store hover:bg-blue-store hover:text-white"
+                                    id="btn-plus">
+                                    <x-icon-store icon="plus" class="h-4 w-4 fill-current" />
+                                </button>
+                            </div>
+                            <x-button-store type="button" class="w-full sm:w-auto" text="Añadir al carrito"
+                                icon="cart-plus" typeButton="secondary" size="large" id="add-to-cart" />
+                            <x-button-store type="button" class="w-full sm:w-auto" text="Comprar ahora"
+                                typeButton="primary" size="large" />
                         </div>
-                        <x-button-store type="button" class="w-full sm:w-auto" text="Añadir al carrito" icon="cart-plus"
-                            typeButton="secondary" size="large" />
-                        <x-button-store type="button" class="w-full sm:w-auto" text="Comprar ahora" typeButton="primary"
-                            size="large" />
-                    </div>
+                    </form>
                     <div class="mt-8">
                         <div class="mx-auto mt-8 w-full">
                             <!-- Tabs Header -->
