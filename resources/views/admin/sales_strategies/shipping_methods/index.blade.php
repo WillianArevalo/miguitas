@@ -58,7 +58,7 @@
                                 <x-slot name="tbody">
                                     @if ($methods->count() == 0)
                                         <x-tr>
-                                            <x-td colspan="4">
+                                            <x-td colspan="4" class="text-center">
                                                 No hay métodos de envío registrados
                                             </x-td>
                                         </x-tr>

@@ -75,10 +75,10 @@
                                             <x-tr>
                                                 <x-td>
                                                     @if ($currency->is_default === 1)
-                                                        <span data-tooltip-target="tooltip-default" type="button">
+                                                        <span data-tooltip-target="tooltip-currency" type="button">
                                                             <x-icon icon="badge-check" class="h-5 w-5 text-green-600" />
                                                         </span>
-                                                        <div id="tooltip-default" role="tooltip"
+                                                        <div id="tooltip-currency" role="tooltip"
                                                             class="tooltip invisible absolute z-10 inline-block rounded-lg bg-zinc-50 px-3 py-2 text-xs font-medium text-zinc-700 opacity-0 shadow-sm transition-opacity duration-300 dark:bg-blue-600 dark:text-white">
                                                             Moneda predefinida
                                                             <div class="tooltip-arrow" data-popper-arrow></div>

@@ -60,7 +60,7 @@
                                 <x-slot name="tbody">
                                     @if ($methods->count() == 0)
                                         <x-tr>
-                                            <x-td colspan="5">
+                                            <x-td colspan="5" class="text-center">
                                                 No hay métodos de envío registrados
                                             </x-td>
                                         </x-tr>
@@ -68,7 +68,7 @@
                                         @foreach ($methods as $method)
                                             <x-tr>
                                                 <x-td>
-                                                    <span class="text-nowrap">
+                                                    <span>
                                                         {{ $method->name }}
                                                     </span>
                                                 </x-td>
