@@ -64,7 +64,7 @@
                                 <x-slot name="tbody">
                                     @if ($coupons->count() == 0)
                                         <x-tr>
-                                            <x-td colspan="7">
+                                            <x-td colspan="7" class="text-center">
                                                 No hay cupones registrados
                                             </x-td>
                                         </x-tr>
