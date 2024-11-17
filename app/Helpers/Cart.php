@@ -14,7 +14,7 @@ class Cart
         }
         $user = auth()->user();
         // Buscar el carrito existente
-        $cart = CartModel::with("items.product")->with("shippingMethod")->where("user_id", $user->id)->first();
+        $cart = CartModel::with("items.product")->with("shippingMethod")->with("paymentMethod")->where("user_id", $user->id)->first();
         return $cart;
     }
 
@@ -37,7 +37,7 @@ class Cart
             return 0;
         }
         return $cart->items->sum(function ($item) {
-            $price = $item->product->offer_price ?? $item->product->price;
+            $price = $item->price;
             return $item->quantity * $price;
         });
     }
@@ -52,7 +52,7 @@ class Cart
             return 0;
         }
         return $cart->items->sum(function ($item) {
-            $price = $item->product->offer_price ?? $item->product->price;
+            $price = $item->price;
             return $item->quantity * $price * $item->product->taxes->sum("rate") / 100;
         });
     }
@@ -67,7 +67,7 @@ class Cart
             return 0;
         }
         return $cart->items->sum(function ($item) {
-            $price = $item->product->offer_price ?? $item->product->price;
+            $price = $item->price;
             return $item->quantity * $price * (1 + $item->product->taxes->sum("rate") / 100);
         });
     }
