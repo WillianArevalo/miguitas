@@ -23,45 +23,88 @@
                     </div>
                 </div>
                 <!-- Products -->
-                @for ($i = 0; $i < 3; $i++)
-                    <div
-                        class="mt-4 flex flex-col items-center gap-4 rounded-2xl border border-zinc-200 p-4 md:flex-row md:border-none">
-                        <div class="flex-[3]">
-                            <div class="flex gap-4">
-                                <div>
-                                    <img src="{{ asset('img/image.jpg') }}" alt="Producto"
-                                        class="h-20 w-20 rounded-xl object-cover">
-                                </div>
-                                <div>
-                                    <h3 class="text-lg font-bold text-dark-pink">Producto 1</h3>
-                                    <p class="dine-r text-sm text-zinc-700">Descripción del producto</p>
-                                    <p class="dine-r text-sm text-zinc-700">
-                                        $100.00
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex-1 text-blue-store">
+                <div id="cart">
+                    @if ($cart && $cart->items->count() > 0)
+                        @foreach ($cart->items as $item)
                             <div
-                                class="flex h-10 w-max items-center gap-6 overflow-hidden rounded-xl border-2 border-dark-pink">
-                                <button
-                                    class="flex h-10 items-center justify-center border-e-2 border-dark-pink px-3 hover:bg-dark-pink hover:text-white">
-                                    <x-icon-store icon="minus" class="h-4 w-4 fill-current" />
-                                </button>
-                                <span class="text-base font-bold">1</span>
-                                <button class="h-10 border-s-2 border-dark-pink px-3 hover:bg-dark-pink hover:text-white">
-                                    <x-icon-store icon="plus" class="h-4 w-4 fill-current" />
-                                </button>
+                                class="mt-4 flex flex-col items-center gap-4 rounded-2xl border border-zinc-200 p-4 shadow-sm md:flex-row">
+                                <div class="flex-[3]">
+                                    <div class="flex gap-4">
+                                        <div>
+                                            <img src="{{ Storage::url($item->product->main_image) }}"
+                                                alt="{{ $item->product->name }}" class="h-20 w-20 rounded-xl object-cover">
+                                        </div>
+                                        <div>
+                                            <h3 class="text-lg font-bold text-dark-pink">
+                                                {{ $item->product->name }}
+                                            </h3>
+                                            <ul>
+                                                @foreach ($item->options as $option)
+                                                    <li class="pluto-r text-sm text-zinc-700">
+                                                        <span class="font-medium">
+                                                            {{ $option->productOptionValue->option->name }}:
+                                                        </span>
+                                                        {{ $option->productOptionValue->value }}
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                            <p class="dine-r text-sm text-zinc-700">
+                                                $ {{ $item->price }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex-1 text-blue-store">
+                                    <div
+                                        class="flex h-10 w-max items-center gap-6 overflow-hidden rounded-xl border-2 border-dark-pink">
+                                        <form action="{{ route('cart.update', $item->product->id) }}" method="POST"
+                                            id="form-minus-cart-{{ $item->product->id }}">
+                                            @csrf
+                                            <input type="hidden" name="action" value="minus">
+                                            <button type="button" data-form="#form-minus-cart-{{ $item->product->id }}"
+                                                class="btnMinusCart flex h-10 items-center justify-center border-e-2 border-dark-pink px-3 hover:bg-dark-pink hover:text-white">
+                                                <x-icon-store icon="minus" class="h-4 w-4 fill-current" />
+                                            </button>
+                                        </form>
+                                        <span class="text-base font-bold">
+                                            {{ $item->quantity }}
+                                        </span>
+                                        <form action="{{ route('cart.update', $item->product->id) }}" method="POST"
+                                            id="form-plus-cart-{{ $item->product->id }}">
+                                            @csrf
+                                            <input type="hidden" name="action" value="plus">
+                                            <button type="button" data-form="#form-plus-cart-{{ $item->product->id }}"
+                                                class="btnPlusCart flex h-10 items-center justify-center border-s-2 border-dark-pink px-3 hover:bg-dark-pink hover:text-white">
+                                                <x-icon-store icon="plus" class="h-4 w-4 fill-current" />
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="flex-1 text-center">
+                                    <h3 class="dine-r text-xl font-bold text-blue-store">
+                                        $ {{ number_format($item->sub_total, 2) }}
+                                    </h3>
+                                </div>
+                                <div class="flex flex-1 items-center justify-center">
+                                    <form action="{{ Route('cart.remove', $item->product->id) }}" method="POST"
+                                        id="form-remove-cart-{{ $item->product->id }}">
+                                        @csrf
+                                        <x-button-store data-form="#form-remove-cart-{{ $item->product->id }}"
+                                            type="button" icon="trash" class="btnRemoveCart" onlyIcon="true"
+                                            typeButton="secondary" />
+                                    </form>
+                                </div>
                             </div>
+                        @endforeach
+                    @else
+                        <div class="flex h-96 flex-col items-center justify-center">
+                            <x-icon-store icon="cart" class="h-20 w-20 fill-current text-zinc-300" />
+                            <p class="pluto-r text-base text-zinc-300">
+                                No hay productos en el carrito
+                            </p>
                         </div>
-                        <div class="flex-1 text-center">
-                            <h3 class="dine-r text-xl font-bold text-blue-store">$ 100.00</h3>
-                        </div>
-                        <div class="flex flex-1 items-center justify-center">
-                            <x-button-store type="button" icon="trash" onlyIcon="true" typeButton="secondary" />
-                        </div>
-                    </div>
-                @endfor
+                    @endif
+                </div>
             </div>
             <div class="h-max flex-1 px-4">
                 <div class="flex justify-center border-b-2 border-blue-store pb-2 lg:justify-start">
@@ -74,16 +117,16 @@
                         <p class="text-sm text-light-blue sm:text-base md:text-lg">
                             Subtotal
                         </p>
-                        <p class="text-sm text-blue-store sm:text-base md:text-lg">
-                            $300.00
+                        <p class="text-sm text-blue-store sm:text-base md:text-lg" id="totalPriceCart">
+                            {{ $carts_totals['total'] }}
                         </p>
                     </div>
                     <div class="flex justify-between">
                         <p class="text-sm text-light-blue sm:text-base md:text-lg">
                             Impuestos
                         </p>
-                        <p class="text-sm text-blue-store sm:text-base md:text-lg">
-                            ---
+                        <p class="text-sm text-blue-store sm:text-base md:text-lg" id="totalTaxes">
+                            {{ $carts_totals['taxes'] }}
                         </p>
                     </div>
                     <div class="flex justify-between border-b-2 border-blue-store pb-4">
@@ -98,8 +141,8 @@
                         <p class="text-xl text-light-blue">
                             Total del pedido
                         </p>
-                        <p class="text-xl text-blue-store">
-                            $300.00
+                        <p class="text-xl text-blue-store" id="subtotal">
+                            {{ $carts_totals['subtotal'] }}
                         </p>
                     </div>
                 </div>
@@ -118,9 +161,9 @@
             <div>
                 <div class="swiper mySwiper w-100 h-full px-4">
                     <div class="swiper-wrapper pb-10">
-                        @for ($i = 0; $i < 8; $i++)
-                            <x-card-product2 />
-                        @endfor
+                        @foreach ($products as $product)
+                            <x-card-product2 :product="$product" />
+                        @endforeach
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
