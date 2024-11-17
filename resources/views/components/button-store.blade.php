@@ -40,7 +40,7 @@
     $buttonTypes = [
         'primary' => 'bg-blue-store text-white hover:bg-blue-selected bg-gradient',
         'secondary' => 'bg-white text-blue-store border-2 border-blue-store hover:bg-zinc-100',
-        'danger' => 'bg-red-500 text-red-600 hover:bg-red-600',
+        'danger' => 'bg-red-100 text-red-500 hover:bg-red-200',
         'warning' => 'bg-yellow-500 text-yellow-600 hover:bg-yellow-600',
         'success' => 'bg-green-100 text-green-500 hover:bg-green-600 hover:text-white',
         'default' => 'bg-white text-zinc-600 border border-zinc-400 hover:bg-zinc-100',
