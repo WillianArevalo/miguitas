@@ -11,9 +11,9 @@
                     </button>
                     <div class="hidden items-center gap-8 sm:flex">
                         <a href="{{ route('admin.index') }}" class="flex items-center">
-                            <x-icon icon="logo" class="me-2 h-8 w-8 text-primary-700 dark:text-primary-700" />
+                            <img src="{{ asset('img/logo.png') }}" alt="logo" class="me-4 h-8 w-8">
                             <span
-                                class="self-center whitespace-nowrap font-league-spartan text-xl font-bold text-primary-600 sm:text-2xl">
+                                class="font-league-spartan self-center whitespace-nowrap text-xl font-bold text-primary-600 sm:text-2xl">
                                 Miguitas
                             </span>
                         </a>
@@ -184,9 +184,9 @@
                                         </div>
                                     </li>
                                     <li class="border-t border-zinc-400 pt-2 dark:border-zinc-800">
-                                        <x-button type="a" typeButton="secondary" text="Ver tienda"
-                                            icon="external-link" size="small"
-                                            class="mb-2 block w-full sm:hidden" />
+                                        <x-button type="a" href="{{ Route('home') }}" target="_blank"
+                                            typeButton="secondary" text="Ver tienda" icon="external-link"
+                                            size="small" class="mb-2 block w-full sm:hidden" />
                                         <form action="{{ route('logout') }}" method="POST" class="w-full">
                                             @csrf
                                             <x-button type="submit" size="small" text="Cerrar sesión"
