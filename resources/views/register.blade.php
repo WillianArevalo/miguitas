@@ -29,7 +29,7 @@
                     </a>
                 </div>
                 <div class="mt-4 w-4/5">
-                    <form action="{{ Route('login.validate') }}" method="POST">
+                    <form action="{{ Route('register.post') }}" method="POST">
                         @csrf
                         <div class="flex gap-4">
                             <div class="flex flex-col gap-2">
