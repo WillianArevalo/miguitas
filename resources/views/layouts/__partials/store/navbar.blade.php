@@ -68,17 +68,12 @@
                         <li class="relative flex items-center">
                             @if ($user = auth()->user())
                                 <button type="button" class="profile flex items-center justify-center gap-1">
-                                    @if (Auth::check())
-                                        @if (auth()->user()->google_id)
-                                            <img src="{{ auth()->user()->google_profile }}" alt="User image"
-                                                class="h-10 w-10 rounded-full object-cover">
-                                        @else
-                                            <img src="{{ Storage::url(auth()->user()->profile) }}" alt="User image"
-                                                class="h-10 w-10 rounded-full object-cover">
-                                        @endif
+                                    @if (auth()->user()->google_id)
+                                        <img src="{{ auth()->user()->google_profile }}" alt="User image"
+                                            class="h-10 w-10 rounded-full object-cover">
                                     @else
-                                        <x-icon-store icon="user"
-                                            class="h-8 w-8 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
+                                        <img src="{{ Storage::url(auth()->user()->profile) }}" alt="User image"
+                                            class="h-10 w-10 rounded-full object-cover">
                                     @endif
                                 </button>
                                 <div class="font-secondary absolute right-0 top-10 z-50 hidden w-52 overflow-hidden rounded-lg bg-white text-sm shadow-md"
@@ -138,15 +133,68 @@
                     <button class="flex h-12 w-12 items-center justify-center sm:hidden">
                         <x-icon-store icon="search" class="h-6 w-6 text-light-blue"></x-icon-store>
                     </button>
-                    <a href="{{ Route('account.index') }}" class="group">
-                        @if (Auth::check())
-                            <img src="{{ Storage::url(auth()->user()->profile) }}" alt="User image"
-                                class="h-10 w-10 rounded-full object-cover">
+
+                    <div class="relative">
+                        @if ($user = auth()->user())
+                            <button type="button" class="profile-user flex items-center justify-center gap-1">
+                                @if (auth()->user()->google_id)
+                                    <img src="{{ auth()->user()->google_profile }}" alt="User image"
+                                        class="h-10 w-10 rounded-full object-cover">
+                                @else
+                                    <img src="{{ Storage::url(auth()->user()->profile) }}" alt="User image"
+                                        class="h-10 w-10 rounded-full object-cover">
+                                @endif
+                            </button>
+                            <div
+                                class="profile-options-user font-secondary absolute right-0 top-10 z-50 hidden w-52 overflow-hidden rounded-lg bg-white text-sm shadow-md">
+                                <ul class="flex flex-col p-2 font-medium">
+                                    <li class="my-2 w-full">
+                                        <a href="{{ Route('account.index') }}"
+                                            class="flex w-full items-center justify-start rounded-xl px-4 py-2 text-blue-store hover:bg-purple-100">
+                                            <x-icon-store icon="user"
+                                                class="mr-2 inline-block h-4 w-4 text-current" />
+                                            Mi cuenta
+                                        </a>
+                                    </li>
+                                    <li class="mb-2 w-full">
+                                        <a href="{{ Route('favorites') }}"
+                                            class="group flex w-full items-center justify-start rounded-xl px-4 py-2 text-zinc-700 hover:bg-rose-50 hover:text-rose-500">
+                                            <x-icon-store icon="heart"
+                                                class="mr-2 inline-block h-4 w-4 text-current group-hover:fill-rose-500" />
+                                            Favoritos
+                                        </a>
+                                    </li>
+                                    <hr class="border-t border-zinc-200">
+                                    <li class="my-2 w-full">
+                                        <a href="{{ Route('account.index') }}"
+                                            class="flex w-full items-center justify-start rounded-xl px-4 py-2 text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
+                                            <x-icon-store icon="settings"
+                                                class="mr-2 inline-block h-4 w-4 text-current" />
+                                            Configuración
+                                        </a>
+                                    </li>
+                                    <hr class="border-t border-zinc-200">
+                                    <li class="mt-2 w-full">
+                                        <form action="{{ Route('logout') }}" method="POST">
+                                            @csrf
+                                            <button type="submit"
+                                                class="flex w-full items-center justify-start rounded-xl px-4 py-2 text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
+                                                <x-icon-store icon="logout"
+                                                    class="mr-2 inline-block h-4 w-4 text-current" />
+                                                Cerrar sesión
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
                         @else
-                            <x-icon-store icon="user"
-                                class="h-8 w-8 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
+                            <a href="{{ Route('login') }}"
+                                class="font-din-b text-sm text-blue-store hover:underline">
+                                Iniciar sesión
+                            </a>
                         @endif
-                    </a>
+                    </div>
+
                 </div>
             </div>
 
@@ -284,28 +332,42 @@
         tabindex="-1" aria-labelledby="drawer-label">
         <button type="button" data-drawer-hide="nav-mobile" aria-controls="nav-mobile"
             class="absolute end-2.5 top-2.5 flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-blue-store hover:bg-zinc-200 hover:text-zinc-900">
-            <x-icon-store icon="close" class="h-6 w-6 text-current"></x-icon-store>
+            <svg class="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
             <span class="sr-only">Close menu</span>
         </button>
         <div class="mt-8">
-            <div class="border-light-blueflex h-12 items-center justify-center rounded-2xl border-[3px]">
+            <div class="flex h-12 items-center justify-center rounded-2xl">
                 <ul class="flex justify-center gap-4 px-4 py-2">
                     <li>
-                        <a href="" class="group">
+                        <a href="{{ Route('cart') }}" class="group relative">
                             <x-icon-store icon="bag"
                                 class="h-6 w-6 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
+                            <span
+                                class="absolute -right-2 -top-2 rounded-full bg-blue-store px-1 py-0.5 text-xs text-white"
+                                id="cart-count">
+                                {{ \App\Helpers\Cart::count() }}
+                            </span>
                         </a>
                     </li>
                     <li>
-                        <a href="" class="group">
+                        <a href="{{ Route('favorites') }}" class="group relative">
                             <x-icon-store icon="heart"
                                 class="h-6 w-6 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
+                            <span
+                                class="absolute -right-2 -top-2 rounded-full bg-blue-store px-1 py-0.5 text-xs text-white"
+                                id="favorite-count">
+                                {{ \App\Helpers\Favorites::count() }}
+                            </span>
                         </a>
                     </li>
                     <li>
                         <a href="" class="group">
                             <x-icon-store icon="whatsapp"
-                                class="h-6 w-6 fill-light-blue transition-transform group-hover:scale-110"></x-icon-store>
+                                class="h-6 w-6 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
                         </a>
                     </li>
                     <li>
