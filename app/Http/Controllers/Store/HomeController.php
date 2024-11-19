@@ -5,9 +5,8 @@ namespace App\Http\Controllers\Store;
 use App\Http\Controllers\Controller;
 use App\Helpers\Favorites;
 use App\Models\Categorie;
+use App\Models\HeadBand;
 use App\Models\Product;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -33,6 +32,11 @@ class HomeController extends Controller
         Favorites::get($user, $products);
         Favorites::get($user, $topProducts);
 
-        return view('home', ["products" => $products, "topProducts" => $topProducts, "flashOffers" => $flashOffers, "categories" => $categories]);
+        return view('home', [
+            "products" => $products,
+            "topProducts" => $topProducts,
+            "flashOffers" => $flashOffers,
+            "categories" => $categories,
+        ]);
     }
 }
