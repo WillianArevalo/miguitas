@@ -1,8 +1,5 @@
 @extends('layouts.login-template')
 @section('title', 'Página no encontrada')
-@push('styles')
-    @vite('resources/css/store/404.css')
-@endpush
 @section('content')
     <div class="relative h-screen w-full">
         <img src="{{ asset('img/404.png') }}" alt="Image page not found" class="h-full w-full">
