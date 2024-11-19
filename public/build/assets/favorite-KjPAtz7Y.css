@@ -1,1 +1,0 @@
-.card-diagonal{clip-path:polygon(0% 0%,100% 0%,100% 80%,82% 100%,0% 100%)}.card-diagonal:after{content:"";position:absolute;bottom:0;right:0;width:25%;height:20%;background-color:var(--pink);clip-path:polygon(40% 20%,100% 0,30% 100%)}
