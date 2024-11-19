@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Faq;
+use App\Models\FaqCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class FAQController extends Controller
 {
@@ -15,15 +18,8 @@ class FAQController extends Controller
     public function index()
     {
         $faqs = Faq::all();
-        return view("admin.faq.index", compact("faqs"));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $faqCategories = FaqCategory::all();
+        return view("admin.faq.index", compact("faqs", "faqCategories"));
     }
 
     /**
@@ -31,22 +27,23 @@ class FAQController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = ["question" => "required|string", "answer" => "required|string"];
-        $validated = $request->validate($rules);
-        $faq = Faq::create($validated);
-        if ($faq) {
-            return redirect()->route("admin.faq.index")->with("success", "FAQ creada correctamente");
-        } else {
-            return redirect()->route("admin.faq.index")->with("error", "No se pudo crear la FAQ");
-        }
-    }
+        $request->validate([
+            'question' => 'required|string',
+            'answer' => 'required|string',
+            'faq_category_id' => 'required|exists:faq_category,id',
+            'active' => 'required|boolean'
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        DB::beginTransaction();
+        try {
+            Faq::create($request->only('question', 'answer', 'faq_category_id'));
+            DB::commit();
+            return redirect()->route("admin.faq.index")->with("success", "FAQ creada correctamente");
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            Log::error('Error al crear la FAQ: ' . $th->getMessage());
+            return redirect()->route("admin.faq.index")->with("error", "Error al crear la FAQ");
+        }
     }
 
     /**
@@ -66,14 +63,24 @@ class FAQController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $rules = ["question" => "required|string", "answer" => "required|string"];
-        $validated = $request->validate($rules);
-        $faq = Faq::find($id);
-        if (!$faq) {
-            return back()->with("error", "No se pudo encontrar la FAQ");
+        $request->validate([
+            'question' => 'required|string',
+            'answer' => 'required|string',
+            'faq_category_id' => 'required|exists:faq_category,id',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $active = $request->has('active') ? 1 : 0;
+            $request->merge(['active' => $active]);
+            Faq::find($id)->update($request->all());
+            DB::commit();
+            return redirect()->route("admin.faq.index")->with("success", "FAQ actualizada correctamente");
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            Log::error('Error al actualizar la FAQ: ' . $th->getMessage());
+            return redirect()->route("admin.faq.index")->with("error", "Error al actualizar la FAQ");
         }
-        $faq->update($validated);
-        return redirect()->route("admin.faq.index")->with("success", "FAQ actualizada correctamente");
     }
 
     /**
@@ -81,11 +88,15 @@ class FAQController extends Controller
      */
     public function destroy(string $id)
     {
-        $faq = Faq::find($id);
-        if (!$faq) {
-            return back()->with("error", "No se pudo encontrar la FAQ");
+        DB::beginTransaction();
+        try {
+            Faq::find($id)->delete();
+            DB::commit();
+            return redirect()->route("admin.faq.index")->with("success", "FAQ eliminada correctamente");
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            Log::error('Error al eliminar la FAQ: ' . $th->getMessage());
+            return redirect()->route("admin.faq.index")->with("error", "Error al eliminar la FAQ");
         }
-        $faq->delete();
-        return redirect()->route("admin.faq.index")->with("success", "FAQ eliminada correctamente");
     }
 }
