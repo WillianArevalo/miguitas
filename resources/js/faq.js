@@ -12,6 +12,8 @@ $(document).ready(function () {
                 $("#question_edit").val(response.faq.question);
                 $("#answer_edit").val(response.faq.answer);
                 $("#formEditFaq").attr("action", action);
+                $("#faq_category_id_edit").val(response.faq.faq_category_id);
+                $("#active_edit").prop("checked", response.faq.active);
             },
         });
     });

@@ -1,4 +1,14 @@
 $(document).ready(function () {
+    $("input[name='type_alert']").on("change", function () {
+        if ($(this).val() === "headband") {
+            $("#popup-container").addClass("hidden");
+            $("#headband-container").removeClass("hidden");
+        } else if ($(this).val() === "popup") {
+            $("#popup-container").removeClass("hidden");
+            $("#headband-container").addClass("hidden");
+        }
+    });
+
     $("#header").on("keyup", function () {
         $("#textHeader").text($(this).val());
     });
@@ -25,13 +35,13 @@ $(document).ready(function () {
 
     function addStyleFocus(element) {
         element.addClass(
-            "border border-dashed border-blue-600 ring-4 ring-blue-200 rounded-lg p-2",
+            "border border-dashed border-blue-600 ring-4 ring-blue-200 rounded-lg p-2"
         );
     }
 
     function removeStyleFocus(element) {
         element.removeClass(
-            "border border-dashed border-blue-600 ring-4 ring-blue-200 rounded-lg p-2",
+            "border border-dashed border-blue-600 ring-4 ring-blue-200 rounded-lg p-2"
         );
     }
 
@@ -77,13 +87,13 @@ $(document).ready(function () {
 
     $("#ff").on("Changed", function () {
         $(".headingPopup")
-            .removeClass("font-league-spartan font-secondary font-mystical")
+            .removeClass("font-pluto-m font-dinc-r font-dine-r")
             .addClass("font-" + $(this).val());
     });
 
     $("#ffText").on("Changed", function () {
         $("#descriptionPoupText")
-            .removeClass("font-league-spartan font-secondary font-mystical")
+            .removeClass("font-pluto-m font-dinc-r font-dine-r")
             .addClass("font-" + $(this).val());
     });
 
@@ -119,8 +129,19 @@ $(document).ready(function () {
         $(".headingPopup").css("color", $(this).val());
     });
 
-    $("#width").on("input", function () {
-        $("#popup").css("width", $(this).val() + "px");
+    $("#width").on("change", function () {
+        let width = $(this).val();
+        switch (width) {
+            case "1":
+                $("#popup").css("width", "400px");
+                break;
+            case "2":
+                $("#popup").css("width", "500px");
+                break;
+            case "3":
+                $("#popup").css("width", "600px");
+                break;
+        }
     });
 
     $("#addPopup").on("click", function () {

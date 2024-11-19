@@ -1,10 +1,24 @@
 $(document).ready(function () {
     const $options = $("#profile-options");
+    const $optionsUser = $(".profile-options-user");
     const $optionsAdmin = $("#dropdown-user");
 
     $(".profile, #profile-admin").on("click", function () {
         $options.toggleClass("hidden");
         $optionsAdmin.toggleClass("hidden");
+    });
+
+    $(".profile-user").on("click", function () {
+        $optionsUser.toggleClass("hidden");
+    });
+
+    $(document).on("click", function (event) {
+        if (
+            !$(event.target).closest(".profile-user").length &&
+            !$(event.target).closest("#profile-options").length
+        ) {
+            $optionsUser.addClass("hidden");
+        }
     });
 
     $(document).on("click", function (event) {

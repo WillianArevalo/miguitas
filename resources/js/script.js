@@ -2,7 +2,7 @@ $(document).ready(function () {
     const $btnToggleTheme = $(".theme-toggle");
     const $html = $("html");
     const systemPrefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)",
+        "(prefers-color-scheme: dark)"
     ).matches;
     let theme = localStorage.getItem("theme") || "system";
 
@@ -91,6 +91,26 @@ $(document).ready(function () {
             } else {
                 $(this).val(0);
             }
-        },
+        }
     );
+
+    const $wrapperHeadBands = $("#headbands-wrapper");
+    const $headBands = $wrapperHeadBands.children();
+    const headbandHeight = $headBands.first().outerHeight();
+
+    function animateHeadBands() {
+        $wrapperHeadBands.animate(
+            {
+                top: `-=${headbandHeight}px`,
+            },
+            1000,
+            "linear",
+            function () {
+                $wrapperHeadBands.append($wrapperHeadBands.children().first());
+                $wrapperHeadBands.css("top", "0px");
+            }
+        );
+    }
+
+    setInterval(animateHeadBands, 4000);
 });
