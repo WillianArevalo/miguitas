@@ -1,4 +1,5 @@
 :root {
+    /* Colors admin  */
     /*--primary-color: #011b4e;*/
     --primary-color-dark: #138fdc;
 
@@ -21,11 +22,28 @@
     --primary-color-store: #138fdc;
     --secondary-color-store: #011b4e;
     --tertiary-color-store: #bcddf1;
-}
 
-@font-face {
-    font-family: "Mystical";
-    src: url("/public/fonts/MysticalWoodsRoughScript.woff") format("woff");
+    /* Colors store */
+    /* Colores Principales */
+    --pink: #ffc9fa;
+    --green: #5ca49b;
+    --gray: #8f8f8f;
+    --blue: #6e83be;
+    --peach: #e8cad2;
+    --brown: #6d422b;
+
+    --light-gray: #e9efff;
+    --light-blue: #93affd;
+    --light-pink: #fcdcf9;
+    --light-blue-2: #6e83be;
+
+    --dark-pink: #ff69b4;
+    --dark-blue: #254183;
+
+    --blue-selected: #41507a;
+    --pink-selected: #e296e2;
+    --green-selected: #34756b;
+    --dark-blue-selected: #84a0e3;
 }
 
 @font-face {
@@ -39,6 +57,57 @@
 }
 
 @font-face {
-    font-family: "League Spartan";
-    src: url("/public/fonts/Poppins-Regular.ttf") format("ttf");
+    font-family: "pluto-m";
+    src: url("../../public/fonts/pluto-m.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "pluto-r";
+    src: url("../../public/fonts/pluto-r.otf") format("opentype");
+}
+
+/* DIN */
+
+@font-face {
+    font-family: "din-b";
+    src: url("../../public/fonts/din-b.otf");
+}
+
+@font-face {
+    font-family: "din-i";
+    src: url("../../public/fonts/din-i.otf");
+}
+
+@font-face {
+    font-family: "din-r";
+    src: url("../../public/fonts/din-r.otf");
+}
+
+/* DIN Exp */
+
+@font-face {
+    font-family: "dine-b";
+    src: url("../../public/fonts/dine-b.otf");
+}
+
+@font-face {
+    font-family: "dine-i";
+    src: url("../../public/fonts/dine-i.otf");
+}
+
+@font-face {
+    font-family: "dine-r";
+    src: url("../../public/fonts/dine-r.otf");
+}
+
+/* DIN Condensed */
+
+@font-face {
+    font-family: "dinc-r";
+    src: url("../../public/fonts/dinc-r.otf");
+}
+
+@font-face {
+    font-family: "dinc-b";
+    src: url("../../public/fonts/dinc-b.otf");
 }
