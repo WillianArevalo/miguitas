@@ -1,3 +1,5 @@
+@import url("scrollbar.css");
+
 /* Popup pages */
 .imagePoup:hover > button,
 .inputPopup:hover > button {
@@ -53,47 +55,6 @@
 
 .ql-container.ql-snow {
     @apply bg-zinc-100  dark:bg-zinc-950 text-zinc-800 dark:text-zinc-300 border-zinc-400 dark:border-zinc-800 rounded-b-lg;
-}
-
-/* Dimensions box */
-.dimension-box {
-    position: relative;
-    width: 50px;
-    height: 50px;
-    transform-style: preserve-3d;
-    transform: rotateX(-30deg) rotateY(-30deg);
-    animation: rotate 10s infinite linear;
-}
-
-.dimension-box .face {
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    background: rgba(52, 152, 219, 0.6);
-    border: 1px solid #3498db;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-}
-
-.dimension-box .front {
-    transform: translateZ(25px);
-}
-.dimension-box .back {
-    transform: rotateY(180deg) translateZ(25px);
-}
-.dimension-box .left {
-    transform: rotateY(-90deg) translateZ(25px);
-}
-.dimension-box .right {
-    transform: rotateY(90deg) translateZ(25px);
-}
-.dimension-box .top {
-    transform: rotateX(90deg) translateZ(25px);
-}
-.dimension-box .bottom {
-    transform: rotateX(-90deg) translateZ(25px);
 }
 
 div[drawer-backdrop] {
