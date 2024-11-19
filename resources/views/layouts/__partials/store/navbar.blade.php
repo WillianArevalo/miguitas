@@ -201,122 +201,77 @@
             <!-- Nav -->
             <div class="mt-4 hidden lg:block">
                 <nav>
-                    <ul class="flex items-center justify-center gap-8 uppercase text-light-blue">
+                    <ul class="flex items-center justify-center gap-8 uppercase text-blue-store">
                         <li>
                             <a href="{{ Route('home') }}"
-                                class="rounded-xl px-4 py-2 hover:bg-light-blue hover:text-white">
+                                class="rounded-xl px-4 py-2 hover:bg-blue-store hover:text-white">
                                 Inicio
                             </a>
                         </li>
                         <li>
                             <a href="{{ Route('store') }}"
-                                class="rounded-xl px-4 py-2 hover:bg-light-blue hover:text-white">
+                                class="rounded-xl px-4 py-2 hover:bg-blue-store hover:text-white">
                                 Tienda
                             </a>
                         </li>
+
                         <li class="group relative">
-                            <a href=""
-                                class="flex items-center gap-2 rounded-xl px-4 py-2 hover:bg-light-blue hover:text-white">
+                            <button type="button"
+                                class="order-link flex items-center gap-2 rounded-xl px-4 py-2 uppercase hover:bg-blue-store hover:text-white">
                                 Ordenar
                                 <x-icon-store icon="arrow-down" class="h-4 w-4 text-current"></x-icon-store>
-                            </a>
+                            </button>
                             <div
                                 class="content-nav absolute z-50 hidden animate-fade-down rounded-3xl border border-zinc-50 bg-white p-10 shadow-2xl animate-duration-300 group-hover:block">
-                                <div class="flex w-96 gap-8">
+                                <div class="flex w-60 gap-8">
                                     <div class="flex flex-1 flex-col gap-4">
-                                        <a href=""
-                                            class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                            <x-icon-store icon="bag"
-                                                class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                            On sales
-                                        </a>
-                                        <a href=""
-                                            class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                            <x-icon-store icon="heart"
-                                                class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                            New
-                                        </a>
-                                        <a href=""
-                                            class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                            <x-icon-store icon="heart"
-                                                class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                            Cakes
-                                        </a>
-                                        <a href=""
-                                            class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                            <x-icon-store icon="heart"
-                                                class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                            Cookies
-                                        </a>
-                                        <a href=""
-                                            class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                            <x-icon-store icon="heart"
-                                                class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                            Packs
-                                        </a>
-                                        <a href=""
-                                            class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                            <x-icon-store icon="heart"
-                                                class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                            Treats
-                                        </a>
-                                        <a href=""
-                                            class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                            <x-icon-store icon="heart"
-                                                class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                            Frozen treats
-                                        </a>
-                                    </div>
-                                    <div class="flex flex-1 flex-col gap-4">
-                                        <a href=""
-                                            class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                            <x-icon-store icon="heart"
-                                                class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                            Suplements
-                                        </a>
-                                        <a href=""
-                                            class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                            <x-icon-store icon="heart"
-                                                class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                            Daily food
-                                        </a>
-                                        <a href=""
-                                            class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                            <x-icon-store icon="heart"
-                                                class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                            Toys
-                                        </a>
-                                        <a href=""
-                                            class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                            <x-icon-store icon="heart"
-                                                class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                            Accesories
-                                        </a>
-                                        <a href=""
-                                            class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                            <x-icon-store icon="heart"
-                                                class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                            Bath&Cleanup
-                                        </a>
-                                        <a href=""
-                                            class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                            <x-icon-store icon="heart"
-                                                class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                            Pet lover accesories
-                                        </a>
+                                        @foreach ($categories as $category)
+                                            <div class="relative">
+                                                <!-- Categoría -->
+                                                <a href="{{ Route('store.products', ['filter' => 'category', 'search' => $category->slug]) }}"
+                                                    class="text-nowrap link-category flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store"
+                                                    data-target="#subcategories-{{ $category->id }}">
+                                                    <img src="{{ Storage::url($category->image) }}"
+                                                        alt="Category image"
+                                                        class="h-5 w-5 rounded-full object-cover">
+                                                    {{ $category->name }}
+                                                </a>
+                                                <!-- Subcategorías -->
+                                                @if ($category->subcategories->count() > 0)
+                                                    <div id="subcategories-{{ $category->id }}"
+                                                        class="subcategories absolute left-full top-0 z-50 hidden w-96 animate-fade-right rounded-xl bg-white p-4 shadow-lg animate-duration-300">
+                                                        <ul class="columns-1 gap-4 sm:columns-2">
+                                                            @foreach ($category->subcategories as $subcategory)
+                                                                <li class="break-inside-avoid">
+                                                                    <a href="{{ Route('store.products', ['filter' => 'subcategory', 'search' => $subcategory->slug]) }}"
+                                                                        class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-blue-store hover:text-white">
+                                                                        <img src="{{ Storage::url($subcategory->image) }}"
+                                                                            alt="Category image"
+                                                                            class="h-6 w-6 rounded-full object-cover">
+                                                                        {{ $subcategory->name }}
+                                                                    </a>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
                         </li>
+
+
                         <li>
                             <a href="{{ Route('faq') }}"
-                                class="group flex items-center gap-2 rounded-xl px-4 py-2 hover:bg-light-blue hover:text-white">
+                                class="group flex items-center gap-2 rounded-xl px-4 py-2 hover:bg-blue-store hover:text-white">
                                 Preguntas frecuentes
                             </a>
                         </li>
                         <li>
                             <a href="{{ Route('about') }}"
-                                class="group rounded-xl px-4 py-2 hover:bg-light-blue hover:text-white">
+                                class="group rounded-xl px-4 py-2 hover:bg-blue-store hover:text-white">
                                 Conócenos
                             </a>
                         </li>
