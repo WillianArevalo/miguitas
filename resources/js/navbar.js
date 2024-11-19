@@ -70,4 +70,14 @@ $(document).ready(function () {
         const target = $(this).data("target");
         $(target).toggleClass("hidden");
     });
+
+    $(".order-link").on("mouseover", function () {
+        $(".subcategories").addClass("hidden");
+    });
+
+    $(".link-category").on("mouseover", function () {
+        $(".subcategories").addClass("hidden");
+        const target = $(this).data("target");
+        $(target).toggleClass("hidden");
+    });
 });
