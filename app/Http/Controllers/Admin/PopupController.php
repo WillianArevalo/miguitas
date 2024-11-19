@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Helpers\RouteHelper;
 use App\Http\Requests\PopupRequest;
+use App\Models\HeadBand;
 use App\Models\Popup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +18,20 @@ class PopupController extends Controller
     public function index()
     {
         $popups = Popup::all();
-        return view("admin.popups.index", compact("popups"));
+        $headbands = HeadBand::all();
+        $popups = $popups->map(function ($popup) {
+            $popup->type = 'popup';
+            return $popup;
+        });
+
+        $headbands = $headbands->map(function ($headband) {
+            $headband->type = 'headband';
+            return $headband;
+        });
+
+        $adversiments = $popups->concat($headbands);
+
+        return view("admin.popups.index", compact("adversiments"));
     }
 
     /**
