@@ -2,11 +2,11 @@
 @section('title', 'Miguitas | Inicio')
 @section('content')
     <div class="overflow-x-hidden">
-        <div class="relative flex h-[500px] w-full items-center justify-center bg-blue-store p-10">
-            <div class="absolute -z-0 h-full w-full">
-                <img src="{{ asset('img/index-dog.jpg') }}" alt="cake" class="img-header h-[500px] object-cover">
+        <div class="relative flex h-[700px] w-full items-center justify-center bg-blue-store">
+            <div class="flex-1">
+                <img src="{{ asset('img/index-dog.jpg') }}" alt="cake" class="h-[700px] w-full object-cover">
             </div>
-            <div class="z-10 mx-auto w-full lg:w-1/2">
+            <div class="relative z-10 mx-auto flex h-full w-full flex-1 flex-col items-center justify-center p-10">
                 <h1 class="mx-auto w-full text-center text-xl font-bold text-white sm:text-2xl md:text-4xl lg:w-2/3">
                     Celébralos con un pastel especial, elaborado con ingredientes de alta calidad desde 2015.
                 </h1>
