@@ -10,7 +10,7 @@ class FAQController extends Controller
 {
     public function index()
     {
-        $faqs = Faq::all();
+        $faqs = Faq::where("active", true)->get();
         return view("store.faq.index", compact("faqs"));
     }
 }
