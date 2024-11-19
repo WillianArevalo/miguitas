@@ -19,29 +19,29 @@
             </div>
             <div class="text-center sm:text-left">
                 <h2 class="text-2xl font-bold text-light-blue">{{ $user->full_name }}</h2>
-                <p class="font-dine-b text-lg text-zinc-800">{{ $user->email }}</p>
+                <p class="font-font-dine-b text-lg text-zinc-800">{{ $user->email }}</p>
             </div>
         </div>
 
         <div class="mx-auto mt-4 w-full px-4 md:w-4/5 lg:w-3/4">
             <div class="tabs-header flex justify-start gap-4 overflow-x-auto rounded-t-lg">
                 <button
-                    class="tab-btn active-tab text-nowrap px-6 py-2 font-din-b text-base font-medium text-zinc-700 focus:outline-none sm:text-lg md:text-xl"
+                    class="tab-btn active-tab text-nowrap font-font-din-b px-6 py-2 text-base font-medium text-zinc-700 focus:outline-none sm:text-lg md:text-xl"
                     data-name="general" data-target="#tab-general">
                     Datos personales
                 </button>
                 <button
-                    class="tab-btn text-nowrap px-6 py-2 font-din-b text-base font-medium text-zinc-700 focus:outline-none sm:text-lg md:text-xl"
+                    class="tab-btn text-nowrap font-font-din-b px-6 py-2 text-base font-medium text-zinc-700 focus:outline-none sm:text-lg md:text-xl"
                     data-name="direction" data-target="#tab-direction">
                     Dirección
                 </button>
                 <button
-                    class="tab-btn text-nowrap px-6 py-2 font-din-b text-base font-medium text-zinc-700 focus:outline-none sm:text-lg md:text-xl"
+                    class="tab-btn text-nowrap font-font-din-b px-6 py-2 text-base font-medium text-zinc-700 focus:outline-none sm:text-lg md:text-xl"
                     data-name="orders" data-target="#tab-orders">
                     Pedidos
                 </button>
                 <button
-                    class="tab-btn text-nowrap px-6 py-2 font-din-b text-base font-medium text-zinc-700 focus:outline-none sm:text-lg md:text-xl"
+                    class="tab-btn text-nowrap font-font-din-b px-6 py-2 text-base font-medium text-zinc-700 focus:outline-none sm:text-lg md:text-xl"
                     data-name="pet" data-target="#tab-pet">
                     Mascota
                 </button>
@@ -111,7 +111,7 @@
                                     class="flex items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-zinc-200 p-10">
                                     <x-icon-store icon="map-point" class="h-8 w-8 text-blue-store" />
                                     <div class="flex flex-col items-center gap-1">
-                                        <p class="pluto-r text-sm text-zinc-500">
+                                        <p class="font-pluto-r text-sm text-zinc-500">
                                             No tienes ninguna dirección registrada
                                         </p>
                                     </div>
@@ -135,50 +135,54 @@
                                                 </div>
                                                 <div class="flex flex-col sm:flex-row">
                                                     <div class="flex flex-1 items-center gap-2">
-                                                        <p class="dine-b text-base text-zinc-800">
+                                                        <p class="font-dine-b text-base text-zinc-800">
                                                             Línea 1:
                                                         </p>
-                                                        <p class="dine-r text-base text-zinc-600">
+                                                        <p class="font-dine-r text-base text-zinc-600">
                                                             {{ $address->address_line_1 }}
                                                         </p>
                                                     </div>
                                                     <div class="flex flex-1 items-center gap-2">
-                                                        <p class="dine-b text-base text-zinc-800">
+                                                        <p class="font-dine-b text-base text-zinc-800">
                                                             Línea 2:
                                                         </p>
-                                                        <p class="dine-r text-base text-zinc-600">
+                                                        <p class="font-dine-r text-base text-zinc-600">
                                                             {{ $address->address_line_2 }}
                                                         </p>
                                                     </div>
                                                 </div>
                                                 <div class="flex flex-col sm:flex-row">
                                                     <div class="flex flex-1 items-center gap-2">
-                                                        <p class="dine-b text-base text-zinc-800">
+                                                        <p class="font-dine-b text-base text-zinc-800">
                                                             Ciudad:
                                                         </p>
-                                                        <p class="dine-r text-base text-zinc-600">{{ $address->city }}</p>
+                                                        <p class="font-dine-r text-base text-zinc-600">
+                                                            {{ $address->city }}</p>
                                                     </div>
                                                     <div class="flex flex-1 items-center gap-2">
-                                                        <p class="dine-b text-base text-zinc-800">
+                                                        <p class="font-dine-b text-base text-zinc-800">
                                                             Estado:
                                                         </p>
-                                                        <p class="dine-r text-base text-zinc-600">{{ $address->state }}
+                                                        <p class="font-dine-r text-base text-zinc-600">
+                                                            {{ $address->state }}
                                                         </p>
                                                     </div>
                                                 </div>
                                                 <div class="flex flex-col sm:flex-row">
                                                     <div class="flex flex-1 items-center gap-2">
-                                                        <p class="din-b text-base text-zinc-800">
+                                                        <p class="font-din-b text-base text-zinc-800">
                                                             País:
                                                         </p>
-                                                        <p class="din-r text-base text-zinc-600">{{ $address->country }}
+                                                        <p class="font-din-r text-base text-zinc-600">
+                                                            {{ $address->country }}
                                                         </p>
                                                     </div>
                                                     <div class="flex flex-1 items-center gap-2">
-                                                        <p class="din-b text-base text-zinc-800">
+                                                        <p class="font-din-b text-base text-zinc-800">
                                                             Código postal:
                                                         </p>
-                                                        <p class="din-r text-base text-zinc-600">{{ $address->zip_code }}
+                                                        <p class="font-din-r text-base text-zinc-600">
+                                                            {{ $address->zip_code }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -272,31 +276,31 @@
                         <div
                             class="mt-4 flex flex-col items-center justify-center gap-2 rounded-xl border border-zinc-200 px-4 shadow-sm">
                             <div class="w-full overflow-x-auto">
-                                <table class="dine-r w-full table-auto">
+                                <table class="w-full table-auto font-dine-r">
                                     <thead>
                                         <tr class="border-b border-zinc-200">
                                             <th scope="col"
-                                                class="dine-r p-4 text-left text-xs font-medium uppercase tracking-wider text-zinc-500">
+                                                class="p-4 text-left font-dine-r text-xs font-medium uppercase tracking-wider text-zinc-500">
                                                 N° de pedido
                                             </th>
                                             <th scope="col"
-                                                class="dine-r p-4 text-left text-xs font-medium uppercase tracking-wider text-zinc-500">
+                                                class="p-4 text-left font-dine-r text-xs font-medium uppercase tracking-wider text-zinc-500">
                                                 N° de seguimiento
                                             </th>
                                             <th scope="col"
-                                                class="dine-r p-4 text-left text-xs font-medium uppercase tracking-wider text-zinc-500">
+                                                class="p-4 text-left font-dine-r text-xs font-medium uppercase tracking-wider text-zinc-500">
                                                 Total
                                             </th>
                                             <th scope="col"
-                                                class="dine-r p-4 text-left text-xs font-medium uppercase tracking-wider text-zinc-500">
+                                                class="p-4 text-left font-dine-r text-xs font-medium uppercase tracking-wider text-zinc-500">
                                                 Fecha de compra
                                             </th>
                                             <th scope="col"
-                                                class="dine-r p-4 text-left text-xs font-medium uppercase tracking-wider text-zinc-500">
+                                                class="p-4 text-left font-dine-r text-xs font-medium uppercase tracking-wider text-zinc-500">
                                                 Estado
                                             </th>
                                             <th scope="col"
-                                                class="dine-r p-4 text-left text-xs font-medium uppercase tracking-wider text-zinc-500">
+                                                class="p-4 text-left font-dine-r text-xs font-medium uppercase tracking-wider text-zinc-500">
                                                 Acciones
                                             </th>
                                         </tr>
@@ -311,45 +315,45 @@
                                                     </span>
                                                 </td>
                                                 <td class="whitespace-nowrap px-4 py-4">
-                                                    <span class="font-secondary pluto-r text-sm text-zinc-500">
+                                                    <span class="font-secondary font-pluto-r text-sm text-zinc-500">
                                                         {{ $order->tracking_number }}
                                                     </span>
                                                 </td>
                                                 <td class="whitespace-nowrap px-4 py-4">
                                                     <span
-                                                        class="pluto-r rounded-full bg-blue-100 px-4 py-1 text-xs font-medium text-blue-700">
+                                                        class="rounded-full bg-blue-100 px-4 py-1 font-pluto-r text-xs font-medium text-blue-700">
                                                         ${{ $order->total }}
                                                     </span>
                                                 </td>
-                                                <td class="whitespace nowrap pluto-r px-4 py-4 text-sm text-zinc-500">
+                                                <td class="whitespace nowrap px-4 py-4 font-pluto-r text-sm text-zinc-500">
                                                     {{ $order->created_at->format('d/m/Y') }}
                                                 </td>
                                                 <td class="whitespace-nowrap px-4 py-4 text-sm text-zinc-500">
                                                     @switch($order->status)
                                                         @case('pending')
                                                             <span
-                                                                class="dine-b rounded-full bg-yellow-100 px-4 py-1 text-xs font-medium text-yellow-700">
+                                                                class="rounded-full bg-yellow-100 px-4 py-1 font-dine-b text-xs font-medium text-yellow-700">
                                                                 {{ ucfirst($order->status) }}
                                                             </span>
                                                         @break
 
                                                         @case('sent')
                                                             <span
-                                                                class="dine-b rounded-full bg-blue-100 px-4 py-1 text-xs font-medium text-blue-700">
+                                                                class="rounded-full bg-blue-100 px-4 py-1 font-dine-b text-xs font-medium text-blue-700">
                                                                 {{ ucfirst($order->status) }}
                                                             </span>
                                                         @break
 
                                                         @case('completed')
                                                             <span
-                                                                class="dine-b rounded-full bg-green-100 px-4 py-1 text-xs font-medium text-green-700">
+                                                                class="rounded-full bg-green-100 px-4 py-1 font-dine-b text-xs font-medium text-green-700">
                                                                 {{ ucfirst($order->status) }}
                                                             </span>
                                                         @break
 
                                                         @case('canceled')
                                                             <span
-                                                                class="dine-b rounded-full bg-red-100 px-4 py-1 text-xs font-medium text-red-700">
+                                                                class="rounded-full bg-red-100 px-4 py-1 font-dine-b text-xs font-medium text-red-700">
                                                                 {{ ucfirst($order->status) }}
                                                             </span>
                                                         @break
@@ -377,7 +381,7 @@
                                                                 </form>
                                                                 <div id="tooltip-cancel-ticket-{{ $order->id }}"
                                                                     role="tooltip"
-                                                                    class="pluto-r tooltip invisible absolute z-10 inline-block rounded-lg bg-red-500 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300">
+                                                                    class="tooltip invisible absolute z-10 inline-block rounded-lg bg-red-500 px-3 py-2 font-pluto-r text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300">
                                                                     Cancelar pedido
                                                                     <div class="tooltip-arrow" data-popper-arrow></div>
                                                                 </div>
@@ -397,7 +401,7 @@
                                 class="flex items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-zinc-200 p-10">
                                 <x-icon-store icon="bag" class="h-8 w-8 text-blue-store" />
                                 <div class="flex flex-col items-center gap-1">
-                                    <p class="pluto-r text-sm text-zinc-500">
+                                    <p class="font-pluto-r text-sm text-zinc-500">
                                         No tienes ningún pedido registrado
                                     </p>
                                 </div>
@@ -482,7 +486,7 @@
                                 Eliminar dirección
                             </h3>
                             <div class="mt-2">
-                                <p class="dine-r text-sm text-gray-500">
+                                <p class="font-dine-r text-sm text-gray-500">
                                     ¿Estás seguro de que deseas eliminar esta dirección? Todos los datos relacionados con
                                     esta dirección se eliminarán. Esta acción no se puede deshacer.
                                 </p>

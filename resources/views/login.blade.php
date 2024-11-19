@@ -18,7 +18,7 @@
                 </p>
             </div>
             <div class="flex flex-[2] flex-col items-center justify-center bg-light-blue py-20 md:pe-10">
-                <h1 class="dine-r text-xl font-bold text-light-gray sm:text-2xl md:text-4xl">Inicio de sesión</h1>
+                <h1 class="font-dine-r text-xl font-bold text-light-gray sm:text-2xl md:text-4xl">Inicio de sesión</h1>
                 <div class="my-4 flex items-center justify-center gap-4">
                     <a href="#">
                         <x-icon-store icon="facebook" class="h-8 w-8 text-white" />
@@ -40,11 +40,11 @@
                             <x-input-store type="password" name="password" placeholder="Contraseña" icon="key" />
                         </div>
                         <div class="mt-4 flex flex-col items-center justify-center gap-4">
-                            <a href="#" class="dine-r text-white underline">¿Olvidaste tu contraseña?</a>
+                            <a href="#" class="font-dine-r text-white underline">¿Olvidaste tu contraseña?</a>
                             <x-button-store type="submit" text="Iniciar sesión" icon="login" typeButton="primary" />
-                            <p class="pluto-r text-white">
+                            <p class="font-pluto-r text-white">
                                 ¿No tienes una cuenta? <a href="{{ Route('register') }}"
-                                    class="dine-r text-white underline">Regístrate</a>
+                                    class="font-dine-r text-white underline">Regístrate</a>
                             </p>
                         </div>
                     </form>

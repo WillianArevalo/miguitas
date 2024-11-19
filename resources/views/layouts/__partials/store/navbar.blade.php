@@ -120,7 +120,7 @@
                                 </div>
                             @else
                                 <a href="{{ Route('login') }}"
-                                    class="font-din-b text-sm text-blue-store hover:underline">
+                                    class="font-font-din-b text-sm text-blue-store hover:underline">
                                     Iniciar sesión
                                 </a>
                             @endif
@@ -189,7 +189,7 @@
                             </div>
                         @else
                             <a href="{{ Route('login') }}"
-                                class="font-din-b text-sm text-blue-store hover:underline">
+                                class="font-font-din-b text-sm text-blue-store hover:underline">
                                 Iniciar sesión
                             </a>
                         @endif

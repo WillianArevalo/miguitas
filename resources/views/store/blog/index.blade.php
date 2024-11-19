@@ -1,8 +1,5 @@
 @extends('layouts.template')
 @section('title', 'Miguitas | Blog')
-@push('styles')
-    @vite('resources/css/store/blog.css')
-@endpush
 @section('content')
     <div>
         <div class="py-20 text-center" style="background-image: url({{ asset('img/bg-image.png') }});">
@@ -22,7 +19,7 @@
                             <h5 class="text-sm text-blue-store sm:text-base md:text-lg">
                                 Título del blog
                             </h5>
-                            <p class="dine-r text-xs text-gray-store sm:text-sm md:text-base">
+                            <p class="font-dine-r text-xs text-gray-store sm:text-sm md:text-base">
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere aut sapiente velit laborum,
                                 totam dicta, sint incidunt similique, obcaecati nemo architecto inventore ea quidem
                                 reprehenderit dignissimos eveniet atque quo
@@ -32,13 +29,13 @@
                                     <span class="rounded-full bg-rose-100 p-2">
                                         <x-icon-store icon="user" class="h-3 w-3 text-dark-pink" />
                                     </span>
-                                    <span class="dine-r text-xs text-gray-store sm:text-sm">Autor</span>
+                                    <span class="font-dine-r text-xs text-gray-store sm:text-sm">Autor</span>
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <span class="rounded-full bg-rose-100 p-2">
                                         <x-icon-store icon="clock" class="h-3 w-3 text-dark-pink" />
                                     </span>
-                                    <span class="dine-r text-xs text-gray-store sm:text-sm">
+                                    <span class="font-dine-r text-xs text-gray-store sm:text-sm">
                                         hace 2 horas
                                     </span>
                                 </div>

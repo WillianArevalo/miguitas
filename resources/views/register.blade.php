@@ -11,7 +11,7 @@
 
             <div class="flex flex-[2] flex-col items-center justify-center bg-light-blue py-20 md:ps-10">
                 <h1
-                    class="dine-r flex flex-col items-center justify-center text-xl font-bold text-light-gray sm:text-2xl md:text-4xl">
+                    class="flex flex-col items-center justify-center font-dine-r text-xl font-bold text-light-gray sm:text-2xl md:text-4xl">
                     Bienvenido a Miguitas
                     <span class="mt-2 text-sm text-white">
                         Crear una cuenta
@@ -52,9 +52,9 @@
                         </div>
                         <div class="mt-4 flex flex-col items-center justify-center gap-4">
                             <x-button-store type="submit" text="Registrarse" typeButton="primary" />
-                            <p class="pluto-r text-white">
+                            <p class="font-pluto-r text-white">
                                 ¿Ya tienes una cuenta?
-                                <a href="{{ Route('login') }}" class="dine-r text-white underline">
+                                <a href="{{ Route('login') }}" class="font-dine-r text-white underline">
                                     Iniciar sesión
                                 </a>
                             </p>

@@ -29,7 +29,7 @@
         @if ($topProducts->count() > 0)
             <div class="mb-10 mt-20 px-0 sm:px-4 md:px-10">
                 <h2 class="my-4 text-center text-3xl text-light-blue sm:text-4xl md:text-5xl">
-                    Top productos
+                    Top sellers
                 </h2>
                 <div class="mt-4">
                     <div class="swiper mySwiper w-100 h-full px-4">
@@ -95,8 +95,8 @@
                         <img src="{{ asset('img/logo.png') }}" alt="Featured2 image"
                             class="h-8 w-8 rounded-full object-cover md:h-14 md:w-14">
                         <div class="flex flex-col items-start">
-                            <p class="pluto-r text-[8px] text-light-blue md:text-sm">miguitaselsalvador</p>
-                            <p class="pluto-m text-sm text-gray-store md:text-base">El Salvador</p>
+                            <p class="font-pluto-r text-[8px] text-light-blue md:text-sm">miguitaselsalvador</p>
+                            <p class="font-pluto-m text-sm text-gray-store md:text-base">El Salvador</p>
                         </div>
                     </div>
                     <div class="card-image mt-2">
@@ -119,7 +119,7 @@
                         </div>
                         <div>
                             <small class="mt-2 block text-start">
-                                <p class="pluto-m text-xs text-gray-store sm:text-sm">13,355 view</p>
+                                <p class="font-pluto-m text-xs text-gray-store sm:text-sm">13,355 view</p>
                             </small>
                         </div>
                     </div>
@@ -132,8 +132,8 @@
                         <img src="{{ asset('img/logo.png') }}" alt="Featured2 image"
                             class="h-8 w-8 rounded-full object-cover md:h-14 md:w-14">
                         <div class="flex flex-col items-start">
-                            <p class="pluto-r text-[8px] text-light-blue md:text-sm">miguitaselsalvador</p>
-                            <p class="pluto-m text-sm text-gray-store md:text-base">El Salvador</p>
+                            <p class="font-pluto-r text-[8px] text-light-blue md:text-sm">miguitaselsalvador</p>
+                            <p class="font-pluto-m text-sm text-gray-store md:text-base">El Salvador</p>
                         </div>
                     </div>
                     <div class="card-image mt-2">
@@ -156,7 +156,7 @@
                         </div>
                         <div>
                             <small class="mt-2 block text-start">
-                                <p class="pluto-m text-xs text-gray-store sm:text-sm">13,355 view</p>
+                                <p class="font-pluto-m text-xs text-gray-store sm:text-sm">13,355 view</p>
                             </small>
                         </div>
                     </div>
@@ -169,8 +169,8 @@
                         <img src="{{ asset('img/logo.png') }}" alt="Featured2 image"
                             class="h-8 w-8 rounded-full object-cover md:h-14 md:w-14">
                         <div class="flex flex-col items-start">
-                            <p class="pluto-r text-[8px] text-light-blue md:text-sm">miguitaselsalvador</p>
-                            <p class="pluto-m text-sm text-gray-store md:text-base">El Salvador</p>
+                            <p class="font-pluto-r text-[8px] text-light-blue md:text-sm">miguitaselsalvador</p>
+                            <p class="font-pluto-m text-sm text-gray-store md:text-base">El Salvador</p>
                         </div>
                     </div>
                     <div class="card-image mt-2">
@@ -193,7 +193,7 @@
                         </div>
                         <div>
                             <small class="mt-2 block text-start">
-                                <p class="pluto-m text-xs text-gray-store sm:text-sm">13,355 view</p>
+                                <p class="font-pluto-m text-xs text-gray-store sm:text-sm">13,355 view</p>
                             </small>
                         </div>
                     </div>
@@ -206,8 +206,8 @@
                         <img src="{{ asset('img/logo.png') }}" alt="Featured2 image"
                             class="h-8 w-8 rounded-full object-cover md:h-14 md:w-14">
                         <div class="flex flex-col items-start">
-                            <p class="pluto-r text-[8px] text-light-blue md:text-sm">miguitaselsalvador</p>
-                            <p class="pluto-m text-sm text-gray-store md:text-base">El Salvador</p>
+                            <p class="font-pluto-r text-[8px] text-light-blue md:text-sm">miguitaselsalvador</p>
+                            <p class="font-pluto-m text-sm text-gray-store md:text-base">El Salvador</p>
                         </div>
                     </div>
                     <div class="card-image mt-2">
@@ -230,7 +230,7 @@
                         </div>
                         <div>
                             <small class="mt-2 block text-start">
-                                <p class="pluto-m text-xs text-gray-store sm:text-sm">13,355 view</p>
+                                <p class="font-pluto-m text-xs text-gray-store sm:text-sm">13,355 view</p>
                             </small>
                         </div>
                     </div>
@@ -246,13 +246,13 @@
                         <h4 class="text-center text-xl font-bold text-dark-pink sm:text-2xl md:text-3xl">
                             Cake Corazón FurryLove
                         </h4>
-                        <p class="dine-r mt-4 text-sm text-zinc-600 sm:text-base md:text-lg">
+                        <p class="mt-4 font-dine-r text-sm text-zinc-600 sm:text-base md:text-lg">
                             Creamos este pastel natural y especial para que la pancita de tu amor eterno se alegre aun más
                             ya sea compartiéndolo con sus amigos o hermanitos, o el sólito. Porque ellos no son solo
                             nuestros mejores amigos, sino también nuestros amores eternos y fieles. ¡Por eso los
                             consentimos!
                         </p>
-                        <p class="dine-r mt-4 text-sm text-zinc-600 sm:text-base md:text-lg">
+                        <p class="mt-4 font-dine-r text-sm text-zinc-600 sm:text-base md:text-lg">
                             Todos nuestros productos son horneados con ingredientes naturales, sin preservantes
                             artificiales, no contienen trigo (principal alérgeno) y son elaborados especialmente para su
                             peludo!
@@ -269,7 +269,7 @@
                             alt="Cake corazon">
                     </div>
                     <div class="mt-4">
-                        <p class="dine-r mt-4 text-sm text-blue-store sm:text-base md:text-lg">
+                        <p class="mt-4 font-dine-r text-sm text-blue-store sm:text-base md:text-lg">
                             (Mantequilla maní natural, Tocino horneado, Zanahoria, Queso. Se recomienda que el o los
                             peluditos hayan probado anteriormente un treat de sabor de mantequilla de maní)
                         </p>
@@ -353,11 +353,11 @@
                         PAWTY PACKS
                     </h4>
                     <div class="relative ms-4 mt-4 rounded-e-[30px] border border-zinc-200 px-10 py-6 shadow-xl">
-                        <p class="dine-r text-base text-zinc-600 md:text-lg">
+                        <p class="font-dine-r text-base text-zinc-600 md:text-lg">
                             ¡La mejor manera de celebrar a tu peludo en su cumpleaños, su adopción, su logro o cualquier
                             otro motivo!
                         </p>
-                        <p class="dine-r mt-8 text-base text-zinc-600 md:text-lg">
+                        <p class="mt-8 font-dine-r text-base text-zinc-600 md:text-lg">
                             Incluye pastel o pupcakes, 1 gorro, 3 globos, 1 galleta, 1 número de galleta y 1 bandana
                             birthday
                             boy o girl. También puedes comprar estos artículos individualmente.
@@ -380,11 +380,11 @@
                         PAWTY PACKS
                     </h4>
                     <div class="relative ms-4 mt-4 rounded-e-[30px] border border-zinc-200 px-10 py-6 shadow-xl">
-                        <p class="dine-r text-base text-zinc-600 md:text-lg">
+                        <p class="font-dine-r text-base text-zinc-600 md:text-lg">
                             ¡La mejor manera de celebrar a tu peludo en su cumpleaños, su adopción, su logro o cualquier
                             otro motivo!
                         </p>
-                        <p class="dine-r mt-8 text-base text-zinc-600 md:text-lg">
+                        <p class="mt-8 font-dine-r text-base text-zinc-600 md:text-lg">
                             Incluye pastel o pupcakes, 1 gorro, 3 globos, 1 galleta, 1 número de galleta y 1 bandana
                             birthday
                             boy o girl. También puedes comprar estos artículos individualmente.
@@ -403,7 +403,7 @@
                 <h2 class="my-4 text-center text-3xl text-light-blue sm:text-4xl md:text-5xl">
                     MiguiNews
                 </h2>
-                <p class="dine-r text-sm font-medium text-dark-pink sm:text-base md:text-lg">
+                <p class="font-dine-r text-sm font-medium text-dark-pink sm:text-base md:text-lg">
                     Conoce mas sobre nosotros y lo que estamos haciendo en nuestro
                     <a href="{{ Route('blog') }}" class="text-blue-store underline">blog</a>
                 </p>
@@ -418,7 +418,7 @@
                         <h5 class="text-sm text-blue-store sm:text-base md:text-lg">
                             Título del blog
                         </h5>
-                        <p class="dine-r text-xs text-gray-store sm:text-sm md:text-base">
+                        <p class="font-dine-r text-xs text-gray-store sm:text-sm md:text-base">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere aut sapiente velit laborum,
                             totam dicta, sint incidunt similique, obcaecati nemo architecto inventore ea quidem
                             reprehenderit dignissimos eveniet atque quo
@@ -428,13 +428,13 @@
                                 <span class="rounded-full bg-rose-100 p-2">
                                     <x-icon-store icon="user" class="h-3 w-3 text-dark-pink" />
                                 </span>
-                                <span class="dine-r text-xs text-gray-store sm:text-sm">Autor</span>
+                                <span class="font-dine-r text-xs text-gray-store sm:text-sm">Autor</span>
                             </div>
                             <div class="flex items-center gap-2">
                                 <span class="rounded-full bg-rose-100 p-2">
                                     <x-icon-store icon="clock" class="h-3 w-3 text-dark-pink" />
                                 </span>
-                                <span class="dine-r text-xs text-gray-store sm:text-sm">
+                                <span class="font-dine-r text-xs text-gray-store sm:text-sm">
                                     hace 2 horas
                                 </span>
                             </div>
@@ -451,7 +451,7 @@
                         <h5 class="text-sm text-blue-store sm:text-base md:text-lg">
                             Título del blog
                         </h5>
-                        <p class="dine-r text-xs text-gray-store sm:text-sm md:text-base">
+                        <p class="font-dine-r text-xs text-gray-store sm:text-sm md:text-base">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere aut sapiente velit laborum,
                             totam dicta, sint incidunt similique, obcaecati nemo architecto inventore ea quidem
                             reprehenderit dignissimos eveniet atque quo
@@ -462,13 +462,13 @@
                                 <span class="rounded-full bg-rose-100 p-2">
                                     <x-icon-store icon="user" class="h-3 w-3 text-dark-pink" />
                                 </span>
-                                <span class="dine-r text-xs text-gray-store sm:text-sm">Autor</span>
+                                <span class="font-dine-r text-xs text-gray-store sm:text-sm">Autor</span>
                             </div>
                             <div class="flex items-center gap-2">
                                 <span class="rounded-full bg-rose-100 p-2">
                                     <x-icon-store icon="clock" class="h-3 w-3 text-dark-pink" />
                                 </span>
-                                <span class="dine-r text-xs text-gray-store sm:text-sm">
+                                <span class="font-dine-r text-xs text-gray-store sm:text-sm">
                                     hace 2 horas
                                 </span>
                             </div>
@@ -487,7 +487,7 @@
                         <h5 class="text-sm text-blue-store sm:text-base md:text-lg">
                             Título del blog
                         </h5>
-                        <p class="dine-r text-xs text-gray-store sm:text-sm md:text-base">
+                        <p class="font-dine-r text-xs text-gray-store sm:text-sm md:text-base">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere aut sapiente velit laborum,
                             totam dicta, sint incidunt similique, obcaecati nemo architecto inventore ea quidem
                             reprehenderit dignissimos eveniet atque quo
@@ -497,13 +497,13 @@
                                 <span class="rounded-full bg-rose-100 p-2">
                                     <x-icon-store icon="user" class="h-3 w-3 text-dark-pink" />
                                 </span>
-                                <span class="dine-r text-xs text-gray-store sm:text-sm">Autor</span>
+                                <span class="font-dine-r text-xs text-gray-store sm:text-sm">Autor</span>
                             </div>
                             <div class="flex items-center gap-2">
                                 <span class="rounded-full bg-rose-100 p-2">
                                     <x-icon-store icon="clock" class="h-3 w-3 text-dark-pink" />
                                 </span>
-                                <span class="dine-r text-xs text-gray-store sm:text-sm">
+                                <span class="font-dine-r text-xs text-gray-store sm:text-sm">
                                     hace 2 horas
                                 </span>
                             </div>
@@ -520,7 +520,7 @@
                         <h5 class="text-sm text-blue-store sm:text-base md:text-lg">
                             Título del blog
                         </h5>
-                        <p class="dine-r text-xs text-gray-store sm:text-sm md:text-base">
+                        <p class="font-dine-r text-xs text-gray-store sm:text-sm md:text-base">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere aut sapiente velit laborum,
                             totam dicta, sint incidunt similique, obcaecati nemo architecto inventore ea quidem
                             reprehenderit dignissimos eveniet atque quo
@@ -530,13 +530,13 @@
                                 <span class="rounded-full bg-rose-100 p-2">
                                     <x-icon-store icon="user" class="h-3 w-3 text-dark-pink" />
                                 </span>
-                                <span class="dine-r text-xs text-gray-store sm:text-sm">Autor</span>
+                                <span class="font-dine-r text-xs text-gray-store sm:text-sm">Autor</span>
                             </div>
                             <div class="flex items-center gap-2">
                                 <span class="rounded-full bg-rose-100 p-2">
                                     <x-icon-store icon="clock" class="h-3 w-3 text-dark-pink" />
                                 </span>
-                                <span class="dine-r text-xs text-gray-store sm:text-sm">
+                                <span class="font-dine-r text-xs text-gray-store sm:text-sm">
                                     hace 2 horas
                                 </span>
                             </div>
@@ -554,12 +554,12 @@
                     <h2 class="my-4 text-center text-3xl text-light-blue sm:text-4xl md:text-5xl">¡Síguenos en Instagram!
                     </h2>
                 </div>
-                <span class="dine-r text-sm text-gray-store">Mira nuestras últimas publicaciones</span>
+                <span class="font-dine-r text-sm text-gray-store">Mira nuestras últimas publicaciones</span>
                 <x-button-store type="a" typeButton="secondary" text="Ver más" class="w-max" icon="instagram"
                     size="small" href="https://www.instagram.com/miguitaselsalvador/" target="_blank" />
             </div>
             <script src="https://static.elfsight.com/platform/platform.js" async></script>
-            <div class="elfsight-app-3111fc49-9741-4f51-a3e6-3a8c8e2c8eff a-none dine-r" data-elfsight-app-lazy></div>
+            <div class="elfsight-app-3111fc49-9741-4f51-a3e6-3a8c8e2c8eff a-none font-dine-r" data-elfsight-app-lazy></div>
         </div>
 
     </div>

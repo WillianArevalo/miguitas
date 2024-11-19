@@ -1,8 +1,5 @@
 @extends('layouts.template')
 @section('title', 'Miguitas | Favoritos')
-@push('styles')
-    @vite('resources/css/store/favorite.css')
-@endpush
 @section('content')
     <div>
         <div class="w-full py-20 text-center" style="background-image: url({{ asset('img/bg-image.png') }});">
@@ -23,21 +20,21 @@
                             <div class="card-body mt-4 p-2 sm:p-0">
                                 <div class="pb-6">
                                     <h2
-                                        class="pluto-r text-start text-sm font-semibold text-blue-store sm:text-base md:text-lg">
+                                        class="text-start font-pluto-r text-sm font-semibold text-blue-store sm:text-base md:text-lg">
                                         {{ $favorite->name }}
                                     </h2>
                                     <div class="flex items-center gap-2">
                                         <p class="text-start">
-                                            <span class="dine-r text-lg text-gray-store">$</span>
-                                            <span class="dine-r text-lg text-gray-store">
+                                            <span class="font-dine-r text-lg text-gray-store">$</span>
+                                            <span class="font-dine-r text-lg text-gray-store">
                                                 {{ $favorite->price }}
                                             </span>
                                         </p>
                                         @if ($favorite->max_price)
-                                            <span class="dine-r text-lg text-gray-store">-</span>
+                                            <span class="font-dine-r text-lg text-gray-store">-</span>
                                             <p class="text-start">
-                                                <span class="dine-r text-lg text-gray-store">$</span>
-                                                <span class="dine-r text-lg text-gray-store">
+                                                <span class="font-dine-r text-lg text-gray-store">$</span>
+                                                <span class="font-dine-r text-lg text-gray-store">
                                                     {{ $favorite->max_price }}
                                                 </span>
                                             </p>
@@ -118,15 +115,15 @@
                                     </div>
                                     <div class="pb-6">
                                         <small class="mt-2 block text-start">
-                                            <p class="pluto-m text-xs text-gray-store sm:text-sm">13,355 view</p>
+                                            <p class="font-pluto-m text-xs text-gray-store sm:text-sm">13,355 view</p>
                                         </small>
                                         <h2
-                                            class="pluto-r text-start text-sm font-semibold text-blue-store sm:text-base md:text-lg">
+                                            class="text-start font-pluto-r text-sm font-semibold text-blue-store sm:text-base md:text-lg">
                                             #Cake Corazón FurryLove
                                         </h2>
                                         <p class="text-start">
-                                            <span class="dine-r text-lg text-gray-store">$</span>
-                                            <span class="dine-r text-lg text-gray-store">25.00</span>
+                                            <span class="font-dine-r text-lg text-gray-store">$</span>
+                                            <span class="font-dine-r text-lg text-gray-store">25.00</span>
                                         </p>
                                     </div>
                                 </div>

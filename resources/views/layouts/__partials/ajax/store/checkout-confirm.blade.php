@@ -7,7 +7,7 @@
             <x-icon-store icon="user" class="h-5 w-5 text-current" />
             Nombre completo:
         </h5>
-        <p class="pluto-r text-zinc-600">
+        <p class="font-pluto-r text-zinc-600">
             {{ $user->fullName }}
         </p>
     </div>
@@ -17,7 +17,7 @@
                 <x-icon-store icon="email" class="h-5 w-5 text-current" />
                 Correo electrónico:
             </h5>
-            <p class="pluto-r text-zinc-600">
+            <p class="font-pluto-r text-zinc-600">
                 {{ $user->email }}
             </p>
         </div>
@@ -26,7 +26,7 @@
                 <x-icon-store icon="phone" class="h-5 w-5 text-current" />
                 Teléfono:
             </h5>
-            <p class="pluto-r text-zinc-600">
+            <p class="font-pluto-r text-zinc-600">
                 {{ $user->customer ? $user->customer->phone : '' }}
             </p>
         </div>
@@ -40,7 +40,7 @@
         <h5 class="text-zinc-800">
             Dirección:
         </h5>
-        <p class="pluto-r text-zinc-600">
+        <p class="font-pluto-r text-zinc-600">
             {{ $address->address_line_1 }}
         </p>
     </div>
@@ -49,7 +49,7 @@
             <h5 class="text-zinc-800">
                 Ciudad:
             </h5>
-            <p class="pluto-r text-zinc-600">
+            <p class="font-pluto-r text-zinc-600">
                 {{ $address->city }}
             </p>
         </div>
@@ -57,7 +57,7 @@
             <h5 class="text-zinc-800">
                 Departamento:
             </h5>
-            <p class="pluto-r text-zinc-600">
+            <p class="font-pluto-r text-zinc-600">
                 {{ $address->state }}
             </p>
         </div>
@@ -68,7 +68,7 @@
         Método de envío
     </h3>
     <div class="flex items-center">
-        <p class="pluto-r text-zinc-600">
+        <p class="font-pluto-r text-zinc-600">
             {{ $cart->shippingMethod->name }}
         </p>
     </div>
@@ -77,7 +77,7 @@
             <h5 class="text-zinc-800">
                 Precio:
             </h5>
-            <p class="pluto-r text-zinc-600">
+            <p class="font-pluto-r text-zinc-600">
                 ${{ $cart->shippingMethod->cost }}
             </p>
         </div>
@@ -88,7 +88,7 @@
         Método de pago
     </h3>
     <div class="flex items-center">
-        <p class="pluto-r text-zinc-600">
+        <p class="font-pluto-r text-zinc-600">
             {{ $cart->paymentMethod->name }}
         </p>
     </div>

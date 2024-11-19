@@ -52,16 +52,16 @@
                     </div>
                     <div>
                         <div class="flex gap-4">
-                            <p class="dine-r text-xl text-gray-500 sm:text-2xl md:text-3xl">
+                            <p class="font-dine-r text-xl text-gray-500 sm:text-2xl md:text-3xl">
                                 $ {{ $product->price }}
                             </p>
                             @if ($product->max_price)
-                                <p class="dine-r text-xl text-gray-500 sm:text-2xl md:text-3xl">
+                                <p class="font-dine-r text-xl text-gray-500 sm:text-2xl md:text-3xl">
                                     - $ {{ $product->max_price }}
                                 </p>
                             @endif
                         </div>
-                        <p class="din-r mt-2 text-sm text-gray-400 sm:text-base md:text-lg">
+                        <p class="mt-2 font-din-r text-sm text-gray-400 sm:text-base md:text-lg">
                             {!! $product->short_description !!}
                         </p>
                     </div>
@@ -71,7 +71,7 @@
                         </h2>
                         <div class="flex items-center gap-2">
                             @foreach ($product->subcategories as $category)
-                                <p class="dine-r ml-2 text-sm uppercase text-gray-400 sm:text-base md:text-lg">
+                                <p class="ml-2 font-dine-r text-sm uppercase text-gray-400 sm:text-base md:text-lg">
                                     {{ $category->name }},
                                 </p>
                             @endforeach
@@ -152,7 +152,7 @@
                             <!-- Tabs Content -->
                             <div class="tabs-content rounded-b-lg bg-white p-2 sm:p-4 md:p-6">
                                 <div id="tab-description" class="tab-panel">
-                                    <p class="dine-r text-sm text-zinc-500 md:text-base">
+                                    <p class="font-dine-r text-sm text-zinc-500 md:text-base">
                                         {!! $product->long_description !!}
                                     </p>
                                 </div>
@@ -170,11 +170,11 @@
                                                     <div class="flex w-full flex-col justify-between gap-2 sm:flex-row">
                                                         <div class="flex flex-col">
                                                             <p
-                                                                class="text-secondary pluto-r text-base font-bold text-zinc-600 md:text-lg">
+                                                                class="text-secondary font-pluto-r text-base font-bold text-zinc-600 md:text-lg">
                                                                 Nombre de usuario
                                                             </p>
                                                             <p
-                                                                class="font-secondary dine-r text-xs text-zinc-600 sm:text-sm">
+                                                                class="font-secondary font-dine-r text-xs text-zinc-600 sm:text-sm">
                                                                 12 de septiembre de 2022
                                                             </p>
                                                         </div>
@@ -192,7 +192,7 @@
                                                     </div>
                                                 </div>
                                                 <p
-                                                    class="font-secondary md::text-base text-secondary dine-r ms-14 text-sm text-zinc-500">
+                                                    class="font-secondary md::text-base text-secondary ms-14 font-dine-r text-sm text-zinc-500">
                                                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro maiores
                                                     at
                                                     magni

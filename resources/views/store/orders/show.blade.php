@@ -3,7 +3,7 @@
 @section('content')
     <div class="mx-auto my-8 flex w-full flex-col px-4 sm:w-3/4">
         <div class="gap flex flex-col-reverse justify-between gap-4 py-2 sm:flex-row sm:items-center">
-            <h2 class="pluto-r text-3xl font-bold text-blue-store">
+            <h2 class="font-pluto-r text-3xl font-bold text-blue-store">
                 Detalles del pedido
             </h2>
             <div class="flex items-center justify-end gap-4">
@@ -39,7 +39,7 @@
                             </span>
                             {{ $order->number_order }}
                         </h2>
-                        <h2 class="dine-r text-xl font-semibold text-zinc-600">
+                        <h2 class="font-dine-r text-xl font-semibold text-zinc-600">
                             <span>
                                 <x-icon-store icon="truck-delivery" class="inline-block h-5 w-5 text-current" />
                             </span>
@@ -50,27 +50,28 @@
                         <div>
                             @switch($order->status)
                                 @case('pending')
-                                    <span class="dine-b rounded-xl bg-yellow-100 px-4 py-2 text-sm font-medium text-yellow-700">
+                                    <span
+                                        class="rounded-xl bg-yellow-100 px-4 py-2 font-dine-b text-sm font-medium text-yellow-700">
                                         <x-icon-store icon="clock" class="inline-block h-4 w-4 text-current" />
                                         Pedido pendiente
                                     </span>
                                 @break
 
                                 @case('completed')
-                                    <span class="dine-b rounded-xl bg-green-100 px-4 py-1 text-sm font-medium text-green-700">
+                                    <span class="rounded-xl bg-green-100 px-4 py-1 font-dine-b text-sm font-medium text-green-700">
                                         {{ ucfirst($order->status) }}
                                     </span>
                                 @break
 
                                 @case('sent')
-                                    <span class="dine-b rounded-xl bg-blue-100 px-4 py-2 text-sm font-medium text-blue-700">
+                                    <span class="rounded-xl bg-blue-100 px-4 py-2 font-dine-b text-sm font-medium text-blue-700">
                                         <x-icon-store icon="truck-delivery" class="inline-block h-4 w-4 text-current" />
                                         Pedido enviado
                                     </span>
                                 @break
 
                                 @case('canceled')
-                                    <span class="dine-b rounded-xl bg-red-100 px-4 py-2 text-sm font-medium text-red-700">
+                                    <span class="rounded-xl bg-red-100 px-4 py-2 font-dine-b text-sm font-medium text-red-700">
                                         <x-icon-store icon="cancel" class="inline-block h-4 w-4 text-current" />
                                         Pedido cancelado
                                     </span>
@@ -84,8 +85,8 @@
                 <div class="flex flex-col gap-4 text-sm sm:flex-row sm:text-base">
                     <div class="flex-[2] rounded-xl border border-zinc-200 p-4 shadow">
                         <div>
-                            <span class="dine-r font-bold text-zinc-900">Método de envío:</span>
-                            <span class="dine-r text-zinc-600">
+                            <span class="font-dine-r font-bold text-zinc-900">Método de envío:</span>
+                            <span class="font-dine-r text-zinc-600">
                                 @if ($order->shipping_method)
                                     {{ $order->shipping_method->name }}
                                 @else
@@ -94,14 +95,14 @@
                             </span>
                         </div>
                         <div class="mt-2">
-                            <span class="dine-r font-bold text-zinc-900">Dirección de envío:</span>
-                            <span class="dine-r text-zinc-600">
+                            <span class="font-dine-r font-bold text-zinc-900">Dirección de envío:</span>
+                            <span class="font-dine-r text-zinc-600">
                                 {{ $order->address->address_line_1 . ', ' . $order->address->address_line_2 }}
                             </span>
                         </div>
                         <div class="mt-2">
-                            <span class="dine-r font-bold text-zinc-900">Fecha de envío:</span>
-                            <span class="dine-r text-zinc-600">
+                            <span class="font-dine-r font-bold text-zinc-900">Fecha de envío:</span>
+                            <span class="font-dine-r text-zinc-600">
                                 {{ $order->shipping_date ? $order->shipping_date->toFormattedDateString() : 'Sin especificar' }}
                             </span>
                         </div>
@@ -109,8 +110,8 @@
                     </div>
                     <div class="flex-1 rounded-xl border border-zinc-200 p-4 shadow">
                         <div>
-                            <span class="dine-r font-bold text-zinc-900">Método de pago:</span>
-                            <span class="dine-r text-zinc-600">
+                            <span class="font-dine-r font-bold text-zinc-900">Método de pago:</span>
+                            <span class="font-dine-r text-zinc-600">
                                 {{ $order->payment_method->name }}
                             </span>
                         </div>
@@ -127,19 +128,19 @@
                         <thead>
                             <tr class="border-b border-zinc-200">
                                 <th scope="col"
-                                    class="dine-r px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-zinc-500">
+                                    class="px-4 py-3 text-left font-dine-r text-xs font-medium uppercase tracking-wider text-zinc-500">
                                     Producto
                                 </th>
                                 <th scope="col"
-                                    class="dine-r px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-zinc-500">
+                                    class="px-4 py-3 text-left font-dine-r text-xs font-medium uppercase tracking-wider text-zinc-500">
                                     Cantidad
                                 </th>
                                 <th scope="col"
-                                    class="dine-r px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-zinc-500">
+                                    class="px-4 py-3 text-left font-dine-r text-xs font-medium uppercase tracking-wider text-zinc-500">
                                     Precio
                                 </th>
                                 <th scope="col"
-                                    class="dine-r px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-zinc-500">
+                                    class="px-4 py-3 text-left font-dine-r text-xs font-medium uppercase tracking-wider text-zinc-500">
                                     Subtotal
                                 </th>
                             </tr>
@@ -155,24 +156,24 @@
                                                     alt="{{ $item->product->name }}">
                                             </div>
                                             <div class="ml-4">
-                                                <div class="din-r text-sm font-medium text-zinc-600">
+                                                <div class="font-din-r text-sm font-medium text-zinc-600">
                                                     {{ $item->product->name }}
                                                 </div>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="whitespace-nowrap px-4 py-4">
-                                        <div class="din-r text-sm text-zinc-600">
+                                        <div class="font-din-r text-sm text-zinc-600">
                                             {{ $item->quantity }}
                                         </div>
                                     </td>
                                     <td class="whitespace-nowrap px-4 py-4">
-                                        <div class="din-r text-sm text-zinc-600">
+                                        <div class="font-din-r text-sm text-zinc-600">
                                             ${{ $item->price }}
                                         </div>
                                     </td>
                                     <td class="whitespace nowrap px-4 py-4 text-sm text-zinc-500">
-                                        <div class="din-r text-sm text-zinc-600">
+                                        <div class="font-din-r text-sm text-zinc-600">
                                             ${{ number_format($item->price * $item->quantity, 2) }}
                                         </div>
                                     </td>
@@ -196,14 +197,14 @@
                             </div>
                             <div class="flex flex-1 flex-col justify-center">
                                 <div>
-                                    <div class="dine-b text-secondary text-base font-bold">
+                                    <div class="text-secondary font-dine-b text-base font-bold">
                                         {{ $item->product->name }}
                                     </div>
-                                    <div class="dine-r text-sm text-zinc-600">
+                                    <div class="font-dine-r text-sm text-zinc-600">
                                         Cantidad: {{ $item->quantity }}
                                     </div>
                                 </div>
-                                <div class="dine-r text-base font-bold text-primary">
+                                <div class="font-dine-r text-base font-bold text-primary">
                                     ${{ number_format($item->price * $item->quantity, 2) }}
                                 </div>
                             </div>
@@ -220,46 +221,46 @@
                             Resumen
                         </h3>
                         <div class="flex justify-between">
-                            <div class="dine-r text-zinc-800">
+                            <div class="font-dine-r text-zinc-800">
                                 Subtotal de artículos
                             </div>
-                            <div class="dine-r text-zinc-600">
+                            <div class="font-dine-r text-zinc-600">
                                 ${{ $order->subtotal }}
                             </div>
                         </div>
 
                         <div class="flex justify-between">
-                            <div class="dine-r text-zinc-800">
+                            <div class="font-dine-r text-zinc-800">
                                 Descuento
                             </div>
-                            <div class="dine-r text-red-500">
+                            <div class="font-dine-r text-red-500">
                                 -${{ $order->discount }}
                             </div>
                         </div>
 
                         <div class="flex justify-between">
-                            <div class="font-dine-r text-zinc-800">
+                            <div class="font-font-dine-r text-zinc-800">
                                 Impuesto
                             </div>
-                            <div class="font-dine-r text-zinc-600">
+                            <div class="font-font-dine-r text-zinc-600">
                                 ${{ $order->tax }}
                             </div>
                         </div>
 
                         <div class="flex justify-between">
-                            <div class="font-dine-r text-zinc-800">
+                            <div class="font-font-dine-r text-zinc-800">
                                 Monto de envío
                             </div>
-                            <div class="font-dine-r text-zinc-600">
+                            <div class="font-font-dine-r text-zinc-600">
                                 ${{ $order->shipping_method->cost }}
                             </div>
                         </div>
 
                         <div class="flex justify-between border-t border-dashed border-zinc-200 pt-4 font-semibold">
-                            <div class="font-dine-b text-xl uppercase text-zinc-800">
+                            <div class="font-font-dine-b text-xl uppercase text-zinc-800">
                                 Total
                             </div>
-                            <div class="font-dine-b text-xl text-zinc-800">
+                            <div class="font-font-dine-b text-xl text-zinc-800">
                                 ${{ $order->total }}
                             </div>
                         </div>
@@ -268,7 +269,7 @@
 
                 <div class="mt-4 rounded-xl border border-zinc-200 p-4 shadow">
                     <span class="font-bold text-zinc-800">Fecha de pedido:</span>
-                    <p class="font-dine-r text-zinc-600">
+                    <p class="font-font-dine-r text-zinc-600">
                         {{ $order->created_at->toFormattedDateString() }}
                     </p>
                 </div>
@@ -279,10 +280,10 @@
                     </span>
                     @if ($order->customer_notes)
                         <div class="mt-2">
-                            <p class="font-dine-r text-sm text-zinc-600">
+                            <p class="font-font-dine-r text-sm text-zinc-600">
                                 Tu comentario:
                             </p>
-                            <p class="font-dine-r text-zinc-600">
+                            <p class="font-font-dine-r text-zinc-600">
                                 {{ $order->customer_notes }}
                             </p>
                             <form action="{{ Route('order.remove-comment', $order->id) }}" method="POST">
@@ -293,7 +294,7 @@
                         </div>
                     @else
                         <div>
-                            <p class="py-2 font-dine-r text-zinc-600">
+                            <p class="font-font-dine-r py-2 text-zinc-600">
                                 Sin comentarios
                             </p>
                             <div>
@@ -369,7 +370,7 @@
                                     Cancelar pedido
                                 </h3>
                                 <div class="mt-2">
-                                    <p class="font-dine-r text-sm text-zinc-600">
+                                    <p class="font-font-dine-r text-sm text-zinc-600">
                                         ¿Estás seguro de que deseas cancelar el pedido? Esta acción no se puede deshacer.
                                     </p>
                                 </div>

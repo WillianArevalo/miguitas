@@ -7,11 +7,11 @@
                 5 cosas que puedes hacer en el Día Mundial del Perro
             </h1>
             <div class="mt-4 flex items-center justify-center gap-4">
-                <small class="dine-r text-white">
+                <small class="font-dine-r text-white">
                     19 de septiembre de 2021
                 </small>
                 <span class="block h-2 w-2 rounded-full bg-white"></span>
-                <small class="dine-r text-white">
+                <small class="font-dine-r text-white">
                     8:40 AM
                 </small>
             </div>
@@ -22,27 +22,27 @@
         <div class="p-4 sm:p-6 md:p-10">
             <div class="flex flex-col-reverse gap-4 lg:flex-row">
                 <aside class="flex-1 lg:px-10">
-                    <h3 class="pluto-r text-lg font-medium text-blue-store md:text-xl">
+                    <h3 class="font-pluto-r text-lg font-medium text-blue-store md:text-xl">
                         Artículos relacionados
                     </h3>
                     <ul class="mt-4 flex flex-col gap-2">
                         <li>
-                            <a href="#" class="dine-r text-sm text-zinc-600 hover:underline md:text-base">
+                            <a href="#" class="font-dine-r text-sm text-zinc-600 hover:underline md:text-base">
                                 21 De Julio es el Día Mundial del Perro
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="dine-r text-sm text-zinc-600 hover:underline md:text-base">
+                            <a href="#" class="font-dine-r text-sm text-zinc-600 hover:underline md:text-base">
                                 10 cosas que no sabías de los gatos
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="dine-r text-sm text-zinc-600 hover:underline md:text-base">
+                            <a href="#" class="font-dine-r text-sm text-zinc-600 hover:underline md:text-base">
                                 5 cosas que puedes hacer en el Día Mundial del Perro
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="dine-r text-sm text-zinc-600 hover:underline md:text-base">
+                            <a href="#" class="font-dine-r text-sm text-zinc-600 hover:underline md:text-base">
                                 Como cuidar a tu peludito
                             </a>
                         </li>
@@ -54,7 +54,7 @@
                             <h2 class="text-2xl font-bold text-blue-store md:text-3xl">
                                 ¡21 De Julio es el Día Mundial del Perro!
                             </h2>
-                            <p class="dine-r mt-2 text-left text-sm text-zinc-500 md:text-base">
+                            <p class="mt-2 text-left font-dine-r text-sm text-zinc-500 md:text-base">
                                 Nuestras vidas no serian iguales sin los perritos ¿no lo crees? Por eso desde el 2004 los
                                 homenajeamos este día. Todos nuestros peluditos saben que es tener una familia que los ama y
                                 los
@@ -73,10 +73,10 @@
                                 </div>
                                 <div class="flex-[2]">
                                     <div>
-                                        <h2 class="pluto-r text-xl font-semibold text-zinc-500 md:text-2xl">
+                                        <h2 class="font-pluto-r text-xl font-semibold text-zinc-500 md:text-2xl">
                                             1. Adoptar un peludito.
                                         </h2>
-                                        <p class="dine-r text-left text-sm text-zinc-500 md:text-base">
+                                        <p class="text-left font-dine-r text-sm text-zinc-500 md:text-base">
                                             En nuestro país son muchos los refugios que cuentan con cientos de perritos en
                                             sus
                                             albergues y cada uno busca una casita que puedan llenar de amor. Si, muchos han
@@ -86,10 +86,10 @@
                                         </p>
                                     </div>
                                     <div class="mt-4">
-                                        <h2 class="pluto-r text-xl font-semibold text-zinc-500 md:text-2xl">
+                                        <h2 class="font-pluto-r text-xl font-semibold text-zinc-500 md:text-2xl">
                                             2. Apoyar un refugio.
                                         </h2>
-                                        <p class="dine-r text-left text-sm text-zinc-500 md:text-base">
+                                        <p class="text-left font-dine-r text-sm text-zinc-500 md:text-base">
                                             Si, desde donar $1 hasta convertirse en un padrino de un perrito en especifico y
                                             porqué no volverse un embajador de su causa y promoviendo su labor de todas las
                                             formas posibles. Compartiendo nuestras redes sociales sobre la labor y
@@ -110,10 +110,10 @@
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <h2 class="pluto-r text-xl font-semibold text-zinc-500 md:text-2xl">
+                                <h2 class="font-pluto-r text-xl font-semibold text-zinc-500 md:text-2xl">
                                     3. Esterilizar y cuidar a tus mascotas.
                                 </h2>
-                                <p class="dine-r text-left text-sm text-zinc-500 md:text-base">
+                                <p class="text-left font-dine-r text-sm text-zinc-500 md:text-base">
                                     Aunque para muchos este sea un tema sensible, la esterilización es una de las mejores
                                     herramientas que ha demostrado su gran eficacia en evitar que el numero de perritos sin
                                     hogar aumente. De esta forma se puede cortar el ciclo de abandono y también la
@@ -122,10 +122,10 @@
                                 </p>
                             </div>
                             <div class="mt-4">
-                                <h2 class="pluto-r text-xl font-semibold text-zinc-500 md:text-2xl">
+                                <h2 class="font-pluto-r text-xl font-semibold text-zinc-500 md:text-2xl">
                                     4. Denunciar el maltrato animal.
                                 </h2>
-                                <p class="dine-r text-left text-sm text-zinc-500 md:text-base">
+                                <p class="text-left font-dine-r text-sm text-zinc-500 md:text-base">
                                     ¿Ya conoces como denunciar efectivamente?
                                     Primero debes tener pruebas del delito. También conocer la hora y fecha en que ocurrió
                                     el hecho, para luego poner la denuncia en la alcaldía correspondiente. Si ellos no
@@ -133,10 +133,10 @@
                                 </p>
                             </div>
                             <div class="mt-4">
-                                <h2 class="pluto-r text-xl font-semibold text-zinc-500 md:text-2xl">
+                                <h2 class="font-pluto-r text-xl font-semibold text-zinc-500 md:text-2xl">
                                     5. Cuidarlos en la calle.
                                 </h2>
-                                <p class="dine-r text-left text-sm text-zinc-500 md:text-base">
+                                <p class="text-left font-dine-r text-sm text-zinc-500 md:text-base">
                                     Si tienes la oportunidad de darle agüita, comida o resguardo a un perrito en las calles,
                                     por favor ¡hazlo! Si manejas, hazlo con cuidado si observas perritos sueltos alrededor.
                                     Déjalos cruzar las calles y frena para no lastimarlos. La mayoría de ocasiones ellos

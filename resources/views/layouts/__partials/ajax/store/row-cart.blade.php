@@ -13,7 +13,7 @@
                         </h3>
                         <ul>
                             @foreach ($item->options as $option)
-                                <li class="pluto-r text-sm text-zinc-700">
+                                <li class="font-pluto-r text-sm text-zinc-700">
                                     <span class="font-medium">
                                         {{ $option->productOptionValue->option->name }}:
                                     </span>
@@ -21,7 +21,7 @@
                                 </li>
                             @endforeach
                         </ul>
-                        <p class="dine-r text-sm text-zinc-700">
+                        <p class="font-dine-r text-sm text-zinc-700">
                             $ {{ $item->price }}
                         </p>
                     </div>
@@ -53,7 +53,7 @@
                 </div>
             </div>
             <div class="flex-1 text-center">
-                <h3 class="dine-r text-xl font-bold text-blue-store">
+                <h3 class="font-dine-r text-xl font-bold text-blue-store">
                     $ {{ number_format($item->sub_total, 2) }}
                 </h3>
             </div>

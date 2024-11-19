@@ -10,25 +10,25 @@
             <div class="flex flex-col items-center justify-center gap-4 px-4">
                 <div class="flex items-center justify-center gap-2 text-center">
                     <x-icon-store icon="location-arrow" class="h-6 w-6 fill-light-blue" />
-                    <h2 class="light-blue pluto-r text-sm sm:text-base md:text-lg">
+                    <h2 class="light-blue font-pluto-r text-sm sm:text-base md:text-lg">
                         Antiguo Cuscatlán, Col Cumbres de Cuscatlán, La Libertad, El Salvador.
                     </h2>
                 </div>
                 <div class="flex items-center justify-center gap-2">
                     <x-icon-store icon="phone" class="h-6 w-6 fill-light-blue" />
-                    <h2 class="light-blue pluto-r text-sm sm:text-base md:text-lg">
+                    <h2 class="light-blue font-pluto-r text-sm sm:text-base md:text-lg">
                         (+503) 2243-4190
                     </h2>
                 </div>
                 <div class="flex items-center justify-center gap-2">
                     <x-icon-store icon="whatsapp" class="h-6 w-6 fill-light-blue" />
-                    <h2 class="light-blue pluto-r text-sm sm:text-base md:text-lg">
+                    <h2 class="light-blue font-pluto-r text-sm sm:text-base md:text-lg">
                         (+503) 7910-1241
                     </h2>
                 </div>
                 <div class="flex items-center justify-center gap-2">
                     <x-icon-store icon="email" class="h-6 w-6 fill-light-blue" />
-                    <h2 class="light-blue pluto-r text-sm sm:text-base md:text-lg">
+                    <h2 class="light-blue font-pluto-r text-sm sm:text-base md:text-lg">
                         administración@miguitasssv.com
                     </h2>
                 </div>
@@ -36,22 +36,22 @@
             <div class="my-10">
                 <h2 class="light-blue-2 text-center text-3xl">Horarios</h2>
                 <ul class="ms-4 mt-4 flex list-disc flex-col gap-4 px-8 text-base md:text-lg">
-                    <li class="din-r text-zinc-500">
+                    <li class="font-din-r text-zinc-500">
                         Atención en REDES: Martes a Viernes 9:00 am a 6 pm y Sábados 9:00 am a 4:00 pm
                     </li>
-                    <li class="din-r text-zinc-500">
+                    <li class="font-din-r text-zinc-500">
                         Entregas a DOMICILIO: Martes a Viernes 10:00 am a 3:00 pm Sábados 9:00 am a 4:00 pm
                     </li>
-                    <li class="din-r text-zinc-500">
+                    <li class="font-din-r text-zinc-500">
                         PAWstry Shop la Sultana: Martes a Viernes 11:00 am a 6:00 pm y Sábados 10:00 am a 4:00 pm
                     </li>
-                    <li class="din-r text-zinc-500">
+                    <li class="font-din-r text-zinc-500">
                         Domingo y Lunes CERRADO.
                     </li>
-                    <li class="din-r text-zinc-500">
+                    <li class="font-din-r text-zinc-500">
                         NO se realizan entregas.
                     </li>
-                    <li class="din-r text-zinc-500">
+                    <li class="font-din-r text-zinc-500">
                         Tienda virtual abierta para programar pedidos con envío a domicilio o RETIRO en tienda.</li>
                 </ul>
             </div>

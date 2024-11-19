@@ -40,7 +40,7 @@
                                             </h3>
                                             <ul>
                                                 @foreach ($item->options as $option)
-                                                    <li class="pluto-r text-sm text-zinc-700">
+                                                    <li class="font-pluto-r text-sm text-zinc-700">
                                                         <span class="font-medium">
                                                             {{ $option->productOptionValue->option->name }}:
                                                         </span>
@@ -48,7 +48,7 @@
                                                     </li>
                                                 @endforeach
                                             </ul>
-                                            <p class="dine-r text-sm text-zinc-700">
+                                            <p class="font-dine-r text-sm text-zinc-700">
                                                 $ {{ $item->price }}
                                             </p>
                                         </div>
@@ -81,7 +81,7 @@
                                     </div>
                                 </div>
                                 <div class="flex-1 text-center">
-                                    <h3 class="dine-r text-xl font-bold text-blue-store">
+                                    <h3 class="font-dine-r text-xl font-bold text-blue-store">
                                         $ {{ number_format($item->sub_total, 2) }}
                                     </h3>
                                 </div>
@@ -99,7 +99,7 @@
                     @else
                         <div class="flex h-96 flex-col items-center justify-center">
                             <x-icon-store icon="cart" class="h-20 w-20 fill-current text-zinc-300" />
-                            <p class="pluto-r text-base text-zinc-300">
+                            <p class="font-pluto-r text-base text-zinc-300">
                                 No hay productos en el carrito
                             </p>
                         </div>
@@ -108,7 +108,7 @@
             </div>
             <div class="h-max flex-1 px-4">
                 <div class="flex justify-center border-b-2 border-blue-store pb-2 lg:justify-start">
-                    <h2 class="pluto-m text-xl font-bold text-dark-pink sm:text-2xl md:text-3xl">
+                    <h2 class="font-pluto-m text-xl font-bold text-dark-pink sm:text-2xl md:text-3xl">
                         Resumen del pedido
                     </h2>
                 </div>

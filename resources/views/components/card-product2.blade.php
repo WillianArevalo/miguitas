@@ -29,23 +29,23 @@
         </div>
         <div class="pb-6">
             <small class="mt-2 block text-start">
-                <p class="pluto-m text-xs text-gray-store sm:text-sm">13,355 view</p>
+                <p class="font-pluto-m text-xs text-gray-store sm:text-sm">13,355 view</p>
             </small>
-            <h2 class="pluto-r overflow-hidden text-ellipsis whitespace-nowrap text-start text-sm font-semibold text-blue-store sm:text-base md:text-lg"
+            <h2 class="overflow-hidden text-ellipsis whitespace-nowrap text-start font-pluto-r text-sm font-semibold text-blue-store sm:text-base md:text-lg"
                 title="{{ $product->name }}">
                 {{ $product->name }}
             </h2>
             <div class="flex gap-4">
                 <p class="text-start">
-                    <span class="dine-r text-lg text-gray-store">$</span>
-                    <span class="dine-r text-lg text-gray-store">
+                    <span class="font-dine-r text-lg text-gray-store">$</span>
+                    <span class="font-dine-r text-lg text-gray-store">
                         {{ $product->price }}
                     </span>
                 </p>
                 @if ($product->max_price)
                     <p class="text-start">
-                        <span class="dine-r text-lg text-gray-store">$</span>
-                        <span class="dine-r text-lg text-gray-store">
+                        <span class="font-dine-r text-lg text-gray-store">$</span>
+                        <span class="font-dine-r text-lg text-gray-store">
                             {{ $product->max_price }}
                         </span>
                     </p>

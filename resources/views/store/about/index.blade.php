@@ -1,8 +1,5 @@
 @extends('layouts.template')
 @section('title', 'Miguitas | Conócenos')
-@push('styles')
-    @vite('resources/css/store/conocenos.css')
-@endpush
 @section('content')
     <div class="mt-8">
         <div class="mx-auto flex h-60 w-full flex-col justify-end overflow-hidden rounded-[50px] sm:h-96 md:h-[500px] xl:w-3/4"

@@ -1,14 +1,11 @@
 @extends('layouts.template')
 @section('title', 'Miguitas | Tienda')
 @section('content')
-    @push('styles')
-        @vite('resources/css/store/shop.css')
-    @endpush
     <div class="main-container mt-4">
         <div class="flex w-full items-center justify-center md:w-4/5 lg:w-3/4">
             <img src="{{ asset('img/shop.png') }}" alt="Shop image">
         </div>
-        <h1 class="pluto-m my-10 text-xl text-light-blue md:text-2xl lg:text-4xl xl:text-5xl">CATEGORÍAS</h1>
+        <h1 class="my-10 font-pluto-m text-xl text-light-blue md:text-2xl lg:text-4xl xl:text-5xl">CATEGORÍAS</h1>
         <div
             class="flex w-full flex-col items-center justify-center gap-5 bg-blue-store p-10 sm:flex-row sm:gap-10 md:gap-20">
             <a href="#" class="flex flex-col justify-center gap-2 transition-transform hover:scale-110">
@@ -16,7 +13,7 @@
                     <img src="{{ asset('img/giftcard.png') }}" class="h-full w-full" alt="GiftCard image">
                 </div>
                 <div>
-                    <h1 class="pluto-r text-base font-bold text-white sm:text-lg md:text-xl">Gift Card</h1>
+                    <h1 class="font-pluto-r text-base font-bold text-white sm:text-lg md:text-xl">Gift Card</h1>
                 </div>
             </a>
             <a href="#" class="flex flex-col justify-center gap-2 transition-transform hover:scale-110">
@@ -24,7 +21,7 @@
                     <img src="{{ asset('img/pups.png') }}" class="h-full w-full" alt="GiftCard image">
                 </div>
                 <div>
-                    <h1 class="pluto-r text-base font-bold text-white sm:text-lg md:text-xl">For Pups</h1>
+                    <h1 class="font-pluto-r text-base font-bold text-white sm:text-lg md:text-xl">For Pups</h1>
                 </div>
             </a>
             <a href="#" class="flex flex-col justify-center gap-2 transition-transform hover:scale-110">
@@ -32,12 +29,12 @@
                     <img src="{{ asset('img/kitties.png') }}" class="h-full w-full" alt="Kitties image">
                 </div>
                 <div>
-                    <h1 class="pluto-r text-base font-bold text-white sm:text-lg md:text-xl">For Kitties</h1>
+                    <h1 class="font-pluto-r text-base font-bold text-white sm:text-lg md:text-xl">For Kitties</h1>
                 </div>
             </a>
         </div>
 
-        <h1 class="pluto-m my-10 text-xl text-light-blue md:text-2xl lg:text-4xl xl:text-5xl">PRODUCTOS DESTACADOS</h1>
+        <h1 class="my-10 font-pluto-m text-xl text-light-blue md:text-2xl lg:text-4xl xl:text-5xl">PRODUCTOS DESTACADOS</h1>
 
         <!-- Contenedor donde se mostrarán las cards de productos destacados 2 (featured2-card) -->
         <div class="grid grid-cols-3 gap-4 px-4 max-[840px]:grid-cols-2 xl:grid-cols-4">

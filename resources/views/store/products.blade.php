@@ -64,7 +64,7 @@
                                                     </label>
                                                 </div>
                                                 <label for="offers"
-                                                    class="dine-r text-sm font-medium text-zinc-500 md:text-base">
+                                                    class="font-dine-r text-sm font-medium text-zinc-500 md:text-base">
                                                     Ofertas
                                                 </label>
                                             </div>
@@ -75,7 +75,7 @@
                                                     </label>
                                                 </div>
                                                 <label for="flash-offers"
-                                                    class="dine-r text-sm font-medium text-zinc-500 md:text-base">
+                                                    class="font-dine-r text-sm font-medium text-zinc-500 md:text-base">
                                                     Ofertas relámpago
                                                 </label>
                                             </div>
@@ -104,7 +104,7 @@
                                                         </label>
                                                     </div>
                                                     <label for="category-1"
-                                                        class="dine-r text-sm font-medium text-zinc-500 md:text-base">
+                                                        class="font-dine-r text-sm font-medium text-zinc-500 md:text-base">
                                                         {{ $category->name }}
                                                     </label>
                                                 </div>
@@ -135,18 +135,18 @@
                                         <input id="steps-range" type="range" min="0" max="3"
                                             value="1" step="1"
                                             class="h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200">
-                                        <span class="dine-r absolute -bottom-6 start-0 text-sm text-gray-500">
+                                        <span class="absolute -bottom-6 start-0 font-dine-r text-sm text-gray-500">
                                             $5
                                         </span>
                                         <span
-                                            class="dine-r absolute -bottom-6 start-1/3 -translate-x-1/2 text-sm text-gray-500 rtl:translate-x-1/2">
+                                            class="absolute -bottom-6 start-1/3 -translate-x-1/2 font-dine-r text-sm text-gray-500 rtl:translate-x-1/2">
                                             $25
                                         </span>
                                         <span
-                                            class="dine-r absolute -bottom-6 start-2/3 -translate-x-1/2 text-sm text-gray-500 rtl:translate-x-1/2">
+                                            class="absolute -bottom-6 start-2/3 -translate-x-1/2 font-dine-r text-sm text-gray-500 rtl:translate-x-1/2">
                                             $50
                                         </span>
-                                        <span class="dine-r absolute -bottom-6 end-0 text-sm text-gray-500">
+                                        <span class="absolute -bottom-6 end-0 font-dine-r text-sm text-gray-500">
                                             $100
                                         </span>
                                     </div>

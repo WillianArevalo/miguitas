@@ -8,13 +8,13 @@
                 <h2 class="text-xl text-blue-store sm:text-2xl md:text-3xl">
                     Horarios de entrega
                 </h2>
-                <p class="pluto-r mt-2 text-sm text-zinc-500 sm:text-base md:text-lg">
+                <p class="mt-2 font-pluto-r text-sm text-zinc-500 sm:text-base md:text-lg">
                     A domicilio:
                 </p>
-                <p class="pluto-r mt-2 text-sm text-zinc-500 sm:text-base md:text-lg">
+                <p class="mt-2 font-pluto-r text-sm text-zinc-500 sm:text-base md:text-lg">
                     Martes a Viernes 10:00 a.m. a 3:00 p.m. y Sábados de 9:00 a.m. a 4:00 p.m.
                 </p>
-                <p class="pluto-r mt-2 text-sm text-zinc-500 sm:text-base md:text-lg">
+                <p class="mt-2 font-pluto-r text-sm text-zinc-500 sm:text-base md:text-lg">
                     En PAWstry en La Sultana Martes a Viernes 1100 a.m. a 6:00 p.m. y Sábados de 10:00 a.m. a 4:00 p.m.
                 </p>
             </div>
@@ -70,7 +70,7 @@
                                         @if ($shipping_methods->count() > 0)
                                             @foreach ($shipping_methods as $method)
                                                 <div
-                                                    class="pluto-r flex items-center gap-4 rounded-2xl border border-zinc-300 p-4 text-sm text-zinc-600 shadow-sm sm:text-base">
+                                                    class="flex items-center gap-4 rounded-2xl border border-zinc-300 p-4 font-pluto-r text-sm text-zinc-600 shadow-sm sm:text-base">
                                                     <input type="radio" name="shipping_method" id="{{ $method->id }}"
                                                         value="{{ $method->id }}"
                                                         @if ($method->id == $cart->shipping_method_id) checked @endif
@@ -124,7 +124,7 @@
                                             @if ($payment_methods->count() > 0)
                                                 @foreach ($payment_methods as $method)
                                                     <div
-                                                        class="pluto-r flex items-center gap-4 rounded-2xl border border-zinc-300 p-4 text-sm text-zinc-600 shadow-sm sm:text-base">
+                                                        class="flex items-center gap-4 rounded-2xl border border-zinc-300 p-4 font-pluto-r text-sm text-zinc-600 shadow-sm sm:text-base">
                                                         <input type="radio" name="payment_method"
                                                             data-url="{{ Route('cart.apply-payment-method', $method->id) }}"
                                                             id="{{ $method->id }}" value="{{ $method->id }}"
@@ -154,7 +154,7 @@
                                             <x-icon-store icon="user" class="h-5 w-5 text-current" />
                                             Nombre completo:
                                         </h5>
-                                        <p class="pluto-r text-zinc-600">
+                                        <p class="font-pluto-r text-zinc-600">
                                             {{ $user->fullName }}
                                         </p>
                                     </div>
@@ -164,7 +164,7 @@
                                                 <x-icon-store icon="email" class="h-5 w-5 text-current" />
                                                 Correo electrónico:
                                             </h5>
-                                            <p class="pluto-r text-zinc-600">
+                                            <p class="font-pluto-r text-zinc-600">
                                                 {{ $user->email }}
                                             </p>
                                         </div>
@@ -173,7 +173,7 @@
                                                 <x-icon-store icon="phone" class="h-5 w-5 text-current" />
                                                 Teléfono:
                                             </h5>
-                                            <p class="pluto-r text-zinc-600">
+                                            <p class="font-pluto-r text-zinc-600">
                                                 {{ $user->customer ? $user->customer->phone : '' }}
                                             </p>
                                         </div>
@@ -188,7 +188,7 @@
                                             <h5 class="text-zinc-800">
                                                 Dirección:
                                             </h5>
-                                            <p class="pluto-r text-zinc-600">
+                                            <p class="font-pluto-r text-zinc-600">
                                                 {{ $address->address_line_1 }}
                                             </p>
                                         </div>
@@ -197,7 +197,7 @@
                                                 <h5 class="text-zinc-800">
                                                     Ciudad:
                                                 </h5>
-                                                <p class="pluto-r text-zinc-600">
+                                                <p class="font-pluto-r text-zinc-600">
                                                     {{ $address->city }}
                                                 </p>
                                             </div>
@@ -205,7 +205,7 @@
                                                 <h5 class="text-zinc-800">
                                                     Departamento:
                                                 </h5>
-                                                <p class="pluto-r text-zinc-600">
+                                                <p class="font-pluto-r text-zinc-600">
                                                     {{ $address->state }}
                                                 </p>
                                             </div>
@@ -216,7 +216,7 @@
                                                 class="flex items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-zinc-200 p-10">
                                                 <x-icon-store icon="map-point" class="h-8 w-8 text-blue-store" />
                                                 <div class="flex flex-col items-center gap-1">
-                                                    <p class="pluto-r text-sm text-zinc-500">
+                                                    <p class="font-pluto-r text-sm text-zinc-500">
                                                         No tienes ninguna dirección registrada
                                                     </p>
                                                 </div>
@@ -234,7 +234,7 @@
                                         Método de envío
                                     </h3>
                                     <div class="flex items-center">
-                                        <p class="pluto-r text-zinc-600">
+                                        <p class="font-pluto-r text-zinc-600">
                                             {{ $cart->shippingMethod->name ?? 'Sin especificar' }}
                                         </p>
                                     </div>
@@ -243,7 +243,7 @@
                                             <h5 class="text-zinc-800">
                                                 Precio:
                                             </h5>
-                                            <p class="pluto-r text-zinc-600">
+                                            <p class="font-pluto-r text-zinc-600">
                                                 ${{ $cart->shippingMethod->cost ?? '0.00' }}
                                             </p>
                                         </div>
@@ -254,7 +254,7 @@
                                         Método de pago
                                     </h3>
                                     <div class="flex items-center">
-                                        <p class="pluto-r text-zinc-600">
+                                        <p class="font-pluto-r text-zinc-600">
                                             {{ $cart->paymentMethod->name ?? 'Sin especificar' }}
                                         </p>
                                     </div>
@@ -300,15 +300,15 @@
                                                 alt="Imagen del producto" class="h-20 w-20 object-cover">
                                         </div>
                                         <div class="flex flex-[2] flex-col justify-start">
-                                            <h3 class="pluto-r text-xs font-bold text-blue-store lg:text-sm">
+                                            <h3 class="font-pluto-r text-xs font-bold text-blue-store lg:text-sm">
                                                 {{ $item->product->name }}
                                             </h3>
-                                            <p class="dine-r text-sm text-zinc-600">
+                                            <p class="font-dine-r text-sm text-zinc-600">
                                                 ${{ $item->price }} x {{ $item->quantity }}
                                             </p>
                                             <a href="{{ route('products.details', $item->product->slug) }}"
                                                 target="_blank"
-                                                class="dine-r mt-1 w-max rounded-2xl bg-rose-50 px-2 py-1 text-xs text-dark-pink hover:bg-rose-100">
+                                                class="mt-1 w-max rounded-2xl bg-rose-50 px-2 py-1 font-dine-r text-xs text-dark-pink hover:bg-rose-100">
                                                 Mostrar detalles
                                             </a>
                                         </div>
@@ -320,19 +320,19 @@
                             <div class="flex flex-col gap-4">
                                 <div class="flex justify-between gap-4">
                                     <p class="text-sm text-blue-store sm:text-base">Subtotal</p>
-                                    <p class="pluto-r text-sm text-zinc-600 sm:text-base">
+                                    <p class="font-pluto-r text-sm text-zinc-600 sm:text-base">
                                         {{ $cart_totals['total'] }}
                                     </p>
                                 </div>
                                 <div class="flex justify-between gap-4">
                                     <p class="text-sm text-blue-store sm:text-base">Impuestos</p>
-                                    <p class="pluto-r text-sm text-zinc-600 sm:text-base">
+                                    <p class="font-pluto-r text-sm text-zinc-600 sm:text-base">
                                         {{ $cart_totals['taxes'] }}
                                     </p>
                                 </div>
                                 <div class="flex justify-between gap-4">
                                     <p class="text-sm text-blue-store sm:text-base">Envío</p>
-                                    <p class="pluto-r text-sm text-zinc-600 sm:text-base" id="price-shipping-method">
+                                    <p class="font-pluto-r text-sm text-zinc-600 sm:text-base" id="price-shipping-method">
                                         {{ $cart_totals['shipping'] }}
                                     </p>
                                 </div>
