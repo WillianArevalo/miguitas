@@ -18,6 +18,15 @@
 </head>
 
 <body class="store overflow-x-hidden">
+
+    <div id="headbands-container" class="relative h-10 overflow-hidden bg-light-blue">
+        <div id="headbands-wrapper" class="absolute flex w-full flex-col">
+            @foreach ($headBands as $headBand)
+                <x-head-band :headBand="$headBand" />
+            @endforeach
+        </div>
+    </div>
+
     @include('layouts.__partials.store.navbar')
     <main>
         @include('layouts.__partials.store.toast-store', ['top' => 'top-28'])
