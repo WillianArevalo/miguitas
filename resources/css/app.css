@@ -1,7 +1,6 @@
 @import url("constans.css");
 @import url("admin.css");
-@import url("scrollbar.css");
-@import url("animation.css");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
