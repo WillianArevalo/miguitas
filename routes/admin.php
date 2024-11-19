@@ -12,8 +12,10 @@ use App\Http\Controllers\Admin\{
     CouponController,
     CurrencyController,
     CustomerController,
+    FaqCategoryController,
     FAQController,
     FlashOfferController,
+    HeadBandController,
     LabelController,
     OptionController,
     OptionValueController,
@@ -81,6 +83,7 @@ Route::middleware("role:admin")->prefix("admin")->name("admin.")->group(function
 
     // Popups
     Route::resource("/popups", PopupController::class);
+    Route::resource("/headbands", HeadBandController::class);
 
     // Users
     Route::resource("/users", UserController::class);
@@ -96,6 +99,7 @@ Route::middleware("role:admin")->prefix("admin")->name("admin.")->group(function
     Route::post("/policies/download/{id}", [PoliciesController::class, "download"])->name("policies.download");
 
     // FAQ
+    Route::resource("/faq-categories", FaqCategoryController::class);
     Route::resource("/faq", FAQController::class);
 
     // Locale
