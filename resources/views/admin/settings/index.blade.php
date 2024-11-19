@@ -1,8 +1,8 @@
 @extends('layouts.admin-template')
 @section('title', 'Configuración')
 @section('content')
-    <main class="border-t dark:border-zinc-800">
-        <section class="p-4 dark:bg-black">
+    <div class="border-t dark:border-zinc-800">
+        <div class="p-4 dark:bg-black">
             <h1 class="dark:text-primary-dark mb-3 bg-opacity-95 text-3xl font-bold uppercase text-primary-600">
                 Mi cuenta
             </h1>
@@ -273,6 +273,10 @@
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </div>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/admin/settings.js')
+@endpush

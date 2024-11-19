@@ -22,7 +22,6 @@
                 <p class="font-font-dine-b text-lg text-zinc-800">{{ $user->email }}</p>
             </div>
         </div>
-
         <div class="mx-auto mt-4 w-full px-4 md:w-4/5 lg:w-3/4">
             <div class="tabs-header flex justify-start gap-4 overflow-x-auto rounded-t-lg">
                 <button
@@ -46,7 +45,6 @@
                     Mascota
                 </button>
             </div>
-
             <div class="tabs-content">
                 <div id="tab-general" class="tab-panel">
                     <div class="mt-4">
@@ -102,7 +100,6 @@
                         </form>
                     </div>
                 </div>
-
                 <div id="tab-direction" class="tab-panel hidden">
                     <div class="mt-4 pb-4">
                         @if (!$user->customer || $addressesCustomer->count() === 0)
@@ -215,7 +212,6 @@
                                 @endif
                             </div>
                         @endif
-
                         <!-- Form add address-->
                         <div class="hidden" id="container-form-add-address">
                             <form action="{{ Route('account.addresses.store') }}" class="flex flex-col gap-4"
@@ -270,7 +266,6 @@
                         <!-- End form add address-->
                     </div>
                 </div>
-
                 <div id="tab-orders" class="tab-panel hidden">
                     @if ($orders->count() > 0)
                         <div
@@ -503,5 +498,8 @@
             </div>
         </div>
     </div>
-
 @endsection
+
+@push('scripts')
+    @vite('resources/js/store/account.js')
+@endpush

@@ -414,3 +414,7 @@
             </div>
         </div>
     @endsection
+
+    @push('scripts')
+        @vite('resources/js/store/order.js')
+    @endpush

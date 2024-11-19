@@ -246,3 +246,8 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/store/product-view.js')
+    @vite('resources/js/store/reviews.js')
+@endpush

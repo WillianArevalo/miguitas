@@ -158,7 +158,7 @@
                     </div>
                 </div>
                 <div class="hidden" id="settings-store" role="tabpanel" aria-labelledby="dashboard-tab">
-                    <h2 class="text-xl font-semibold text-secondary dark:text-blue-400">Configuraciones</h2>
+                    <h2 class="text-secondary text-xl font-semibold dark:text-blue-400">Configuraciones</h2>
                     <div class="flex gap-4">
                         <div
                             class="mt-4 flex h-max w-max flex-col gap-4 rounded-lg border border-zinc-400 p-4 dark:border-zinc-800">
@@ -262,3 +262,7 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/admin/general-settings.js')
+@endpush

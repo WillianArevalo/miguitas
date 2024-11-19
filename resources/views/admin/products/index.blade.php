@@ -338,3 +338,7 @@
 
     </div>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/admin/product.js')
+@endpush

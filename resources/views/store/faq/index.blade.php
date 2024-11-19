@@ -48,3 +48,7 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/store/faq.js')
+@endpush

@@ -479,3 +479,8 @@
     <x-delete-modal modalId="deleteModal" title="¿Estás seguro de eliminar el producto?"
         message="No podrás recuperar este registro" action="" />
 @endsection
+
+
+@push('scripts')
+    @vite('resources/js/admin/modal-image.js')
+@endpush

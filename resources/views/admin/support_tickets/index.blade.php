@@ -194,3 +194,7 @@
             message="No podrás recuperar este registro" action="" />
     </div>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/admin/ticket.js')
+@endpush

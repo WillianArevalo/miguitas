@@ -1,4 +1,4 @@
-import { showToast } from "./toast";
+import { showToast } from "../toast";
 
 $(document).ready(function () {
     const tabs = $(".tab-content");

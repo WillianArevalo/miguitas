@@ -69,7 +69,7 @@ $(document).ready(function () {
             containerPrameters.append(
                 $("<input>")
                     .attr({ type: "hidden", name: "parameters[]" })
-                    .val(parameterValue),
+                    .val(parameterValue)
             );
         });
     }
@@ -80,16 +80,16 @@ $(document).ready(function () {
         $paramatersPreview.html("");
         parameters.forEach((parameterValue, index) => {
             const previewDiv = $("<div></div>").addClass(
-                "bg-white text-zinc-600 border-zinc-400 text-sm font-medium me-2 px-4 py-2 border dark:text-white dark:bg-black dark:border-zinc-800 rounded-full flex items-center justify-between gap-2 w-max",
+                "bg-white text-zinc-600 border-zinc-400 text-sm font-medium me-2 px-4 py-2 border dark:text-white dark:bg-black dark:border-zinc-800 rounded-full flex items-center justify-between gap-2 w-max"
             );
             const parameterElement = $("<span></span>").text(parameterValue);
             const removeBtn = $("<button></button>")
                 .html(
-                    '<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-current" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none"> <path d="M19.0005 4.99988L5.00049 18.9999M5.00049 4.99988L19.0005 18.9999" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>',
+                    '<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-current" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none"> <path d="M19.0005 4.99988L5.00049 18.9999M5.00049 4.99988L19.0005 18.9999" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>'
                 )
                 .attr("type", "button")
                 .addClass(
-                    "text-current dark:hover:text-blue-500 hover:text-blue-500",
+                    "text-current dark:hover:text-blue-500 hover:text-blue-500"
                 );
             removeBtn.on("click", () => removeParameter(index));
             previewDiv.append(parameterElement).append(removeBtn);
@@ -142,21 +142,21 @@ $(document).ready(function () {
                         if (dataObject.active !== undefined) {
                             $("#active").prop(
                                 "checked",
-                                dataObject.active === 1,
+                                dataObject.active === 1
                             );
                         }
 
                         if (dataObject.is_default !== undefined) {
                             $("#is_default").prop(
                                 "checked",
-                                dataObject.is_default === 1,
+                                dataObject.is_default === 1
                             );
                         }
 
                         if (dataObject.auto_update !== undefined) {
                             $("#auto_update").prop(
                                 "checked",
-                                dataObject.auto_update === 1,
+                                dataObject.auto_update === 1
                             );
                         }
 
@@ -164,7 +164,7 @@ $(document).ready(function () {
                         if (dataObject.image !== undefined) {
                             $("#previewImageEdit").attr(
                                 "src",
-                                dataObject.image,
+                                dataObject.image
                             );
                         }
 
@@ -178,7 +178,7 @@ $(document).ready(function () {
                     } else {
                         console.error(
                             "No se encontró un objeto válido en la respuesta:",
-                            data,
+                            data
                         );
                     }
                 },
@@ -194,21 +194,21 @@ $(document).ready(function () {
         ".btnEditShippingMethod",
         "#drawer-edit-method",
         "#formEditMethod",
-        "is_active",
+        "is_active"
     );
 
     handleEditMethod(
         ".btnEditPaymentMethod",
         "#drawer-edit-method",
         "#formEditPaymentMethod",
-        "active",
+        "active"
     );
 
     handleEditMethod(
         ".btnEditCurrency",
         "#drawer-edit-currency",
         "#formEditCurrency",
-        "active",
+        "active"
     );
 
     $("#imagePaymentMehod").on("change", function () {

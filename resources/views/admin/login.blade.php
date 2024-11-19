@@ -31,3 +31,7 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/admin/login.js')
+@endpush

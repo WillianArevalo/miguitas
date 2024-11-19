@@ -315,3 +315,7 @@
         });
     </script>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/admin/categorie.js')
+@endpush

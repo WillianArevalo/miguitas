@@ -277,3 +277,7 @@
         });
     </script>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/admin/faq.js')
+@endpush

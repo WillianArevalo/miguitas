@@ -1,4 +1,4 @@
-import { showToast } from "./toast-admin";
+import { showToast } from "../toast-admin";
 
 $(document).ready(function () {
     $(".theme-button").on("click", function () {
@@ -126,26 +126,26 @@ $(document).ready(function () {
         localStorage.setItem("color", color);
         localStorage.setItem(
             "color_rgba",
-            hexToRgba(selectedColor.DEFAULT, 0.1),
+            hexToRgba(selectedColor.DEFAULT, 0.1)
         );
         localStorage.setItem(
             "color_rgba_20",
-            hexToRgba(selectedColor.DEFAULT, 0.2),
+            hexToRgba(selectedColor.DEFAULT, 0.2)
         );
         setProperty(
             "--primary-color-rgba",
-            hexToRgba(selectedColor.DEFAULT, 0.1),
+            hexToRgba(selectedColor.DEFAULT, 0.1)
         );
         setProperty(
             "--primary-color-rgba-20",
-            hexToRgba(selectedColor.DEFAULT, 0.2),
+            hexToRgba(selectedColor.DEFAULT, 0.2)
         );
         setProperty("--primary-color", selectedColor.DEFAULT);
         if (selectedColor) {
             for (const [shade, value] of Object.entries(selectedColor)) {
                 document.documentElement.style.setProperty(
                     `--primary-color-${shade}`,
-                    value,
+                    value
                 );
             }
         }

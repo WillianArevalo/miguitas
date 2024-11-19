@@ -129,3 +129,7 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/admin/popup.js')
+@endpush

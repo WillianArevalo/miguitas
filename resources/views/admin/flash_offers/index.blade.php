@@ -61,8 +61,11 @@
                                 @if ($offers->count() == 0)
                                     <x-tr>
                                         <x-td colspan="7">
-                                            No hay ofertas relámpago registradas
+                                            <div class="py-10 text-center">
+                                                No hay ofertas relámpago registradas
+                                            </div>
                                         </x-td>
+
                                     </x-tr>
                                 @else
                                     @foreach ($offers as $offer)
@@ -386,3 +389,7 @@
             });
         </script>
     @endsection
+
+    @push('scripts')
+        @vite('resources/js/admin/flash-offers.js')
+    @endpush

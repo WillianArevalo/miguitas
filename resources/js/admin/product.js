@@ -1,4 +1,4 @@
-import { showToast } from "./toast-admin";
+import { showToast } from "../toast-admin";
 import Quill from "quill";
 
 $(document).ready(function () {
@@ -180,12 +180,6 @@ $(document).ready(function () {
             $("#subcategorie_id").val(subcategoria.id).trigger("Changed");
             marcarCheckboxesSeleccionados();
         }
-    }
-
-    function initialState() {
-        $selectedSubCategory.text("Selecciona una categoría");
-        $parentSubCategory.addClass("pointer-events-none");
-        $parentSubCategory.find("svg").addClass("hidden");
     }
 
     function toggleElementVisibility(element, condition) {

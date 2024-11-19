@@ -1,5 +1,4 @@
-import { info } from "autoprefixer";
-import { showToast } from "./toast";
+import { showToast } from "../toast";
 
 $(document).ready(function () {
     $(document).on(

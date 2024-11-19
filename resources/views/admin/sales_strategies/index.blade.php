@@ -160,3 +160,7 @@
         <!-- End Drawer details coupon -->
     </div>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/admin/sales-strategies.js')
+@endpush

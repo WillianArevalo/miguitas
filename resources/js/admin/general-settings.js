@@ -1,4 +1,4 @@
-import { showToast } from "./toast-admin";
+import { showToast } from "../toast-admin";
 
 $(document).ready(function () {
     $("#site_in_maintenance").on("change", function () {

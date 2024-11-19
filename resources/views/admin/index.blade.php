@@ -610,3 +610,8 @@
     <x-delete-modal modalId="deleteModal" title="¿Estás seguro de eliminar la orden?"
         message="No podrás recuperar este registro" action="" />
 @endsection
+
+@push('scripts')
+    @vite('resources/js/admin/chart.js')
+    @vite('resources/js/admin/dashboard.js')
+@endpush

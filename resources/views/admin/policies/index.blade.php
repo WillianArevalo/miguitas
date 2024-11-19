@@ -219,6 +219,9 @@
                 </form>
             </div>
         </div>
-
     </div>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/admin/policies.js')
+@endpush

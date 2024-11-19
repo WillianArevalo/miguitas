@@ -209,6 +209,11 @@
             </div>
         </div>
         <x-delete-modal modalId="deleteModal" title="¿Estás seguro de eliminar la orden?"
-            message="No podrás recuperar este registro" action="" />
+            message="No podrás recuperar este registro" />
     </div>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/admin/admin.js')
+    @vite('resources/js/admin/order.js')
+@endpush

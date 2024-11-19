@@ -94,23 +94,27 @@ $(document).ready(function () {
         }
     );
 
-    const $wrapperHeadBands = $("#headbands-wrapper");
-    const $headBands = $wrapperHeadBands.children();
-    const headbandHeight = $headBands.first().outerHeight();
+    $(".show-options").on("click", function (event) {
+        event.stopPropagation();
+        var target = $(this).data("target");
+        var options = $(target);
+        $(".options").not(options).addClass("hidden");
+        options.toggleClass("hidden");
+    });
 
-    function animateHeadBands() {
-        $wrapperHeadBands.animate(
-            {
-                top: `-=${headbandHeight}px`,
-            },
-            1000,
-            "linear",
-            function () {
-                $wrapperHeadBands.append($wrapperHeadBands.children().first());
-                $wrapperHeadBands.css("top", "0px");
-            }
-        );
-    }
+    $(".show-submenu").on("click", function (event) {
+        event.stopPropagation();
+        var target = $(this).data("target");
+        var submenu = $(target);
+        $(".submenu").not(submenu).addClass("hidden");
+        submenu.toggleClass("hidden");
+    });
 
-    setInterval(animateHeadBands, 4000);
+    $(document).on("click", function () {
+        $(".options, .submenu").addClass("hidden");
+    });
+
+    $(".options, .submenu").on("click", function (event) {
+        event.stopPropagation();
+    });
 });

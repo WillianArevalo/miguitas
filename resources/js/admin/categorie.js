@@ -1,4 +1,4 @@
-import { openDrawer } from "./drawer.js";
+import { openDrawer } from "../drawer.js";
 $(document).ready(function () {
     $("#typeCategorie").on("Changed", function () {
         var typeCategorie = $(this).val();

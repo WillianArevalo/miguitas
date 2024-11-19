@@ -1,4 +1,4 @@
-import { openDrawer } from "./drawer";
+import { openDrawer } from "../admin/drawer";
 
 $(document).ready(function () {
     $(".change-status-review").on("click", function () {
