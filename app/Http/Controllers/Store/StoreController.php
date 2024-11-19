@@ -31,9 +31,27 @@ class StoreController extends Controller
         return view('store.index', ["products" => $products, "categories" => $categories]);
     }
 
-    public function products()
+    public function products(Request $request)
     {
-        $products = Product::where("is_active", 1)->get();
+        $search = $request->input("search");
+        $filter = $request->input("filter");
+
+        if ($request->has("filter")) {
+            if ($filter == "category") {
+                $category = Categorie::where("slug", $search)->first();
+                $products = Product::where("is_active", 1)->where("categorie_id", $category->id)->get();
+            }
+
+            if ($filter == "subcategory") {
+                $subcategory = SubCategorie::where("slug", $search)->first();
+                $products = Product::where("is_active", 1)->whereHas("subcategories", function ($query) use ($subcategory) {
+                    $query->where("subcategorie_id", $subcategory->id);
+                })->get();
+            }
+        } else {
+            $products = Product::where("is_active", 1)->get();
+        }
+
         $categories = Categorie::all();
         $subcategories = SubCategorie::select('name')->distinct()->get();
         $labels = Label::all();
