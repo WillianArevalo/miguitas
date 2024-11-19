@@ -1,7 +1,5 @@
 @extends('layouts.admin-template')
-
 @section('title', 'Anuncios')
-
 @section('content')
     <div>
         @include('layouts.__partials.admin.header-page', [
@@ -27,86 +25,99 @@
                                 text="Agregar anuncio" icon="plus" />
                         </div>
                     </div>
-                    <div class="mx-4 mb-4 overflow-hidden rounded-lg border border-zinc-400 dark:border-zinc-800">
-                        <table class="w-full text-left text-sm text-zinc-500 dark:text-zinc-400">
-                            <thead
-                                class="border-b border-zinc-400 bg-zinc-50 text-xs uppercase text-zinc-700 dark:border-zinc-800 dark:bg-black dark:text-zinc-300">
-                                <tr>
-                                    <th scope="col" class="w-10 border-e border-zinc-400 px-4 py-3 dark:border-zinc-800">
+                    <div class="p-4">
+                        <x-table>
+                            <x-slot name="thead">
+                                <x-tr>
+                                    <x-th>
                                         <x-icon icon="hash" class="h-4 w-4" />
-                                    </th>
-                                    <th scope="col" class="border-e border-zinc-400 px-4 py-3 dark:border-zinc-800">
-                                        Nombre</th>
-                                    <th scope="col" class="border-e border-zinc-400 px-4 py-3 dark:border-zinc-800">
-                                        Estado</th>
-                                    <th scope="col" class="border-e border-zinc-400 px-4 py-3 dark:border-zinc-800">Tipo
-                                    </th>
-                                    <th scope="col" class="border-e border-zinc-400 px-4 py-3 dark:border-zinc-800">Link
-                                    </th>
-                                    <th scope="col" class="px-4 py-3">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if ($popups->count() > 0)
-                                    @foreach ($popups as $popup)
-                                        <tr class="hover:bg-zinc-100 dark:hover:bg-zinc-950">
-                                            <td class="px-4 py-3">
+                                    </x-th>
+                                    <x-th>
+                                        Nombre
+                                    </x-th>
+                                    <x-th>
+                                        Estado
+                                    </x-th>
+                                    <x-th>
+                                        Tipo
+                                    </x-th>
+                                    <x-th>
+                                        Link
+                                    </x-th>
+                                    <x-th last="true">Acciones</x-th>
+                                </x-tr>
+                            </x-slot>
+                            <x-slot name="tbody">
+                                @if ($adversiments->count() > 0)
+                                    @foreach ($adversiments as $adversiment)
+                                        <x-tr>
+                                            <x-td>
                                                 <span>{{ $loop->iteration }}</span>
-                                            </td>
-                                            <td class="px-4 py-3">
-                                                <span>{{ $popup->name }}</span>
-                                            </td>
-                                            <td class="px-4 py-3">
-                                                @if ($popup->active === 1)
-                                                    <span
-                                                        class="font-secondary rounded-full border-2 border-green-300 bg-green-200 px-4 py-1 text-xs font-medium text-green-800 dark:border-green-400 dark:bg-green-800 dark:text-green-100">Activo</span>
-                                                @else
-                                                    <span
-                                                        class="font-secondary rounded-full border-2 border-red-300 bg-red-200 px-4 py-1 text-xs font-medium text-red-800 dark:border-red-400 dark:bg-red-800 dark:text-red-100">
-                                                        Inactivo
-                                                    </span>
+                                            </x-td>
+                                            <x-td>
+                                                <span>
+                                                    @if ($adversiment->type === 'popup')
+                                                        {{ $adversiment->name }}
+                                                    @elseif ($adversiment->type === 'headband')
+                                                        {{ $adversiment->title }}
+                                                    @endif
+                                                </span>
+                                            </x-td>
+                                            <x-td>
+                                                <x-badge-status :status="$adversiment->active" />
+                                            </x-td>
+                                            <x-td>
+                                                @if ($adversiment->type === 'popup')
+                                                    Aviso emergente
+                                                @elseif ($adversiment->type === 'headband')
+                                                    Aviso de cabecera
                                                 @endif
-                                            </td>
-                                            <td class="px-4 py-3">
-                                                @if ($popup->type === 'redirect')
-                                                    Redirección
+                                            </x-td>
+                                            <x-td>
+                                                @if ($adversiment->link_text)
+                                                    <a href="{{ $adversiment->link }}"
+                                                        class="px-4 text-sm text-primary-600 underline hover:underline dark:text-primary-400"
+                                                        target="_blank">
+                                                        {{ $adversiment->link_text }}
+                                                    </a>
                                                 @else
-                                                    Post
+                                                    <a href="{{ $adversiment->link }}"
+                                                        class="px-4 text-sm text-primary-600 underline hover:underline dark:text-primary-400"
+                                                        target="_blank">
+                                                        Ver link
+                                                    </a>
                                                 @endif
-                                            </td>
-                                            <td class="px-4 py-3">
-                                                <span>{{ $popup->link }}</span>
-                                            </td>
-                                            <td class="px-4 py-3">
+                                            </x-td>
+                                            <x-td>
                                                 <div class="flex gap-2">
-                                                    <x-button type="button" class="editPopup"
-                                                        data-href="{{ route('admin.categories.edit', $popup->id) }}"
-                                                        data-action="{{ route('admin.categories.update', $popup->id) }}"
-                                                        onlyIcon="true" icon="edit" typeButton="success" />
-                                                    <form action="{{ route('admin.popups.destroy', $popup->id) }}"
-                                                        id="formDeletePopup-{{ $popup->id }}" method="POST">
+                                                    <form action="{{ route('admin.popups.destroy', $adversiment->id) }}"
+                                                        id="formDeletePopup-{{ $adversiment->id }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <x-button type="button"
-                                                            data-form="formDeletePopup-{{ $popup->id }}" onlyIcon="true"
-                                                            icon="delete" typeButton="danger" class="buttonDelete" />
+                                                            data-form="formDeletePopup-{{ $adversiment->id }}"
+                                                            onlyIcon="true" icon="delete" typeButton="danger"
+                                                            class="buttonDelete" />
                                                     </form>
-                                                    <x-button type="button" class="showPopup"
-                                                        data-action="{{ route('admin.popups.show', $popup->id) }}"
-                                                        onlyIcon="true" icon="view" typeButton="secondary" />
+                                                    @if ($adversiment->type === 'popup')
+                                                        <x-button type="button" class="showPopup"
+                                                            data-action="{{ route('admin.popups.show', $adversiment->id) }}"
+                                                            onlyIcon="true" icon="view" typeButton="secondary" />
+                                                    @endif
                                                 </div>
-                                            </td>
-                                        </tr>
+                                            </x-td>
+                                        </x-tr>
                                     @endforeach
                                 @else
-                                    <tr>
-                                        <td colspan="5" class="px-4 py-3 text-center">
+                                    <x-tr>
+                                        <x-td colspan="6" class="px-4 py-3 text-center">
                                             <span>No hay anuncios registrados</span>
-                                        </td>
-                                    </tr>
+                                        </x-td>
+                                    </x-tr>
                                 @endif
-                            </tbody>
-                        </table>
+
+                            </x-slot>
+                        </x-table>
                     </div>
                 </div>
             </div>
