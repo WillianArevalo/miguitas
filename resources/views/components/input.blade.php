@@ -57,7 +57,7 @@
             {{ $attributes }} {{ $checked ? 'checked' : '' }}
             class="{{ $class }} h-4 w-4 rounded border-2 border-zinc-400 bg-zinc-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-zinc-800 dark:bg-zinc-950 dark:ring-offset-zinc-800 dark:focus:ring-primary-600">
         <label for="{{ $id }}"
-            class="{{ $labelClass }} ms-1 text-sm font-medium text-zinc-900 dark:text-white">
+            class="{{ $labelClass }} ms-1 inline-block text-sm font-medium text-zinc-500 dark:text-zinc-300">
             {{ $label }}
         </label>
     @else
