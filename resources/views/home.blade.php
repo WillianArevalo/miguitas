@@ -4,17 +4,19 @@
     <div class="overflow-x-hidden">
         <div class="relative flex h-[700px] w-full items-center justify-center bg-blue-store">
             <div class="flex-1">
-                <img src="{{ asset('img/index-dog.jpg') }}" alt="cake" class="h-[700px] w-full object-cover">
+                <img src="{{ asset('img/index-dog.jpg') }}" alt="cake" class="h-[700px] w-full object-cover"
+                    data-aos="fade-right">
             </div>
             <div class="relative z-10 mx-auto flex h-full w-full flex-1 flex-col items-center justify-center p-10">
-                <h1 class="mx-auto w-full text-center text-xl font-bold text-white sm:text-2xl md:text-4xl lg:w-2/3">
+                <h1 class="mx-auto w-full text-center text-xl font-bold text-white sm:text-2xl md:text-4xl lg:w-2/3"
+                    data-aos="fade-left">
                     Celébralos con un pastel especial, elaborado con ingredientes de alta calidad desde 2015.
                 </h1>
-                <div class="mt-8 flex items-center justify-center">
+                <div class="mt-8 flex items-center justify-center" data-aos="fade-left">
                     <x-button-store type="button" typeButton="secondary" text="Ordenar pastel" size="large" />
                 </div>
-                <div
-                    class="absolute -bottom-6 left-0 right-0 mx-auto flex w-max items-center gap-4 rounded-3xl bg-pink-store p-4 shadow-lg">
+                <div class="absolute -bottom-6 left-0 right-0 mx-auto flex w-max items-center gap-4 rounded-3xl bg-pink-store p-4 shadow-lg"
+                    data-aos="zoom-in">
                     <p class="text-lg text-zinc-800 sm:text-xl md:text-2xl">Excelente</p>
                     <div class="flex items-center gap-2">
                         @for ($i = 0; $i < 5; $i++)
@@ -27,7 +29,7 @@
         </div>
 
         @if ($topProducts->count() > 0)
-            <div class="mb-10 mt-20 px-0 sm:px-4 md:px-10">
+            <div class="mb-10 mt-20 px-0 sm:px-4 md:px-10" data-aos="fade-up">
                 <h2 class="my-4 text-center text-3xl text-light-blue sm:text-4xl md:text-5xl">
                     Top sellers
                 </h2>
@@ -267,7 +269,7 @@
             </div>
         </div>
 
-        <div>
+        <div data-aos="fade-up">
             <div
                 class="mx-auto flex w-full flex-col gap-4 rounded-3xl border border-zinc-100 p-10 px-4 shadow-xl sm:flex-row lg:w-3/4">
                 <div class="flex-1">
@@ -309,13 +311,12 @@
             </div>
         </div>
 
-        <div class="mt-20">
+        <div class="mt-20" data-aos="fade-up">
             <div class="text-center">
                 <h2 class="my-4 text-center text-3xl text-light-blue sm:text-4xl md:text-5xl">
                     Pasteles disfrutados por peluditos
                 </h2>
             </div>
-
             <div
                 class="relative mx-auto mt-4 flex w-full flex-col gap-8 rounded-3xl bg-light-pink px-10 pb-6 pt-10 sm:flex-row xl:w-3/4">
                 <div class="flex flex-1 items-center justify-center">
@@ -353,7 +354,10 @@
         </div>
 
         @if ($products->count() > 0)
-            <div class="mt-20">
+            <div class="mt-20" data-aos="fade-up">
+                <h2 class="my-4 text-center text-3xl text-light-blue sm:text-4xl md:text-5xl">
+                    On sale
+                </h2>
                 <div class="mt-4 px-0 sm:px-4 md:px-10">
                     <div>
                         <div class="swiper mySwiper w-100 h-full px-4">
