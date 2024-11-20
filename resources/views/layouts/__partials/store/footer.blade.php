@@ -1,15 +1,14 @@
 <footer class="w-full bg-light-blue">
     <div class="mx-auto w-full p-10 lg:w-4/5">
         <div class="flex flex-col gap-8 sm:flex-row">
-            <img src="{{ asset('img/logo.png') }}" alt="Logo Miguitas" class="mx-auto h-44 w-44">
+            <img src="{{ $logo ? Storage::url($logo) : asset('img/logo.png') }}" alt="Logo Miguitas"
+                class="mx-auto h-44 w-44">
             <div class="flex flex-1 flex-col items-center justify-center gap-4">
                 <h2 class="text-2xl font-bold text-white md:text-3xl lg:text-4xl xl:text-5xl">
                     MIGUITAS PET TREATS
                 </h2>
                 <p class="text-center font-dine-r text-base text-white md:text-lg">
-                    Horneamos todos los días para los consentidos de cuatro patitas. ¡Elaboramos pasteles, pupcakes y
-                    galletas de diferentes sabores, tamaño y forma para que cada día puedas consentir a tu perrito o
-                    gatito de la mejor manera: natural!
+                    {{ $description }}
                 </p>
             </div>
         </div>
@@ -61,27 +60,27 @@
                     </h3>
                     <div class="mt-4 flex flex-col gap-2">
                         <div class="flex items-center justify-center gap-2 md:justify-start">
-                            <x-icon-store class="h-5 w-5 text-white" icon="location-arrow" />
+                            <x-icon-store class="min-h-5 min-w-5 text-white" icon="location-arrow" />
                             <p class="font-dine-r text-sm text-white md:text-base">
-                                Antiguo Cuscatlán, La Libertad, El Salvador
+                                {{ $settings->where('key', 'store_address')->first()->value ?? '' }}
                             </p>
                         </div>
                         <div class="flex items-center justify-center gap-2 md:justify-start">
                             <x-icon-store class="h-5 w-5 text-white" icon="phone" />
                             <p class="font-dine-r text-sm text-white md:text-base">
-                                (+503) 2243-4190
+                                {{ $settings->where('key', 'store_phone')->first()->value ?? '' }}
                             </p>
                         </div>
                         <div class="flex items-center justify-center gap-2 md:justify-start">
                             <x-icon-store class="h-5 w-5 text-white" icon="whatsapp" />
                             <p class="font-dine-r text-sm text-white md:text-base">
-                                (503) 7910-1241
+                                {{ $settings->where('key', 'store_whatsapp')->first()->value ?? '' }}
                             </p>
                         </div>
                         <div class="flex items-center justify-center gap-2 md:justify-start">
                             <x-icon-store class="h-5 w-5 text-white" icon="email" />
                             <p class="font-dine-r text-sm text-white md:text-base">
-                                administracion@miguitassv.com
+                                {{ $settings->where('key', 'store_email')->first()->value ?? '' }}
                             </p>
                         </div>
                     </div>
@@ -90,8 +89,8 @@
                     <h3 class="text-center text-xl font-bold uppercase text-light-pink md:text-left md:text-2xl">
                         PAWSTRY SHOP
                     </h3>
-                    <p class="mt-4 text-center font-dine-r text-sm text-white md:text-left md:text-base">
-                        VE. ANTIGUO CUSCATLAN #12, COL. LA SULTANA, ANTIGUO CUSCATLAN, LA LIBERTAD, EL SALVADOR
+                    <p class="mt-4 text-center font-dine-r text-sm uppercase text-white md:text-left md:text-base">
+                        {{ $settings->where('key', 'store_address')->first()->value ?? '' }}
                     </p>
                     <p class="mt-4 text-center font-dine-r text-sm text-light-pink md:text-left md:text-base">
                         Horario en tienda:
@@ -118,14 +117,12 @@
                         Sigamos en contacto
                     </h3>
                     <div class="mt-4 flex items-center justify-center gap-4 md:justify-start">
-                        <a href="https://www.facebook.com/miguitaselsalvador" target="_blank" rel="noopener noreferrer"
-                            class="transform hover:scale-105">
-                            <x-icon-store class="h-8 w-8 text-white" icon="facebook" />
-                        </a>
-                        <a href="https://www.instagram.com/miguitaselsalvador/" target="_blank"
-                            rel="noopener noreferrer" class="transform hover:scale-105">
-                            <x-icon-store class="h-8 w-8 text-white" icon="instagram" />
-                        </a>
+                        @foreach ($socialLinks as $socialLink)
+                            <a href="{{ $socialLink->url }}" target="_blank" rel="noopener noreferrer"
+                                class="transform hover:scale-105">
+                                <x-icon-store class="h-8 w-8 text-white" icon="{{ $socialLink->network_name }}" />
+                            </a>
+                        @endforeach
                     </div>
                 </div>
             </div>
