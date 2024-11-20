@@ -25,7 +25,7 @@ class StoreController extends Controller
 
     public function index()
     {
-        $products = Product::where("is_active", 1)->take(20)->get();
+        $products = Product::where("is_active", 1)->where("is_top", 1)->paginate(16);
         $categories = Categorie::all();
         Favorites::get($this->user, $products);
         return view('store.index', ["products" => $products, "categories" => $categories]);
@@ -39,21 +39,23 @@ class StoreController extends Controller
         if ($request->has("filter")) {
             if ($filter == "category") {
                 $category = Categorie::where("slug", $search)->first();
-                $products = Product::where("is_active", 1)->where("categorie_id", $category->id)->get();
+                $products = Product::where("is_active", 1)
+                    ->where("categorie_id", $category->id)
+                    ->paginate(12);
             }
 
             if ($filter == "subcategory") {
                 $subcategory = SubCategorie::where("slug", $search)->first();
                 $products = Product::where("is_active", 1)->whereHas("subcategories", function ($query) use ($subcategory) {
                     $query->where("subcategorie_id", $subcategory->id);
-                })->get();
+                })->paginate(12);
             }
         } else {
-            $products = Product::where("is_active", 1)->get();
+            $products = Product::where("is_active", 1)->paginate(12);
         }
 
         $categories = Categorie::all();
-        $subcategories = SubCategorie::select('name')->distinct()->get();
+        $subcategories = SubCategorie::select('name', "slug")->distinct()->get();
         $labels = Label::all();
         Favorites::get($this->user, $products);
         return view("store.products", ["products" => $products, "categories" => $categories, "subcategories" => $subcategories, "labels" => $labels]);
