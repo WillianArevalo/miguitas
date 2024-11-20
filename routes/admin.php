@@ -29,6 +29,7 @@ use App\Http\Controllers\Admin\{
     SettingsController,
     SettingsGeneralController,
     ShippingController,
+    SocialNetworkController,
     SubCategorieController,
     SupportTicketController,
     TaxController,
@@ -137,8 +138,12 @@ Route::middleware("role:admin")->prefix("admin")->name("admin.")->group(function
     // General Settings
     Route::prefix("general-settings")->name("general-settings.")->group(function () {
         Route::get("/", [SettingsGeneralController::class, "index"])->name("index");
+        Route::post("/", [SettingsGeneralController::class, "store"])->name("store");
         Route::post("/maintenance/update", [SettingsGeneralController::class, "maintenanceUpdate"])->name("maintenance.update");
     });
+
+    // Social Networks
+    Route::resource("/social-networks", SocialNetworkController::class);
 
     // Reviews 
     Route::resource("/reviews", ReviewController::class);
