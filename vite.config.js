@@ -28,7 +28,7 @@ export default defineConfig({
                 "resources/js/admin/sales-strategies.js",
                 "resources/js/admin/settings.js",
                 "resources/js/admin/ticket.js",
-                "resources/js/admin/tost-adming.js",
+                "resources/js/admin/toast-admin.js",
                 "resources/js/admin/user.js",
 
                 "resources/js/store/account.js",
