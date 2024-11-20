@@ -43,7 +43,13 @@
                         <x-card-product :product="$product" />
                     @endforeach
                 </div>
+                {{ $products->links('vendor.pagination.pagination-store') }}
             @endif
+
+            <div class="flex items-center justify-center">
+                <x-button-store text="Ver más" type="a" href="{{ Route('store.products') }}" typeButton="primary" />
+            </div>
+
         </section>
 
         <section class="flex items-center justify-center">
