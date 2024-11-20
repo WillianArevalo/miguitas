@@ -9,7 +9,7 @@
         </div>
         <!-- Logo -->
         <div class="flex-1 px-2 sm:px-4">
-            <img src="{{ asset('img/logo.png') }}" alt="Logo"
+            <img src="{{ $logo ? Storage::url($logo) : asset('img/logo.png') }}" alt="Logo"
                 class="min-h-12 min-w-12 h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20 lg:h-24 lg:w-24">
         </div>
 
@@ -53,13 +53,13 @@
                             </a>
                         </li>
                         <li>
-                            <a href="" class="group">
+                            <a href="https://wa.me/{{ $whatsapp }}" target="_blank" class="group">
                                 <x-icon-store icon="whatsapp"
                                     class="h-8 w-8 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
                             </a>
                         </li>
                         <li>
-                            <a href="" class="group">
+                            <a href="{{ $location }}" target="_blank" class="group">
                                 <x-icon-store icon="location"
                                     class="h-8 w-8 text-light-blue transition-transform group-hover:scale-110">
                                 </x-icon-store>
@@ -214,7 +214,6 @@
                                 Tienda
                             </a>
                         </li>
-
                         <li class="group relative">
                             <button type="button"
                                 class="order-link flex items-center gap-2 rounded-xl px-4 py-2 uppercase hover:bg-blue-store hover:text-white">
@@ -261,8 +260,6 @@
                                 </div>
                             </div>
                         </li>
-
-
                         <li>
                             <a href="{{ Route('faq') }}"
                                 class="group flex items-center gap-2 rounded-xl px-4 py-2 hover:bg-blue-store hover:text-white">
@@ -320,13 +317,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="" class="group">
+                        <a href="https://wa.me/{{ $whatsapp }}" target="_blank" class="group">
                             <x-icon-store icon="whatsapp"
                                 class="h-6 w-6 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
                         </a>
                     </li>
                     <li>
-                        <a href="" class="group">
+                        <a href="{{ $location }}" target="_blank"class="group">
                             <x-icon-store icon="location"
                                 class="h-6 w-6 text-light-blue transition-transform group-hover:scale-110">
                             </x-icon-store>
