@@ -96,6 +96,16 @@
                                             </a>
                                         </li>
                                         <hr class="border-t border-zinc-200">
+                                        @if (auth()->user()->role === 'admin')
+                                            <li class="mt-2 w-full">
+                                                <a href="{{ Route('admin.index') }}" target="_blank"
+                                                    class="flex w-full items-center justify-start rounded-xl px-4 py-2 text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
+                                                    <x-icon-store icon="user"
+                                                        class="mr-2 inline-block h-4 w-4 text-current" />
+                                                    Administrador
+                                                </a>
+                                            </li>
+                                        @endif
                                         <li class="my-2 w-full">
                                             <a href="{{ Route('account.index') }}"
                                                 class="flex w-full items-center justify-start rounded-xl px-4 py-2 text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
@@ -173,6 +183,16 @@
                                             Configuración
                                         </a>
                                     </li>
+                                    @if (auth()->user()->role === 'admin')
+                                        <li class="my-2 w-full">
+                                            <a href="{{ Route('admin.index') }}"
+                                                class="flex w-full items-center justify-start rounded-xl px-4 py-2 text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
+                                                <x-icon-store icon="settings"
+                                                    class="mr-2 inline-block h-4 w-4 text-current" />
+                                                Administrador
+                                            </a>
+                                        </li>
+                                    @endif
                                     <hr class="border-t border-zinc-200">
                                     <li class="mt-2 w-full">
                                         <form action="{{ Route('logout') }}" method="POST">
@@ -280,7 +300,7 @@
 
     <!-- Nav mobile -->
     <div id="nav-mobile"
-        class="fixed left-0 top-0 z-40 h-screen w-80 -translate-x-full overflow-y-auto bg-white p-4 transition-transform"
+        class="fixed left-0 top-0 z-40 h-screen w-full -translate-x-full overflow-y-auto bg-white p-4 transition-transform"
         tabindex="-1" aria-labelledby="drawer-label">
         <button type="button" data-drawer-hide="nav-mobile" aria-controls="nav-mobile"
             class="absolute end-2.5 top-2.5 flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-blue-store hover:bg-zinc-200 hover:text-zinc-900">
@@ -353,90 +373,35 @@
                             <x-icon-store icon="arrow-down" class="h-4 w-4 fill-current"></x-icon-store>
                         </button>
                         <div class="mt-2 hidden animate-fade-down animate-duration-300" id="options">
-                            <div class="flex justify-between">
-                                <div class="flex flex-1 flex-col gap-4">
-                                    <a href=""
-                                        class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                        <x-icon-store icon="bag"
-                                            class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                        On sales
-                                    </a>
-                                    <a href=""
-                                        class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                        <x-icon-store icon="heart"
-                                            class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                        New
-                                    </a>
-                                    <a href=""
-                                        class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                        <x-icon-store icon="heart"
-                                            class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                        Cakes
-                                    </a>
-                                    <a href=""
-                                        class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                        <x-icon-store icon="heart"
-                                            class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                        Cookies
-                                    </a>
-                                    <a href=""
-                                        class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                        <x-icon-store icon="heart"
-                                            class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                        Packs
-                                    </a>
-                                    <a href=""
-                                        class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                        <x-icon-store icon="heart"
-                                            class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                        Treats
-                                    </a>
-                                    <a href=""
-                                        class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                        <x-icon-store icon="heart"
-                                            class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                        Frozen treats
-                                    </a>
-                                </div>
-                                <div class="flex flex-1 flex-col gap-4">
-                                    <a href=""
-                                        class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                        <x-icon-store icon="heart"
-                                            class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                        Suplements
-                                    </a>
-                                    <a href=""
-                                        class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                        <x-icon-store icon="heart"
-                                            class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                        Daily food
-                                    </a>
-                                    <a href=""
-                                        class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                        <x-icon-store icon="heart"
-                                            class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                        Toys
-                                    </a>
-                                    <a href=""
-                                        class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                        <x-icon-store icon="heart"
-                                            class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                        Accesories
-                                    </a>
-                                    <a href=""
-                                        class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                        <x-icon-store icon="heart"
-                                            class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                        Bath&Cleanup
-                                    </a>
-                                    <a href=""
-                                        class="flex items-center gap-2 transition-transform hover:scale-110 hover:text-blue-store">
-                                        <x-icon-store icon="heart"
-                                            class="min-h-5 min-w-5 h-5 w-5 fill-current"></x-icon-store>
-                                        Pet lover accesories
-                                    </a>
-                                </div>
-                            </div>
+                            @foreach ($categories as $category)
+                                <button type="button"
+                                    href="{{ Route('store.products', ['filter' => 'category', 'search' => $category->slug]) }}"
+                                    class="btn-nav-accordion flex w-full items-center justify-between gap-2 rounded-xl px-4 py-2 hover:bg-light-blue hover:text-white"
+                                    data-target="#subcategories-mobile-{{ $category->id }}">
+                                    {{ $category->name }}
+                                    @if ($category->subcategories->count() > 0)
+                                        <x-icon-store icon="arrow-down" class="h-4 w-4 fill-current"></x-icon-store>
+                                    @endif
+                                </button>
+                                @if ($category->subcategories->count() > 0)
+                                    <div id="subcategories-mobile-{{ $category->id }}"
+                                        class="hidden w-full animate-fade-down gap-4 p-4 animate-duration-300">
+                                        <ul class="grid grid-cols-2">
+                                            @foreach ($category->subcategories as $subcategory)
+                                                <li class="break-inside-avoid">
+                                                    <a href="{{ Route('store.products', ['filter' => 'subcategory', 'search' => $subcategory->slug]) }}"
+                                                        class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-blue-store hover:text-white">
+                                                        <img src="{{ Storage::url($subcategory->image) }}"
+                                                            alt="Category image"
+                                                            class="h-6 w-6 rounded-full object-cover">
+                                                        {{ $subcategory->name }}
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                            @endforeach
                         </div>
                     </li>
                     <li>
