@@ -2,17 +2,15 @@
 @section('title', 'Miguitas | Inicio')
 @section('content')
     <div class="overflow-x-hidden">
-        <div class="relative flex h-[700px] w-full items-center justify-center bg-blue-store">
-            <div class="flex-1">
-                <img src="{{ asset('img/index-dog.jpg') }}" alt="cake" class="h-[700px] w-full object-cover"
-                    data-aos="fade-right">
-            </div>
-            <div class="relative z-10 mx-auto flex h-full w-full flex-1 flex-col items-center justify-center p-10">
+        <div class="flex h-[700px] w-full flex-col items-center justify-center bg-blue-store lg:flex-row">
+            <img src="{{ asset('img/index-dog.jpg') }}" alt="cake" class="h-full w-full flex-1 object-cover">
+            <div
+                class="relative z-10 mx-auto mb-60 flex h-full w-full flex-1 flex-col items-center justify-center p-10 lg:mb-0">
                 <h1 class="mx-auto w-full text-center text-xl font-bold text-white sm:text-2xl md:text-4xl lg:w-2/3"
                     data-aos="fade-left">
                     Celébralos con un pastel especial, elaborado con ingredientes de alta calidad desde 2015.
                 </h1>
-                <div class="mt-8 flex items-center justify-center" data-aos="fade-left">
+                <div class="mt-8 flex items-center justify-center pb-10 lg:pb-0" data-aos="fade-left">
                     <x-button-store type="button" typeButton="secondary" text="Ordenar pastel" size="large" />
                 </div>
                 <div class="absolute -bottom-6 left-0 right-0 mx-auto flex w-max items-center gap-4 rounded-3xl bg-pink-store p-4 shadow-lg"
@@ -50,7 +48,7 @@
         @endif
 
         <div class="marquees">
-            <div class="marquee-slider">
+            <div class="marquee-slider text-xs sm:text-base">
                 <span class="mx-4 flex items-center gap-2 text-dark-blue">
                     <x-icon-store icon="natural" class="h-5 w-5" />
                     Ingredientes naturales de alta calidad. No fillers.
@@ -137,15 +135,15 @@
                     <div class="card-body mt-2">
                         <div class="flex items-center justify-start">
                             <div class="flex items-center gap-3">
-                                <a href="">
+                                <div>
                                     <x-icon-store icon="heart" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
-                                </a>
-                                <a href="">
+                                </div>
+                                <div>
                                     <x-icon-store icon="comment" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
-                                </a>
-                                <a href="">
+                                </div>
+                                <div>
                                     <x-icon-store icon="send" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
-                                </a>
+                                </div>
                             </div>
                         </div>
                         <div>
@@ -174,15 +172,15 @@
                     <div class="card-body mt-2">
                         <div class="flex items-center justify-start">
                             <div class="flex items-center gap-3">
-                                <a href="">
+                                <div>
                                     <x-icon-store icon="heart" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
-                                </a>
-                                <a href="">
+                                </div>
+                                <div>
                                     <x-icon-store icon="comment" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
-                                </a>
-                                <a href="">
+                                </div>
+                                <div>
                                     <x-icon-store icon="send" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
-                                </a>
+                                </div>
                             </div>
                         </div>
                         <div>
@@ -211,15 +209,15 @@
                     <div class="card-body mt-2">
                         <div class="flex items-center justify-start">
                             <div class="flex items-center gap-3">
-                                <a href="">
+                                <div>
                                     <x-icon-store icon="heart" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
-                                </a>
-                                <a href="">
+                                </div>
+                                <div>
                                     <x-icon-store icon="comment" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
-                                </a>
-                                <a href="">
+                                </div>
+                                <div>
                                     <x-icon-store icon="send" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
-                                </a>
+                                </div>
                             </div>
                         </div>
                         <div>
@@ -248,15 +246,15 @@
                     <div class="card-body mt-2">
                         <div class="flex items-center justify-start">
                             <div class="flex items-center gap-3">
-                                <a href="">
+                                <div>
                                     <x-icon-store icon="heart" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
-                                </a>
-                                <a href="">
-                                    <x-icon-store icon="comment" class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
-                                </a>
-                                <a href="">
-                                    <x-icon-store icon="send" class="h-5 w-5 fill-blue-store sm:h-7 sm:w-7" />
-                                </a>
+                                </div>
+                                <div>
+                                    <x-icon-store icon="comment" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
+                                </div>
+                                <div>
+                                    <x-icon-store icon="send" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
+                                </div>
                             </div>
                         </div>
                         <div>
