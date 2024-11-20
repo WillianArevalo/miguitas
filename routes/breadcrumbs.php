@@ -2,6 +2,8 @@
 
 // Note: Laravel will automatically resolve `Breadcrumbs::` without
 // this import. This is nice for IDE syntax and refactoring.
+
+use App\Models\Product;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 
 // This import is also not required, and you could replace `BreadcrumbTrail $trail`
@@ -248,7 +250,109 @@ Breadcrumbs::for("admin.reviews.index", function (BreadcrumbTrail $trail) {
     $trail->push($icon . "Reseñas", route("admin.reviews.index"));
 });
 
-/*  Breadcrumbs Store  */
+
+
+/* BREADCRUMBS STORE */
+
+//Home
+Breadcrumbs::for("home", function (BreadcrumbTrail $trail) {
+    $trail->push("Inicio", route("home"));
+});
+
+//Tienda
+Breadcrumbs::for("store", function (BreadcrumbTrail $trail) {
+    $trail->parent("home");
+    $icon = Blade::render("<x-icon-store icon='shop' class='w-4 h-4' />");
+    $trail->push($icon . "Tienda", route("store"));
+});
+
+
+//Products 
+Breadcrumbs::for("store.products", function (BreadcrumbTrail $trail) {
+    $trail->parent("store");
+    $trail->push("PAWstry eShop", route("store.products"));
+});
+
+//Products > {product}
+Breadcrumbs::for("products.details", function (BreadcrumbTrail $trail, $product) {
+    $trail->parent("store.products");
+    $product = Product::where('slug', $product)->first()->name;
+    $trail->push($product, route("products.details", $product));
+});
+
+
+//Cart 
+Breadcrumbs::for("cart", function (BreadcrumbTrail $trail) {
+    $trail->parent("store");
+    $icon = Blade::render("<x-icon-store icon='cart' class='w-4 h-4' />");
+    $trail->push($icon . "Carrito de compras", route("cart"));
+});
+
+//Checkout
+Breadcrumbs::for("checkout", function (BreadcrumbTrail $trail) {
+    $trail->parent("cart");
+    $icon = Blade::render("<x-icon-store icon='bag' class='w-4 h-4' />");
+    $trail->push($icon . "Checkout", route("checkout"));
+});
+
+//FAQ
 Breadcrumbs::for("faq", function (BreadcrumbTrail $trail) {
-    $trail->push("Preguntas frecuentes", route("faq"));
+    $trail->parent("store");
+    $icon = Blade::render("<x-icon-store icon='question' class='w-4 h-4' />");
+    $trail->push($icon . "Preguntas frecuentes", route("faq"));
+});
+
+//About
+Breadcrumbs::for("about", function (BreadcrumbTrail $trail) {
+    $trail->parent("store");
+    $icon = Blade::render("<img src='" . asset('img/logo.png') . "' alt='Conócenos' class='w-4 h-4' />");
+    $trail->push($icon . "Conócenos", route("about"));
+});
+
+//Contact
+Breadcrumbs::for("contact", function (BreadcrumbTrail $trail) {
+    $trail->parent("store");
+    $icon = Blade::render("<x-icon-store icon='message' class='w-4 h-4' />");
+    $trail->push($icon . "Contactanos", route("contact"));
+});
+
+//Favorites
+Breadcrumbs::for("favorites", function (BreadcrumbTrail $trail) {
+    $trail->parent("store");
+    $icon = Blade::render("<x-icon-store icon='heart' class='w-4 h-4' />");
+    $trail->push($icon . "Favoritos", route("favorites"));
+});
+
+//Account 
+Breadcrumbs::for("account.index", function (BreadcrumbTrail $trail) {
+    $trail->parent("store");
+    $icon = Blade::render("<x-icon-store icon='user' class='w-4 h-4' />");
+    $trail->push($icon . "Mi cuenta", route("account.index"));
+});
+
+//Order show
+Breadcrumbs::for("orders.show", function (BreadcrumbTrail $trail, $order) {
+    $trail->parent("account.index");
+    $trail->push("Pedidos", route("account.index"));
+    $trail->push($order, route("orders.show", $order));
+});
+
+//Edit address
+Breadcrumbs::for("account.addresses.edit", function (BreadcrumbTrail $trail, $address) {
+    $trail->parent("account.index");
+    $trail->push("Direcciones", route("account.index"));
+    $icon = Blade::render("<x-icon-store icon='map-point' class='w-4 h-4' />");
+    $trail->push($icon . "Editar dirección", route("account.addresses.edit", $address));
+});
+
+//Blog
+Breadcrumbs::for("blog", function (BreadcrumbTrail $trail) {
+    $trail->parent("store");
+    $trail->push("Blog", route("blog"));
+});
+
+//Galery
+Breadcrumbs::for("galery", function (BreadcrumbTrail $trail) {
+    $trail->parent("store");
+    $trail->push("Galería", route("galery"));
 });
