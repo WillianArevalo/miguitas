@@ -4,18 +4,18 @@
         role="alert">
         <div class="inline-flex flex-shrink-0 items-center justify-center">
             @if ($message = Session::get('success'))
-                <x-icon-store icon="circle-check" class="h-6 w-6 text-green-500" />
+                <x-icon-store icon="circle-check" class="h-6 w-6 fill-green-500" />
             @elseif($message = Session::get('error'))
-                <x-icon-store icon="circle-exclamation" class="h-6 w-6 text-red-500" />
+                <x-icon-store icon="circle-exclamation" class="h-6 w-6 fill-red-500" />
             @elseif($message = Session::get('info'))
                 <x-icon-store icon="circle-info" class="h-6 w-6 text-blue-500" />
             @endif
         </div>
-        <div class="font-diner-r ms-auto text-center text-xs font-normal sm:text-sm">
+        <div class="ms-auto text-center font-dine-r text-xs font-normal sm:text-sm">
             {{ $message }}
         </div>
         <button type="button"
-            class="-mx-1.5 -my-1.5 ms-auto inline-flex h-8 w-8 items-center justify-center rounded-xl bg-white text-zinc-400 hover:bg-zinc-100 hover:text-zinc-900 focus:ring-2 focus:ring-zinc-300"
+            class="min-w-8 -mx-1.5 -my-1.5 ms-auto inline-flex h-8 items-center justify-center rounded-xl bg-white text-zinc-400 hover:bg-zinc-100 hover:text-zinc-900 focus:ring-2 focus:ring-zinc-300"
             data-dismiss-target="#toast" aria-label="Close">
             <span class="sr-only">Close</span>
             <svg class="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
