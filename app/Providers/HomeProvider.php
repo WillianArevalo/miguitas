@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\HeadBand;
+use App\Models\Settings;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -23,7 +24,11 @@ class HomeProvider extends ServiceProvider
     {
         View::composer("layouts.template", function ($view) {
             $headBands = HeadBand::where("active", true)->get();
-            $view->with("headBands", $headBands);
+            $favicon = Settings::where('key', 'store_favicon')->first()->value ?? '';
+            $view->with([
+                "headBands" => $headBands,
+                "favicon" => $favicon,
+            ]);
         });
     }
 }
