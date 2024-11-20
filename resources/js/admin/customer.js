@@ -1,5 +1,5 @@
-import { openDrawer, closeDrawer } from "../drawer";
-import { showToast } from "../toast-admin";
+import { openDrawer, closeDrawer } from "./drawer";
+import { showToast } from "./toast-admin";
 
 $(document).ready(function () {
     $("#create-user").on("change", function () {

@@ -1,5 +1,5 @@
 import { openDrawer } from "./drawer";
-import { showToast } from "../toast-admin";
+import { showToast } from "./toast-admin";
 
 $(document).ready(function () {
     $(document).on("click", ".editFlashOffer", function () {

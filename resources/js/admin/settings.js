@@ -1,4 +1,4 @@
-import { showToast } from "../toast-admin";
+import { showToast } from "./toast-admin";
 
 $(document).ready(function () {
     $(".theme-button").on("click", function () {

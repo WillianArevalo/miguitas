@@ -1,4 +1,4 @@
-import { showToast } from "../toast-admin";
+import { showToast } from "./toast-admin";
 import Quill from "quill";
 
 $(document).ready(function () {
