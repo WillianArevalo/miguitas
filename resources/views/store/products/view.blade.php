@@ -125,7 +125,7 @@
                             <x-button-store type="button" class="w-full sm:w-auto" text="Añadir al carrito"
                                 icon="cart-plus" typeButton="secondary" size="large" id="add-to-cart" />
                             <x-button-store type="button" class="w-full sm:w-auto" text="Comprar ahora"
-                                typeButton="primary" size="large" />
+                                typeButton="primary" size="large" id="buy-now" />
                         </div>
                     </form>
                     <div class="mt-8">
