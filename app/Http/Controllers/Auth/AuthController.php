@@ -88,7 +88,7 @@ class AuthController extends Controller
             "name" => "required",
             "last_name" => "required",
             "email" => "required|email",
-            "password" => "required|confirmed"
+            "password" => "required"
         ];
         DB::beginTransaction();
         try {
@@ -102,7 +102,7 @@ class AuthController extends Controller
             return redirect()->route("home");
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->with("error", "Error al registrar el usuario. Error:" . $e->getMessage())->withInput(request()->all());
+            return redirect()->back()->with("error", "Error al registrar el usuario.");
         }
     }
 }
