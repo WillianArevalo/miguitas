@@ -1,27 +1,43 @@
 $(document).ready(function () {
     var $filterCheckboxes = $(".filter-check");
-    const $form = $("#form-filters");
     var selectedFilters = {};
+    const $form = $("#form-filters");
     const $resetButton = $("#reset-filters");
+    const $minInput = $("#min");
+    const $maxInput = $("#max");
 
-    $filterCheckboxes.on("change", function () {
-        $filterCheckboxes.filter(":checked").each(function () {
-            var name = $(this).attr("name");
-            var value = $(this).val();
+    $minInput.on("input", updatePriceRange);
+    $maxInput.on("input", updatePriceRange);
 
-            if (!selectedFilters[name]) {
-                selectedFilters[name] = [];
-            }
-            selectedFilters[name].push(value);
-        });
+    function updatePriceRange() {
+        var min = $minInput.val();
+        var max = $maxInput.val();
+        if (min || max) {
+            selectedFilters["price_range"] = { min: min, max: max };
+        } else {
+            delete selectedFilters["price_range"];
+        }
         addFiltersToForm(selectedFilters);
         toggleResetButton();
-    });
+    }
 
-    $("#order").on("Changed", function () {
-        var selectedOrder = $(this).val();
-        delete selectedFilters["order"];
-        selectedFilters["order"] = selectedOrder;
+    $filterCheckboxes.on("change", function () {
+        var name = $(this).attr("name");
+        if (!selectedFilters[name]) {
+            selectedFilters[name] = [];
+        }
+
+        selectedFilters[name] = $filterCheckboxes
+            .filter(`[name="${name}"]:checked`)
+            .map(function () {
+                return $(this).val();
+            })
+            .get();
+
+        if (selectedFilters[name].length === 0) {
+            delete selectedFilters[name];
+        }
+
         addFiltersToForm(selectedFilters);
         toggleResetButton();
     });
@@ -43,22 +59,14 @@ $(document).ready(function () {
             url: $form.attr("action"),
             type: "POST",
             data: $form.serialize(),
-            beforeSend: function () {
-                $("#loader").removeClass("hidden");
-            },
             success: function (response) {
                 $("#products-list").html(response.html);
-                $("#loader").addClass("hidden");
             },
-            error: function (xhr, status, error) {
+            error: function (response) {
                 console.error(
                     "Error al obtener los productos filtrados:",
-                    error
+                    response
                 );
-                $("#loader").addClass("hidden");
-            },
-            complete: function () {
-                $("#loader").addClass("hidden");
             },
         });
     }
@@ -70,6 +78,14 @@ $(document).ready(function () {
             $resetButton.addClass("hidden");
         }
     }
+
+    $("#order").on("Changed", function () {
+        var selectedOrder = $(this).val();
+        delete selectedFilters["order"];
+        selectedFilters["order"] = selectedOrder;
+        addFiltersToForm(selectedFilters);
+        toggleResetButton();
+    });
 
     $resetButton.on("click", function () {
         $filterCheckboxes.prop("checked", false);
@@ -96,23 +112,16 @@ $(document).ready(function () {
     $("#search").on("input", function () {
         var $form = $("#form-search-product");
 
-        if ($(this).val()) {
+        /* if ($(this).val()) {
             $resetButton.removeClass("hidden");
-        }
-
+        } */
+        console.log($(this).val());
         $.ajax({
             url: $form.attr("action"),
             method: "POST",
             data: $form.serialize(),
-            beforeSend: function () {
-                $("#loading-overlay").removeClass("hidden").addClass("flex");
-            },
             success: function (response) {
                 $("#products-list").html(response.html);
-                $("#loading-overlay").addClass("hidden").removeClass("flex");
-            },
-            complete: function () {
-                $("#loading-overlay").addClass("hidden").removeClass("flex");
             },
         });
     });

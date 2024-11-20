@@ -66,11 +66,11 @@ $(document).ready(function () {
         });
     });
 
-    $("#add-to-cart").on("click", function () {
+    $("#add-to-cart, #buy-now").on("click", function () {
         const form = $("#form-add-to-cart");
+        const id = $(this).attr("id");
         let options = [];
         const optionsValues = $(".options_values");
-
         if (optionsValues.length > 0) {
             $(".options_values").each(function () {
                 const value = $(this).val();
@@ -90,6 +90,10 @@ $(document).ready(function () {
                 success: function (response) {
                     showToast(response.message, "success");
                     $("#cart-count").text(response.total);
+
+                    if (id == "buy-now") {
+                        window.location.href = "/facturación";
+                    }
                 },
                 error: function (error) {
                     console.log(error);
