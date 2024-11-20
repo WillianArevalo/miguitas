@@ -89,14 +89,13 @@ class ProductController extends Controller
         }
 
         if (isset($filters['price_range'])) {
-            foreach ($filters['price_range'] as $priceRange) {
-                if ($priceRange == 'min_5') {
-                    $query->orWhere('price', '<', 5);
-                } elseif ($priceRange == 'entre_5_10') {
-                    $query->orWhereBetween('price', [5, 10]);
-                } elseif ($priceRange == 'more_10') {
-                    $query->orWhere('price', '>', 10);
-                }
+            $priceRange = $filters['price_range'];
+
+            if (isset($priceRange['min']) && is_numeric($priceRange['min'])) {
+                $query->where('price', '>=', $priceRange['min']);
+            }
+            if (isset($priceRange['max']) && is_numeric($priceRange['max'])) {
+                $query->where('max_price', '<=', $priceRange['max']);
             }
         }
 
@@ -139,15 +138,17 @@ class ProductController extends Controller
                 $query->where("offer_price", ">", 0)->orderBy("offer_price", "asc");
             }
         }
-        $products = $query->get();
+        $products = $query->where("is_active", 1)->paginate(12);
         return response()->json(["html" => view('layouts.__partials.ajax.store.product-list', compact('products'))->render()]);
     }
 
     public function search(Request $request)
     {
         $search = $request->input("search");
-        $products = Product::where("name", "like", "%$search%")->get();
-        return response()->json(["html" => view('layouts.__partials.ajax.store.product-list', compact('products'))->render()]);
+        $products = Product::where("name", "like", "%$search%")->where("is_active", 1)->paginate(12);
+        return response()->json([
+            "html" => view('layouts.__partials.ajax.store.product-list', compact('products'))->render()
+        ]);
     }
 
     public function getOption(Request $request)
