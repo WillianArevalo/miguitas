@@ -47,6 +47,35 @@
             </div>
         @endif
 
+        <div class="marquees">
+            <div class="marquee-slider">
+                <span class="mx-4 flex items-center gap-2 text-dark-blue">
+                    <x-icon-store icon="natural" class="h-5 w-5" />
+                    Ingredientes naturales de alta calidad. No fillers.
+                </span>
+                <span class="mx-4 flex items-center gap-2 text-dark-blue">
+                    <x-icon-store icon="meat" class="h-5 w-5" />
+                    La mejor materia prima en plaza. Carnes magras.
+                </span>
+                <span class="mx-4 flex items-center gap-2 text-dark-blue">
+                    <x-icon-store icon="gluten" class="h-5 w-5" />
+                    Gluten free - No adivitos - No saborizantes - No preserverantes
+                </span>
+                <span class="mx-4 flex items-center gap-2 text-dark-blue">
+                    <x-icon-store icon="love" class="h-5 w-5" />
+                    Ba(r)ked with Love. Producción en pequeños lotes.
+                </span>
+                <span class="mx-4 flex items-center gap-2 text-dark-blue">
+                    <x-icon-store icon="check-medic" class="h-5 w-5" />
+                    Aprobados por veterinarios.
+                </span>
+                <span class="mx-4 flex items-center gap-2 text-dark-blue">
+                    <x-icon-store icon="check-duotone" class="h-5 w-5" />
+                    Registrados en MAG, MH y DC.
+                </span>
+            </div>
+        </div>
+
         <div>
             <div class="flex flex-col gap-8 bg-pink-store py-4 xl:flex-row">
                 <div class="flex-1 text-center">
@@ -247,7 +276,8 @@
                             Cake Corazón FurryLove
                         </h4>
                         <p class="mt-4 font-dine-r text-sm text-zinc-600 sm:text-base md:text-lg">
-                            Creamos este pastel natural y especial para que la pancita de tu amor eterno se alegre aun más
+                            Creamos este pastel natural y especial para que la pancita de tu amor eterno se alegre aun
+                            más
                             ya sea compartiéndolo con sus amigos o hermanitos, o el sólito. Porque ellos no son solo
                             nuestros mejores amigos, sino también nuestros amores eternos y fieles. ¡Por eso los
                             consentimos!
@@ -317,7 +347,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="absolute -bottom-1 left-0 h-max w-full rounded-full bg-brown-store p-2 shadow-xl sm:p-4"></div>
+                <div class="absolute -bottom-1 left-0 h-max w-full rounded-full bg-brown-store p-2 shadow-xl sm:p-4">
+                </div>
             </div>
         </div>
 
@@ -547,11 +578,11 @@
             </div>
         </div>
 
-
         <div class="mt-10">
             <div class="mb-8 flex flex-col items-center justify-center gap-2">
                 <div class="text-center">
-                    <h2 class="my-4 text-center text-3xl text-light-blue sm:text-4xl md:text-5xl">¡Síguenos en Instagram!
+                    <h2 class="my-4 text-center text-3xl text-light-blue sm:text-4xl md:text-5xl">¡Síguenos en
+                        Instagram!
                     </h2>
                 </div>
                 <span class="font-dine-r text-sm text-gray-store">Mira nuestras últimas publicaciones</span>
@@ -559,8 +590,17 @@
                     size="small" href="https://www.instagram.com/miguitaselsalvador/" target="_blank" />
             </div>
             <script src="https://static.elfsight.com/platform/platform.js" async></script>
-            <div class="elfsight-app-3111fc49-9741-4f51-a3e6-3a8c8e2c8eff a-none font-dine-r" data-elfsight-app-lazy></div>
+            <div class="elfsight-app-3111fc49-9741-4f51-a3e6-3a8c8e2c8eff a-none font-dine-r" data-elfsight-app-lazy>
+            </div>
         </div>
 
     </div>
 @endsection
+
+
+@push('scripts')
+    <script>
+        var copy = document.querySelector(".marquee-slider").cloneNode(true);
+        document.querySelector(".marquees").appendChild(copy);
+    </script>
+@endpush
