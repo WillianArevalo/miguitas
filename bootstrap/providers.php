@@ -1,7 +1,7 @@
 <?php
 
 return [
-    App\Providers\AppServiceProvider::class,
+    App\Providers\FooterProvider::class,
     App\Providers\HomeProvider::class,
     App\Providers\NavStoreProvider::class,
 ];
