@@ -33,7 +33,7 @@ class CheckoutController extends Controller
 
 
         if (!$user || !$cart || $cart->items->count() == 0) {
-            return redirect()->route("cart")->with("error", "Agrega productos al carrito para continuar con la compra.");
+            return redirect()->route("cart")->with("info", "Agrega productos al carrito para continuar con la compra.");
         }
 
         $customer = $user->customer;
