@@ -2,18 +2,28 @@ import { showToast } from "./toast-admin";
 
 $(document).ready(function () {
     $("#file-policie").on("change", function () {
-        var file = $(this)[0].files[0];
-
-        if (file && file.type === "application/pdf") {
-            var fileURL = URL.createObjectURL(file);
-            var previewContainer = $("#pdf-preview");
-            var pdfFrame = $("#pdf-frame");
-
-            previewContainer.show();
-            pdfFrame.attr("src", fileURL);
-        } else {
-            showToast("El archivo seleccionado no es un PDF", "error");
-            $(this).val("");
-        }
+        showPreviewImages(this, "#preview-images");
     });
+    function showPreviewImages(input, previewContainer) {
+        const $previewContainer = $(previewContainer);
+        $previewContainer.empty();
+        $(input).prev().addClass("hidden");
+        const files = input.files;
+        if (files && files.length > 0) {
+            Array.from(files).forEach((file) => {
+                if (file.type.startsWith("image/")) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const img = $("<img>")
+                            .attr("src", e.target.result)
+                            .addClass(
+                                "h-32 w-32 object-cover rounded-lg border border-gray-300"
+                            );
+                        $previewContainer.append(img);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    }
 });
