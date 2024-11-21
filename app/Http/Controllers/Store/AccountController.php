@@ -50,7 +50,7 @@ class AccountController extends Controller
     {
         $auth = auth()->user();
         $user = User::with("customer")->find($auth->id);
-        return view("account.index", ["user" => $user]);
+        return view("store.account.settings.settings-edit", ["user" => $user]);
     }
 
     public function settingsUpdate(AccountUpdateRequest $request)
