@@ -129,6 +129,9 @@
                                                             data-url="{{ Route('cart.apply-payment-method', $method->id) }}"
                                                             id="{{ $method->id }}" value="{{ $method->id }}"
                                                             @if ($method->id == $cart->payment_method_id) checked @endif>
+                                                        <img src="{{ Storage::url($method->image) }}"
+                                                            alt="Imagen del método de pago"
+                                                            class="h-10 w-10 object-contain">
                                                         {{ $method->name }}
                                                     </div>
                                                 @endforeach
