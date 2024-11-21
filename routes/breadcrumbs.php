@@ -3,6 +3,7 @@
 // Note: Laravel will automatically resolve `Breadcrumbs::` without
 // this import. This is nice for IDE syntax and refactoring.
 
+use App\Models\Policy;
 use App\Models\Product;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 
@@ -355,4 +356,12 @@ Breadcrumbs::for("blog", function (BreadcrumbTrail $trail) {
 Breadcrumbs::for("galery", function (BreadcrumbTrail $trail) {
     $trail->parent("store");
     $trail->push("Galería", route("galery"));
+});
+
+//Terms of use
+Breadcrumbs::for("terms-and-conditions", function (BreadcrumbTrail $trail, $slug) {
+    $trail->parent("store");
+    $policy = Policy::where('slug', $slug)->first();
+    $trail->push("Términos y condiciones", route("store"));
+    $trail->push($policy->name, route("terms-and-conditions", $slug));
 });
