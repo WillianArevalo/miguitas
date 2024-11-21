@@ -23,7 +23,8 @@ use App\Http\Controllers\Store\{
     StoreController,
     CartController,
     GaleryController,
-    SupportTicketController
+    SupportTicketController,
+    TermsAndConditionsController
 };
 
 // Public Routes
@@ -111,4 +112,9 @@ Route::middleware("auth")->group(function () {
 
     // Reviews
     Route::resource("/reviews", ReviewController::class);
+
+
+    // Terms and conditions
+    Route::get("/terminos-y-condiciones/{slug}", [TermsAndConditionsController::class, "getPolicy"])->name("terms-and-conditions");
+    Route::get("/policies/{policy}/download-pdf", [TermsAndConditionsController::class, "downloadPdf"])->name("policies.download-pdf");
 });
