@@ -1,5 +1,5 @@
 <footer class="w-full bg-light-blue">
-    <div class="mx-auto w-full p-10 lg:w-4/5">
+    <div class="mx-auto w-full p-10 lg:w-[90%]">
         <div class="flex flex-col gap-8 sm:flex-row">
             <img src="{{ $logo ? Storage::url($logo) : asset('img/logo.png') }}" alt="Logo Miguitas"
                 class="mx-auto h-44 w-44">
@@ -7,7 +7,7 @@
                 <h2 class="text-2xl font-bold text-white md:text-3xl lg:text-4xl xl:text-5xl">
                     MIGUITAS PET TREATS
                 </h2>
-                <p class="text-center font-dine-r text-base text-white md:text-lg">
+                <p class="w-3/4 text-center font-dine-r text-base text-white md:text-lg">
                     {{ $description }}
                 </p>
             </div>
@@ -113,23 +113,43 @@
                     </p>
                 </div>
                 <div class="flex-1">
-                    <h3 class="text-center text-lg font-bold uppercase text-light-pink md:text-left md:text-xl">
-                        Sigamos en contacto
-                    </h3>
-                    <div class="mt-4 flex items-center justify-center gap-4 md:justify-start">
-                        @foreach ($socialLinks as $socialLink)
-                            <a href="{{ $socialLink->url }}" target="_blank" rel="noopener noreferrer"
-                                class="transform hover:scale-105">
-                                <x-icon-store class="h-8 w-8 text-white" icon="{{ $socialLink->network_name }}" />
-                            </a>
-                        @endforeach
+                    <div class="flex flex-col gap-4">
+                        <div>
+                            <h3 class="text-center text-lg font-bold uppercase text-light-pink md:text-left md:text-xl">
+                                Sigamos en contacto
+                            </h3>
+                            <div class="mt-4 flex items-center justify-center gap-4 md:justify-start">
+                                @foreach ($socialLinks as $socialLink)
+                                    <a href="{{ $socialLink->url }}" target="_blank" rel="noopener noreferrer"
+                                        class="transform hover:scale-105">
+                                        <x-icon-store class="h-8 w-8 text-white"
+                                            icon="{{ $socialLink->network_name }}" />
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <h3 class="text-center text-lg font-bold uppercase text-light-pink md:text-left md:text-xl">
+                                Términos y condiciones
+                            </h3>
+                            <ul class="mt-4 flex flex-col gap-2 text-center md:text-left">
+                                @foreach ($policies as $policy)
+                                    <li class="text-sm text-white md:text-base">
+                                        <a class="link font-dine-r"
+                                            href="{{ route('terms-and-conditions', $policy->slug) }}">
+                                            {{ $policy->name }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="w-full bg-light-pink p-10">
-        <div class="mx-auto flex w-full flex-col justify-between sm:flex-row lg:w-4/5">
+    <div class="w-full bg-light-pink py-10">
+        <div class="mx-auto flex w-full flex-col justify-between px-10 sm:flex-row lg:w-[90%]">
             <div class="flex flex-col gap-4">
                 <p class="font-dine-r text-base text-dark-blue md:text-lg">
                     Miguitas Pet Treats® NIT: 0614-120690-129-7<br>
@@ -140,8 +160,8 @@
                 </p>
             </div>
             <div class="flex items-center gap-4">
-                <img src="{{ asset('img/sello1.png') }}" alt="Logo Innovadesa" class="h-28 w-28">
-                <img src="{{ asset('img/sello2.png') }}" alt="Logo Innovadesa" class="h-28 w-28">
+                <img src="{{ asset('img/sello1.png') }}" alt="Logo Innovadesa" class="h-20 w-20">
+                <img src="{{ asset('img/sello2.png') }}" alt="Logo Innovadesa" class="h-20 w-20">
             </div>
         </div>
     </div>
