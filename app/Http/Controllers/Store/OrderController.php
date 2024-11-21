@@ -15,21 +15,20 @@ class OrderController extends Controller
     {
         $orders = auth()->user()->customer->orders;
 
-        $ordersPending = $orders->filter(function ($order) {
-            return $order->status === "pending";
+        $orders = $orders->filter(function ($order) {
+            return $order->status === "pending" || $order->status === "completed" || $order->status === "sent";
         });
 
-        $ordersApproved =
-            $orders->filter(function ($order) {
-                return $order->status === "completed" || $order->status === "sent";
-            });
+        return view("store.orders.index", compact("orders"));
+    }
 
-        $ordersRejected =
-            $orders->filter(function ($order) {
-                return $order->status === "canceled";
-            });
-
-        return view("orders.index", compact("orders", "ordersPending", "ordersApproved", "ordersRejected"));
+    public function cancelReturn()
+    {
+        $orders = auth()->user()->customer->orders;
+        $orders = $orders->filter(function ($order) {
+            return $order->status === "canceled" || $order->status === "returned";
+        });
+        return view("store.orders.cancel-return", compact("orders"));
     }
 
     public function store()
