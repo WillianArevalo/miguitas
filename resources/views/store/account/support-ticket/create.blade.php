@@ -2,20 +2,15 @@
 @section('profile-content')
     <div class="flex flex-col">
         <div class="flex flex-col-reverse justify-between py-2 sm:flex-row">
-            <h2 class="font-league-spartan text-3xl font-bold text-secondary">
+            <h2 class="text-3xl font-bold text-blue-store">
                 Nuevo ticket de soporte
             </h2>
-            <div class="link-item mt-2 w-max">
-                <a href="{{ Route('account.tickets.index') }}"
-                    class="link-item-content flex items-center justify-between gap-2 text-sm">
-                    Regresar
-                    <span class="icon-link">
-                        <x-icon-store icon="return" class="h-5 w-5 text-current" />
-                    </span>
-                </a>
+            <div class="w-max">
+                <x-button-store type="a" href="{{ Route('account.tickets.index') }}" text="Regresar" icon="return"
+                    typeButton="secondary" />
             </div>
         </div>
-        <div class="border-t border-zinc-400">
+        <div class="mt-4 border-t-2 border-zinc-200">
             <form action="{{ Route('account.tickets.store') }}" enctype="multipart/form-data" method="POST" class="mt-4">
                 @csrf
                 <div class="flex flex-col gap-4">
@@ -49,22 +44,22 @@
 
                     <div class="mt-2 flex items-center gap-2">
                         <input type="checkbox" value="0" name="add_comment" id="add_comment"
-                            class="h-4 w-4 rounded border border-zinc-400 bg-zinc-100 text-secondary focus:ring-2 focus:ring-secondary">
+                            class="text-secondary focus:ring-secondary h-4 w-4 rounded border border-zinc-400 bg-zinc-100 focus:ring-2">
                         <label for="default" class="text-sm text-zinc-500 sm:text-base">
                             Agregar comentario
                         </label>
                     </div>
 
                     <div class="hidden" id="comment-container">
-                        <div class="flex flex-col">
+                        <div class="flex flex-col gap-2">
                             <x-input-store type="textarea" name="comment" label="Comentario" value="{{ old('comment') }}"
                                 placeholder="Ingresa el comentario" />
                         </div>
                         <div class="mt-4 flex w-full">
                             <div class="flex flex-1 flex-col gap-2">
-                                <label class="text-start text-sm font-medium text-zinc-600 sm:text-base">Archivos</label>
+                                <p class="text-start text-sm font-medium text-zinc-600 sm:text-base">Archivos</p>
                                 <label for="attachments"
-                                    class="flex w-max cursor-pointer items-center gap-2 rounded-xl border border-zinc-400 px-4 py-2 text-sm text-zinc-800 hover:bg-zinc-100 sm:text-base">
+                                    class="flex w-max cursor-pointer items-center justify-center gap-2 rounded-full border-2 border-blue-store bg-white px-6 py-3 text-sm text-blue-store transition-colors duration-300 hover:bg-zinc-100 sm:text-base">
                                     <x-icon-store icon="cloud-upload" class="h-5 w-5 text-zinc-800" />
                                     Adjuntar archivos
                                     <input type="file" name="attachments[]" id="attachments" multiple class="hidden" />
@@ -78,10 +73,13 @@
                     </div>
                 </div>
                 <div class="my-4 flex justify-center">
-                    <x-button-store type="submit" text="Crear ticket" icon="plus" class="w-max font-bold"
-                        typeButton="primary" />
+                    <x-button-store type="submit" text="Crear ticket" class="w-max" typeButton="primary" />
                 </div>
             </form>
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/store/ticket.js')
+@endpush
