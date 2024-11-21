@@ -171,7 +171,3 @@
         </div>
     </div>
 @endsection
-
-@push('scripts')
-    @vite('resources/js/store/cart.js')
-@endpush
