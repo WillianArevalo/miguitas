@@ -1,21 +1,95 @@
 @extends('layouts.__partials.store.template-profile')
 @section('profile-content')
-    <div class="flex flex-col">
-        <div class="py-2">
-            <h2 class="font-league-spartan text-3xl font-bold text-secondary">
-                Direcciones
-            </h2>
-        </div>
-        <div class="border-t border-zinc-400">
-            @if ($addresses->count() > 0)
+    <div class="mt-4 pb-4">
+        <h2 class="mb-4 text-3xl font-bold text-blue-store">
+            Mis direcciones
+        </h2>
+        @if (!$user->customer || $addresses->count() === 0)
+            <div id="container-address-empty">
+                <div class="flex items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-zinc-200 p-10">
+                    <x-icon-store icon="map-point" class="h-8 w-8 text-blue-store" />
+                    <div class="flex flex-col items-center gap-1">
+                        <p class="font-pluto-r text-sm text-zinc-500">
+                            No tienes ninguna dirección registrada
+                        </p>
+                    </div>
+                </div>
+                <div class="mt-4 flex items-center justify-center">
+                    <x-button-store type="button" icon="map-point-add" typeButton="secondary" text="Agregar dirección"
+                        class="add-address" />
+                </div>
+            </div>
+        @else
+            <div class="grid grid-cols-1 gap-4 xl:grid-cols-2" id="container-address-list">
                 @foreach ($addresses as $address)
-                    <div class="mt-6 flex flex-col">
-                        <div class="flex items-center justify-between">
-                            <h3 class="flex items-center gap-2 text-base font-semibold text-zinc-700 sm:text-lg">
-                                <x-icon-store icon="location" class="h-6 w-6 text-zinc-500" />
-                                {{ App\Utils\Addresses::getAddress($address->type) }}
-                            </h3>
-                            <div class="flex items-center gap-6">
+                    <div class="relative flex flex-col gap-4 rounded-2xl border border-zinc-200 p-4">
+                        <div>
+                            <div class="flex flex-col gap-2">
+                                <div class="flex items-center gap-2">
+                                    <x-icon-store icon="location" class="h-6 w-6 text-blue-store" />
+                                    <p class="text-lg text-blue-store">
+                                        {{ App\Utils\Addresses::getAddress($address->type) }}
+                                    </p>
+                                </div>
+                                <div class="flex flex-col sm:flex-row">
+                                    <div class="flex flex-1 items-center gap-2">
+                                        <p class="font-dine-b text-base text-zinc-800">
+                                            Línea 1:
+                                        </p>
+                                        <p class="font-dine-r text-base text-zinc-600">
+                                            {{ $address->address_line_1 }}
+                                        </p>
+                                    </div>
+                                    <div class="flex flex-1 items-center gap-2">
+                                        <p class="font-dine-b text-base text-zinc-800">
+                                            Línea 2:
+                                        </p>
+                                        <p class="font-dine-r text-base text-zinc-600">
+                                            {{ $address->address_line_2 }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col sm:flex-row">
+                                    <div class="flex flex-1 items-center gap-2">
+                                        <p class="font-dine-b text-base text-zinc-800">
+                                            Ciudad:
+                                        </p>
+                                        <p class="font-dine-r text-base text-zinc-600">
+                                            {{ $address->city }}</p>
+                                    </div>
+                                    <div class="flex flex-1 items-center gap-2">
+                                        <p class="font-dine-b text-base text-zinc-800">
+                                            Estado:
+                                        </p>
+                                        <p class="font-dine-r text-base text-zinc-600">
+                                            {{ $address->state }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col sm:flex-row">
+                                    <div class="flex flex-1 items-center gap-2">
+                                        <p class="font-din-b text-base text-zinc-800">
+                                            País:
+                                        </p>
+                                        <p class="font-din-r text-base text-zinc-600">
+                                            {{ $address->country }}
+                                        </p>
+                                    </div>
+                                    <div class="flex flex-1 items-center gap-2">
+                                        <p class="font-din-b text-base text-zinc-800">
+                                            Código postal:
+                                        </p>
+                                        <p class="font-din-r text-base text-zinc-600">
+                                            {{ $address->zip_code }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="absolute right-0 top-0 m-4 flex items-center gap-2">
+                                <a href="{{ Route('account.addresses.edit', $address->slug) }}"
+                                    class="flex items-center justify-center text-blue-store">
+                                    <x-icon-store icon="edit" class="h-6 w-6" />
+                                </a>
                                 <form action="{{ Route('account.addresses.destroy', $address->id) }}" method="POST"
                                     id="formDeleteAddress-{{ $address->id }}">
                                     @csrf
@@ -23,63 +97,66 @@
                                     <button type="button"
                                         class="buttonDelete group flex items-center justify-center gap-1 text-sm font-medium text-red-500 transition-transform duration-300 ease-in-out hover:scale-105 hover:font-semibold hover:text-red-700"
                                         data-form="formDeleteAddress-{{ $address->id }}">
-                                        Eliminar
-                                        <x-icon-store icon="delete" class="h-4 w-4 text-current" />
+                                        <x-icon-store icon="delete" class="h-6 w-6 text-current" />
                                     </button>
                                 </form>
-                                <a href="{{ Route('account.addresses.edit', $address->slug) }}"
-                                    class="group flex items-center justify-center gap-1 text-sm font-medium text-green-500 transition-transform duration-300 ease-in-out hover:scale-105 hover:font-semibold hover:text-green-700">
-                                    Editar
-                                    <x-icon-store icon="edit-01" class="h-4 w-4 text-current" />
-                                </a>
-                            </div>
-                        </div>
-                        <div class="ms-8 mt-4 text-sm sm:text-base">
-                            <div class="flex flex-col gap-4">
-                                <div class="flex gap-2">
-                                    <h4 class="font-medium text-secondary">País:</h4>
-                                    <p>{{ $address->country ?? '---' }}</p>
-                                </div>
-                                <div class="flex gap-2">
-                                    <h4 class="font-medium text-secondary">Dirección (línea 1):</h4>
-                                    <p>{{ $address->address_line_1 ?? '---' }}</p>
-                                </div>
-                                <div class="flex gap-2">
-                                    <h4 class="font-medium text-secondary">Dirección (línea 2):</h4>
-                                    <p>{{ $address->address_line_2 ?? '---' }}</p>
-                                </div>
-                                <div class="justify-cetner flex gap-8">
-                                    <div class="flex gap-2">
-                                        <h4 class="font-medium text-secondary">Ciudad:</h4>
-                                        <p>{{ $address->city ?? '---' }}</p>
-                                    </div>
-                                    <div class="flex gap-2">
-                                        <h4 class="font-medium text-secondary">Estado:</h4>
-                                        <p>{{ $address->state ?? '---' }}</p>
-                                    </div>
-                                </div>
-                                <div class="flex gap-2">
-                                    <h4 class="font-medium text-secondary">Código postal:</h4>
-                                    <p>{{ $address->zip_code ?? '---' }}</p>
-                                </div>
                             </div>
                         </div>
                     </div>
                 @endforeach
-            @else
-                <div class="my-10 flex flex-col">
-                    <div class="flex items-center justify-between">
-                        <h3 class="text-base text-zinc-700">
-                            No hay direcciones registradas
-                        </h3>
+                @if ($addresses->count() < 4)
+                    <a href="{{ Route('account.addresses.create') }}"
+                        class="add-address flex h-full items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-zinc-200 p-10 hover:bg-zinc-50">
+                        <x-icon-store icon="map-point-add" class="h-8 w-8 text-blue-store" />
+                        Agregar dirección
+                    </a>
+                @endif
+            </div>
+        @endif
+        <!-- Form add address-->
+        <div class="hidden" id="container-form-add-address">
+            <form action="{{ Route('account.addresses.store') }}" class="flex flex-col gap-4" method="POST">
+                @csrf
+                <div class="flex gap-4">
+                    <div class="flex flex-[2] flex-col gap-2">
+                        <x-input-store type="text" name="address_line_1" placeholder="Dirección línea 1" icon="location"
+                            label="Dirección (línea 1)" />
+                    </div>
+                    <div class="flex-1">
+                        <x-select-store label="Tipo de dirección" id="type" name="type" :options="$addresses" required
+                            value="{{ old('type') }}" selected="{{ old('type') }}" />
                     </div>
                 </div>
-            @endif
-            <div class="mb-4 mt-4 flex justify-center border-t border-zinc-400 pt-4 sm:justify-start">
-                <x-button-store type="a" href="{{ Route('account.addresses.create') }}"
-                    text="Agregar nueva dirección" icon="plus" class="w-max" typeButton="secondary" />
-            </div>
+                <div class="flex flex-col gap-4 sm:flex-row">
+                    <div class="flex flex-[3] flex-col gap-2">
+                        <x-input-store type="text" name="address_line_2" placeholder="Dirección línea 2"
+                            label="Dirección (línea 2)" icon="location" />
+                    </div>
+                    <div class="flex flex-1 flex-col gap-2">
+                        <x-input-store type="text" name="country" placeholder="País" label="País" />
+                    </div>
+                </div>
+                <div class="flex w-full flex-col gap-4 sm:flex-row">
+                    <div class="flex flex-1 flex-col gap-2">
+                        <x-input-store type="text" placeholder="Ingresa el estado" label="Estado" name="state"
+                            value="{{ old('state') }}" />
+                    </div>
+                    <div class="flex flex-1 flex-col gap-2">
+                        <x-input-store type="text" placeholder="Ingresa la ciudad" label="Ciudad" name="city"
+                            value="{{ old('city') }}" />
+                    </div>
+                    <div class="flex flex-1 flex-col gap-2">
+                        <x-input-store type="text" placeholder="Ingresa el código postal" label="Código postal"
+                            name="zip_code" required value="{{ old('zip_code') }}" />
+                    </div>
+                </div>
+                <div class="mt-4 flex items-center justify-center gap-4">
+                    <x-button-store type="button" text="Cancelar" typeButton="secondary" id="cancel-address" />
+                    <x-button-store type="submit" text="Guardar dirección" typeButton="primary" icon="save" />
+                </div>
+            </form>
         </div>
+        <!-- End form add address-->
     </div>
 
     <!--Modal -->
@@ -110,8 +187,8 @@
                 <div class="flex justify-end gap-4 bg-gray-50 px-4 py-3">
                     <x-button-store type="button" text="Cancelar" icon="cancel" class="closeModal w-max text-sm"
                         typeButton="secondary" />
-                    <x-button-store type="button" text="Sí, eliminar" icon="delete" class="confirmDelete w-max text-sm"
-                        typeButton="danger" />
+                    <x-button-store type="button" text="Sí, eliminar" icon="delete"
+                        class="confirmDelete w-max text-sm" typeButton="danger" />
                 </div>
             </div>
         </div>
