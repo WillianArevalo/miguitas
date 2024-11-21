@@ -11,14 +11,18 @@
                     Celébralos con un pastel especial, elaborado con ingredientes de alta calidad desde 2015.
                 </h1>
                 <div class="mt-8 flex items-center justify-center pb-10 lg:pb-0" data-aos="fade-left">
-                    <x-button-store type="button" typeButton="secondary" text="Ordenar pastel" size="large" />
+                    <x-button-store type="a" href="{!! Route('store.products', [
+                        'filter' => 'subcategory',
+                        'search' => 'cakes',
+                    ]) !!}" typeButton="secondary"
+                        text="Ordenar pastel" size="large" />
                 </div>
                 <div class="absolute -bottom-6 left-0 right-0 mx-auto flex w-max items-center gap-4 rounded-3xl bg-pink-store p-4 shadow-lg"
                     data-aos="zoom-in">
                     <p class="text-lg text-zinc-800 sm:text-xl md:text-2xl">Excelente</p>
                     <div class="flex items-center gap-2">
                         @for ($i = 0; $i < 5; $i++)
-                            <x-icon-store icon="star" class="h-5 w-5 text-zinc-800" />
+                            <x-icon-store icon="star" class="h-5 w-5 text-yellow-500" />
                         @endfor
                     </div>
                     <p class="text-base text-zinc-800 sm:text-lg md:text-xl">3,250 review</p>
