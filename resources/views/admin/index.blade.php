@@ -613,5 +613,4 @@
 
 @push('scripts')
     @vite('resources/js/admin/chart.js')
-    @vite('resources/js/admin/dashboard.js')
 @endpush
