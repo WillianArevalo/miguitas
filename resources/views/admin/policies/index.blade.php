@@ -1,26 +1,27 @@
 @extends('layouts.admin-template')
 @section('title', 'Políticas')
 @section('content')
-    <div class="mt-4 dark:border-zinc-800 dark:bg-black">
-        <div class="flex flex-col items-start border-y px-4 py-4 shadow-sm dark:border-zinc-800 dark:bg-black">
-            <h1 class="font-secondary text-secondary text-2xl font-bold dark:text-blue-400">
-                Políticas
-            </h1>
+    <div>
+        @include('layouts.__partials.admin.header-page', [
+            'title' => 'Políticas',
+            'description' => 'Administrar las políticas de la plataforma',
+        ])
+        <div class="flex flex-col items-start border-b px-4 py-4 shadow-sm dark:border-zinc-800 dark:bg-black">
             <p class="text-sm text-zinc-700 dark:text-zinc-400">
                 Administra:
             </p>
             <ul class="mt-2 flex flex-col gap-2 text-sm text-zinc-700 dark:text-zinc-400">
                 <li class="flex items-center gap-2">
                     <span class="block h-2 w-2 rounded-full bg-blue-500"></span>
+                    Condiciones de uso
+                </li>
+                <li class="flex items-center gap-2">
+                    <span class="block h-2 w-2 rounded-full bg-blue-500"></span>
                     Políticas de privacidad
                 </li>
                 <li class="flex items-center gap-2">
                     <span class="block h-2 w-2 rounded-full bg-blue-500"></span>
-                    Políticas de compra
-                </li>
-                <li class="flex items-center gap-2">
-                    <span class="block h-2 w-2 rounded-full bg-blue-500"></span>
-                    Políticas de pago con tarjeta
+                    Garantías y cambios
                 </li>
                 <li class="flex items-center gap-2">
                     <span class="block h-2 w-2 rounded-full bg-blue-500"></span>
@@ -28,7 +29,11 @@
                 </li>
                 <li class="flex items-center gap-2">
                     <span class="block h-2 w-2 rounded-full bg-blue-500"></span>
-                    Términos y condiciones
+                    Política de Reversión de pagos y Derecho de retracto
+                </li>
+                <li class="flex items-center gap-2">
+                    <span class="block h-2 w-2 rounded-full bg-blue-500"></span>
+                    Restricciones y Políticas de Promociones
                 </li>
             </ul>
         </div>
@@ -84,41 +89,45 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mx-4 mb-4 overflow-hidden rounded-lg border border-zinc-400 dark:border-zinc-800">
-                        <table class="w-full text-left text-sm text-zinc-500 dark:text-zinc-400">
-                            <thead
-                                class="border-b border-zinc-400 bg-zinc-50 text-xs uppercase text-zinc-700 dark:border-zinc-800 dark:bg-black dark:text-zinc-300">
-                                <tr>
-                                    <th scope="col" class="border-e border-zinc-400 px-4 py-3 dark:border-zinc-800">
+                    <div class="px-4 pb-4">
+                        <x-table>
+                            <x-slot name="thead">
+                                <x-tr>
+                                    <x-th class="w-10">
                                         <input id="default-checkbox" type="checkbox" value=""
                                             class="h-4 w-4 rounded border-2 border-zinc-400 bg-zinc-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-zinc-800 dark:bg-zinc-950 dark:ring-offset-zinc-800 dark:focus:ring-blue-600">
-                                    </th>
-                                    <th scope="col" class="border-e border-zinc-400 px-4 py-3 dark:border-zinc-800">
+                                    </x-th>
+                                    <x-th>
                                         Nombre
-                                    </th>
-                                    <th scope="col" class="border-e border-zinc-400 px-4 py-3 dark:border-zinc-800">
-                                        Path
-                                    </th>
-                                    <th scope="col" class="px-4 py-3">
+                                    </x-th>
+                                    <x-th>
+                                        Imágenes
+                                    </x-th>
+                                    <x-th last="true">
                                         Acciones
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                                    </x-th>
+                                </x-tr>
+                            </x-slot>
+                            <x-slot name="tbody">
                                 @if ($policies->count() > 0)
                                     @foreach ($policies as $policy)
-                                        <tr class="hover:bg-zinc-100 dark:hover:bg-zinc-950">
-                                            <td class="px-4 py-3">
+                                        <x-tr>
+                                            <x-td>
                                                 <input id="default-checkbox" type="checkbox" value="{{ $policy->id }}"
                                                     class="h-4 w-4 rounded border-2 border-zinc-400 bg-zinc-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-zinc-800 dark:bg-zinc-950 dark:ring-offset-zinc-800 dark:focus:ring-blue-600">
-                                            </td>
-                                            <td class="px-4 py-3">
+                                            </x-td>
+                                            <x-td>
                                                 <span>{{ $policy->name }}</span>
-                                            </td>
-                                            <td class="px-4 py-3">
-                                                <span>{{ $policy->file_path }}</span>
-                                            </td>
-                                            <td class="px-4 py-3">
+                                            </x-td>
+                                            <x-td>
+                                                <div class="flex flex-wrap gap-2">
+                                                    @foreach ($policy->images as $image)
+                                                        <img src="{{ Storage::url($image->file_path) }}" alt="Preview Image"
+                                                            class="main-image h-20 w-20 cursor-pointer rounded-lg object-cover">
+                                                    @endforeach
+                                                </div>
+                                            </x-td>
+                                            <x-td>
                                                 <div class="flex gap-2">
                                                     <form action="{{ route('admin.policies.destroy', $policy->id) }}"
                                                         id="formDeletePolicie-{{ $policy->id }}" method="POST">
@@ -129,28 +138,26 @@
                                                             onlyIcon="true" icon="delete" typeButton="danger"
                                                             class="buttonDelete" />
                                                     </form>
-                                                    <x-button type="a" href="{{ Storage::url($policy->file_path) }}"
+                                                    <x-button type="a"
+                                                        href="{{ Route('admin.policies.show', $policy->id) }}"
                                                         target="_blank" onlyIcon="true" icon="view"
                                                         typeButton="secondary" />
-                                                    <form action="{{ Route('admin.policies.download', $policy->id) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        <x-button type="submit" onlyIcon="true" icon="import"
-                                                            typeButton="success" />
-                                                    </form>
+                                                    <x-button type="a"
+                                                        href="{{ Route('admin.policies.download', $policy->id) }}"
+                                                        onlyIcon="true" icon="import" typeButton="success" />
                                                 </div>
-                                            </td>
-                                        </tr>
+                                            </x-td>
+                                        </x-tr>
                                     @endforeach
                                 @else
-                                    <tr>
-                                        <td class="px-4 py-3 text-center" colspan="4">
+                                    <x-tr>
+                                        <x-td class="text-center" colspan="4">
                                             No hay políticas registradas
-                                        </td>
-                                    </tr>
+                                        </x-td>
+                                    </x-tr>
                                 @endif
-                            </tbody>
-                        </table>
+                            </x-slot>
+                        </x-table>
                     </div>
                 </div>
             </div>
@@ -185,32 +192,27 @@
                     </div>
                     <div>
                         <label class="mb-2 block text-sm font-medium text-zinc-900 dark:text-white">
-                            Archivo
+                            Imagen
                         </label>
                         <div class="flex w-full items-center justify-center">
                             <label for="file-policie"
-                                class="dark:hover:bg-bray-800 @error('path') is-invalid  @enderror flex w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-zinc-400 bg-zinc-50 p-4 hover:bg-zinc-100 dark:border-zinc-600 dark:bg-transparent dark:hover:border-zinc-500 dark:hover:bg-zinc-950">
-                                <p>
-                                    <span
-                                        class="flex items-center justify-center gap-4 text-sm text-zinc-500 dark:text-zinc-400">
-                                        <x-icon icon="cloud-upload" class="h-6 w-6" />
-                                        Selecciona un archivo
-                                    </span>
-                                </p>
-                                <input id="file-policie" type="file" class="hidden" name="file_path"
-                                    accept="application/pdf" />
+                                class="dark:hover:bg-bray-800 @error('image') is-invalid  @enderror flex h-80 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-zinc-400 bg-zinc-50 hover:border-primary-400 hover:bg-zinc-100 dark:border-zinc-600 dark:bg-transparent dark:hover:border-primary-950 dark:hover:bg-zinc-950">
+                                <div class="flex flex-col items-center justify-center pb-6 pt-5">
+                                    <x-icon icon="cloud-upload" class="h-12 w-12 text-zinc-400 dark:text-zinc-500" />
+                                    <p class="mb-2 text-sm text-zinc-500 dark:text-zinc-400"><span
+                                            class="font-semibold">Clic para agregar </span> o desliza la imagen</p>
+                                    <p class="text-xs text-zinc-500 dark:text-zinc-400">PNG, JPG, WEBP</p>
+                                </div>
+                                <input id="file-policie" type="file" class="hidden" name="file_path[]"
+                                    accept="image/*,pdf" multiple />
+                                <div id="preview-images" class="flex flex-wrap gap-4">
+                                </div>
                             </label>
                         </div>
-                        @error('image')
+                        @error('file_path')
                             <span class="text-sm text-red-500">{{ $message }}</span>
                         @enderror
-
-                        <!-- Contenedor para la vista previa del PDF -->
-                        <div id="pdf-preview" class="mt-4 hidden h-80 w-full">
-                            <iframe id="pdf-frame" class="h-full w-full" frameborder="0"></iframe>
-                        </div>
                     </div>
-
                     <div class="flex items-center justify-center gap-2">
                         <x-button type="submit" text="Agregar política" icon="plus" typeButton="primary" />
                         <x-button type="button" data-drawer="#drawer-new-policie" class="close-drawer" text="Cancelar"
@@ -220,8 +222,22 @@
             </div>
         </div>
     </div>
+
+    <div id="modal-image" class="relative">
+        <button type="button"
+            class="close absolute right-0 m-10 rounded-lg bg-zinc-200 p-2 hover:bg-zinc-300 dark:bg-zinc-900 dark:hover:bg-zinc-800"
+            id="close-modal">
+            <x-icon icon="x" class="h-5 w-5 text-black dark:text-white" />
+        </button>
+        <div class="flex h-full items-center justify-center" id="container-modal-image">
+            <img class="block h-72 w-96 animate-jump-in rounded-xl object-contain animate-duration-300 md:h-4/5 md:w-2/5"
+                id="image-modal" src="{{ asset('images/photo.jpg') }}" />
+        </div>
+    </div>
+
 @endsection
 
 @push('scripts')
     @vite('resources/js/admin/policies.js')
+    @vite('resources/js/admin/modal-image.js')
 @endpush
