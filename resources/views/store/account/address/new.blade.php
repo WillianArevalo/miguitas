@@ -2,16 +2,13 @@
 @section('profile-content')
     <div class="flex flex-col">
         <div class="flex justify-between py-2">
-            <h2 class="font-league-spartan text-3xl font-bold text-secondary">
+            <h2 class="text-3xl font-bold text-blue-store">
                 Nueva dirección
             </h2>
-            <a href="{{ Route('account.addresses.index') }}"
-                class="group flex items-center justify-center gap-1 text-sm font-medium text-zinc-500 transition-transform duration-300 ease-in-out hover:scale-105 hover:font-semibold hover:text-zinc-700">
-                <x-icon-store icon="return" class="h-4 w-4 text-current" />
-                Regresar
-            </a>
+            <x-button-store type="a" href="{{ Route('account.addresses.index') }}" typeButton="secondary" text="Regresar"
+                icon="return" />
         </div>
-        <div class="border-t border-zinc-400">
+        <div class="mt-4 border-t-2 border-zinc-200">
             <form action="{{ Route('account.addresses.store') }}" method="POST" class="mt-4">
                 @csrf
                 <div class="flex flex-col gap-4">
@@ -53,7 +50,7 @@
                     </div>
                 </div>
                 <div class="my-4 flex items-center justify-center sm:justify-start">
-                    <x-button-store type="submit" text="Guardar dirección" icon="check" class="w-max font-bold"
+                    <x-button-store type="submit" text="Guardar dirección" icon="check" class="w-max"
                         typeButton="primary" />
                 </div>
             </form>
