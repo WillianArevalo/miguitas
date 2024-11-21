@@ -365,3 +365,64 @@ Breadcrumbs::for("terms-and-conditions", function (BreadcrumbTrail $trail, $slug
     $trail->push("Términos y condiciones", route("store"));
     $trail->push($policy->name, route("terms-and-conditions", $slug));
 });
+
+//Orders
+Breadcrumbs::for("orders.index", function (BreadcrumbTrail $trail) {
+    $trail->parent("account.index");
+    $trail->push("Pedidos", route("orders.index"));
+});
+
+
+//Adress 
+Breadcrumbs::for("account.addresses.index", function (BreadcrumbTrail $trail) {
+    $trail->parent("account.index");
+    $trail->push("Direcciones", route("account.addresses.index"));
+});
+
+//Address create
+Breadcrumbs::for("account.addresses.create", function (BreadcrumbTrail $trail) {
+    $trail->parent("account.addresses.index");
+    $trail->push("Nueva dirección", route("account.addresses.create"));
+});
+
+//Settings
+Breadcrumbs::for("account.settings", function (BreadcrumbTrail $trail) {
+    $trail->parent("account.index");
+    $trail->push("Datos personales", route("account.settings"));
+});
+
+//Settings edit
+Breadcrumbs::for("account.settings-edit", function (BreadcrumbTrail $trail) {
+    $trail->parent("account.index");
+    $trail->push("Editar datos personales", route("account.settings-edit"));
+});
+
+//Support tickets
+Breadcrumbs::for("account.tickets.index", function (BreadcrumbTrail $trail) {
+    $trail->parent("account.index");
+    $trail->push("Soporte técnico", route("account.tickets.index"));
+});
+
+//Support tickets create
+Breadcrumbs::for("account.tickets.create", function (BreadcrumbTrail $trail) {
+    $trail->parent("account.tickets.index");
+    $trail->push("Nuevo ticket", route("account.tickets.create"));
+});
+
+//Support tickets show
+Breadcrumbs::for("account.tickets.show", function (BreadcrumbTrail $trail, $supportTicket) {
+    $trail->parent("account.tickets.index");
+    $trail->push("Detalles", route("account.tickets.show", $supportTicket));
+});
+
+//Support tickets close
+Breadcrumbs::for("account.tickets.close", function (BreadcrumbTrail $trail, $supportTicket) {
+    $trail->parent("account.tickets.index");
+    $trail->push("Cerrar", route("account.tickets.close", $supportTicket));
+});
+
+//Cancel return
+Breadcrumbs::for("cancel-return", function (BreadcrumbTrail $trail) {
+    $trail->parent("account.index");
+    $trail->push("Cancelaciones y devoluciones", route("cancel-return"));
+});
