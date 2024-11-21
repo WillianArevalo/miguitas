@@ -79,11 +79,21 @@ Route::middleware("auth")->group(function () {
     Route::prefix("cuenta")->name("account.")->group(function () {
         Route::get("/", [AccountController::class, "index"])->name("index");
         Route::get("/settings", [AccountController::class, "settings"])->name("settings");
-        Route::get("/settings-edit", [AccountController::class, "settingsEdit"])->name("settings-edit");
+        Route::get("/editar-datos", [AccountController::class, "settingsEdit"])->name("settings-edit");
         Route::post("/settings-update", [AccountController::class, "settingsUpdate"])->name("settings-update");
         Route::get("/change-password", [AccountController::class, "changePassword"])->name("change-password");
         Route::post("/edit-password", [AccountController::class, "editPassword"])->name("edit-password");
-        Route::resource("/dirección", AddressController::class)->names("addresses");
+
+        Route::prefix("direcciones")->name("addresses.")->group(function () {
+            Route::get("/", [AddressController::class, "index"])->name("index");
+            Route::get("/nueva", [AddressController::class, "create"])->name("create");
+            Route::post("/", [AddressController::class, "store"])->name("store");
+            Route::get("/{id}/editar", [AddressController::class, "edit"])->name("edit");
+            Route::post("/{id}/update", [AddressController::class, "update"])->name("update");
+            Route::post("/{id}/destroy", [AddressController::class, "destroy"])->name("destroy");
+        });
+
+
         Route::resource("/tickets", SupportTicketController::class);
         Route::post("/tickets/{id}/close", [SupportTicketController::class, "close"])->name("tickets.close");
     });
@@ -93,8 +103,9 @@ Route::middleware("auth")->group(function () {
     Route::post("/order/cancel/{id}", [OrderController::class, "cancel"])->name("order.cancel");
     Route::post("/order/add-comment/{id}", [OrderController::class, "addComment"])->name("order.add-comment");
     Route::post("/order-remove-comment/{id}", [OrderController::class, "removeComment"])->name("order.remove-comment");
-    Route::resource("/orders", OrderController::class);
-    Route::get("/orden/{number_order}", [OrderController::class, "show"])->name("orders.show");
+    Route::resource("/pedidos", OrderController::class)->names("orders");
+    Route::get("/pedido/{number_order}", [OrderController::class, "show"])->name("orders.show");
+    Route::get("/devoluciones-cancelaciones", [OrderController::class, "cancelReturn"])->name("cancel-return");
 
     // Favorites
     Route::controller(FavoriteController::class)->group(function () {
