@@ -15,8 +15,8 @@
                     </div>
                 </div>
                 <div class="mt-4 flex items-center justify-center">
-                    <x-button-store type="button" icon="map-point-add" typeButton="secondary" text="Agregar dirección"
-                        class="add-address" />
+                    <x-button-store type="a" href="{{ Route('account.addresses.create') }}" icon="map-point-add"
+                        typeButton="secondary" text="Agregar dirección" class="add-address" />
                 </div>
             </div>
         @else
@@ -113,50 +113,6 @@
                 @endif
             </div>
         @endif
-        <!-- Form add address-->
-        <div class="hidden" id="container-form-add-address">
-            <form action="{{ Route('account.addresses.store') }}" class="flex flex-col gap-4" method="POST">
-                @csrf
-                <div class="flex gap-4">
-                    <div class="flex flex-[2] flex-col gap-2">
-                        <x-input-store type="text" name="address_line_1" placeholder="Dirección línea 1" icon="location"
-                            label="Dirección (línea 1)" />
-                    </div>
-                    <div class="flex-1">
-                        <x-select-store label="Tipo de dirección" id="type" name="type" :options="$addresses" required
-                            value="{{ old('type') }}" selected="{{ old('type') }}" />
-                    </div>
-                </div>
-                <div class="flex flex-col gap-4 sm:flex-row">
-                    <div class="flex flex-[3] flex-col gap-2">
-                        <x-input-store type="text" name="address_line_2" placeholder="Dirección línea 2"
-                            label="Dirección (línea 2)" icon="location" />
-                    </div>
-                    <div class="flex flex-1 flex-col gap-2">
-                        <x-input-store type="text" name="country" placeholder="País" label="País" />
-                    </div>
-                </div>
-                <div class="flex w-full flex-col gap-4 sm:flex-row">
-                    <div class="flex flex-1 flex-col gap-2">
-                        <x-input-store type="text" placeholder="Ingresa el estado" label="Estado" name="state"
-                            value="{{ old('state') }}" />
-                    </div>
-                    <div class="flex flex-1 flex-col gap-2">
-                        <x-input-store type="text" placeholder="Ingresa la ciudad" label="Ciudad" name="city"
-                            value="{{ old('city') }}" />
-                    </div>
-                    <div class="flex flex-1 flex-col gap-2">
-                        <x-input-store type="text" placeholder="Ingresa el código postal" label="Código postal"
-                            name="zip_code" required value="{{ old('zip_code') }}" />
-                    </div>
-                </div>
-                <div class="mt-4 flex items-center justify-center gap-4">
-                    <x-button-store type="button" text="Cancelar" typeButton="secondary" id="cancel-address" />
-                    <x-button-store type="submit" text="Guardar dirección" typeButton="primary" icon="save" />
-                </div>
-            </form>
-        </div>
-        <!-- End form add address-->
     </div>
 
     <!--Modal -->
@@ -187,8 +143,8 @@
                 <div class="flex justify-end gap-4 bg-gray-50 px-4 py-3">
                     <x-button-store type="button" text="Cancelar" icon="cancel" class="closeModal w-max text-sm"
                         typeButton="secondary" />
-                    <x-button-store type="button" text="Sí, eliminar" icon="delete"
-                        class="confirmDelete w-max text-sm" typeButton="danger" />
+                    <x-button-store type="button" text="Sí, eliminar" icon="delete" class="confirmDelete w-max text-sm"
+                        typeButton="danger" />
                 </div>
             </div>
         </div>
