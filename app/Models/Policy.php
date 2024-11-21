@@ -13,8 +13,12 @@ class Policy extends Model
     protected $fillable = [
         'name',
         'slug',
-        'file_path',
     ];
+
+    public function images()
+    {
+        return $this->hasMany(PolicyImage::class);
+    }
 
     public static function boot()
     {
