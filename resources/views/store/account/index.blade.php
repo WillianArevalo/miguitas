@@ -104,7 +104,7 @@
                             </h3>
                             @if ($user->customer && $user->customer->address)
                                 <x-button-store type="a"
-                                    href="{{ Route('account.addresses.edit', $user->customer->address->id) }}"
+                                    href="{{ Route('account.addresses.edit', $user->customer->address->slug) }}"
                                     text="Editar dirección" typeButton="success" class="w-max" size="small" />
                             @else
                                 <x-button-store type="a" href="{{ Route('account.addresses.create') }}"
