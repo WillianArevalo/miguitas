@@ -16,13 +16,13 @@ class SupportTicketController extends Controller
     public function index()
     {
         $tickets = SupportTicket::where("user_id", auth()->id())->get();
-        return view("account.support-ticket.index", compact("tickets"));
+        return view("store.account.support-ticket.index", compact("tickets"));
     }
 
     public function create()
     {
         $categories = CategoryTickets::getCategories();
-        return view("account.support-ticket.create", ["categories" => $categories]);
+        return view("store.account.support-ticket.create", ["categories" => $categories]);
     }
 
     public function store(TicketRequest $request)
