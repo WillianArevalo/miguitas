@@ -12,13 +12,29 @@ use Illuminate\Support\Facades\DB;
 
 class AddressController extends Controller
 {
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $user = auth()->user();
+        $customer =  Customer::where("user_id", $user->id)->first();
+        $addresses = Address::where("customer_id", $customer->id)->get();
+        return view("store.account.address.index", [
+            "customer" => $customer,
+            "addresses" => $addresses,
+            "user" => $user
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
         $addresses = Addresses::getAddresses();
-        return view("account.address.new", ["addresses" => $addresses]);
+        return view("store.account.address.new", ["addresses" => $addresses]);
     }
 
     /**
