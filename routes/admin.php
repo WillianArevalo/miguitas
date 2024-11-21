@@ -97,7 +97,7 @@ Route::middleware("role:admin")->prefix("admin")->name("admin.")->group(function
 
     // Policies
     Route::resource("/policies", PoliciesController::class);
-    Route::post("/policies/download/{id}", [PoliciesController::class, "download"])->name("policies.download");
+    Route::get("/policies/download/{policy}", [PoliciesController::class, "download"])->name("policies.download");
 
     // FAQ
     Route::resource("/faq-categories", FaqCategoryController::class);
