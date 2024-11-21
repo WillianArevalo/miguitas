@@ -152,6 +152,16 @@
                         <x-icon-store icon="search" class="h-6 w-6 text-light-blue"></x-icon-store>
                     </button>
 
+                    <a href="{{ Route('cart') }}" class="group relative me-4">
+                        <x-icon-store icon="bag"
+                            class="h-8 w-8 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
+                        <span
+                            class="absolute -right-2 -top-2 rounded-full bg-blue-store px-1.5 py-0.5 text-xs text-white"
+                            id="cart-count-mobile">
+                            {{ \App\Helpers\Cart::count() }}
+                        </span>
+                    </a>
+
                     <div class="relative">
                         @if ($user = auth()->user())
                             <button type="button" class="profile-user flex items-center justify-center gap-1">
