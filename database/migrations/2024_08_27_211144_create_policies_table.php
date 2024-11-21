@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string("name");
             $table->string("slug")->unique();
-            $table->string("file_path");
             $table->boolean("active")->default(true);
             $table->timestamps();
         });
