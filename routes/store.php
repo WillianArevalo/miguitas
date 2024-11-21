@@ -73,6 +73,10 @@ Route::controller(CartController::class)->group(function () {
 // Categories
 Route::get("/categories", [CategoryController::class, "showCategoriesStore"])->name("categories");
 
+// Terms and conditions
+Route::get("/terminos-y-condiciones/{slug}", [TermsAndConditionsController::class, "getPolicy"])->name("terms-and-conditions");
+Route::get("/policies/{policy}/download-pdf", [TermsAndConditionsController::class, "downloadPdf"])->name("policies.download-pdf");
+
 // Authenticated Routes
 Route::middleware("auth")->group(function () {
     // Account Management
@@ -89,10 +93,9 @@ Route::middleware("auth")->group(function () {
             Route::get("/nueva", [AddressController::class, "create"])->name("create");
             Route::post("/", [AddressController::class, "store"])->name("store");
             Route::get("/{id}/editar", [AddressController::class, "edit"])->name("edit");
-            Route::post("/{id}/update", [AddressController::class, "update"])->name("update");
-            Route::post("/{id}/destroy", [AddressController::class, "destroy"])->name("destroy");
+            Route::put("/{id}/update", [AddressController::class, "update"])->name("update");
+            Route::delete("/destroy/{id}", [AddressController::class, "destroy"])->name("destroy");
         });
-
 
         Route::resource("/tickets", SupportTicketController::class);
         Route::post("/tickets/{id}/close", [SupportTicketController::class, "close"])->name("tickets.close");
@@ -105,7 +108,7 @@ Route::middleware("auth")->group(function () {
     Route::post("/order-remove-comment/{id}", [OrderController::class, "removeComment"])->name("order.remove-comment");
     Route::resource("/pedidos", OrderController::class)->names("orders");
     Route::get("/pedido/{number_order}", [OrderController::class, "show"])->name("orders.show");
-    Route::get("/devoluciones-cancelaciones", [OrderController::class, "cancelReturn"])->name("cancel-return");
+    Route::get("/cancelaciones-devoluciones", [OrderController::class, "cancelReturn"])->name("cancel-return");
 
     // Favorites
     Route::controller(FavoriteController::class)->group(function () {
@@ -123,9 +126,4 @@ Route::middleware("auth")->group(function () {
 
     // Reviews
     Route::resource("/reviews", ReviewController::class);
-
-
-    // Terms and conditions
-    Route::get("/terminos-y-condiciones/{slug}", [TermsAndConditionsController::class, "getPolicy"])->name("terms-and-conditions");
-    Route::get("/policies/{policy}/download-pdf", [TermsAndConditionsController::class, "downloadPdf"])->name("policies.download-pdf");
 });
