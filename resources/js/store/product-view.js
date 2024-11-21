@@ -90,7 +90,7 @@ $(document).ready(function () {
                 success: function (response) {
                     showToast(response.message, "success");
                     $("#cart-count").text(response.total);
-
+                    $("#cart-count-mobile").text(response.total);
                     if (id == "buy-now") {
                         window.location.href = "/facturación";
                     }

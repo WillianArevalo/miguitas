@@ -3,8 +3,9 @@ import { showToast } from "./toast";
 $(document).ready(function () {
     $(document).on(
         "click",
-        ".btnMinusCart, .btnPlusCart, .btnRemoveCart, .add-to-cart",
+        ".btnMinusCart, .btnPlusCart, .btnRemoveCart",
         function () {
+            console.log("Se ejecuto");
             var dataForm = $(this).data("form");
             const form = $(dataForm);
             const data = $(form).serialize();
@@ -60,6 +61,7 @@ $(document).ready(function () {
                 if (response.status === "success") {
                     $("#cart").html(response.html);
                     $("#cart-count").text(response.total);
+                    $("#cart-count-mobile").text(response.total);
                     $("#totalPriceCart").text(response.totalPrice);
                     $("#totalTaxes").text(response.totalTaxes);
                     $("#totalWithTaxes").text(response.totalWithTaxes);
