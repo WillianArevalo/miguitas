@@ -42,7 +42,7 @@
         'secondary' => 'bg-white text-blue-store border-2 border-blue-store hover:bg-zinc-100',
         'danger' => 'bg-red-100 text-red-500 hover:bg-red-200',
         'warning' => 'bg-yellow-500 text-yellow-600 hover:bg-yellow-600',
-        'success' => 'bg-green-100 text-green-500 hover:bg-green-600 hover:text-white',
+        'success' => 'bg-green-100 text-green-500 hover:bg-green-200',
         'default' => 'bg-white text-zinc-600 border border-zinc-400 hover:bg-zinc-100',
     ];
 
