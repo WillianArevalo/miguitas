@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\ImageHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Policy;
+use App\Models\PolicyImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PoliciesController extends Controller
 {
@@ -21,16 +24,33 @@ class PoliciesController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'file_path' => 'required|mimes:pdf',
+            'file_path.*' => 'required|mimes:pdf,png,jpg,jpeg,webp|max:10240',
         ]);
-        $filename = $request->file("file_path")->getClientOriginalName();
-        $filePath = $request->file('file_path')->storeAs('policies', $filename, 'public');
+
+        $files = $request->file('file_path');
+        $filePaths = [];
+
+        if ($files) {
+            foreach ($files as $file) {
+                $filename = $file->getClientOriginalName();
+                $filePath = $file->storeAs('policies', $filename, 'public');
+                $filePaths[] = $filePath;
+            }
+        }
         DB::beginTransaction();
         try {
-            Policy::create([
+
+            $policy = Policy::create([
                 'name' => $request->name,
-                'file_path' => $filePath,
             ]);
+
+            foreach ($filePaths as $filePath) {
+                PolicyImage::create([
+                    'policy_id' => $policy->id,
+                    'file_path' => $filePath,
+                ]);
+            }
+
             DB::commit();
             return redirect()->route('admin.policies.index')->with('success', 'Policy created successfully');
         } catch (\Exception $e) {
@@ -45,10 +65,10 @@ class PoliciesController extends Controller
         if ($policy) {
             DB::beginTransaction();
             try {
-                $pdfPath = storage_path('app/public/' . $policy->file_path);
-                if (file_exists($pdfPath)) {
-                    unlink($pdfPath);
+                foreach ($policy->images as $image) {
+                    ImageHelper::deleteImage($image->file_path);
                 }
+                $policy->images()->delete();
                 $policy->delete();
                 DB::commit();
                 return redirect()->route('admin.policies.index')->with('success', 'Policy deleted successfully');
@@ -60,25 +80,23 @@ class PoliciesController extends Controller
         return redirect()->route('admin.policies.index')->with('error', 'Policy not found');
     }
 
-    public function showPolicy(string $slug)
+    public function show(Policy $policy)
     {
-        $policy = Policy::where('slug', $slug)->first();
-        if ($policy && Storage::disk('public')->exists($policy->file_path)) {
-            $fileContent = Storage::disk('public')->get($policy->file_path);
-            return Response::make($fileContent, 200, [
-                'Content-Type' => "application/pdf",
-                'Content-Disposition' => 'inline; filename="' . basename($policy->file_path) . '"'
-            ]);
-        }
-        return redirect()->route('home')->with('error', 'Policy not found');
+        $date = now()->timezone("America/El_Salvador")->format("Y-m-d H:i:s");
+        $pdf = PDF::loadView('store.pdf.policy', [
+            'policy' => $policy,
+            'date' => $date,
+        ])->setPaper('a4', 'portrait');
+        return $pdf->stream($policy->name . ".pdf");
     }
 
-    public function download(string $id)
+    public function download(Policy $policy)
     {
-        $policy = Policy::find($id);
-        if ($policy && Storage::disk('public')->exists($policy->file_path)) {
-            return Storage::disk("public")->download($policy->file_path, basename($policy->file_path));
-        }
-        return redirect()->route('home')->with('error', 'Policy not found');
+        $date = now()->timezone("America/El_Salvador")->format("Y-m-d H:i:s");
+        $pdf = PDF::loadView('store.pdf.policy', [
+            'policy' => $policy,
+            'date' => $date,
+        ])->setPaper('a4', 'portrait');
+        return $pdf->download($policy->name . ".pdf");
     }
 }
