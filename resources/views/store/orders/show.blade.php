@@ -7,16 +7,11 @@
                 Detalles del pedido
             </h2>
             <div class="flex items-center justify-end gap-4">
-                <div class="link-item mt-2 w-max">
-                    <a href="{{ Route('account.index') }}"
-                        class="link-item-content flex items-center justify-between gap-2 text-sm text-blue-500 hover:font-bold">
-                        Regresar
-                        <span class="icon-link">
-                            <x-icon-store icon="return" class="h-5 w-5 text-current" />
-                        </span>
-                    </a>
+                <div class="w-max">
+                    <x-button-store type="a" href="{{ url()->previous() }}" typeButton="secondary" text="Regresar"
+                        icon="return" />
                 </div>
-                <div class="hidden sm:block">
+                <div class="hidden lg:block">
                     @if ($order->status != 'canceled')
                         <form action="{{ Route('order.cancel', $order->id) }}" id="formCancelOrder" method="POST">
                             @csrf
@@ -132,15 +127,15 @@
                                     Producto
                                 </th>
                                 <th scope="col"
-                                    class="px-4 py-3 text-left font-dine-r text-xs font-medium uppercase tracking-wider text-zinc-500">
+                                    class="px-4 py-3 text-center font-dine-r text-xs font-medium uppercase tracking-wider text-zinc-500">
                                     Cantidad
                                 </th>
                                 <th scope="col"
-                                    class="px-4 py-3 text-left font-dine-r text-xs font-medium uppercase tracking-wider text-zinc-500">
+                                    class="px-4 py-3 text-center font-dine-r text-xs font-medium uppercase tracking-wider text-zinc-500">
                                     Precio
                                 </th>
                                 <th scope="col"
-                                    class="px-4 py-3 text-left font-dine-r text-xs font-medium uppercase tracking-wider text-zinc-500">
+                                    class="px-4 py-3 text-center font-dine-r text-xs font-medium uppercase tracking-wider text-zinc-500">
                                     Subtotal
                                 </th>
                             </tr>
@@ -162,18 +157,18 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="whitespace-nowrap px-4 py-4">
+                                    <td class="whitespace-nowrap px-4 py-4 text-center">
                                         <div class="font-din-r text-sm text-zinc-600">
                                             {{ $item->quantity }}
                                         </div>
                                     </td>
-                                    <td class="whitespace-nowrap px-4 py-4">
+                                    <td class="whitespace-nowrap px-4 py-4 text-center">
                                         <div class="font-din-r text-sm text-zinc-600">
                                             ${{ $item->price }}
                                         </div>
                                     </td>
                                     <td class="whitespace nowrap px-4 py-4 text-sm text-zinc-500">
-                                        <div class="font-din-r text-sm text-zinc-600">
+                                        <div class="text-center font-din-r text-sm text-zinc-600">
                                             ${{ number_format($item->price * $item->quantity, 2) }}
                                         </div>
                                     </td>
@@ -239,28 +234,28 @@
                         </div>
 
                         <div class="flex justify-between">
-                            <div class="font-font-dine-r text-zinc-800">
+                            <div class="font-dine-r text-zinc-800">
                                 Impuesto
                             </div>
-                            <div class="font-font-dine-r text-zinc-600">
+                            <div class="font-dine-r text-zinc-600">
                                 ${{ $order->tax }}
                             </div>
                         </div>
 
                         <div class="flex justify-between">
-                            <div class="font-font-dine-r text-zinc-800">
+                            <div class="font-dine-r text-zinc-800">
                                 Monto de envío
                             </div>
-                            <div class="font-font-dine-r text-zinc-600">
+                            <div class="font-dine-r text-zinc-600">
                                 ${{ $order->shipping_method->cost }}
                             </div>
                         </div>
 
                         <div class="flex justify-between border-t border-dashed border-zinc-200 pt-4 font-semibold">
-                            <div class="font-font-dine-b text-xl uppercase text-zinc-800">
+                            <div class="font-dine-b text-xl uppercase text-zinc-800">
                                 Total
                             </div>
-                            <div class="font-font-dine-b text-xl text-zinc-800">
+                            <div class="font-dine-b text-xl text-zinc-800">
                                 ${{ $order->total }}
                             </div>
                         </div>
@@ -269,7 +264,7 @@
 
                 <div class="mt-4 rounded-xl border border-zinc-200 p-4 shadow">
                     <span class="font-bold text-zinc-800">Fecha de pedido:</span>
-                    <p class="font-font-dine-r text-zinc-600">
+                    <p class="font-dine-r text-zinc-600">
                         {{ $order->created_at->toFormattedDateString() }}
                     </p>
                 </div>
@@ -280,10 +275,10 @@
                     </span>
                     @if ($order->customer_notes)
                         <div class="mt-2">
-                            <p class="font-font-dine-r text-sm text-zinc-600">
+                            <p class="font-dine-r text-sm text-zinc-600">
                                 Tu comentario:
                             </p>
-                            <p class="font-font-dine-r text-zinc-600">
+                            <p class="font-dine-r text-zinc-600">
                                 {{ $order->customer_notes }}
                             </p>
                             <form action="{{ Route('order.remove-comment', $order->id) }}" method="POST">
@@ -294,7 +289,7 @@
                         </div>
                     @else
                         <div>
-                            <p class="font-font-dine-r py-2 text-zinc-600">
+                            <p class="py-2 font-dine-r text-zinc-600">
                                 Sin comentarios
                             </p>
                             <div>
@@ -339,16 +334,11 @@
                 </div>
             </div>
 
-            <div class="mb-8 block sm:hidden">
+            <div class="mb-8 block lg:hidden">
                 @if ($order->status != 'canceled')
                     <form action="{{ Route('order.cancel', $order->id) }}" id="formCancelOrder-02" method="POST">
-                        @csrf
-                        <button type="button"
-                            class="buttonDelete flex w-full items-center justify-center gap-2 rounded-xl bg-red-100 p-4 font-medium text-red-600 hover:bg-red-200"
-                            data-form="formCancelOrder-02">
-                            <x-icon-store icon="cancel-circle" class="h-5 w-5 text-red-600" />
-                            Cancelar pedido
-                        </button>
+                        <x-button-store type="button" data-form="formCancelOrder-02" class="buttonDelete w-full"
+                            typeButton="danger" icon="cancel-circle" text="Cancelar pedido" />
                     </form>
                 @endif
             </div>
