@@ -79,12 +79,20 @@
                                 <div class="font-secondary absolute right-0 top-10 z-50 hidden w-52 overflow-hidden rounded-lg bg-white text-sm shadow-md"
                                     id="profile-options">
                                     <ul class="flex flex-col p-2 font-medium">
-                                        <li class="my-2 w-full">
+                                        <li class="w-full">
                                             <a href="{{ Route('account.index') }}"
                                                 class="flex w-full items-center justify-start rounded-xl px-4 py-2 text-blue-store hover:bg-purple-100">
                                                 <x-icon-store icon="user"
                                                     class="mr-2 inline-block h-4 w-4 text-current" />
                                                 Mi cuenta
+                                            </a>
+                                        </li>
+                                        <li class="w-full">
+                                            <a href="{{ Route('orders.index') }}"
+                                                class="flex w-full items-center justify-start rounded-xl px-4 py-2 text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
+                                                <x-icon-store icon="bag"
+                                                    class="mr-2 inline-block h-4 w-4 text-current" />
+                                                Mis pedidos
                                             </a>
                                         </li>
                                         <li class="mb-2 w-full">
@@ -106,7 +114,7 @@
                                                 </a>
                                             </li>
                                         @endif
-                                        <li class="my-2 w-full">
+                                        <li class="@if (auth()->user()->role !== 'admin') mt-2 @endif mb-2 w-full">
                                             <a href="{{ Route('account.index') }}"
                                                 class="flex w-full items-center justify-start rounded-xl px-4 py-2 text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
                                                 <x-icon-store icon="settings"
@@ -158,12 +166,20 @@
                             <div
                                 class="profile-options-user font-secondary absolute right-0 top-10 z-50 hidden w-52 overflow-hidden rounded-lg bg-white text-sm shadow-md">
                                 <ul class="flex flex-col p-2 font-medium">
-                                    <li class="my-2 w-full">
+                                    <li class="w-full">
                                         <a href="{{ Route('account.index') }}"
                                             class="flex w-full items-center justify-start rounded-xl px-4 py-2 text-blue-store hover:bg-purple-100">
                                             <x-icon-store icon="user"
                                                 class="mr-2 inline-block h-4 w-4 text-current" />
                                             Mi cuenta
+                                        </a>
+                                    </li>
+                                    <li class="w-full">
+                                        <a href="{{ Route('orders.index') }}"
+                                            class="flex w-full items-center justify-start rounded-xl px-4 py-2 text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
+                                            <x-icon-store icon="bag"
+                                                class="mr-2 inline-block h-4 w-4 text-current" />
+                                            Mis pedidos
                                         </a>
                                     </li>
                                     <li class="mb-2 w-full">
@@ -175,7 +191,17 @@
                                         </a>
                                     </li>
                                     <hr class="border-t border-zinc-200">
-                                    <li class="my-2 w-full">
+                                    @if (auth()->user()->role === 'admin')
+                                        <li class="mt-2 w-full">
+                                            <a href="{{ Route('admin.index') }}" target="_blank"
+                                                class="flex w-full items-center justify-start rounded-xl px-4 py-2 text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
+                                                <x-icon-store icon="user"
+                                                    class="mr-2 inline-block h-4 w-4 text-current" />
+                                                Administrador
+                                            </a>
+                                        </li>
+                                    @endif
+                                    <li class="@if (auth()->user()->role !== 'admin') mt-2 @endif mb-2 w-full">
                                         <a href="{{ Route('account.index') }}"
                                             class="flex w-full items-center justify-start rounded-xl px-4 py-2 text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
                                             <x-icon-store icon="settings"
@@ -183,16 +209,6 @@
                                             Configuración
                                         </a>
                                     </li>
-                                    @if (auth()->user()->role === 'admin')
-                                        <li class="my-2 w-full">
-                                            <a href="{{ Route('admin.index') }}"
-                                                class="flex w-full items-center justify-start rounded-xl px-4 py-2 text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
-                                                <x-icon-store icon="settings"
-                                                    class="mr-2 inline-block h-4 w-4 text-current" />
-                                                Administrador
-                                            </a>
-                                        </li>
-                                    @endif
                                     <hr class="border-t border-zinc-200">
                                     <li class="mt-2 w-full">
                                         <form action="{{ Route('logout') }}" method="POST">
