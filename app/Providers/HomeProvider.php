@@ -30,5 +30,12 @@ class HomeProvider extends ServiceProvider
                 "favicon" => $favicon,
             ]);
         });
+
+        View::composer("layouts.login-template", function ($view) {
+            $favicon = Settings::where('key', 'store_favicon')->first()->value ?? '';
+            $view->with([
+                "favicon" => $favicon,
+            ]);
+        });
     }
 }
