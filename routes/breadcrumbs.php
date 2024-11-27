@@ -444,3 +444,9 @@ Breadcrumbs::for("account.change-password", function (BreadcrumbTrail $trail) {
     $trail->parent("account.index");
     $trail->push("Cambiar contraseña", route("account.change-password"));
 });
+
+//Verify email
+Breadcrumbs::for("account.verify-email", function (BreadcrumbTrail $trail) {
+    $trail->parent("account.index");
+    $trail->push("Verificar correo electrónico", route("account.verify-email"));
+});
