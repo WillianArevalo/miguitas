@@ -313,9 +313,19 @@ class CartController extends Controller
 
     public function applyPaymentMethod(string $id)
     {
+
+        $cart = CartHelper::get();
+        if ($id == 0) {
+            $cart->paymentMethod()->dissociate();
+            $cart->save();
+            return response()->json([
+                "status" => "success",
+                "message" => "Payment method removed",
+            ]);
+        }
         $payment_method = PaymentMethod::find($id);
         if (!$payment_method) return response()->json(["status" => "error", "message" => "Payment  method not found"]);
-        $cart = CartHelper::get();
+
         DB::beginTransaction();
         try {
             $cart->paymentMethod()->associate($payment_method);
