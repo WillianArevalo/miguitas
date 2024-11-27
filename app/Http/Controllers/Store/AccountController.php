@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Store;
 
+use App\Helpers\ImageHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AccountUpdateRequest;
 use App\Models\Address;
@@ -9,6 +10,7 @@ use App\Models\Customer;
 use App\Models\User;
 use App\Utils\Addresses;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -77,7 +79,13 @@ class AccountController extends Controller
 
     public function changePassword()
     {
-        return view("account.change-password");
+
+        $user = auth()->user();
+        if (!$user->email_verified_at) {
+            return redirect()->route("verification.notice")->with("error", "Debes verificar tu correo electrónico para cambiar tu contraseña");
+        }
+
+        return view("store.account.change-password");
     }
 
     public function editPassword(Request $request)
@@ -109,6 +117,34 @@ class AccountController extends Controller
             }
         } else {
             return redirect()->route("account.change-password")->with("error", "La contraseña actual es incorrecta");
+        }
+    }
+
+    public function changeProfile(Request $request)
+    {
+        $auth = Auth::user();
+        DB::beginTransaction();
+        try {
+            $user = User::find($auth->id);
+            $img = $user->profile;
+            if ($request->hasFile("profile")) {
+                if ($user->profile !== "images/default-profile.png") {
+                    ImageHelper::deleteImage($user->profile);
+                    $img = ImageHelper::saveImage($request->file("profile"), "images/profile-photos");
+                } else {
+                    $img = ImageHelper::saveImage($request->file("profile"), "images/profile-photos");
+                }
+            }
+            $user->profile = $img;
+            $user->update();
+            DB::commit();
+            return response()->json([
+                "success" => "Foto de perfil actualizada",
+                "html" => view("layouts.__partials.ajax.admin.settings.profile-photo", compact("user"))->render()
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(["error" => "Error al actualizar la foto de perfil"], 500);
         }
     }
 }
