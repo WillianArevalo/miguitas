@@ -6,6 +6,28 @@
                 Datos personales
             </h2>
         </div>
+
+        <div class="mt-4 border-t-2 border-zinc-200 py-4">
+            <div class="group relative h-40 w-40 rounded-full">
+                @if ($user->google_id)
+                    <img src="{{ $user->google_profile }}" alt="profile" class="h-full w-full rounded-full object-cover"
+                        id="image-profile">
+                @else
+                    <img src="{{ Storage::url($user->profile) }}" alt="profile"
+                        class="h-full w-full rounded-full object-cover" id="image-profile">
+                @endif
+                <form action="{{ Route('account.change-profile') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <label for="photo-profile"
+                        class="absolute inset-0 flex cursor-pointer items-center justify-center rounded-full bg-black bg-opacity-40 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                        <x-icon-store icon="edit" class="h-5 w-5" />
+                        <input type="file" name="profile" id="photo-profile" class="hidden" />
+                    </label>
+                </form>
+            </div>
+        </div>
+
+
         <div class="border-t-2 border-zinc-200">
             <div class="mt-4 flex flex-col">
                 <h3 class="text-base font-semibold text-zinc-700 sm:text-lg">
