@@ -427,16 +427,20 @@ Breadcrumbs::for("cancel-return", function (BreadcrumbTrail $trail) {
     $trail->push("Cancelaciones y devoluciones", route("cancel-return"));
 });
 
-
 //Login
 Breadcrumbs::for("login", function (BreadcrumbTrail $trail) {
     $trail->parent("store");
     $trail->push("Iniciar sesión", route("login"));
 });
 
-
 //Register
 Breadcrumbs::for("register", function (BreadcrumbTrail $trail) {
     $trail->parent("store");
     $trail->push("Registrarse", route("register"));
+});
+
+//Change password
+Breadcrumbs::for("account.change-password", function (BreadcrumbTrail $trail) {
+    $trail->parent("account.index");
+    $trail->push("Cambiar contraseña", route("account.change-password"));
 });
