@@ -13,3 +13,8 @@ Route::post("/validate", [AuthController::class, "validate"])->name("login.valid
 
 Route::get("/auth/google", [GoogleController::class, "redirectToGoogle"])->name("auth.google");
 Route::get("/auth/google/callback", [GoogleController::class, "handleGoogleCallback"])->name("auth.google.callback");
+
+
+Route::get("/email/verify", [AuthController::class, "showVerifyEmail"])->name("verification.notice");
+Route::post("/email/verify", [AuthController::class, "verifyEmail"])->name("verification.verify");
+Route::post("/email/resend", [AuthController::class, "resendEmail"])->name("verification.resend");
