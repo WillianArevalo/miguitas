@@ -27,17 +27,56 @@
             </div>
         </div>
 
-
         <div class="border-t-2 border-zinc-200">
+            @if (session('warning') && !session('success') && !session('error'))
+                <div class="mt-4 flex flex-row items-center gap-2 rounded-xl border border-yellow-500 bg-yellow-500/10 p-4">
+                    <x-icon-store icon="alert" class="h-5 w-5 text-yellow-500" />
+                    <p class="font-dine-r text-sm text-yellow-500">
+                        {{ session('warning') }}
+                    </p>
+                </div>
+            @endif
+
+            @if (session('success'))
+                <div class="mt-4 flex flex-row items-center gap-2 rounded-xl border border-green-500 bg-green-500/10 p-4">
+                    <x-icon-store icon="check-duotone" class="h-5 w-5 text-green-500" />
+                    <p class="font-dine-r text-sm text-green-500">
+                        {{ session('success') }}
+                    </p>
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="mt-4 flex flex-row items-center gap-2 rounded-xl border border-red-500 bg-red-500/10 p-4">
+                    <x-icon-store icon="alert" class="h-5 w-5 text-red-500" />
+                    <p class="font-dine-r text-sm text-red-500">
+                        {{ session('error') }}
+                    </p>
+                </div>
+            @endif
+
             <div class="mt-4 flex flex-col">
                 <h3 class="text-base font-semibold text-zinc-700 sm:text-lg">
                     Datos de seguridad
                 </h3>
                 <div class="mt-2">
                     <div class="flex flex-col text-sm sm:text-base">
-                        <div class="flex gap-2">
-                            <h4 class="text-secondary font-dine-r font-medium">Correo electrónico:</h4>
-                            <p class="font-dine-r">{{ $user->email }}</p>
+                        <div class="flex items-center justify-between gap-2">
+                            <div class="flex items-center gap-2">
+                                <h4 class="text-secondary font-dine-r font-medium">Correo electrónico:</h4>
+                                <p class="font-dine-r">{{ $user->email }}</p>
+                                @if ($user->email_verified_at || $user->google_id)
+                                    <span
+                                        class="flex items-center justify-center gap-x-1 font-dine-r text-xs text-green-500">
+                                        <x-icon-store icon="check-bold" class="h-5 w-5 text-current" />
+                                        Correo verificado
+                                    </span>
+                                @endif
+                            </div>
+                            @if (!$user->email_verified_at && !$user->google_id)
+                                <x-button-store type="a" href="{{ Route('verification.notice') }}" icon="mail-02"
+                                    text="Verificar correo" typeButton="secondary" class="w-max" size="small" />
+                            @endif
                         </div>
                         <div class="mt-2">
                             <x-button-store type="a" icon="recovery-mail" text="Cambiar correo" typeButton="secondary"
