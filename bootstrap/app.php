@@ -16,7 +16,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->appendToGroup('web', \App\Http\Middleware\SetLocale::class);
         $middleware->appendToGroup("web", \App\Http\Middleware\CurrencyCurrent::class);
         $middleware->validateCsrfTokens(except: [
-            '/billing/wompi'
+            '/billing/wompi',
+            '/billing/wompi/link'
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

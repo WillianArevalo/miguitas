@@ -130,3 +130,4 @@ Route::middleware("auth")->group(function () {
 });
 
 Route::post("/billing/wompi", [CheckoutController::class, "wompi"])->name("checkout.wompi");
+Route::post("/billing/wompi/link", [CheckoutController::class, "get_wompi_link"])->name("link.wompi");
