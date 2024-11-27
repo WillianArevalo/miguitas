@@ -74,8 +74,22 @@ class OrderController extends Controller
 
     public function show(string $numberOrder)
     {
-        $order = Order::with("items.product", "customer", "address", "currency", "shipping_method", "payment_method")->where("number_order", $numberOrder)->firstOrFail();
-        return view("store.orders.show", compact("order"));
+        $order = Order::with(
+            "items.product",
+            "customer",
+            "address",
+            "currency",
+            "shipping_method",
+            "payment_method"
+        )->where("number_order", $numberOrder)->firstOrFail();
+
+
+        $shippingAdress = $order->address
+            && $order->address->type === "shipping_address"
+            ? $order->address->address_line_1
+            : null;
+
+        return view("store.orders.show", compact("order", "shippingAdress"));
     }
 
     public function cancel(string $id)
