@@ -105,4 +105,9 @@ class AuthController extends Controller
             return redirect()->back()->with("error", "Error al registrar el usuario.");
         }
     }
+
+    public function showVerifyEmail()
+    {
+        return view("store.email.email-verified");
+    }
 }
