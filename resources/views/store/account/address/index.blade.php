@@ -22,7 +22,7 @@
         @else
             <div class="grid grid-cols-1 gap-4 xl:grid-cols-2" id="container-address-list">
                 @foreach ($addresses as $address)
-                    <div class="relative flex flex-col gap-4 rounded-2xl border border-zinc-200 p-4">
+                    <div class="relative flex flex-col gap-4 rounded-2xl border border-zinc-200 p-6 shadow-md">
                         <div>
                             <div class="flex flex-col gap-2">
                                 <div class="flex items-center gap-2">
@@ -31,13 +31,13 @@
                                         {{ App\Utils\Addresses::getAddress($address->type) }}
                                     </p>
                                 </div>
-                                <div class="flex flex-col sm:flex-row">
+                                <div class="flex flex-col gap-2">
                                     <div class="flex flex-1 items-center gap-2">
                                         <p class="font-dine-b text-base text-zinc-800">
                                             Línea 1:
                                         </p>
                                         <p class="font-dine-r text-base text-zinc-600">
-                                            {{ $address->address_line_1 }}
+                                            {{ $address->address_line_1 ?? '---' }}
                                         </p>
                                     </div>
                                     <div class="flex flex-1 items-center gap-2">
@@ -45,24 +45,25 @@
                                             Línea 2:
                                         </p>
                                         <p class="font-dine-r text-base text-zinc-600">
-                                            {{ $address->address_line_2 }}
+                                            {{ $address->address_line_2 ?? '---' }}
                                         </p>
                                     </div>
                                 </div>
-                                <div class="flex flex-col sm:flex-row">
+                                <div class="flex flex-col gap-2">
                                     <div class="flex flex-1 items-center gap-2">
                                         <p class="font-dine-b text-base text-zinc-800">
                                             Ciudad:
                                         </p>
                                         <p class="font-dine-r text-base text-zinc-600">
-                                            {{ $address->city }}</p>
+                                            {{ $address->city ?? '---' }}
+                                        </p>
                                     </div>
                                     <div class="flex flex-1 items-center gap-2">
                                         <p class="font-dine-b text-base text-zinc-800">
                                             Estado:
                                         </p>
                                         <p class="font-dine-r text-base text-zinc-600">
-                                            {{ $address->state }}
+                                            {{ $address->state ?? '---' }}
                                         </p>
                                     </div>
                                 </div>
@@ -72,7 +73,7 @@
                                             País:
                                         </p>
                                         <p class="font-din-r text-base text-zinc-600">
-                                            {{ $address->country }}
+                                            {{ $address->country ?? '---' }}
                                         </p>
                                     </div>
                                     <div class="flex flex-1 items-center gap-2">
@@ -80,7 +81,7 @@
                                             Código postal:
                                         </p>
                                         <p class="font-din-r text-base text-zinc-600">
-                                            {{ $address->zip_code }}
+                                            {{ $address->zip_code ?? '---' }}
                                         </p>
                                     </div>
                                 </div>
