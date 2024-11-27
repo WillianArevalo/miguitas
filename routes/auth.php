@@ -16,5 +16,5 @@ Route::get("/auth/google/callback", [GoogleController::class, "handleGoogleCallb
 
 
 Route::get("/email/verify", [AuthController::class, "showVerifyEmail"])->name("verification.notice");
-Route::post("/email/verify", [AuthController::class, "verifyEmail"])->name("verification.verify");
+Route::get("/email/verified", [AuthController::class, "verifyEmail"])->name("verification.verify");
 Route::post("/email/resend", [AuthController::class, "resendEmail"])->name("verification.resend");
