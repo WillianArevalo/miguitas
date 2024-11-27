@@ -128,8 +128,6 @@ class CheckoutController extends Controller
 
     public function wompi(Request $request)
     {
-
-        dd($request->all());
         $request->validate([
             'IdCuenta' => 'required|string',
             'IdTransaccion' => 'required|string',
@@ -137,13 +135,15 @@ class CheckoutController extends Controller
             'Monto' => 'required|numeric',
             'Cliente.Nombre' => 'required|string',
             'Cliente.EMail' => 'required|email',
-            'number_order' => 'required|string',
+            "EnlacePago.IdentificadorEnlaceComercio" => 'required|string',
         ]);
+
+        $number_order = $request->input('EnlacePago.IdentificadorEnlaceComercio');
 
         DB::beginTransaction();
         try {
 
-            $order = Order::where("number_order", $request->number_order)->first();
+            $order = Order::where("number_order", $number_order)->first();
 
             if (!$order) {
                 return response()->json([
@@ -160,10 +160,16 @@ class CheckoutController extends Controller
 
             DB::commit();
 
-            return redirect()->route("orders.index")->with("success", "Orden procesada correctamente.");
+            return response()->json([
+                "status"=> "success",
+                "message"=> "Orden actualizada correctamente."
+                ],200);
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route("orders.index")->with("error", "Ocurrió un error al procesar el pago. " . $e->getMessage());
+            return response()->json([
+                "status"=> "error",
+                "message"=> $e->getMessage()
+                ],500);
         }
     }
 }
