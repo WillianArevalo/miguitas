@@ -31,7 +31,7 @@
     ];
 
     // Establecer el padding dependiendo de si es solo ícono o no
-    $padding = $onlyIcon ? 'p-2' : $sizes[$size]['padding'];
+    $padding = $onlyIcon ? 'px-2 py-1' : $sizes[$size]['padding'];
 
     // Clases base
     $baseClasses = 'rounded-full flex items-center justify-center gap-2 transition-colors duration-300 ' . $padding;
@@ -39,10 +39,10 @@
     // Tipos de botones (estilos únicos para la tienda)
     $buttonTypes = [
         'primary' => 'bg-blue-store text-white hover:bg-blue-selected bg-gradient',
-        'secondary' => 'bg-white text-blue-store border-2 border-blue-store hover:bg-zinc-100',
-        'danger' => 'bg-red-100 text-red-500 hover:bg-red-200',
-        'warning' => 'bg-yellow-500 text-yellow-600 hover:bg-yellow-600',
-        'success' => 'bg-green-100 text-green-500 hover:bg-green-200',
+        'secondary' => 'bg-white text-zinc-600 border-2 border-zinc-300 hover:bg-zinc-200/50',
+        'danger' => 'bg-red-100/70 text-red-500 hover:bg-red-200/70',
+        'warning' => 'bg-yellow-100/70 text-yellow-600 hover:bg-yellow-600',
+        'success' => 'bg-green-100/70 text-green-500 hover:bg-green-200/70',
         'default' => 'bg-white text-zinc-600 border border-zinc-400 hover:bg-zinc-100',
     ];
 
