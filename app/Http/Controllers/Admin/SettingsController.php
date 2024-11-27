@@ -73,7 +73,6 @@ class SettingsController extends Controller
             DB::commit();
             return response()->json([
                 "success" => "Foto de perfil actualizada",
-                "html" => view("layouts.__partials.ajax.admin.settings.profile-photo", compact("user"))->render()
             ], 200);
         } catch (\Exception $e) {
             DB::rollback();
