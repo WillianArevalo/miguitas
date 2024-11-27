@@ -121,6 +121,12 @@
                                             Método de pago
                                         </h3>
                                         <div class="flex flex-col gap-4">
+                                            <div
+                                                class="flex items-center gap-4 p-4 font-pluto-r text-sm text-zinc-600 shadow-sm sm:text-base">
+                                                <input type="radio" name="payment_method" value="0"
+                                                    data-url="{{ Route('cart.apply-payment-method', 0) }}" />
+                                                Marcar como pago pendiente
+                                            </div>
                                             @if ($payment_methods->count() > 0)
                                                 @foreach ($payment_methods as $method)
                                                     <div
@@ -275,7 +281,6 @@
                             </div>
                         </div>
                     </form>
-
                     <div class="mt-8 flex items-center justify-center">
                         <form action="{{ Route('orders.store') }}" method="POST">
                             @csrf
@@ -283,7 +288,6 @@
                                 text="Finalizar compra" typeButton="primary" size="large" />
                         </form>
                     </div>
-
                 </div>
 
                 <!-- Order summary -->
@@ -357,4 +361,5 @@
 
 @push('scripts')
     @vite('resources/js/store/checkout.js')
+    {{--  <script src="https://pagos.wompi.sv/js/wompi.pagos.js"></script> --}}
 @endpush
