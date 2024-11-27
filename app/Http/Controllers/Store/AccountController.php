@@ -5,14 +5,18 @@ namespace App\Http\Controllers\Store;
 use App\Helpers\ImageHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AccountUpdateRequest;
+use App\Mail\VerifyEmail;
 use App\Models\Address;
 use App\Models\Customer;
 use App\Models\User;
 use App\Utils\Addresses;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class AccountController extends Controller
 {
@@ -32,6 +36,11 @@ class AccountController extends Controller
             : collect();
 
         $addresses = Addresses::getAddresses();
+
+        if (!$user->email_verified_at && !$user->google_id) {
+            session()->flash('warning', 'Verifica tu correo electrónico para mantener tus datos seguros.');
+        }
+
         return view("store.account.index", [
             "user" => $user,
             "customer" => $customer,
@@ -79,10 +88,20 @@ class AccountController extends Controller
 
     public function changePassword()
     {
-
         $user = auth()->user();
-        if (!$user->email_verified_at) {
-            return redirect()->route("verification.notice")->with("error", "Debes verificar tu correo electrónico para cambiar tu contraseña");
+        if (!$user->email_verified_at && !$user->google_id) {
+            $token = Str::random(60);
+            $user->remember_token = $token;
+            $user->email_token_expires_at = now()->addMinutes(10);
+            $user->save();
+
+            Mail::to($user->email)->send(new VerifyEmail(
+                $user->name,
+                route("verification.verify", ["token" => $token]),
+                $token
+            ));
+
+            return redirect()->route("verification.notice");
         }
 
         return view("store.account.change-password");
