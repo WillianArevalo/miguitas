@@ -1,14 +1,13 @@
-@extends('layouts.template')
-@section('title', 'Miguitas | Detalles del pedido')
-@section('content')
-    <div class="mx-auto my-8 flex w-full flex-col px-4 sm:w-3/4">
+@extends('layouts.__partials.store.template-profile ')
+@section('profile-content')
+    <div class="mx-auto my-8 flex w-full flex-col px-4">
         <div class="gap flex flex-col-reverse justify-between gap-4 py-2 sm:flex-row sm:items-center">
             <h2 class="font-pluto-r text-3xl font-bold text-blue-store">
                 Detalles del pedido
             </h2>
             <div class="flex items-center justify-end gap-4">
                 <div class="w-max">
-                    <x-button-store type="a" href="{{ url()->previous() }}" typeButton="secondary" text="Regresar"
+                    <x-button-store type="a" href="{{ Route('orders.index') }}" typeButton="secondary" text="Regresar"
                         icon="return" />
                 </div>
                 <div class="hidden lg:block">
@@ -92,7 +91,11 @@
                         <div class="mt-2">
                             <span class="font-dine-r font-bold text-zinc-900">Dirección de envío:</span>
                             <span class="font-dine-r text-zinc-600">
-                                {{ $order->address->address_line_1 . ', ' . $order->address->address_line_2 }}
+                                @if ($shippingAdress)
+                                    {{ $shippingAdress }}
+                                @else
+                                    Sin especificar
+                                @endif
                             </span>
                         </div>
                         <div class="mt-2">
@@ -107,12 +110,20 @@
                         <div>
                             <span class="font-dine-r font-bold text-zinc-900">Método de pago:</span>
                             <span class="font-dine-r text-zinc-600">
-                                {{ $order->payment_method->name }}
+                                @if ($order->payment_method)
+                                    {{ $order->payment_method->name }}
+                                @endif
                             </span>
                         </div>
                         <div class="mt-2 flex items-center justify-start p-2 sm:justify-center">
-                            <img src="{{ Storage::url($order->payment_method->image) }}" alt=""
-                                class="h-24 w-40 object-cover">
+                            @if ($order->payment_method)
+                                <img src="{{ Storage::url($order->payment_method->image) }}" alt=""
+                                    class="h-24 w-40 object-cover">
+                            @else
+                                <p class="font-dine-r text-zinc-600">
+                                    Sin especificar
+                                </p>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -403,8 +414,9 @@
                 </div>
             </div>
         </div>
-    @endsection
+    </div>
+@endsection
 
-    @push('scripts')
-        @vite('resources/js/store/order.js')
-    @endpush
+@push('scripts')
+    @vite('resources/js/store/order.js')
+@endpush
