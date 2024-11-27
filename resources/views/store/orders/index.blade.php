@@ -165,11 +165,11 @@
                                         <div class="flex items-center gap-2">
                                             @if ($order->payment_status === 'pending')
                                                 <div>
-                                                    <form action="{{ Route('checkout.wompi') }}" method="POST"
-                                                        id="form-paid">
+                                                    <form action="{{ Route('link.wompi') }}" method="POST"
+                                                        class="form-paid">
+                                                        @csrf
                                                         <input type="hidden" name="number_order"
                                                             value="{{ $order->number_order }}">
-                                                        <input type="hidden" name="jsonData" id="jsonData">
                                                         <x-button-store icon="credit-card" type="submit"
                                                             typeButton="primary" onlyIcon="true" class="w-max"
                                                             class="pay-order" />

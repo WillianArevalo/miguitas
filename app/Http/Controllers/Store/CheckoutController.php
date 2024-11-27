@@ -14,6 +14,7 @@ use App\Models\ShippingMethod;
 use App\Models\User;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\DB;
+use App\Utils\WompiService;
 
 class CheckoutController extends Controller
 {
@@ -126,6 +127,36 @@ class CheckoutController extends Controller
     }
 
 
+    public function get_wompi_link(Request $request)
+    {
+        $request->validate([
+            "number_order" => "required|string",
+        ]);
+
+        $order = Order::where("number_order", $request->number_order)->first();
+
+        if (!$order) {
+            return response()->json([
+                "status" => "error",
+                "message" => "Orden no encontrada."
+            ], 404);
+        }
+
+        $wompi = new WompiService();
+        $link = $wompi->get_link("Pago de orden", $order->number_order, $order->total);
+        if (!$link) {
+            return response()->json([
+                "status" => "error",
+                "message" => "No se pudo obtener el enlace de pago."
+            ], 500);
+        }
+        return response()->json([
+            "status" => "success",
+            "link" => $link
+        ], 200);
+    }
+
+
     public function wompi(Request $request)
     {
         $request->validate([
@@ -161,15 +192,15 @@ class CheckoutController extends Controller
             DB::commit();
 
             return response()->json([
-                "status"=> "success",
-                "message"=> "Orden actualizada correctamente."
-                ],200);
+                "status" => "success",
+                "message" => "Orden actualizada correctamente."
+            ], 200);
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
-                "status"=> "error",
-                "message"=> $e->getMessage()
-                ],500);
+                "status" => "error",
+                "message" => $e->getMessage()
+            ], 500);
         }
     }
 }
