@@ -87,6 +87,7 @@ Route::middleware("auth")->group(function () {
         Route::post("/settings-update", [AccountController::class, "settingsUpdate"])->name("settings-update");
         Route::get("/change-password", [AccountController::class, "changePassword"])->name("change-password");
         Route::post("/edit-password", [AccountController::class, "editPassword"])->name("edit-password");
+        Route::post("/change-profile", [AccountController::class, "changeProfile"])->name("change-profile");
 
         Route::prefix("direcciones")->name("addresses.")->group(function () {
             Route::get("/", [AddressController::class, "index"])->name("index");
@@ -127,3 +128,5 @@ Route::middleware("auth")->group(function () {
     // Reviews
     Route::resource("/reviews", ReviewController::class);
 });
+
+Route::post("/billing/wompi", [CheckoutController::class, "wompi"])->name("checkout.wompi");
