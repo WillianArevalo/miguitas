@@ -40,20 +40,9 @@ $(document).ready(function () {
     });
 
     btnNext.on("click", function () {
-        const paymentMethod = $("input[name='payment_method']:checked").val();
         const shippingMethod = $("input[name='shipping_method']:checked").val();
 
-        if (paymentMethod === undefined) {
-            showToast("Seleccione un método de pago", "error");
-            return;
-        } else if (shippingMethod === undefined) {
-            showToast("Seleccione un método de envío", "error");
-            return;
-        } else if (
-            paymentMethod === undefined &&
-            shippingMethod === undefined
-        ) {
-            showToast("Seleccione un método de pago", "error");
+        if (shippingMethod === undefined) {
             showToast("Seleccione un método de envío", "error");
             return;
         }
@@ -111,6 +100,7 @@ $(document).ready(function () {
                         $("#price-shipping-method").text(response.price);
                         $("#checkout-total").text(response.total);
                     }
+                    console.log(response);
                 },
                 error: function (response) {
                     if (response.status === "error") {
