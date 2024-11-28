@@ -325,27 +325,6 @@
         </div>
         <!-- End Drawer edit currency -->
 
-        <!-- Drawer details currency -->
-        <div id="drawer-details-method"
-            class="drawer fixed right-0 top-0 z-40 h-screen w-[500px] translate-x-full overflow-y-auto bg-white p-4 transition-transform dark:bg-black"
-            tabindex="-1" aria-labelledby="drawer-details-method">
-            <h5 id="drawer-details-method-label"
-                class="ms-4 inline-flex items-center text-base font-semibold text-zinc-500 dark:text-zinc-400">
-                Detalles del método de envío
-            </h5>
-            <button type="button" data-drawer="#drawer-details-method"
-                class="close-drawer absolute end-2.5 top-2.5 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-zinc-400 hover:bg-zinc-200 hover:text-zinc-900 dark:hover:bg-zinc-900 dark:hover:text-white">
-                <svg class="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 14 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                </svg>
-                <span class="sr-only">Close menu</span>
-            </button>
-            <div class="font-secondary text-sm" id="show-method-content">
-            </div>
-        </div>
-        <!-- End Drawer details payment method -->
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
