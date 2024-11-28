@@ -60,3 +60,12 @@
 div[drawer-backdrop] {
     display: none;
 }
+
+/* Datatable */
+div.dt-container div.dt-layout-row div.dt-layout-cell.dt-layout-end {
+    display: none;
+}
+
+div.dt-container div.dt-layout-row {
+    margin: 0px !important;
+}
