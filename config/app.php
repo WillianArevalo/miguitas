@@ -138,4 +138,10 @@ return [
         "secret" => env("PAYPAL_SECRET"),
     ],
 
+    "mail" => [
+        "from" => [
+            "address" => env("MAIL_FROM_ADDRESS"),
+        ],
+    ],
+
 ];
