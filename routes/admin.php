@@ -63,7 +63,8 @@ Route::middleware("role:admin")->prefix("admin")->name("admin.")->group(function
     Route::resource("/products", ProductController::class);
     Route::delete("/products-delete", [ProductController::class, "deleteSelected"])->name("products.deleteSelected");
     Route::post("/products/import", [ProductController::class, "import"])->name("products.import");
-
+    Route::delete("/products/delete-image/{id}", [ProductController::class, "deleteImage"])->name("products.delete-image");
+    Route::post("/products/search", [ProductController::class, "search"])->name("products.search");
     // Taxes
     Route::resource("/taxes", TaxController::class);
 
