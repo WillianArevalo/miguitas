@@ -23,6 +23,7 @@ use App\Http\Controllers\Store\{
     StoreController,
     CartController,
     GaleryController,
+    PaymentController,
     SupportTicketController,
     TermsAndConditionsController
 };
@@ -110,6 +111,10 @@ Route::middleware("auth")->group(function () {
     Route::resource("/pedidos", OrderController::class)->names("orders");
     Route::get("/pedido/{number_order}", [OrderController::class, "show"])->name("orders.show");
     Route::get("/cancelaciones-devoluciones", [OrderController::class, "cancelReturn"])->name("cancel-return");
+
+
+    // Payments
+    Route::resource("/pagos", PaymentController::class)->names("payments");
 
     // Favorites
     Route::controller(FavoriteController::class)->group(function () {
