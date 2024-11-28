@@ -170,9 +170,16 @@
                                                         @csrf
                                                         <input type="hidden" name="number_order"
                                                             value="{{ $order->number_order }}">
-                                                        <x-button-store icon="credit-card" type="submit"
-                                                            typeButton="primary" onlyIcon="true" class="w-max"
-                                                            class="pay-order" />
+                                                        <button type="submit"
+                                                            data-tooltip-target="tooltip-pay-wompi-{{ $order->id }}"
+                                                            class="flex h-12 items-center justify-center gap-2 rounded-full bg-transparent px-2 text-white">
+                                                            <x-icon-store icon="wompi" class="h-full w-14 text-current" />
+                                                        </button>
+                                                        <div id="tooltip-pay-wompi-{{ $order->id }}" role="tooltip"
+                                                            class="tooltip invisible absolute z-10 inline-block rounded-lg bg-[#4865ff] px-3 py-2 font-dine-r text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300">
+                                                            Pagar con Wompi
+                                                            <div class="tooltip-arrow" data-popper-arrow></div>
+                                                        </div>
                                                     </form>
                                                 </div>
                                             @endif
