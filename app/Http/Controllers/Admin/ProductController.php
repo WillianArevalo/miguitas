@@ -27,7 +27,8 @@ class ProductController extends Controller
     {
         $products = Product::with(['categories', 'subcategories', 'taxes', 'labels', 'images'])->paginate(20);
         $count = Product::count();
-        return view('admin.products.index', compact('products', 'count'));
+        $categories = Categorie::all();
+        return view('admin.products.index', compact('products', 'count', 'categories'));
     }
 
     public function create()
@@ -72,7 +73,10 @@ class ProductController extends Controller
                 $product->options()->attach($options);
             }
 
-            $product->subcategories()->attach($request->subcategories);
+            if ($request->has('subcategories')) {
+                $product->subcategories()->attach($request->subcategories);
+            }
+
             $folderPath = $this->getProductImageFolder($request->input('name'));
             $this->handleImages($request, $product, $folderPath);
             $this->syncTaxesAndLabels($request, $product);
@@ -80,6 +84,7 @@ class ProductController extends Controller
             return response()->json(['success' => 'Producto creado correctamente', "redirect" => route('admin.products.index')]);
         } catch (\Exception $e) {
             DB::rollBack();
+            dd($e->getMessage());
             return response()->json(['error' => 'Error al crear el producto', 'message' => $e->getMessage()]);
         }
     }
@@ -184,7 +189,11 @@ class ProductController extends Controller
             $product->update($validated);
             $this->syncTaxesAndLabels($request, $product);
             $this->handleImages($request, $product, $newFolderPath);
-            $product->subcategories()->sync($request->subcategories);
+
+            if ($request->has('subcategories')) {
+                $product->subcategories()->sync($request->subcategories);
+            }
+
             DB::commit();
             return redirect()->route('admin.products.index')->with('success', 'Producto actualizado correctamente');
         } catch (\Exception $e) {
@@ -302,5 +311,36 @@ class ProductController extends Controller
         }
 
         return response()->json(['error' => 'No se pudo abrir el archivo CSV.'], 500);
+    }
+
+    public function deleteImage(string $id)
+    {
+        DB::beginTransaction();
+        $image = ProductImage::findOrFail($id);
+        $product = $image->product;
+        try {
+            ImageHelper::deleteImage($image->image);
+            $image->delete();
+            DB::commit();
+            return redirect()->route('admin.products.edit', $product->id)->with('success', 'Imagen eliminada correctamente');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('admin.products.edit', $product->id)->with('error', 'Error al eliminar la imagen');
+        }
+    }
+
+    public function search(Request $request)
+    {
+        $query = Product::query();
+
+        if ($search = $request->input("inputSearch")) {
+            $query->where("name", "like", "%$search%");
+        }
+
+        $products = $query->get();
+
+        if ($request->ajax()) {
+            return view("layouts.__partials.ajax.admin.product.row-product", compact("products"))->render();
+        }
     }
 }
