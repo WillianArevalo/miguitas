@@ -13,6 +13,8 @@ $(document).ready(function () {
                 showToast("No hay productos para eliminar", "info");
                 return;
             }
+        } else {
+            btnDeleteAllProducts.addClass("hidden");
         }
 
         $(".checkboxs-products").prop("checked", $(this).prop("checked"));
@@ -243,13 +245,15 @@ $(document).ready(function () {
     function addImagePreview(imageUrl, index) {
         $previewImagesContainer.removeClass("h-20").addClass("h-auto");
 
-        const previewDiv = $("<div></div>").addClass("inline-block m-2");
+        const previewDiv = $("<div></div>").addClass(
+            "flex items-center flex-col justify-center m-2"
+        );
         const imageElement = $("<img />")
             .addClass("w-20 h-20 object-cover rounded-lg")
             .attr("src", imageUrl);
 
         const deleteButton = $("<button></button>")
-            .addClass("bg-red-500 text-white px-2 py-1 rounded mt-1")
+            .addClass("bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs")
             .text("Eliminar")
             .attr("type", "button")
             .on("click", function () {
@@ -257,7 +261,6 @@ $(document).ready(function () {
                 images.splice(index, 1);
                 filesImages.splice(index, 1);
                 previewDiv.remove(); // Elimina el elemento de la vista
-                alert("Imagen eliminada");
                 if (images.length === 0) {
                     $previewImagesContainer
                         .html(
@@ -724,64 +727,63 @@ $(document).ready(function () {
         }
     });
 
-    const quill = new Quill("#editor-container", {
-        theme: "snow",
-        placeholder: "Descripción larga",
-        modules: {
-            toolbar: [
-                [
-                    { header: "1" },
-                    { header: "2" },
-                    { header: [3, 4, 5, 6] },
-                    { font: [] },
-                ],
-                [
-                    { list: "ordered" },
-                    { list: "bullet" },
-                    { indent: "-1" },
-                    { indent: "+1" },
-                ],
-                [{ align: [] }],
-                ["bold", "italic", "underline", "strike"],
-                ["link", "image"],
-                [{ color: [] }, { background: [] }],
-                ["blockquote", "code-block"],
-                ["clean"],
-            ],
-        },
-    });
-
-    const quill2 = new Quill("#editor-container-2", {
-        theme: "snow",
-        placeholder: "Descripción corta",
-        modules: {
-            toolbar: [
-                [
-                    { header: "1" },
-                    { header: "2" },
-                    { header: [3, 4, 5, 6] },
-                    { font: [] },
-                ],
-                [
-                    { list: "ordered" },
-                    { list: "bullet" },
-                    { indent: "-1" },
-                    { indent: "+1" },
-                ],
-                [{ align: [] }],
-                ["bold", "italic", "underline"],
-                ["link", "image"],
-                [{ color: [] }, { background: [] }],
-                ["blockquote", "code-block"],
-            ],
-        },
-    });
-
     $("#addButtonProduct").on("click", function (e) {
-        const description = $("#long_description");
+        const name = $("#name");
         const shortDescription = $("#short_description");
-        description.val(quill.root.innerHTML);
-        shortDescription.val(quill2.root.innerHTML);
+        const description = $("#long_description");
+        const mainImage = $("#main_image");
+        const price = $("#price");
+        const categorie = $("#categorie_id");
+        const subcategorie = $("#subcategorie_id");
+
+        if (!name.val().trim()) {
+            name.addClass("is-invalid");
+            showToast("El nombre del producto es requerido", "error");
+            return;
+        } else {
+            name.removeClass("is-invalid");
+        }
+
+        if (!mainImage.val().trim()) {
+            $("#container-main-image").addClass("is-invalid");
+            showToast("La imagen principal es requerida", "error");
+            return;
+        } else {
+            $("#container-main-image").removeClass("is-invalid");
+        }
+
+        if (!price.val().trim()) {
+            price.addClass("is-invalid");
+            showToast("El precio es requerido", "error");
+            return;
+        } else {
+            price.removeClass("is-invalid");
+        }
+
+        if (!categorie.val().trim()) {
+            categorie.addClass("is-invalid");
+            showToast("La categoría es requerida", "error");
+            return;
+        } else {
+            categorie.removeClass("is-invalid");
+        }
+
+        if (!subcategorie.val() === "") {
+            subcategorie.addClass("is-invalid");
+            showToast("La subcategoría es requerida", "error");
+            return;
+        } else {
+            subcategorie.removeClass("is-invalid");
+        }
+
+        if (
+            !name.val().trim() ||
+            !mainImage.val().trim() ||
+            !price.val().trim()
+        ) {
+            showToast("Todos los campos son requeridos", "error");
+            return;
+        }
 
         const formData = new FormData(
             document.getElementById("formAddProduct")
@@ -816,6 +818,7 @@ $(document).ready(function () {
                 }
             },
             error: function (xhr, status, error) {
+                showToast("Error al enviar el formulario", "error");
                 console.error("Error al enviar el formulario:", error);
             },
         });

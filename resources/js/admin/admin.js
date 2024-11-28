@@ -96,18 +96,24 @@ $(document).ready(function () {
 
     $(".show-options").on("click", function (event) {
         event.stopPropagation();
+
         var target = $(this).data("target");
         var options = $(target);
+
+        if (!options.parent().is("body")) {
+            $("body").append(options);
+        }
+
+        var buttonOffset = $(this).offset();
+        options.css({
+            position: "absolute",
+            top: buttonOffset.top + $(this).outerHeight(),
+            left: buttonOffset.left - 100,
+            zIndex: 9999,
+        });
+
         $(".options").not(options).addClass("hidden");
         options.toggleClass("hidden");
-    });
-
-    $(".show-submenu").on("click", function (event) {
-        event.stopPropagation();
-        var target = $(this).data("target");
-        var submenu = $(target);
-        $(".submenu").not(submenu).addClass("hidden");
-        submenu.toggleClass("hidden");
     });
 
     $(document).on("click", function () {
