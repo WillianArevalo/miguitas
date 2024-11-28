@@ -63,7 +63,8 @@
                   <x-icon-store icon="bag" class="me-2 h-5 w-5 text-current" />
                   <span class="hidden xl:block">Pedidos</span>
               </a>
-              <a href="#" class="link-profile relative flex items-center px-2 py-4 ps-4 text-blue-store">
+              <a href="{{ Route('payments.index') }}"
+                  class="link-profile {{ Route::is('payments.index') ? 'bg-blue-store rounded-xl text-white' : '' }} relative flex items-center px-2 py-4 ps-4 text-blue-store">
                   <x-icon-store icon="payment" class="me-2 h-5 w-5 text-current" />
                   <span class="hidden xl:block">Pagos</span>
               </a>
