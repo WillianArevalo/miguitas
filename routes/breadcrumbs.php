@@ -450,3 +450,9 @@ Breadcrumbs::for("account.verify-email", function (BreadcrumbTrail $trail) {
     $trail->parent("account.index");
     $trail->push("Verificar correo electrónico", route("account.verify-email"));
 });
+
+//Payments
+Breadcrumbs::for("payments.index", function (BreadcrumbTrail $trail) {
+    $trail->parent("account.index");
+    $trail->push("Pagos", route("payments.index"));
+});
