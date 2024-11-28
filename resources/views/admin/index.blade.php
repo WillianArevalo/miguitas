@@ -324,9 +324,10 @@
                                                 onlyIcon="true" />
                                             <div class="relative">
                                                 <x-button type="button" icon="refresh" typeButton="secondary"
-                                                    onlyIcon="true" class="show-options" />
-                                                <div
-                                                    class="options absolute right-0 top-11 z-10 hidden w-40 rounded-lg border border-zinc-400 bg-white p-2 dark:border-zinc-800 dark:bg-zinc-950">
+                                                    onlyIcon="true" class="show-options"
+                                                    data-target="#options-order-{{ $order->id }}" />
+                                                <div class="options absolute right-0 top-11 z-10 hidden w-40 animate-jump-in rounded-lg border border-zinc-400 bg-white p-2 animate-duration-200 dark:border-zinc-800 dark:bg-zinc-950"
+                                                    id="options-order-{{ $order->id }}">
                                                     <p class="font-semibold text-zinc-800 dark:text-zinc-300">
                                                         Cambiar estado
                                                     </p>
@@ -420,12 +421,12 @@
                                                     <li>
                                                         <div class="relative">
                                                             <button type="button"
-                                                                class="show-submenu flex w-full items-center gap-1 rounded-lg px-2 py-2 text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-900"
+                                                                class="show-options flex w-full items-center gap-1 rounded-lg px-2 py-2 text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-900"
                                                                 data-target="#status-change-{{ $order->id }}">
                                                                 <x-icon icon="refresh" class="h-4 w-4" />
                                                                 Cambiar estado
                                                             </button>
-                                                            <div class="submenu absolute right-full top-0 z-10 hidden w-40 rounded-lg border border-zinc-400 bg-white p-2 dark:border-zinc-800 dark:bg-zinc-950"
+                                                            <div class="options absolute right-full top-0 z-10 hidden w-40 rounded-lg border border-zinc-400 bg-white p-2 dark:border-zinc-800 dark:bg-zinc-950"
                                                                 id="status-change-{{ $order->id }}">
                                                                 <p class="font-semibold text-zinc-800 dark:text-zinc-300">
                                                                     Cambiar estado
