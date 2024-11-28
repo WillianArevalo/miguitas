@@ -22,7 +22,8 @@
                     <form action="{{ Route('admin.orders.status', $order->id) }}" method="POST" class="w-full">
                         @csrf
                         <input type="hidden" name="status" value="sent">
-                        <x-button type="submit" typeButton="primary" icon="truck" text="Enviar pedido" class="w-full" />
+                        <x-button type="submit" typeButton="primary" icon="truck" text="Enviar pedido"
+                            class="w-full sm:w-auto" />
                     </form>
                 @endif
                 @if ($order->status === 'canceled')
@@ -150,35 +151,13 @@
                                 </div>
                             </div>
                             <div class="border-t border-zinc-400 p-4 dark:border-zinc-800">
-                                <p class="mb-4 font-medium text-zinc-500 dark:text-zinc-300">
-                                    Método de envío
+                                <p class="mb-2 font-medium text-zinc-500 dark:text-zinc-300">
+                                    Envío
                                 </p>
                                 <div>
-                                    <div class="flex flex-col gap-2">
-                                        @if (!empty($shippingMethods))
-                                            @foreach ($shippingMethods as $shippingMethod)
-                                                <label
-                                                    class="flex items-center justify-between gap-2 rounded-xl border border-zinc-400 p-4 text-sm text-zinc-700 dark:border-zinc-800 dark:text-zinc-300">
-                                                    <div class="flex gap-2">
-                                                        <input type="radio" name="payment_method_id"
-                                                            value="{{ $shippingMethod->id }}"
-                                                            {{ $order->payment_method_id == $shippingMethod->id ? 'checked' : '' }}
-                                                            class="border-zinc-400 bg-zinc-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-zinc-800 dark:bg-zinc-950 dark:ring-offset-zinc-800 dark:focus:ring-primary-600">
-                                                        <p> {{ $shippingMethod->name }}</p>
-                                                    </div>
-                                                    <span class="text-base font-semibold dark:text-primary-600">
-                                                        @if ($shippingMethod->cost == 0)
-                                                            Gratuito
-                                                        @else
-                                                            {{ $order->currency->symbol . $shippingMethod->cost }}
-                                                        @endif
-                                                    </span>
-                                                </label>
-                                            @endforeach
-                                        @endif
-                                    </div>
-                                    <div class="mt-4">
-                                        <x-input label="Tiempo estimado de entrega" name="estimated_delivery"
+                                    <div>
+                                        <x-input type="text" icon="clock" label="Tiempo estimado de entrega"
+                                            name="estimated_delivery"
                                             value="{{ old('estimated_delivery', $order->estimated_delivery) }}"
                                             placeholder="Ingresa el tiempo estimado de entrega" />
                                     </div>
@@ -209,25 +188,26 @@
                     <div class="flex-1">
                         <!-- Subtotal, Descuento, Impuesto, Total -->
                         <div class="flex flex-col gap-4 rounded-xl border border-zinc-400 p-4 dark:border-zinc-800">
+
                             <div class="flex-1">
                                 <x-input icon="dollar" type="number" step="0.01" name="subtotal" id="subtotal"
                                     label="Subtotal" value="{{ old('subtotal', $order->subtotal) }}"
-                                    placeholder="Subtotal del pedido" required />
+                                    placeholder="Subtotal del pedido" readonly />
                             </div>
                             <div class="flex-1">
                                 <x-input icon="dollar" type="number" step="0.01" name="discount" id="discount"
                                     label="Descuento" value="{{ old('discount', $order->discount) }}"
-                                    placeholder="Descuento aplicado" />
+                                    placeholder="Descuento aplicado" readonly />
                             </div>
                             <div class="flex-1">
                                 <x-input icon="dollar" type="number" step="0.01" name="tax" id="tax"
                                     label="Impuesto" value="{{ old('tax', $order->tax) }}"
-                                    placeholder="Impuesto aplicado" />
+                                    placeholder="Impuesto aplicado" readonly />
                             </div>
                             <div class="flex-1">
                                 <x-input icon="dollar" type="number" step="0.01" name="total" id="total"
                                     label="Total" value="{{ old('total', $order->total) }}"
-                                    placeholder="Total del pedido" required />
+                                    placeholder="Total del pedido" readonly />
                             </div>
                         </div>
                         <div class="mt-4 gap-4 rounded-xl border border-zinc-400 p-4 dark:border-zinc-800">
@@ -284,9 +264,9 @@
                             <div class="absolute right-0 top-0 m-4">
                                 <div class="relative w-max">
                                     <x-button type="button" icon="refresh" typeButton="secondary" onlyIcon="true"
-                                        class="show-options" />
-                                    <div
-                                        class="options absolute right-0 top-11 z-10 hidden w-40 rounded-lg border border-zinc-400 bg-white p-2 dark:border-zinc-800 dark:bg-zinc-950">
+                                        class="show-options" data-target="#filterDropdown" />
+                                    <div class="options absolute right-0 top-11 z-10 hidden w-40 rounded-lg border border-zinc-400 bg-white p-2 dark:border-zinc-800 dark:bg-zinc-950"
+                                        id="filterDropdown">
                                         <p class="font-semibold text-zinc-800 dark:text-zinc-300">
                                             Cambiar estado
                                         </p>

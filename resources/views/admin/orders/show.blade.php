@@ -115,7 +115,7 @@
                                                 Nombre completo:
                                             </span>
                                             <x-paragraph
-                                                class="sm:ms-7">{{ $order->user->name . ' ' . $order->user->last_name }}
+                                                class="sm:ms-4">{{ $order->user->name . ' ' . $order->user->last_name }}
                                             </x-paragraph>
                                         </div>
                                         <div
@@ -124,7 +124,7 @@
                                                 <x-icon icon="mail" class="h-5 w-5" />
                                                 Email:
                                             </span>
-                                            <x-paragraph class="sm:ms-7">{{ $order->user->email }}</x-paragraph>
+                                            <x-paragraph class="sm:ms-4">{{ $order->user->email }}</x-paragraph>
                                         </div>
                                         <div
                                             class="flex flex-col items-center gap-2 text-sm text-zinc-800 dark:text-zinc-300 sm:items-baseline">
@@ -132,7 +132,7 @@
                                                 <x-icon icon="phone" class="h-5 w-5" />
                                                 Telefono:
                                             </span>
-                                            <x-paragraph class="sm:ms-7">+
+                                            <x-paragraph class="sm:ms-4">+
                                                 {{ $order->customer->area_code . ' ' . $order->customer->phone }}
                                             </x-paragraph>
                                         </div>
@@ -142,7 +142,7 @@
                                                 <x-icon icon="home" class="h-5 w-5" />
                                                 Dirección:
                                             </span>
-                                            <x-paragraph class="w-52 text-center sm:ms-7 sm:text-left">
+                                            <x-paragraph class="w-60 text-center sm:ms-4 sm:text-left">
                                                 {{ $order->address->address_line_1 .
                                                     ', ' .
                                                     $order->address->address_line_2 .
@@ -166,7 +166,7 @@
                                                 <x-icon icon="truck" class="h-5 w-5" />
                                                 Envío:
                                             </span>
-                                            <x-paragraph class="sm:ms-7">
+                                            <x-paragraph class="sm:ms-4">
                                                 {{ $order->shipping_method->name }}
                                             </x-paragraph>
                                         </div>
@@ -176,7 +176,7 @@
                                                 <x-icon icon="clock" class="h-5 w-5" />
                                                 Tiempo de entrega:
                                             </span>
-                                            <x-paragraph class="sm:ms-7">
+                                            <x-paragraph class="sm:ms-4">
                                                 {{ $order->shipping_method->time }}
                                             </x-paragraph>
                                         </div>
@@ -193,11 +193,32 @@
                                                 <x-icon icon="credit-card" class="h-5 w-5" />
                                                 Método de pago:
                                             </span>
-                                            <x-paragraph class="ms-7">
+                                            <x-paragraph class="ms-4">
                                                 {{ $order->payment_method->name }}
                                             </x-paragraph>
                                         </div>
                                     </div>
+                                    @if ($order->payment_status === 'paid')
+                                        <div
+                                            class="flex flex-col items-center gap-2 text-sm text-zinc-800 dark:text-zinc-300 sm:items-baseline">
+                                            <span class="flex items-center gap-2">
+                                                <x-icon icon="check-circle" class="h-5 w-5" />
+                                                Estado de pago:
+                                            </span>
+                                            <x-paragraph class="sm:ms-4">Pagado</x-paragraph>
+                                        </div>
+                                        <div
+                                            class="flex flex-col items-center gap-2 text-sm text-zinc-800 dark:text-zinc-300 sm:items-baseline">
+                                            <span class="flex items-center gap-2">
+                                                <x-icon icon="calendar" class="h-5 w-5" />
+                                                Fecha de pago:
+                                            </span>
+                                            <x-paragraph class="sm:ms-4">
+                                                {{ \Carbon\Carbon::parse($order->payment_date)->format('d M, Y h:i:s') }}
+                                            </x-paragraph>
+                                        </div>
+                                    @endif
+
                                 </div>
                             </div>
 
@@ -260,9 +281,7 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                             <div class="mt-4 rounded-xl border border-zinc-400 p-4 dark:border-zinc-800">
                                 <h3 class="text-xl font-bold text-zinc-800 dark:text-zinc-300">
                                     Estado del pedido
@@ -270,6 +289,26 @@
                                 <div class="mt-2 flex flex-col gap-4">
                                     <div>
                                         <x-status-badge status="{{ $order->status }}" color="yellow" />
+                                        <div class="mt-2">
+                                            @if ($order->status === 'sent')
+                                                <x-paragraph>
+                                                    Fecha de envío:
+                                                    {{ \Carbon\Carbon::parse($order->shipped_at)->format('d M, Y h:i:s') }}
+                                                </x-paragraph>
+                                            @endif
+                                            @if ($order->status === 'completed')
+                                                <x-paragraph>
+                                                    Fecha de entrega:
+                                                    {{ \Carbon\Carbon::parse($order->delivered_at)->format('d M, Y h:i:s') }}
+                                                </x-paragraph>
+                                            @endif
+                                            @if ($order->status === 'canceled')
+                                                <x-paragraph>
+                                                    Fecha de cancelación:
+                                                    {{ \Carbon\Carbon::parse($order->cancelled_at)->format('d M, Y h:i:s') }}
+                                                </x-paragraph>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </div>
