@@ -117,13 +117,13 @@
         <div class="mt-8">
             <div class="text-center">
                 <h2 class="my-4 text-center text-3xl text-light-blue sm:text-4xl md:text-5xl">
-                    ¡Peludos consentidos a la vista¡
+                    ¡Peludos consentidos a la vista!
                 </h2>
             </div>
-            <div class="relative right-24 mb-[600px] mt-14 flex items-center justify-center">
+            <div class="relative right-24 mb-[650px] mt-14 flex items-center justify-center">
                 <!-- Card 1 -->
                 <div
-                    class="card absolute top-0 z-10 w-max -translate-x-10 translate-y-[150px] rotate-12 transform rounded-[30px] border border-zinc-100 bg-white p-2 shadow-2xl sm:-translate-x-20 sm:p-6 md:-translate-x-60 md:translate-y-[100px]">
+                    class="card absolute top-0 z-10 w-max -translate-x-10 translate-y-[150px] rotate-12 transform rounded-[30px] border border-zinc-100 bg-white p-2 shadow-2xl sm:-translate-x-20 sm:p-6 md:-translate-x-40 md:translate-y-[100px]">
                     <div class="card-header flex items-center gap-2 md:gap-4">
                         <img src="{{ asset('img/logo.png') }}" alt="Featured2 image"
                             class="h-8 w-8 rounded-full object-cover md:h-14 md:w-14">
@@ -160,7 +160,44 @@
 
                 <!-- Card 2 -->
                 <div
-                    class="card absolute top-0 z-0 w-max translate-x-[50px] -rotate-12 transform rounded-[30px] border border-zinc-100 bg-white p-2 shadow-2xl sm:p-6 md:translate-x-[10px]">
+                    class="card absolute top-0 -z-10 w-max -translate-x-10 translate-y-10 rotate-[-20deg] transform rounded-[30px] border border-zinc-100 bg-white p-2 shadow-2xl sm:-translate-x-20 sm:p-6 md:-translate-x-96 md:translate-y-[100px]">
+                    <div class="card-header flex items-center gap-2 md:gap-4">
+                        <img src="{{ asset('img/logo.png') }}" alt="Featured2 image"
+                            class="h-8 w-8 rounded-full object-cover md:h-14 md:w-14">
+                        <div class="flex flex-col items-start">
+                            <p class="font-pluto-r text-[8px] text-light-blue md:text-sm">miguitaselsalvador</p>
+                            <p class="font-pluto-m text-sm text-gray-store md:text-base">El Salvador</p>
+                        </div>
+                    </div>
+                    <div class="card-image mt-2">
+                        <img src="{{ asset('img/pets1.jpg') }}" alt="Featured2 image"
+                            class="h-48 w-48 rounded-xl object-cover md:h-52 md:w-52">
+                    </div>
+                    <div class="card-body mt-2">
+                        <div class="flex items-center justify-start">
+                            <div class="flex items-center gap-3">
+                                <div>
+                                    <x-icon-store icon="heart" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
+                                </div>
+                                <div>
+                                    <x-icon-store icon="comment" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
+                                </div>
+                                <div>
+                                    <x-icon-store icon="send" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <small class="mt-2 block text-start">
+                                <p class="font-pluto-m text-xs text-gray-store sm:text-sm">13,355 view</p>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div
+                    class="card absolute top-0 z-0 w-max -translate-y-10 translate-x-[50px] -rotate-12 transform rounded-[30px] border border-zinc-100 bg-white p-2 shadow-2xl sm:p-6 md:translate-x-[50px]">
                     <div class="card-header flex items-center gap-2 md:gap-4">
                         <img src="{{ asset('img/logo.png') }}" alt="Featured2 image"
                             class="h-8 w-8 rounded-full object-cover md:h-14 md:w-14">
@@ -195,7 +232,7 @@
                     </div>
                 </div>
 
-                <!-- Card 3 -->
+                <!-- Card 4 -->
                 <div
                     class="card absolute top-0 z-20 w-max translate-x-[200px] translate-y-[150px] rotate-3 transform rounded-[30px] border border-zinc-100 bg-white p-2 shadow-2xl sm:p-6">
                     <div class="card-header flex items-center gap-2 md:gap-4">
@@ -232,9 +269,46 @@
                     </div>
                 </div>
 
-                <!-- Card 4 -->
+                <!-- Card 5 -->
                 <div
                     class="card absolute top-0 z-0 w-max -translate-y-[20px] translate-x-[210px] -rotate-12 transform rounded-[30px] border border-zinc-100 bg-white p-2 shadow-2xl sm:translate-x-[310px] sm:p-4 md:translate-x-[410px] md:translate-y-[60px]">
+                    <div class="card-header flex items-center gap-2 md:gap-4">
+                        <img src="{{ asset('img/logo.png') }}" alt="Featured2 image"
+                            class="h-8 w-8 rounded-full object-cover md:h-14 md:w-14">
+                        <div class="flex flex-col items-start">
+                            <p class="font-pluto-r text-[8px] text-light-blue md:text-sm">miguitaselsalvador</p>
+                            <p class="font-pluto-m text-sm text-gray-store md:text-base">El Salvador</p>
+                        </div>
+                    </div>
+                    <div class="card-image mt-2">
+                        <img src="{{ asset('img/pets4.jpg') }}" alt="Featured2 image"
+                            class="h-48 w-48 rounded-xl object-cover md:h-52 md:w-52">
+                    </div>
+                    <div class="card-body mt-2">
+                        <div class="flex items-center justify-start">
+                            <div class="flex items-center gap-3">
+                                <div>
+                                    <x-icon-store icon="heart" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
+                                </div>
+                                <div>
+                                    <x-icon-store icon="comment" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
+                                </div>
+                                <div>
+                                    <x-icon-store icon="send" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <small class="mt-2 block text-start">
+                                <p class="font-pluto-m text-xs text-gray-store sm:text-sm">13,355 view</p>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div
+                    class="card absolute top-0 z-0 w-max -translate-y-[20px] translate-x-[210px] rotate-[15deg] transform rounded-[30px] border border-zinc-100 bg-white p-2 shadow-2xl sm:translate-x-[310px] sm:p-4 md:translate-x-[610px] md:translate-y-[200px]">
                     <div class="card-header flex items-center gap-2 md:gap-4">
                         <img src="{{ asset('img/logo.png') }}" alt="Featured2 image"
                             class="h-8 w-8 rounded-full object-cover md:h-14 md:w-14">
@@ -271,44 +345,98 @@
             </div>
         </div>
 
-        <div data-aos="fade-up">
-            <div
-                class="mx-auto flex w-full flex-col gap-4 rounded-3xl border border-zinc-100 p-10 px-4 shadow-xl sm:flex-row lg:w-3/4">
+        <div data-aos="fade-up" class="mx-auto w-full px-6 xl:w-3/4 xl:px-0">
+            <div class="flex flex-col items-center gap-8 lg:flex-row">
                 <div class="flex-1">
-                    <div>
-                        <h4 class="text-center text-xl font-bold text-dark-pink sm:text-2xl md:text-3xl">
-                            Cake Corazón FurryLove
-                        </h4>
-                        <p class="mt-4 font-dine-r text-sm text-zinc-600 sm:text-base md:text-lg">
-                            Creamos este pastel natural y especial para que la pancita de tu amor eterno se alegre aun
-                            más
-                            ya sea compartiéndolo con sus amigos o hermanitos, o el sólito. Porque ellos no son solo
-                            nuestros mejores amigos, sino también nuestros amores eternos y fieles. ¡Por eso los
-                            consentimos!
-                        </p>
-                        <p class="mt-4 font-dine-r text-sm text-zinc-600 sm:text-base md:text-lg">
-                            Todos nuestros productos son horneados con ingredientes naturales, sin preservantes
-                            artificiales, no contienen trigo (principal alérgeno) y son elaborados especialmente para su
-                            peludo!
-                        </p>
-                        <div class="mt-4 flex items-center justify-center">
-                            <x-button-store type="a" href="#" class="w-full sm:w-auto" typeButton="primary"
-                                text="Ver producto" size="large" />
-                        </div>
+                    <h2 class="text-left text-2xl font-bold text-light-blue sm:text-3xl md:text-4xl">
+                        Nuestros mejores pasteles
+                    </h2>
+                    <p class="mt-4 font-dine-r text-sm text-gray-store sm:text-base md:text-lg">
+                        Conoce las mejores recetas de pasteles para tu peludo.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias dolorem impedit totam voluptatem
+                        nesciunt
+                        a quaerat recusandae maxime illo commodi? Consectetur, cumque repudiandae. Qui perferendis nisi ab
+                        autem. Dolore, vitae.
+                    </p>
+                    <div class="mt-4">
+                        <x-button-store type="button" typeButton="primary" text="Ver más" />
                     </div>
                 </div>
                 <div class="flex-1">
-                    <div class="flex items-center justify-center">
-                        <img src="{{ asset('img/cake-corazon.png') }}" class="h-96 w-96 object-cover"
-                            alt="Cake corazon">
+                    <!-- Tabs Content -->
+                    <div class="tabs-content rounded-b-lg bg-white p-2 sm:p-4 md:p-6">
+                        <div id="tab-apple" class="tab-panel">
+                            <div class="flex animate-fade-up items-center justify-center">
+                                <img src="{{ asset('img/cake-corazon.png') }}" alt="Pastel 1"
+                                    class="h-96 w-96 object-cover">
+                            </div>
+                        </div>
+                        <div id="tab-banan" class="tab-panel hidden">
+                            <div class="flex animate-fade-up items-center justify-center">
+                                <img src="{{ asset('img/cake-corazon.png') }}" alt="Pastel 1"
+                                    class="h-96 w-96 object-cover">
+                            </div>
+                        </div>
+                        <div id="tab-chicken" class="tab-panel hidden">
+                            <div class="flex animate-fade-up items-center justify-center">
+                                <img src="{{ asset('img/cake-corazon.png') }}" alt="Pastel 1"
+                                    class="h-96 w-96 object-cover">
+                            </div>
+                        </div>
+                        <div id="tab-meat" class="tab-panel hidden">
+                            <div class="flex items-center justify-center">
+                                <img src="{{ asset('img/cake-corazon.png') }}" alt="Pastel 1"
+                                    class="h-96 w-96 object-cover">
+                            </div>
+                        </div>
+                        <div id="tab-peanut" class="tab-panel hidden">
+                            <div class="flex animate-fade-up items-center justify-center">
+                                <img src="{{ asset('img/cake-corazon.png') }}" alt="Pastel 1"
+                                    class="h-96 w-96 object-cover">
+                            </div>
+                        </div>
+                        <div id="tab-tuna" class="tab-panel hidden">
+                            <div class="flex animate-fade-up items-center justify-center">
+                                <img src="{{ asset('img/cake-corazon.png') }}" alt="Pastel 1"
+                                    class="h-96 w-96 object-cover">
+                            </div>
+                        </div>
                     </div>
-                    <div class="mt-4">
-                        <p class="mt-4 font-dine-r text-sm text-blue-store sm:text-base md:text-lg">
-                            (Mantequilla maní natural, Tocino horneado, Zanahoria, Queso. Se recomienda que el o los
-                            peluditos hayan probado anteriormente un treat de sabor de mantequilla de maní)
-                        </p>
+                    <div class="mx-auto mt-8 w-full">
+                        <!-- Tabs Header -->
+                        <div class="tabs-header flex flex-wrap justify-center rounded-t-lg">
+                            <button
+                                class="tab-btn active-tab text-nowrap px-6 py-2 text-xs font-medium text-zinc-700 focus:outline-none"
+                                data-target="#tab-apple">
+                                Apple
+                            </button>
+                            <button
+                                class="tab-btn text-nowrap px-6 py-2 text-xs font-medium text-zinc-700 focus:outline-none"
+                                data-target="#tab-banan">
+                                Banan
+                            </button>
+                            <button
+                                class="tab-btn text-nowrap px-6 py-2 text-xs font-medium text-zinc-700 focus:outline-none"
+                                data-target="#tab-chicken">
+                                Chicken
+                            </button>
+                            <button
+                                class="tab-btn text-nowrap px-6 py-2 text-xs font-medium text-zinc-700 focus:outline-none"
+                                data-target="#tab-meat">
+                                Meat
+                            </button>
+                            <button
+                                class="tab-btn text-nowrap px-6 py-2 text-xs font-medium text-zinc-700 focus:outline-none"
+                                data-target="#tab-peanut">
+                                Peanut
+                            </button>
+                            <button
+                                class="tab-btn text-nowrap px-6 py-2 text-xs font-medium text-zinc-700 focus:outline-none"
+                                data-target="#tab-tuna">
+                                Tuna
+                            </button>
+                        </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -379,63 +507,70 @@
         @endif
 
         <div class="my-20">
-            <div class="relative mx-auto flex w-full px-4 xl:w-1/2">
-                <div
-                    class="absolute -bottom-36 left-0 z-10 flex-1 rotate-6 transform shadow-2xl sm:relative sm:-top-5 sm:left-2">
-                    <img src="{{ asset('img/pack-products.png') }}" class="h-40 w-40 object-cover sm:h-full sm:w-full"
-                        alt="Pack products">
-                </div>
-                <div class="h-max flex-[2]">
-                    <h4 class="text-center text-xl font-bold uppercase text-light-blue sm:text-2xl md:text-3xl">
-                        PAWTY PACKS
-                    </h4>
-                    <div class="relative ms-4 mt-4 rounded-e-[30px] border border-zinc-200 px-10 py-6 shadow-xl">
-                        <p class="font-dine-r text-base text-zinc-600 md:text-lg">
-                            ¡La mejor manera de celebrar a tu peludo en su cumpleaños, su adopción, su logro o cualquier
-                            otro motivo!
-                        </p>
-                        <p class="mt-8 font-dine-r text-base text-zinc-600 md:text-lg">
-                            Incluye pastel o pupcakes, 1 gorro, 3 globos, 1 galleta, 1 número de galleta y 1 bandana
-                            birthday
-                            boy o girl. También puedes comprar estos artículos individualmente.
-                        </p>
-                        <div class="absolute -bottom-6 right-0 z-30">
-                            <x-button-store class="uppercase" text="Compre su PAWTY PACK completo" type="button"
-                                typeButton="primary" />
+            <div>
+                <h2 class="my-4 text-center text-2xl font-bold text-light-blue sm:text-3xl md:text-4xl">
+                    Packs de productos
+                </h2>
+            </div>
+            <div class="relative mt-8 flex w-auto items-center justify-center overflow-hidden">
+                <!-- Slider Container -->
+                <div class="relative ms-0 flex w-full transition-transform duration-500 md:ms-[150px] lg:ms-[250px] xl:ms-[510px]"
+                    id="slider">
+                    <!-- Slide 1 -->
+                    <div class="slider-pack relative flex w-full flex-shrink-0 items-center justify-center sm:w-[800px]">
+                        <img src="{{ asset('img/pack-products.png') }}" alt="Pack 1"
+                            class="h-80 w-[600px] rounded-xl border object-cover">
+                        <div
+                            class="absolute mx-auto flex w-80 flex-col gap-2 rounded-lg bg-white bg-opacity-80 p-4 shadow-lg backdrop-blur-lg sm:-right-10 sm:bottom-auto sm:top-40">
+                            <h5 class="font-dine-r text-sm font-semibold text-blue-store sm:text-base md:text-lg">
+                                Título del pack 1
+                            </h5>
+                            <p class="text-wrap font-dine-r text-xs text-zinc-800 sm:text-sm">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="slider-pack relative flex w-full flex-shrink-0 items-center justify-center sm:w-[800px]">
+                        <img src="{{ asset('img/pack-products.png') }}" alt="Pack 1"
+                            class="h-80 w-[600px] rounded-xl border object-cover">
+                        <div
+                            class="absolute mx-auto flex w-80 flex-col gap-2 rounded-lg bg-white bg-opacity-80 p-4 shadow-lg backdrop-blur-lg sm:-right-10 sm:bottom-auto sm:top-40">
+                            <h5 class="font-dine-r text-sm font-semibold text-blue-store sm:text-base md:text-lg">
+                                Título del pack 1
+                            </h5>
+                            <p class="text-wrap font-dine-r text-xs text-zinc-800 sm:text-sm">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="slider-pack relative flex w-full flex-shrink-0 items-center justify-center sm:w-[800px]">
+                        <img src="{{ asset('img/pack-products.png') }}" alt="Pack 1"
+                            class="h-80 w-[600px] rounded-xl border object-cover">
+                        <div
+                            class="absolute mx-auto flex w-80 flex-col gap-2 rounded-lg bg-white bg-opacity-80 p-4 shadow-lg backdrop-blur-lg sm:-right-10 sm:bottom-auto sm:top-40">
+                            <h5 class="font-dine-r text-sm font-semibold text-blue-store sm:text-base md:text-lg">
+                                Título del pack 1
+                            </h5>
+                            <p class="text-wrap font-dine-r text-xs text-zinc-800 sm:text-sm">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+                            </p>
                         </div>
                     </div>
                 </div>
+                <!-- Controls slider -->
             </div>
-            <div class="relative mx-auto mt-56 flex w-full px-4 sm:mt-20 xl:w-1/2">
-                <div
-                    class="absolute -bottom-36 left-0 z-10 flex-1 rotate-6 transform shadow-2xl sm:relative sm:-top-5 sm:left-2">
-                    <img src="{{ asset('img/pack-products.png') }}" class="h-40 w-40 object-cover sm:h-full sm:w-full"
-                        alt="Pack products">
-                </div>
-                <div class="h-max flex-[2]">
-                    <h4 class="text-center text-xl font-bold uppercase text-light-blue sm:text-2xl md:text-3xl">
-                        PAWTY PACKS
-                    </h4>
-                    <div class="relative ms-4 mt-4 rounded-e-[30px] border border-zinc-200 px-10 py-6 shadow-xl">
-                        <p class="font-dine-r text-base text-zinc-600 md:text-lg">
-                            ¡La mejor manera de celebrar a tu peludo en su cumpleaños, su adopción, su logro o cualquier
-                            otro motivo!
-                        </p>
-                        <p class="mt-8 font-dine-r text-base text-zinc-600 md:text-lg">
-                            Incluye pastel o pupcakes, 1 gorro, 3 globos, 1 galleta, 1 número de galleta y 1 bandana
-                            birthday
-                            boy o girl. También puedes comprar estos artículos individualmente.
-                        </p>
-                        <div class="absolute -bottom-6 right-0 z-30">
-                            <x-button-store class="uppercase" text="Compre su PAWTY PACK completo" type="button"
-                                typeButton="primary" />
-                        </div>
-                    </div>
-                </div>
+            <div
+                class="ms-0 mt-8 flex w-full justify-center gap-4 sm:ms-[180px] sm:justify-start lg:ms-[220px] xl:ms-[350px]">
+                <x-button-store type="button" typeButton="primary" icon="arrow-left" onlyIcon id="prev-slider-pack" />
+                <x-button-store type="button" typeButton="primary" icon="arrow-right" onlyIcon id="next-slider-pack" />
             </div>
+
+
         </div>
 
-        <div class="mt-56 sm:mt-20">
+        <div class="mt-56 sm:mt-24">
             <div class="text-center">
                 <h2 class="my-4 text-center text-3xl text-light-blue sm:text-4xl md:text-5xl">
                     MiguiNews
@@ -605,6 +740,8 @@
 
 
 @push('scripts')
+    @vite('resources/js/store/slider-pack.js')
+    @vite('resources/js/store/product-view.js')
     <script>
         var copy = document.querySelector(".marquee-slider").cloneNode(true);
         document.querySelector(".marquees").appendChild(copy);
