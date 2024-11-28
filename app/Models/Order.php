@@ -59,7 +59,6 @@ class Order extends Model
         "delivered_at" => "datetime",
         "cancelled_at" => "datetime",
         "completed_at" => "datetime",
-        "estimated_delivery" => "datetime",
     ];
 
     protected $fillable = [
