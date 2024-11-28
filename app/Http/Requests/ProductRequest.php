@@ -40,7 +40,7 @@ class ProductRequest extends FormRequest
             "barcode" => "nullable|string",
             "weight" => "nullable|numeric",
             "categorie_id" => "required|numeric",
-            "subcategories" => "required|array",
+            "subcategories" => "nullable|array",
         ];
     }
 }
