@@ -7,11 +7,9 @@
                 <div class="main-image relative flex w-full items-center justify-center">
                     <img src="{{ Storage::url($product->main_image) }}" alt="Imagen {{ $product->name }}"
                         class="h-96 w-full max-w-xl rounded-2xl object-cover">
-
                     <button class="absolute right-0 top-0 m-4 rounded-full bg-white p-2">
                         <x-icon-store icon="heart" class="h-4 w-4 fill-rose-400 sm:w-6 md:h-6" />
                     </button>
-
                 </div>
                 <div class="flex h-20 w-max items-center justify-center gap-2 overflow-hidden py-20">
                     <button class="button-prev-images cursor-pointer rounded-full fill-dark-blue p-1">
