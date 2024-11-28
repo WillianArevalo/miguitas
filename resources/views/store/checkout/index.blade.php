@@ -115,7 +115,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mt-8">
+
+                                {{-- <div class="mt-8">
                                     <div class="flex flex-col gap-4">
                                         <h3 class="text-2xl uppercase text-blue-store sm:text-3xl md:text-4xl">
                                             Método de pago
@@ -129,22 +130,25 @@
                                             </div>
                                             @if ($payment_methods->count() > 0)
                                                 @foreach ($payment_methods as $method)
-                                                    <div
-                                                        class="flex items-center gap-4 rounded-2xl border border-zinc-300 p-4 font-pluto-r text-sm text-zinc-600 shadow-sm sm:text-base">
-                                                        <input type="radio" name="payment_method"
-                                                            data-url="{{ Route('cart.apply-payment-method', $method->id) }}"
-                                                            id="{{ $method->id }}" value="{{ $method->id }}"
-                                                            @if ($method->id == $cart->payment_method_id) checked @endif>
-                                                        <img src="{{ Storage::url($method->image) }}"
-                                                            alt="Imagen del método de pago"
-                                                            class="h-10 w-10 object-contain">
-                                                        {{ $method->name }}
-                                                    </div>
+                                                    @if ($payment_methods === 'Wompi')
+                                                        <div>
+                                                            <form action="{{ Route('link.wompi') }}" method="POST"
+                                                                class="form-paid">
+                                                                @csrf
+                                                                <input type="hidden" name="number_order"
+                                                                    value="{{ $order->number_order }}">
+                                                                <x-button-store icon="credit-card" type="submit"
+                                                                    typeButton="primary" onlyIcon="true" class="w-max"
+                                                                    class="pay-order" />
+                                                            </form>
+                                                        </div>
+                                                    @endif
                                                 @endforeach
                                             @endif
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
+
                             </div>
                         </div>
 
@@ -285,7 +289,7 @@
                         <form action="{{ Route('orders.store') }}" method="POST">
                             @csrf
                             <x-button-store id="btn-completed-order" class="hidden" type="submit"
-                                text="Finalizar compra" typeButton="primary" size="large" />
+                                text="Realizar pedido" typeButton="primary" size="large" />
                         </form>
                     </div>
                 </div>
