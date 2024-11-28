@@ -25,7 +25,6 @@
                         <div class="mt-4 flex flex-col gap-4 lg:flex-row">
                             <!-- Column 1 -->
                             <div class="flex flex-1 flex-col gap-4">
-
                                 <!-- General info -->
                                 <div>
                                     <h4
@@ -242,12 +241,149 @@
                                     </div>
                                 </div>
                                 <!-- End SEO info -->
+                            </div>
+                            <!-- End column 1 -->
+
+                            <!-- Column 2 -->
+                            <div class="flex flex-1 flex-col gap-4">
+                                <!-- Images -->
+                                <div>
+                                    <h4
+                                        class="mb-2 text-base font-semibold text-primary-800 dark:text-primary-500 md:text-lg">
+                                        Etiquetas
+                                    </h4>
+                                    <div
+                                        class="h-max rounded-lg border border-zinc-400 bg-transparent p-4 dark:border-zinc-800 dark:bg-black">
+                                        <div>
+                                            <x-paragraph
+                                                class="mb-2 after:ml-0.5 after:text-red-500 after:content-['*'] dark:text-zinc-400">
+                                                Imagen principal
+                                            </x-paragraph>
+                                            <label for="main_image"
+                                                class="dark:hover:bg-bray-800 @error('main_image') is-invalid  @enderror flex h-80 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-zinc-400 bg-zinc-50 hover:bg-zinc-100 dark:border-zinc-800 dark:bg-transparent dark:hover:border-zinc-800 dark:hover:bg-zinc-950">
+                                                <div class="hidden flex-col items-center justify-center pb-6 pt-5">
+                                                    <x-icon icon="cloud-upload"
+                                                        class="h-12 w-12 text-zinc-400 dark:text-zinc-500" />
+                                                    <p class="mb-2 text-sm text-zinc-500 dark:text-zinc-400">
+                                                        <span class="font-semibold">
+                                                            Clic para agregar
+                                                        </span>
+                                                        o desliza la imagen
+                                                    </p>
+                                                    <p class="text-xs text-zinc-500 dark:text-zinc-400">
+                                                        PNG, JPG, WEBP
+                                                    </p>
+                                                </div>
+                                                <input id="main_image" type="file" class="hidden"
+                                                    name="main_image" />
+                                                <img src="{{ Storage::url($product->main_image) }}"
+                                                    alt="Preview Image {{ $product->name }}" id="previewImage"
+                                                    class="m-10 h-64 w-56 object-cover">
+                                            </label>
+                                        </div>
+                                        <div class="mt-4">
+                                            <div
+                                                class="@php $product->images->count()>0 ? "h-auto": "h-24" @endphp mt-4 flex flex-wrap justify-start gap-2 rounded-lg border-2 border-dashed border-zinc-400 dark:border-zinc-800">
+                                                @if ($product->images->count() > 0)
+                                                    @foreach ($product->images as $image)
+                                                        <div class="m-2 flex flex-col items-center justify-center gap-2">
+                                                            <img src="{{ Storage::url($image->image) }}"
+                                                                alt="Galería de imágenes {{ $product->name }}"
+                                                                class="h-20 w-20 rounded-lg object-cover">
+                                                            <form action="{{ Route('admin.products.delete-image', $image->id) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <x-button type="submit" id="deleteImage"
+                                                                    typeButton="danger" icon="delete" size="small"
+                                                                    text="Eliminar" />
+                                                            </form>
+                                                        </div>
+                                                    @endforeach
+                                                @else
+                                                    <x-paragraph>
+                                                        Sin imágenes registradas
+                                                    </x-paragraph>
+                                                @endif
+                                            </div>
+
+                                            <div class="mb-2 mt-4 flex items-center justify-between">
+                                                <div>
+                                                    <x-paragraph>
+                                                        Nuevas imágenes
+                                                    </x-paragraph>
+                                                    <x-paragraph class="w-48 text-xs">
+                                                        Nota: Selecciona todas las imáges de una sola vez.
+                                                    </x-paragraph>
+                                                </div>
+                                                <div class="flex gap-2 text-sm text-zinc-400">
+                                                    <label for="gallery_image"
+                                                        class="flex cursor-pointer items-center gap-2 rounded-lg border border-zinc-400 px-3.5 py-2.5 text-sm font-medium text-zinc-600 transition-colors hover:bg-zinc-100 dark:border-zinc-800 dark:text-white dark:hover:bg-zinc-900">
+                                                        <x-icon icon="image-add" class="h-4 w-4 text-current" />
+                                                        <span class="hidden sm:block">
+                                                            Seleccionar imágenes
+                                                        </span>
+                                                    </label>
+                                                    <input type="file" name="images" id="gallery_image" multiple
+                                                        class="hidden">
+                                                    <x-button type="button" id="reloadImages" typeButton="secondary"
+                                                        icon="reload" onlyIcon="true" />
+                                                </div>
+                                            </div>
+                                            <div class="mt-4 flex h-24 flex-wrap justify-start gap-2 rounded-lg border-2 border-dashed border-zinc-400 dark:border-zinc-800"
+                                                id="previewImagesContainer">
+                                                <x-paragraph class="m-auto">Sin imágenes seleccionadas</x-paragraph>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Images -->
+
+                                <!-- Inventory -->
+                                <div>
+                                    <h4
+                                        class="mb-2 text-base font-semibold text-primary-800 dark:text-primary-500 md:text-lg">
+                                        Inventario
+                                    </h4>
+                                    <div
+                                        class="h-max rounded-lg border border-zinc-400 bg-transparent p-4 dark:border-zinc-800 dark:bg-black">
+                                        <div class="flex flex-col gap-4 sm:flex-row">
+                                            <div class="flex-1">
+                                                <x-input label="SKU" type="text" id="sku" name="sku"
+                                                    value="{{ $product->sku }}" placeholder="XXXXXX"
+                                                    required="required" />
+                                            </div>
+                                            <div class="flex-[2]">
+                                                <x-input label="Código de barras" type="text" id="barcode"
+                                                    name="barcode" value="{{ $product->barcode }}"
+                                                    placeholder="Código de barras del producto" required="required" />
+                                            </div>
+                                        </div>
+                                        <div class="mt-4 flex flex-col gap-4 sm:flex-row">
+                                            <div class="flex-1">
+                                                <x-input label="Cantidad" type="number" id="stock" name="stock"
+                                                    value="{{ $product->stock }}" placeholder="#" required="required" />
+                                            </div>
+                                            <div class="flex-1">
+                                                <x-input label="Cantidad máxima" type="number" id="max_stock"
+                                                    name="max_stock" value="{{ $product->max_stock }}" placeholder="#"
+                                                    required="required" />
+                                            </div>
+                                            <div class="flex-1">
+                                                <x-input label="Cantidad mínima" type="number" id="min_stock"
+                                                    name="min_stock" value="{{ $product->min_stock }}" placeholder="#"
+                                                    required="required" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End inventory -->
 
                                 <!-- Shipping info -->
                                 <div>
                                     <h4
                                         class="mb-2 text-base font-semibold text-primary-800 dark:text-primary-500 md:text-lg">
-                                        Información de Etiquetas
+                                        Información de ventas
                                     </h4>
                                     <div
                                         class="h-max rounded-lg border border-zinc-400 bg-transparent dark:border-zinc-800 dark:bg-black">
@@ -347,126 +483,6 @@
                                     </div>
                                 </div>
                                 <!-- End shipping info -->
-                            </div>
-                            <!-- End column 1 -->
-
-                            <!-- Column 2 -->
-                            <div class="flex flex-1 flex-col gap-4">
-                                <!-- Images -->
-                                <div>
-                                    <h4
-                                        class="mb-2 text-base font-semibold text-primary-800 dark:text-primary-500 md:text-lg">
-                                        Etiquetas
-                                    </h4>
-                                    <div
-                                        class="h-max rounded-lg border border-zinc-400 bg-transparent p-4 dark:border-zinc-800 dark:bg-black">
-                                        <div>
-                                            <x-paragraph
-                                                class="mb-2 after:ml-0.5 after:text-red-500 after:content-['*'] dark:text-zinc-400">
-                                                Imagen principal
-                                            </x-paragraph>
-                                            <label for="main_image"
-                                                class="dark:hover:bg-bray-800 @error('main_image') is-invalid  @enderror flex h-80 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-zinc-400 bg-zinc-50 hover:bg-zinc-100 dark:border-zinc-800 dark:bg-transparent dark:hover:border-zinc-800 dark:hover:bg-zinc-950">
-                                                <div class="hidden flex-col items-center justify-center pb-6 pt-5">
-                                                    <x-icon icon="cloud-upload"
-                                                        class="h-12 w-12 text-zinc-400 dark:text-zinc-500" />
-                                                    <p class="mb-2 text-sm text-zinc-500 dark:text-zinc-400">
-                                                        <span class="font-semibold">
-                                                            Clic para agregar
-                                                        </span>
-                                                        o desliza la imagen
-                                                    </p>
-                                                    <p class="text-xs text-zinc-500 dark:text-zinc-400">
-                                                        PNG, JPG, WEBP
-                                                    </p>
-                                                </div>
-                                                <input id="main_image" type="file" class="hidden"
-                                                    name="main_image" />
-                                                <img src="{{ Storage::url($product->main_image) }}"
-                                                    alt="Preview Image {{ $product->name }}" id="previewImage"
-                                                    class="m-10 h-64 w-56 object-cover">
-                                            </label>
-                                        </div>
-                                        <div class="mt-4">
-                                            <div class="mb-2 flex items-center justify-between">
-                                                <div>
-                                                    <x-paragraph>
-                                                        Galería de imágenes
-                                                    </x-paragraph>
-                                                    <x-paragraph class="w-48 text-xs">
-                                                        Nota: Selecciona todas las imáges de una sola vez.
-                                                    </x-paragraph>
-                                                </div>
-                                                <div class="flex gap-2 text-sm text-zinc-400">
-                                                    <label for="gallery_image"
-                                                        class="flex cursor-pointer items-center gap-2 rounded-lg border border-zinc-400 px-3.5 py-2.5 text-sm font-medium text-zinc-600 transition-colors hover:bg-zinc-100 dark:border-zinc-800 dark:text-white dark:hover:bg-zinc-900">
-                                                        <x-icon icon="image-add" class="h-4 w-4 text-current" />
-                                                        <span class="hidden sm:block">
-                                                            Seleccionar imágenes
-                                                        </span>
-                                                    </label>
-                                                    <input type="file" name="gallery_image[]" id="gallery_image"
-                                                        multiple class="hidden">
-                                                    <x-button type="button" id="reloadImages" typeButton="secondary"
-                                                        icon="reload" onlyIcon="true" />
-                                                </div>
-                                            </div>
-                                            <div class="@php $product->images->count()>0 ? "h-auto": "h-24" @endphp mt-4 flex flex-wrap justify-start gap-2 rounded-lg border-2 border-dashed border-zinc-400 dark:border-zinc-800"
-                                                id="previewImagesContainer">
-                                                @if ($product->images->count() > 0)
-                                                    @foreach ($product->images as $image)
-                                                        <div class="m-2 inline-block">
-                                                            <img src="{{ Storage::url($image->image) }}"
-                                                                alt="Galería de imágenes {{ $product->name }}"
-                                                                class="h-20 w-20 rounded-lg object-cover">
-                                                        </div>
-                                                    @endforeach
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Images -->
-
-                                <!-- Inventory -->
-                                <div>
-                                    <h4
-                                        class="mb-2 text-base font-semibold text-primary-800 dark:text-primary-500 md:text-lg">
-                                        Etiquetas
-                                    </h4>
-                                    <div
-                                        class="h-max rounded-lg border border-zinc-400 bg-transparent p-4 dark:border-zinc-800 dark:bg-black">
-                                        <div class="flex flex-col gap-4 sm:flex-row">
-                                            <div class="flex-1">
-                                                <x-input label="SKU" type="text" id="sku" name="sku"
-                                                    value="{{ $product->sku }}" placeholder="XXXXXX"
-                                                    required="required" />
-                                            </div>
-                                            <div class="flex-[2]">
-                                                <x-input label="Código de barras" type="text" id="barcode"
-                                                    name="barcode" value="{{ $product->barcode }}"
-                                                    placeholder="Código de barras del producto" required="required" />
-                                            </div>
-                                        </div>
-                                        <div class="mt-4 flex flex-col gap-4 sm:flex-row">
-                                            <div class="flex-1">
-                                                <x-input label="Cantidad" type="number" id="stock" name="stock"
-                                                    value="{{ $product->stock }}" placeholder="#" required="required" />
-                                            </div>
-                                            <div class="flex-1">
-                                                <x-input label="Cantidad máxima" type="number" id="max_stock"
-                                                    name="max_stock" value="{{ $product->max_stock }}" placeholder="#"
-                                                    required="required" />
-                                            </div>
-                                            <div class="flex-1">
-                                                <x-input label="Cantidad mínima" type="number" id="min_stock"
-                                                    name="min_stock" value="{{ $product->min_stock }}" placeholder="#"
-                                                    required="required" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End inventory -->
 
                                 <!-- Labels -->
                                 <div>

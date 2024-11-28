@@ -46,20 +46,14 @@
                                                     value="{{ old('weight') }}" icon="weight-scale" />
                                             </div>
                                             <div>
-                                                <label
-                                                    class="mb-2 block text-sm font-medium text-zinc-500 dark:text-zinc-300">
-                                                    Descripción corta
-                                                </label>
-                                                <div id="editor-container"></div>
-                                                <input type="hidden" name="short_description" id="short_description">
+                                                <x-input label="Descripción corta" type="textarea" id="short_description"
+                                                    name="short_description" required="required"
+                                                    placeholder="Escribe la descripción corta del producto aquí" />
                                             </div>
                                             <div>
-                                                <label
-                                                    class="mb-2 block text-sm font-medium text-zinc-500 dark:text-zinc-300">
-                                                    Descripción larga
-                                                </label>
-                                                <div id="editor-container-2"></div>
-                                                <input type="hidden" name="long_description" id="long_description">
+                                                <x-input label="Descripción larga" type="textarea" name="long_description"
+                                                    id="long_description"
+                                                    placeholder="Escribe la descripción larga del producto aquí" />
                                             </div>
                                             <div>
                                                 <x-input type="checkbox" name="is_active" id="is_active"
@@ -184,7 +178,8 @@
                                                 Imagen principal
                                             </x-paragraph>
                                             <label for="main_image"
-                                                class="dark:hover:bg-bray-800 @error('main_image') is-invalid  @enderror flex h-80 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-zinc-400 bg-zinc-50 hover:border-primary-500 hover:bg-zinc-100 dark:border-zinc-800 dark:bg-transparent dark:hover:border-primary-950 dark:hover:bg-zinc-950">
+                                                class="dark:hover:bg-bray-800 @error('main_image') is-invalid  @enderror flex h-80 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-zinc-400 bg-zinc-50 hover:border-primary-500 hover:bg-zinc-100 dark:border-zinc-800 dark:bg-transparent dark:hover:border-primary-950 dark:hover:bg-zinc-950"
+                                                id="container-main-image">
                                                 <div class="flex flex-col items-center justify-center pb-6 pt-5">
                                                     <x-icon icon="cloud-upload"
                                                         class="h-12 w-12 text-zinc-400 dark:text-zinc-500" />
@@ -204,6 +199,7 @@
                                                     class="m-10 hidden h-64 w-56 object-cover">
                                             </label>
                                         </div>
+
                                         <div class="mt-4">
                                             <div class="mb-2 flex items-center justify-between">
                                                 <div>
@@ -233,6 +229,7 @@
                                                 <x-paragraph class="m-auto">Sin imágenes seleccionadas</x-paragraph>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                                 <!-- End images -->
@@ -287,7 +284,7 @@
                                             <div class="p-4">
                                                 <div class="flex gap-4">
                                                     <div class="flex-1">
-                                                        <x-input label="Precio" icon="dollar" type="number"
+                                                        <x-input label="Precio" icon="dollar" type="number" required
                                                             id="price" name="price" step="0.01" min="0.01"
                                                             placeholder="0.00" value="{{ old('price') }}" />
                                                     </div>

@@ -20,8 +20,8 @@
                             <x-button type="button" icon="delete" text="Eliminar productos seleccionados"
                                 data-modal-target="deleteProducts" data-modal-toggle="deleteProducts" typeButton="danger"
                                 class="hidden w-full sm:w-auto" id="btn-delete-all-products" />
-                            <x-button type="button" data-modal-target="importProducts" data-modal-toggle="importProducts"
-                                icon="import" class="w-full sm:w-auto" typeButton="secondary" text="Importar" />
+                            <x-button type="button" icon="import" class="w-full sm:w-auto" typeButton="secondary"
+                                text="Importar" />
                             <x-button type="button" icon="export" class="w-full sm:w-auto" typeButton="secondary"
                                 text="Exportar" />
                         </div>
@@ -29,51 +29,64 @@
                     <div
                         class="flex flex-col items-center justify-between space-y-3 p-4 md:flex-row md:space-x-4 md:space-y-0">
                         <div class="w-full md:w-1/2">
-                            <form class="flex items-center" action="{{ route('admin.categories.search') }}"
-                                id="formSearchProduct">
-                                @csrf
-                                <x-input type="text" id="inputSearch" name="inputSearch" data-form="#formSearchProduct"
-                                    data-table="#tableProduct" placeholder="Buscar" icon="search" />
-                            </form>
+                            <div class="flex items-center">
+                                <x-input type="text" id="inputSearchProducts" name="inputSearchProducts"
+                                    placeholder="Buscar" icon="search" />
+                            </div>
                         </div>
                         <div class="h flex w-full flex-row flex-wrap items-center justify-end gap-4 md:w-auto">
-                            <div>
-                                <x-button type="button" icon="reload" class="w-max" typeButton="secondary"
-                                    onlyIcon="true" />
-                            </div>
+
                             <div class="flex md:w-auto">
                                 <x-button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" type="button"
                                     icon="filter" typeButton="secondary" text="Filtros" />
                                 <div id="filterDropdown"
                                     class="z-10 hidden w-48 rounded-lg bg-white p-3 shadow dark:bg-zinc-950">
-                                    <form action="{{ route('admin.categories.search') }}" method="POST"
-                                        id="formSearchCategorieCheck">
-                                        @csrf
+                                    <div>
                                         <h6 class="mb-3 text-sm font-medium text-zinc-900 dark:text-white">
-                                            Filtros
+                                            Estado
                                         </h6>
                                         <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
                                             <li class="flex items-center">
-                                                <input id="offers" name="filter[]" type="checkbox" value="offers"
-                                                    class="h-4 w-4 rounded border-zinc-400 bg-zinc-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-zinc-500 dark:bg-zinc-950 dark:ring-offset-zinc-700 dark:focus:ring-blue-600">
-                                                <label for="offers"
+                                                <input id="filter-status-active" name="filter-status" type="checkbox"
+                                                    value="Active"
+                                                    class="h-4 w-4 rounded border-2 border-zinc-400 bg-zinc-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-zinc-800 dark:bg-zinc-950 dark:ring-offset-zinc-800 dark:focus:ring-primary-600">
+                                                <label for="filter-status-active"
                                                     class="ml-2 text-sm font-medium text-zinc-900 dark:text-zinc-100">
-                                                    Con ofertas
+                                                    Activos
                                                 </label>
                                             </li>
                                             <li class="flex items-center">
-                                                <input id="flash_offers" name="filter[]" type="checkbox"
-                                                    value="flash_offers"
-                                                    class="h-4 w-4 rounded border-zinc-400 bg-zinc-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-zinc-500 dark:bg-white dark:ring-offset-zinc-700 dark:focus:ring-blue-600">
-                                                <label for="flash_offers"
+                                                <input id="filter-status-inactive" name="filter-status" type="checkbox"
+                                                    value="Inactive"
+                                                    class="h-4 w-4 rounded border-2 border-zinc-400 bg-zinc-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-zinc-800 dark:bg-zinc-950 dark:ring-offset-zinc-800 dark:focus:ring-primary-600">
+                                                <label for="filter-status-inactive"
                                                     class="ml-2 text-sm font-medium text-zinc-900 dark:text-zinc-100">
-                                                    Con ofertas flash
+                                                    Inactivos
                                                 </label>
                                             </li>
                                         </ul>
-                                    </form>
+                                    </div>
+                                    <div class="mt-4">
+                                        <h6 class="mb-3 text-sm font-medium text-zinc-900 dark:text-white">
+                                            Categoría
+                                        </h6>
+                                        <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
+                                            @foreach ($categories as $category)
+                                                <li class="flex items-center">
+                                                    <input id="filter-category-{{ $category->id }}" name="filter-category"
+                                                        type="checkbox" value="{{ $category->id }}"
+                                                        class="h-4 w-4 rounded border-2 border-zinc-400 bg-zinc-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-zinc-800 dark:bg-zinc-950 dark:ring-offset-zinc-800 dark:focus:ring-primary-600">
+                                                    <label for="filter-category-{{ $category->id }}"
+                                                        class="ml-2 text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                                                        {{ $category->name }}
+                                                    </label>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
+
                             <div>
                                 <x-button type="button" id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown"
                                     typeButton="secondary" text="Acciones" icon="arrow-down" />
@@ -95,6 +108,7 @@
                                     </ul>
                                 </div>
                             </div>
+
                             <div class="w-full sm:w-auto">
                                 <x-button type="a" href="{{ route('admin.products.create') }}"
                                     text-="Agregar producto" icon="plus" typeButton="primary" />
@@ -102,7 +116,7 @@
                         </div>
                     </div>
                     <div class="mx-4 mb-4">
-                        <x-table>
+                        <x-table id="tableProduct">
                             <x-slot name="thead">
                                 <x-tr>
                                     <x-th class="w-10">
@@ -110,7 +124,13 @@
                                             class="h-4 w-4 rounded border-2 border-zinc-400 bg-zinc-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-zinc-800 dark:bg-zinc-950 dark:ring-offset-zinc-800 dark:focus:ring-primary-600">
                                     </x-th>
                                     <x-th>
-                                        Producto
+                                        <div>
+                                            <button class="sort-button flex w-full justify-between" data-column="name"
+                                                data-order="asc">
+                                                Producto
+                                                <x-icon icon="sort" class="inline-block h-4 w-4 cursor-pointer" />
+                                            </button>
+                                        </div>
                                     </x-th>
                                     <x-th>
                                         Imagen
@@ -135,7 +155,7 @@
                                     </x-th>
                                 </x-tr>
                             </x-slot>
-                            <x-slot name="tbody" id="tableProduct">
+                            <x-slot name="tbody">
                                 @if ($products->count() > 0)
                                     @foreach ($products as $product)
                                         <x-tr section="body">
@@ -143,7 +163,7 @@
                                                 <input type="checkbox" value="{{ $product->id }}" name="products_ids[]"
                                                     class="checkboxs-products h-4 w-4 rounded border-2 border-zinc-400 bg-zinc-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-zinc-800 dark:bg-zinc-950 dark:ring-offset-zinc-800 dark:focus:ring-primary-600">
                                             </x-td>
-                                            <x-td>
+                                            <x-td data-column="name">
                                                 <div class="flex flex-col gap-1">
                                                     @if ($product->is_top)
                                                         <span
@@ -155,24 +175,24 @@
                                                     <span>{{ $product->name }}</span>
                                                 </div>
                                             </x-td>
-                                            <x-td>
+                                            <x-td data-column="image">
                                                 <img src="{{ Storage::url($product->main_image) }}"
                                                     alt="{{ $product->name }}"
                                                     class="min-w-16 h-16 w-16 rounded-lg object-cover">
                                             </x-td>
-                                            <x-td>
+                                            <x-td data-column="price">
                                                 <span>
                                                     ${{ $product->price }}
                                                     {{ $product->max_price ? ' - $' . $product->max_price : '' }}
                                                 </span>
                                             </x-td>
-                                            <x-td>
+                                            <x-td data-column="sku">
                                                 <span>{{ $product->sku }}</span>
                                             </x-td>
-                                            <x-td>
+                                            <x-td data-column="stock">
                                                 <span>{{ $product->stock }} en stock</span>
                                             </x-td>
-                                            <x-td>
+                                            <x-td data-column="category">
                                                 <div class="flex flex-col gap-1">
                                                     <span
                                                         class="text-nowrap w-max rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:bg-opacity-20 dark:text-green-300">
@@ -189,10 +209,10 @@
                                                     </span>
                                                 </div>
                                             </x-td>
-                                            <x-td>
+                                            <x-td data-column="status">
                                                 <x-badge-status :status="$product->is_active" />
                                             </x-td>
-                                            <x-td>
+                                            <x-td data-column="actions">
                                                 <div class="flex items-center space-x-2">
                                                     <x-button type="a" icon="edit" typeButton="success"
                                                         href="{{ route('admin.products.edit', $product->id) }}"
@@ -247,7 +267,7 @@
             message="No podrás recuperar este registro" action="" />
 
         <div id="deleteProducts" tabindex="-1" aria-hidden="true"
-            class="deleteModal fixed inset-0 left-0 right-0 top-0 z-[100] hidden h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-70">
+            class="fixed inset-0 left-0 right-0 top-0 z-[100] hidden h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-70">
             <div class="relative flex h-full w-full max-w-md items-center justify-center p-4 md:h-auto">
                 <!-- Modal content -->
                 <div
@@ -291,54 +311,10 @@
                 </div>
             </div>
         </div>
-
-        <div id="importProducts" tabindex="-1" aria-hidden="true"
-            class="deleteModal fixed inset-0 left-0 right-0 top-0 z-[100] hidden h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-70">
-            <div class="relative flex h-full w-full max-w-md items-center justify-center p-4 md:h-auto">
-                <!-- Modal content -->
-                <div
-                    class="relative w-full animate-jump-in rounded-lg bg-white text-center shadow animate-duration-300 animate-once dark:bg-zinc-950">
-                    <div class="p-4">
-                        <button type="button"
-                            class="closeModal absolute right-2.5 top-2.5 ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-zinc-400 hover:bg-zinc-200 hover:text-zinc-900 dark:hover:bg-zinc-900 dark:hover:text-white"
-                            data-modal-toggle="importProducts">
-                            <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                            <span class="sr-only">Close modal</span>
-                        </button>
-                        <h4 class="mb-4 font-medium text-zinc-500 dark:text-zinc-300">
-                            Importar productos
-                        </h4>
-                    </div>
-                    <div
-                        class="flex items-center justify-center space-x-4 border-t border-zinc-300 py-4 dark:border-zinc-900">
-                        <form method="POST" id="formDeleteProducts" action="{{ Route('admin.products.import') }}"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <div class="px-4">
-                                <input type="file" name="document" id="file" accept=".csv, .xlsx" />
-                                @if ($errors->has('document'))
-                                    <span class="text-xs text-red-500">{{ $errors->first('document') }}</span>
-                                @endif
-                            </div>
-                            <div class="mt-4 flex items-center justify-center gap-4">
-                                <x-button type="submit" text="Import" icon="import" typeButton="primary" />
-                                <x-button type="button" data-modal-toggle="importProducts" class="closeModal"
-                                    text="No, cancelar" icon="cancel" typeButton="secondary" />
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 @endsection
 
 @push('scripts')
+    @vite('resources/js/admin/order-table.js')
     @vite('resources/js/admin/product.js')
 @endpush
