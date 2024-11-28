@@ -49,6 +49,11 @@ class Order extends Model
         return $this->belongsTo(Coupon::class);
     }
 
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
     protected $casts = [
         "shipped_at" => "datetime",
         "delivered_at" => "datetime",
