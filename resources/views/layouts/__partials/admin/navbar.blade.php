@@ -383,12 +383,6 @@
                             Preguntas frecuentes
                         </a>
                     </li>
-                    <li>
-                        <a href="#"
-                            class="group flex w-full items-center rounded-lg p-2 pl-11 text-zinc-900 transition duration-75 dark:text-white">
-                            Crear páginas
-                        </a>
-                    </li>
                 </ul>
             </li>
         </ul>
