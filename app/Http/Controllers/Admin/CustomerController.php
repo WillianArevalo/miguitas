@@ -50,14 +50,9 @@ class CustomerController extends Controller
 
     public function getAllCountries()
     {
-        $reponse = $this->client->request('GET', 'https://restcountries.com/v3.1/all');
-        $countries = json_decode($reponse->getBody()->getContents(), true);
-        $countryNames = array_map(function ($country) {
-            return $country['name']['common'];
-        }, $countries);
-        $countryArray = array_combine($countryNames, $countryNames);
-        ksort($countryArray);
-        return $countryArray;
+        $path = resource_path('data/countries.json');
+        $countries = json_decode(file_get_contents($path), true);
+        return $countries;
     }
 
     public function store(CustomerRequest $request, AddressRequest $addressRequest)
