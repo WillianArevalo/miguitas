@@ -30,6 +30,7 @@ export default defineConfig({
                 "resources/js/admin/ticket.js",
                 "resources/js/admin/toast-admin.js",
                 "resources/js/admin/user.js",
+                "resources/js/admin/order-table.js",
 
                 "resources/js/store/account.js",
                 "resources/js/store/cart.js",
@@ -43,6 +44,7 @@ export default defineConfig({
                 "resources/js/store/reviews.js",
                 "resources/js/store/store.js",
                 "resources/js/store/toast.js",
+                "resources/js/store/slider-pack.js",
             ],
             refresh: true,
         }),
