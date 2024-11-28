@@ -21,7 +21,7 @@
                     <div class="flex flex-1 flex-col gap-4 p-4">
                         <div class="flex items-center justify-end gap-4">
                             <x-button type="a" href="{{ Route('admin.users.edit', $customer->user->id) }}"
-                                id="edit-user" text="Editar usuario" icon="edit" typeButton="secondary" />
+                                id="edit-user" text="Editar usuario" icon="edit" typeButton="success" />
                             <x-button type="button" data-drawer="#drawer-new-address" class="open-drawer"
                                 text="Agregar dirección" icon="location-plus" typeButton="secondary" />
                         </div>
@@ -31,7 +31,7 @@
                             @method('PUT') <!-- Usamos PUT para actualizar -->
                             <div
                                 class="flex flex-col gap-4 rounded-lg border border-zinc-400 bg-white p-4 dark:border-zinc-800 dark:bg-black">
-                                <div class="w-96">
+                                <div class="w-full sm:w-96">
                                     <x-select label="Cambiar usuario asignado" text="Seleccionar usuario existente"
                                         id="user_id" name="user_id" value="{{ $customer->user->id }}" required
                                         :options="$users->pluck('email', 'id')->toArray()" selected="{{ $customer->user->id }}" />
@@ -41,7 +41,7 @@
                                 <h2 class="mb-2 text-base font-semibold text-black dark:text-white">
                                     Información general
                                 </h2>
-                                <div class="flex gap-4">
+                                <div class="flex flex-col gap-4 sm:flex-row">
                                     <div class="flex-1">
                                         <x-input label="Nombre" type="text" id="name" name="name"
                                             placeholder="Ingresa el nombre del cliente"
@@ -53,13 +53,13 @@
                                             value="{{ old('last_name', $customer->user->last_name) }}" required />
                                     </div>
                                 </div>
-                                <div class="mt-4 flex gap-4">
+                                <div class="mt-4 flex flex-col gap-4 lg:flex-row">
                                     <div class="flex-1">
                                         <x-input icon="calendar" label="Fecha de nacimiento" type="date" id="birthdate"
                                             name="birthdate" value="{{ old('birthdate', $customer->birthdate) }}"
                                             required />
                                     </div>
-                                    <div class="flex flex-[2] gap-4">
+                                    <div class="flex flex-[2] flex-col gap-4 sm:flex-row">
                                         <div class="flex-1">
                                             <x-input label="Código de área" type="text" icon="plus" name="area_code"
                                                 value="{{ old('area_code', $customer->area_code) }}" placeholder="503"
@@ -71,7 +71,7 @@
                                                 placeholder="Ingresa el telefono del cliente" required />
                                         </div>
                                     </div>
-                                    <div class="w-max flex-1">
+                                    <div class="w-full flex-1 lg:w-max">
                                         <x-select label="Sexo" id="gender" name="gender" value="male"
                                             selected="{{ old('gender', $customer->gender) }}" :options="['male' => 'Masculino', 'female' => 'Femenino']" />
                                     </div>
@@ -83,7 +83,9 @@
                                 <x-slot name="thead">
                                     <x-tr>
                                         <x-th>
-                                            Tipo de dirección
+                                            <span class="text-nowrap">
+                                                Tipo de dirección
+                                            </span>
                                         </x-th>
                                         <x-th>
                                             Dirección
@@ -150,7 +152,8 @@
                 <div class="mb-4 flex items-center justify-center gap-2">
                     <x-button type="button" onclick="document.getElementById('form-update-customer').submit()"
                         text="Actualizar cliente" icon="edit" typeButton="primary" />
-                    <x-button type="a" href="{{ url()->previous() }}" text="Regresar" typeButton="secondary" />
+                    <x-button type="a" href="{{ Route('admin.customers.index') }}" text="Regresar"
+                        typeButton="secondary" />
                 </div>
 
             </div>
@@ -158,7 +161,7 @@
 
         <!-- Drawer new address -->
         <div id="drawer-new-address"
-            class="drawer fixed right-0 top-0 z-40 h-screen w-[500px] translate-x-full overflow-y-auto bg-white p-4 transition-transform dark:bg-black"
+            class="drawer fixed right-0 top-0 z-[70] h-screen w-full translate-x-full overflow-y-auto bg-white p-4 transition-transform dark:bg-black sm:w-[500px]"
             tabindex="-1" aria-labelledby="drawer-new-address">
             <h5 id="drawer-new-address-label"
                 class="mb-4 inline-flex items-center text-base font-semibold text-zinc-500 dark:text-zinc-400">
@@ -226,7 +229,7 @@
 
         <!-- Drawer edit address -->
         <div id="drawer-edit-address"
-            class="drawer fixed right-0 top-0 z-40 h-screen w-[500px] translate-x-full overflow-y-auto bg-white p-4 transition-transform dark:bg-black"
+            class="drawer fixed right-0 top-0 z-[70] h-screen w-full translate-x-full overflow-y-auto bg-white p-4 transition-transform dark:bg-black sm:w-[500px]"
             tabindex="-1" aria-labelledby="drawer-edit-address">
             <h5 id="drawer-edit-address-label"
                 class="mb-4 inline-flex items-center text-base font-semibold text-zinc-500 dark:text-zinc-400">
