@@ -304,32 +304,6 @@
                     <span class="ms-3 flex-1 whitespace-nowrap">Pedidos</span>
                 </a>
             </li>
-            {{-- <li>
-                <a href="#"
-                    class="flex items-center p-2 text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-950 group">
-                    <svg class="flex-shrink-0 w-5 h-5 text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"
-                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                        viewBox="0 0 18 18">
-                        <path
-                            d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
-                    </svg>
-                    <span class="flex-1 ms-3 whitespace-nowrap">Kanban</span>
-                    <span
-                        class="inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-zinc-800 bg-zinc-100 rounded-full dark:bg-zinc-700 dark:text-zinc-300">Pro</span>
-                </a>
-            </li> --}}
-            <li>
-                <a href="#"
-                    class="group flex items-center rounded-lg p-2 text-zinc-900 hover:bg-zinc-100 dark:text-white dark:hover:bg-zinc-950">
-                    <x-icon icon="wechat"
-                        class="h-5 w-5 flex-shrink-0 text-zinc-500 transition duration-75 group-hover:text-zinc-900 dark:text-zinc-400 dark:group-hover:text-white" />
-                    <span class="ms-3 flex-1 whitespace-nowrap">
-                        Live chat
-                    </span>
-                    <span
-                        class="ms-3 inline-flex h-3 w-3 items-center justify-center rounded-full bg-blue-700 p-3 text-sm font-medium text-blue-100 dark:bg-blue-900 dark:text-blue-300">3</span>
-                </a>
-            </li>
             <li
                 class="{{ \App\Helpers\RouteHelper::isActive([
                     'admin.users.index',
