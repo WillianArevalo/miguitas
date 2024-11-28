@@ -83,7 +83,7 @@
         </div>
     </div>
 </div>
-<div class="mt-8 flex flex-col gap-2">
+{{-- <div class="mt-8 flex flex-col gap-2">
     <h3 class="text-sm uppercase text-blue-store sm:text-base md:text-lg">
         Método de pago
     </h3>
@@ -98,5 +98,5 @@
                 Sin pagar
             </p>
         @endif
-    </div>
+    </div> --}}
 </div>
