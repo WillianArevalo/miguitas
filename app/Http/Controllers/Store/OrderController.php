@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Store;
 use App\Helpers\Cart;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -65,7 +66,7 @@ class OrderController extends Controller
             Cart::clear();
 
             DB::commit();
-            return redirect()->route("account.index")->with("success", "Orden creada correctamente");
+            return redirect()->route("orders.show", $order->number_order);
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with("error", "Error al crear la orden: " . $e->getMessage());
@@ -80,16 +81,17 @@ class OrderController extends Controller
             "address",
             "currency",
             "shipping_method",
-            "payment_method"
+            "payment_method",
+            "payments"
         )->where("number_order", $numberOrder)->firstOrFail();
 
-
+        $payment_methods = PaymentMethod::where("active", true)->get();
         $shippingAdress = $order->address
             && $order->address->type === "shipping_address"
             ? $order->address->address_line_1
             : null;
 
-        return view("store.orders.show", compact("order", "shippingAdress"));
+        return view("store.orders.show", compact("order", "shippingAdress", "payment_methods"));
     }
 
     public function cancel(string $id)
