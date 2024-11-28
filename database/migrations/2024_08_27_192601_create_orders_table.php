@@ -34,7 +34,7 @@ return new class extends Migration
 
             $table->text("customer_notes")->nullable();
             $table->text("admin_notes")->nullable();
-            $table->timestamp("estimated_delivery")->nullable();
+            $table->string("estimated_delivery")->nullable();
             $table->foreignId('coupon_id')->nullable()->constrained()->onDelete('set null');
             $table->enum("payment_status", ["pending", "paid", "failed", "refunded"])->default("pending");
             $table->timestamps();
