@@ -8,6 +8,7 @@ use App\Helpers\Cart as CartHelper;
 use App\Models\Address;
 use App\Models\Customer;
 use App\Models\Order;
+use App\Models\Payment;
 use App\Models\PaymentMethod;
 use App\Models\Product;
 use App\Models\ShippingMethod;
@@ -31,7 +32,7 @@ class CheckoutController extends Controller
         $user = auth()->user();
         //$countries = $this->getAllCountries();
         $shipping_methods = ShippingMethod::where("active", true)->get();
-        $payment_methods = PaymentMethod::all();
+        $payment_methods = PaymentMethod::where("active", true)->get();
 
         if (!$user || !$cart || $cart->items->count() == 0) {
             return redirect()->route("cart")->with("info", "Agrega productos al carrito para continuar con la compra.");
@@ -187,6 +188,18 @@ class CheckoutController extends Controller
                 $order->status = "pending";
                 $order->payment_status = "paid";
                 $order->save();
+
+                $payment = new Payment();
+                $payment->user_id = $order->user_id;
+                $payment->order_id = $order->id;
+                $payment->payment_method_id = $order->payment_method_id ?? null;
+                $payment->amount = $request->input('Monto');
+                $payment->status = "approved";
+                $payment->transaction_id = $request->input('IdTransaccion');
+                $payment->reference_number = $request->input('EnlacePago.IdentificadorEnlaceComercio');
+                $payment->paid_at = $request->input('FechaTransaccion');
+                $payment->data = $request->all();
+                $payment->save();
             }
 
             DB::commit();
