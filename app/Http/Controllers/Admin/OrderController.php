@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Helpers\Cart;
 use App\Http\Requests\InfoOrderRequest;
+use App\Mail\OrderEmail;
 use App\Models\Address;
 use App\Models\Customer;
 use App\Models\Order;
@@ -14,6 +15,7 @@ use App\Models\User;
 use App\Utils\Addresses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -77,7 +79,12 @@ class OrderController extends Controller
                 $dateNow = date("Y-m-d H:i:s");
                 switch ($request->status) {
                     case "pending":
-                        $order->update(["cancelled_at" => null, "completed_at" => null]);
+                        $order->update([
+                            "cancelled_at" => null,
+                            "completed_at" => null,
+                            "shipped_at" => null,
+                            "delivered_at" => null
+                        ]);
                         break;
                     case "completed":
                         $order->update(["completed_at" => $dateNow, "cancelled_at" => null]);
@@ -91,8 +98,20 @@ class OrderController extends Controller
                     default:
                         throw new \Exception("Estado de la orden no válido");
                 }
+
+                //Send email to customer
+                $customer = $order->customer;
+                $email = $customer->user->email;
                 $order->update(["status" => $request->status]);
                 DB::commit();
+
+                Mail::to($email)->send(new OrderEmail(
+                    $order->number_order,
+                    $this->mapStatus($request->status),
+                    $customer->user->name,
+                    $email
+                ));
+
                 return redirect()->route("admin.orders.index")->with("success", "Estado de la orden actualizado correctamente");
             }
             throw new \Exception("Orden no encontrada");
@@ -100,6 +119,19 @@ class OrderController extends Controller
             DB::rollBack();
             return back()->with("error", "Error al actualizar el estado de la orden: " . $e->getMessage());
         }
+    }
+
+
+    public function mapStatus($status)
+    {
+        return match ($status) {
+            'pending' => 'pendiente',
+            'canceled' => 'cancelado',
+            'completed' => 'completado',
+            'sent' => 'enviado',
+            'returned' => 'devolviendo',
+            default => 'desconocido',
+        };
     }
 
     public function changePaymentStatus(Request $request, string $id)
@@ -116,6 +148,28 @@ class OrderController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with("error", "Error al actualizar el estado de pago de la orden: " . $e->getMessage());
+        }
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $request->validate([
+            "shipped_at" => "nullable|date",
+            "completed_at" => "nullable|date",
+            "cancelled_at" => "nullable|date",
+            "admin_notes" => "nullable|string|max:255",
+            "estimated_delivery" => "nullable|string",
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $order = Order::find($id);
+            $order->update($request->all());
+            DB::commit();
+            return redirect()->route("admin.orders.index")->with("success", "Orden actualizada correctamente");
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with("error", "Error al actualizar la orden: " . $e->getMessage());
         }
     }
 }
