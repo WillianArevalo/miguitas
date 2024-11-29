@@ -33,13 +33,16 @@ class ProductController extends Controller
         } else {
             $purchase = false;
         }
+
         $product->images->prepend((object)['image' => $product->main_image]);
+
         $products = Product::with([
             'categories',
             'subcategories',
             'taxes',
             'labels',
-            'images'
+            'images',
+            'reviews'
         ])
             ->where("id", "!=", $product->id)
             ->where("categorie_id", $categoryId)
