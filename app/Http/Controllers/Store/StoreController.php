@@ -28,7 +28,10 @@ class StoreController extends Controller
         $products = Product::where("is_active", 1)->where("is_top", 1)->paginate(16);
         $categories = Categorie::all();
         Favorites::get($this->user, $products);
-        return view('store.index', ["products" => $products, "categories" => $categories]);
+        return view('store.index', [
+            "products" => $products,
+            "categories" => $categories
+        ]);
     }
 
     public function products(Request $request)
@@ -50,6 +53,10 @@ class StoreController extends Controller
                     $query->where("subcategorie_id", $subcategory->id);
                 })->paginate(12);
             }
+
+            if ($filter == "name") {
+                $products = Product::where("is_active", 1)->where("name", "like", "%$search%")->paginate(12);
+            }
         } else {
             $products = Product::where("is_active", 1)->paginate(12);
         }
@@ -58,17 +65,11 @@ class StoreController extends Controller
         $subcategories = SubCategorie::select('name', "slug")->distinct()->get();
         $labels = Label::all();
         Favorites::get($this->user, $products);
-        return view("store.products", ["products" => $products, "categories" => $categories, "subcategories" => $subcategories, "labels" => $labels]);
-    }
-
-    public function search(string $search, string $value)
-    {
-        $products = Product::where($search, $value)->get();
-        $categories = Categorie::all();
-        $subcategories = SubCategorie::all();
-        $labels = Label::all();
-        $brands = Brand::all();
-        Favorites::get($this->user, $products);
-        return view('store.products', ["products" => $products, "categories" => $categories, "subcategories" => $subcategories, "labels" => $labels, "brands" => $brands]);
+        return view("store.products", [
+            "products" => $products,
+            "categories" => $categories,
+            "subcategories" => $subcategories,
+            "labels" => $labels
+        ]);
     }
 }
