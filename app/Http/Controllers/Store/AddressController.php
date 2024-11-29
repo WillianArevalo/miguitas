@@ -20,7 +20,7 @@ class AddressController extends Controller
     {
         $user = auth()->user();
         $customer =  Customer::where("user_id", $user->id)->first();
-        $addresses = Address::where("customer_id", $customer->id)->get();
+        $addresses = $customer ? Address::where("customer_id", $customer->id)->get() : [];
         return view("store.account.address.index", [
             "customer" => $customer,
             "addresses" => $addresses,
