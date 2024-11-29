@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
 use App\Models\SupportTicket;
 use App\Models\TicketComment;
 use App\Models\User;
@@ -21,6 +22,13 @@ class SupportTicketController extends Controller
     public function show(string $id)
     {
         $ticket = SupportTicket::with('user', 'assignedTo', 'lastRepliedBy', 'comments.user')->findOrFail($id);
+
+        $notifications = Notification::where('reference_id', $id)->get();
+
+        $notifications->each(function ($notification) {
+            $notification->update(['read' => true]);
+        });
+
         return view('admin.support_tickets.show', compact("ticket"));
     }
 
