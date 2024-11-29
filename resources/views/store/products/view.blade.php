@@ -216,42 +216,50 @@
                                     <div class="mt-4 flex flex-col gap-4">
                                         @if ($reviews->count() > 0)
                                             @foreach ($reviews as $review)
-                                                <div class="flex flex-col gap-2">
-                                                    <div class="flex items-center gap-2">
-                                                        <img src="{{ Storage::url($review->user->profile) }}"
-                                                            alt="Imagen de perfil del usuario"
-                                                            class="h-12 w-12 rounded-full object-cover">
-                                                        <div
-                                                            class="flex w-full flex-col justify-between gap-2 sm:flex-row">
-                                                            <div class="flex flex-col">
-                                                                <p
-                                                                    class="text-secondary font-pluto-r text-base font-bold text-zinc-600 md:text-lg">
-                                                                    {{ $review->user->name }}
-                                                                </p>
-                                                                <p
-                                                                    class="font-secondary font-dine-r text-xs text-zinc-600 sm:text-sm">
-                                                                    {{ $review->created_at->timezone('America/El_Salvador')->format('d F Y h:i A') }}
+                                                @if ($review->user)
+                                                    <div class="flex flex-col gap-2">
+                                                        <div class="flex items-center gap-2">
+                                                            @if ($review->user->profile)
+                                                                <img src="{{ Storage::url($review->user->profile) }}"
+                                                                    alt="Imagen de perfil del usuario"
+                                                                    class="h-12 w-12 rounded-full object-cover">
+                                                            @else
+                                                                <x-icon-store icon="user" class="h-12 w-12" />
+                                                            @endif
+                                                            <div
+                                                                class="flex w-full flex-col justify-between gap-2 sm:flex-row">
+                                                                <div class="flex flex-col">
+                                                                    <p
+                                                                        class="text-secondary font-pluto-r text-base font-bold text-zinc-600 md:text-lg">
+                                                                        @if ($review->user)
+                                                                            {{ $review->user->name }}
+                                                                        @endif
+                                                                    </p>
+                                                                    <p
+                                                                        class="font-secondary font-dine-r text-xs text-zinc-600 sm:text-sm">
+                                                                        {{ $review->created_at->timezone('America/El_Salvador')->format('d F Y h:i A') }}
 
-                                                                </p>
-                                                            </div>
-                                                            <div class="flex items-center gap-1 sm:gap-2">
-                                                                @for ($i = 0; $i < 5; $i++)
-                                                                    @if ($i < $review->rating)
-                                                                        <x-icon-store icon="star"
-                                                                            class="h-5 w-5 text-yellow-300" />
-                                                                    @else
-                                                                        <x-icon-store icon="star"
-                                                                            class="h-5 w-5 text-zinc-300" />
-                                                                    @endif
-                                                                @endfor
+                                                                    </p>
+                                                                </div>
+                                                                <div class="flex items-center gap-1 sm:gap-2">
+                                                                    @for ($i = 0; $i < 5; $i++)
+                                                                        @if ($i < $review->rating)
+                                                                            <x-icon-store icon="star"
+                                                                                class="h-5 w-5 text-yellow-300" />
+                                                                        @else
+                                                                            <x-icon-store icon="star"
+                                                                                class="h-5 w-5 text-zinc-300" />
+                                                                        @endif
+                                                                    @endfor
+                                                                </div>
                                                             </div>
                                                         </div>
+                                                        <p
+                                                            class="font-secondary md::text-base text-secondary ms-14 font-dine-r text-sm text-zinc-500">
+                                                            {{ $review->comment }}
+                                                        </p>
                                                     </div>
-                                                    <p
-                                                        class="font-secondary md::text-base text-secondary ms-14 font-dine-r text-sm text-zinc-500">
-                                                        {{ $review->comment }}
-                                                    </p>
-                                                </div>
+                                                @endif
                                             @endforeach
                                         @else
                                             <p
@@ -289,5 +297,4 @@
 
 @push('scripts')
     @vite('resources/js/store/product-view.js')
-    @vite('resources/js/store/reviews.js')
 @endpush
