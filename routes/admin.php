@@ -47,6 +47,7 @@ Route::middleware("role:admin")->prefix("admin")->name("admin.")->group(function
 
     // Dashboard
     Route::get("/", [AdminController::class, "index"])->name("index");
+    Route::get("/search", [AdminController::class, "search"])->name("search");
 
     // Categories
     Route::resource("/categories", CategorieController::class);
