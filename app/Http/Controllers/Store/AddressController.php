@@ -34,8 +34,18 @@ class AddressController extends Controller
     public function create()
     {
         $addresses = Addresses::getAddresses();
-        return view("store.account.address.new", ["addresses" => $addresses]);
+        $countries = $this->getAllCountries();
+        return view("store.account.address.new", ["addresses" => $addresses, "countries" => $countries]);
     }
+
+
+    public function getAllCountries()
+    {
+        $path = resource_path('data/countries.json');
+        $countries = json_decode(file_get_contents($path), true);
+        return $countries;
+    }
+
 
     /**
      * Store a newly created resource in storage.
