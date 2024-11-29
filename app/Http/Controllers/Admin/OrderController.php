@@ -8,6 +8,7 @@ use App\Http\Requests\InfoOrderRequest;
 use App\Mail\OrderEmail;
 use App\Models\Address;
 use App\Models\Customer;
+use App\Models\Notification;
 use App\Models\Order;
 use App\Models\PaymentMethod;
 use App\Models\ShippingMethod;
@@ -34,6 +35,13 @@ class OrderController extends Controller
     public function show(string $id)
     {
         $order = Order::with("items.product", "customer", "address", "currency", "shipping_method", "payment_method")->find($id);
+
+        $notifications = Notification::where("reference_id", $id)->get();
+
+        $notifications->each(function ($notification) {
+            $notification->update(["read" => true]);
+        });
+
         return view("admin.orders.show", compact("order"));
     }
 
