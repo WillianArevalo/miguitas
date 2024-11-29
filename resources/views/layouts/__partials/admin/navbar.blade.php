@@ -118,6 +118,8 @@
                             </form>
                         </div>
                         <!--Information -->
+
+                        {{--        
                         <div class="flex items-center justify-center">
                             <button
                                 class="relative flex h-10 w-10 items-center justify-center rounded-lg p-3 hover:bg-zinc-100 focus:ring-4 focus:ring-zinc-300 dark:hover:bg-zinc-950 dark:focus:ring-zinc-800">
@@ -126,6 +128,8 @@
                                 </span>
                             </button>
                         </div>
+ --}}
+
                         <div class="relative">
                             <div class="flex items-center gap-2">
                                 <button type="button" class="flex items-center gap-2" id="profile-admin">
