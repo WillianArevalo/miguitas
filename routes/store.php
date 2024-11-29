@@ -57,7 +57,6 @@ Route::get("/polices/{slug}", [PoliciesController::class, "showPolicy"])->name("
 Route::controller(StoreController::class)->group(function () {
     Route::get("/tienda", "index")->name("store");
     Route::get("/tienda/productos", "products")->name("store.products");
-    Route::get("/tienda/products/search/{search}/{value}", "search")->name("store.search");
 });
 
 // Cart
@@ -114,6 +113,7 @@ Route::middleware("auth")->group(function () {
     Route::resource("/pedidos", OrderController::class)->names("orders");
     Route::get("/pedido/{number_order}", [OrderController::class, "show"])->name("orders.show");
     Route::get("/cancelaciones-devoluciones", [OrderController::class, "cancelReturn"])->name("cancel-return");
+    Route::post("/pedidos/buscar", [OrderController::class, "search"])->name("orders.search");
 
 
     // Payments
