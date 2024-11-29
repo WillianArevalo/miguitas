@@ -13,16 +13,16 @@
                 class="min-h-12 min-w-12 h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20 lg:h-24 lg:w-24">
         </div>
 
-
         <div class="flex-[10]">
             <div class="flex items-center justify-end gap-4">
                 <!-- Input search -->
                 <div
                     class="relative hidden h-14 flex-1 overflow-hidden rounded-2xl border-[3px] border-light-blue sm:block">
-                    <input type="search" placeholder="Buscar..."
-                        class="h-full w-full border-none px-6 py-2 outline-none">
+                    <input type="search" placeholder="Buscar productos..."
+                        class="h-full w-full border-none px-6 py-2 outline-none" id="search-input">
                     <button
-                        class="group absolute right-0 top-0 flex h-full w-14 items-center justify-center bg-light-pink hover:bg-pink-store sm:w-20">
+                        class="group absolute right-0 top-0 flex h-full w-14 items-center justify-center bg-light-pink hover:bg-pink-store sm:w-20"
+                        id="search-btn">
                         <x-icon-store icon="search" class="h-4 w-4 text-light-blue sm:h-6 sm:w-6"></x-icon-store>
                     </button>
                 </div>
@@ -68,7 +68,7 @@
                         <li class="relative flex items-center">
                             @if ($user = auth()->user())
                                 <button type="button" class="profile flex items-center justify-center gap-1">
-                                    @if (auth()->user()->google_id)
+                                    @if (auth()->user()->google_id && !auth()->user()->profile)
                                         <img src="{{ auth()->user()->google_profile }}" alt="User image"
                                             class="h-10 w-10 rounded-full object-cover">
                                     @else
@@ -148,7 +148,8 @@
 
                 <!-- Icons mobile -->
                 <div class="flex items-center justify-center lg:hidden">
-                    <button class="flex h-12 w-12 items-center justify-center sm:hidden">
+                    <button class="flex h-12 w-12 items-center justify-center sm:hidden"
+                        data-drawer-target="nav-mobile-search" data-drawer-show="nav-mobile-search">
                         <x-icon-store icon="search" class="h-6 w-6 text-light-blue"></x-icon-store>
                     </button>
 
@@ -341,17 +342,6 @@
             <div class="flex h-12 items-center justify-center rounded-2xl">
                 <ul class="flex justify-center gap-4 px-4 py-2">
                     <li>
-                        <a href="{{ Route('cart') }}" class="group relative">
-                            <x-icon-store icon="bag"
-                                class="h-6 w-6 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
-                            <span
-                                class="absolute -right-2 -top-2 rounded-full bg-blue-store px-1 py-0.5 text-xs text-white"
-                                id="cart-count">
-                                {{ \App\Helpers\Cart::count() }}
-                            </span>
-                        </a>
-                    </li>
-                    <li>
                         <a href="{{ Route('favorites') }}" class="group relative">
                             <x-icon-store icon="heart"
                                 class="h-6 w-6 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
@@ -444,6 +434,25 @@
                     </li>
                 </ul>
             </nav>
+        </div>
+    </div>
+
+    <div id="nav-mobile-search"
+        class="fixed left-0 right-0 top-0 z-40 w-full -translate-y-full overflow-y-auto bg-white p-4 transition-transform"
+        tabindex="-1" aria-labelledby="drawer-label">
+        <button type="button" data-drawer-hide="nav-mobile-search" aria-controls="nav-mobile-search "
+            class="absolute end-2.5 top-2.5 flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-blue-store hover:bg-zinc-200 hover:text-zinc-900">
+            <svg class="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+            <span class="sr-only">Close menu</span>
+        </button>
+        <div class="mt-8 flex flex-col items-center justify-center gap-y-2">
+            <x-input-store id="search-input-mobile" icon="search" placeholder="Buscar producto" name="search" />
+            <x-button-store icon="search" text="Buscar" typeButton="primary" id="search-btn-mobile"
+                type="button" />
         </div>
     </div>
 </header>
