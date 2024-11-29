@@ -175,7 +175,6 @@
             <x-cookie />
         </div>
     </main>
-
     <div class="dark:bg-opacity-65 bg-opacity-65 fixed inset-0 z-30 hidden bg-zinc-900 dark:bg-zinc-900"
         id="modal-search">
         <!-- Modal search -->
@@ -183,42 +182,26 @@
             <div class="h-max w-full max-w-lg animate-jump-in overflow-hidden rounded-xl bg-white animate-duration-300 animate-once dark:bg-black"
                 id="content-modal-search">
                 <div class="flex items-center border-b border-zinc-300 dark:border-zinc-900">
-                    <div class="flex w-full items-center px-4 py-1">
-                        <x-icon icon="search" class="h-5 w-5 text-zinc-500 dark:text-zinc-400" />
-                        <input type="text"
-                            class="ml-2 w-full border-none bg-transparent text-sm text-zinc-900 focus:border-none focus:outline-none focus:ring-0 dark:text-white dark:placeholder-zinc-400"
-                            placeholder="Buscar..." />
+                    <div class="w-full">
+                        <form action="{{ route('admin.search') }}" method="GET"
+                            class="flex w-full items-center px-4 py-1">
+                            <x-icon icon="search" class="h-5 w-5 text-zinc-500 dark:text-zinc-400" />
+                            <input type="text" id="search-input"
+                                class="ml-2 w-full border-none bg-transparent text-sm text-zinc-900 focus:border-none focus:outline-none focus:ring-0 dark:text-white dark:placeholder-zinc-400"
+                                placeholder="Buscar una página..." />
+                        </form>
                     </div>
                 </div>
                 <div>
                     <div class="bg-white text-zinc-900 dark:bg-black dark:text-white">
                         <div class="p-4">
                             <!-- Recent Searches -->
-                            <h3 class="text-xs uppercase text-zinc-700 dark:text-zinc-500">Recent Searches</h3>
-                            <ul class="mt-2 space-y-2 text-sm text-zinc-500 dark:text-zinc-300">
-                                <li class="flex items-center">
-                                    <x-icon icon="search-list" class="mr-2 h-4 w-4 text-gray-500" />
-                                    <span>Form Builder - 23 hours on-demand video</span>
-                                </li>
-                                <li class="flex items-center">
-                                    <x-icon icon="search-list" class="mr-2 h-4 w-4 text-gray-500" />
-                                    <span>Access Mosaic on mobile and TV</span>
-                                </li>
-                                <!-- Add more items as needed -->
-                            </ul>
-                        </div>
-                        <div class="border-t border-zinc-400 p-4 dark:border-zinc-800">
-                            <h3 class="text-xs uppercase text-zinc-700 dark:text-zinc-500">Recent Pages</h3>
-                            <ul class="mt-2 space-y-2 text-sm text-zinc-500 dark:text-zinc-300">
-                                <li class="flex items-center">
-                                    <x-icon icon="app-window" class="mr-2 h-4 w-4 text-gray-500" />
-                                    <span>Messages - Conversation / Mike Mills</span>
-                                </li>
-                                <li class="flex items-center">
-                                    <x-icon icon="app-window" class="mr-2 h-4 w-4 text-gray-500" />
-                                    <span>Messages - Conversation / Eva Patrick</span>
-                                </li>
-                                <!-- Add more items as needed -->
+                            <h3 class="text-xs uppercase text-zinc-700 dark:text-zinc-500">
+                                Resultados de la búsqueda
+                            </h3>
+                            <ul class="mt-2 h-96 space-y-2 overflow-y-auto text-sm text-zinc-500 dark:text-zinc-300"
+                                id="results-search">
+
                             </ul>
                         </div>
                     </div>
@@ -226,11 +209,8 @@
             </div>
         </div>
     </div>
-
-    @stack('scripts')
-
 </body>
-
+@stack('scripts')
 
 
 </html>
