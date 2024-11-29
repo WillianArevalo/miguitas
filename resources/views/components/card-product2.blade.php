@@ -26,10 +26,26 @@
                     <x-icon-store icon="send" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
                 </a>
             </div>
+            <div class="flex items-center gap-2">
+                <p class="font-dine-r text-xs text-gray-store sm:text-sm">
+                    {{ number_format($product->rating, 1) }}
+                </p>
+                @for ($i = 0; $i < 5; $i++)
+                    @if ($i < floor($product->rating))
+                        <x-icon-store icon="star" class="h-4 w-4 text-yellow-400" />
+                    @elseif ($i < $product->rating)
+                        <x-icon-store icon="star-half" class="h-4 w-4 text-yellow-400" />
+                    @else
+                        <x-icon-store icon="star" class="h-4 w-4 text-zinc-300" />
+                    @endif
+                @endfor
+            </div>
         </div>
         <div class="pb-6">
             <small class="mt-2 block text-start">
-                <p class="font-pluto-m text-xs text-gray-store sm:text-sm">13,355 view</p>
+                <p class="font-dine-r text-xs text-gray-store sm:text-sm">
+                    {{ $product->reviews->count() }} reseñas
+                </p>
             </small>
             <h2 class="overflow-hidden text-ellipsis whitespace-nowrap text-start font-pluto-r text-sm font-semibold text-blue-store sm:text-base md:text-lg"
                 title="{{ $product->name }}">
@@ -44,6 +60,7 @@
                 </p>
                 @if ($product->max_price)
                     <p class="text-start">
+                        -
                         <span class="font-dine-r text-lg text-gray-store">$</span>
                         <span class="font-dine-r text-lg text-gray-store">
                             {{ $product->max_price }}
