@@ -43,11 +43,6 @@
                             </a>
                         </li>
                         <li class="text-sm text-white md:text-base">
-                            <a class="link font-dine-r" href="{{ route('blog') }}">
-                                Blog
-                            </a>
-                        </li>
-                        <li class="text-sm text-white md:text-base">
                             <a class="link font-dine-r" href="{{ route('contact') }}">
                                 Contáctanos
                             </a>
@@ -160,8 +155,12 @@
                 </p>
             </div>
             <div class="flex items-center gap-4">
-                <img src="{{ asset('img/sello1.png') }}" alt="Logo Innovadesa" class="h-20 w-20">
-                <img src="{{ asset('img/sello2.png') }}" alt="Logo Innovadesa" class="h-20 w-20">
+                @if ($paymentMethods->count() > 0)
+                    @foreach ($paymentMethods as $paymentMethod)
+                        <img src="{{ Storage::url($paymentMethod->image) }}" alt="Logo Innovadesa"
+                            class="h-20 w-20 rounded-xl">
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>
