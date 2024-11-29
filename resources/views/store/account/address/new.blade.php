@@ -14,8 +14,8 @@
                 <div class="flex flex-col gap-4">
                     <div class="flex w-full flex-col gap-4 sm:flex-row">
                         <div class="flex flex-[2] flex-col gap-2">
-                            <x-input-store type="text" placeholder="" value="El Salvador" name="country" label="País"
-                                value="{{ old('country') }}" required />
+                            <x-select-store type="text" label="País" id="country" name="country" :options="$countries"
+                                required />
                         </div>
                         <div class="flex flex-[2] flex-col gap-2">
                             <x-select-store label="Tipo de dirección" id="type" name="type" :options="$addresses"
