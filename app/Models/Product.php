@@ -94,4 +94,9 @@ class Product extends Model
         $currency =  Currency::getDefault();
         return $currency->symbol . number_format($this->price * $currency->exchange_rate, 2);
     }
+
+    public function getRatingAttribute()
+    {
+        return $this->reviews->avg('rating');
+    }
 }
