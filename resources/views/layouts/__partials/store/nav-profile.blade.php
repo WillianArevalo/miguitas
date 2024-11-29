@@ -42,14 +42,16 @@
       </div>
   </div>
 
-  <div class="hidden xl:block">
+  <div class="hidden overflow-hidden xl:block">
       <div class="flex flex-col">
           <div class="flex items-center gap-4 border-b-2 border-zinc-200 p-4">
               <img src="{{ Storage::url($user->profile) }}" alt="Imagen de {{ $user->full_name }}"
                   class="min-h-20 max-w-20 min-w-20 max-h-20 rounded-full object-cover">
-              <div class="flex flex-col justify-center gap-1">
-                  <h2 class="text-lg font-bold text-blue-store">{{ $user->full_name }}</h2>
-                  <p class="font-dine-r text-sm text-zinc-500">{{ $user->email }}</p>
+              <div class="flex w-80 flex-col justify-center gap-1">
+                  <h2 class="text-wrap text-lg font-bold text-blue-store">{{ $user->full_name }}</h2>
+                  <p class="text-wrap line-clamp-2 font-dine-r text-sm text-zinc-500" title="{{ $user->email }}">
+                      {{ $user->email }}
+                  </p>
               </div>
           </div>
           <div class="mb-4 mt-4 flex flex-col pt-4 xl:mt-0">
