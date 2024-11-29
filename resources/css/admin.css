@@ -69,3 +69,22 @@ div.dt-container div.dt-layout-row div.dt-layout-cell.dt-layout-end {
 div.dt-container div.dt-layout-row {
     margin: 0px !important;
 }
+
+.pulse-ring {
+    animation: pulse-ring 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+
+@keyframes pulse-ring {
+    0% {
+        transform: scale(1); /* Tamaño inicial */
+        box-shadow: 0 0 0 0 rgba(var(--primary-color-rgba), 0.5); /* Ajusta el color y el tamaño del anillo */
+    }
+    50% {
+        transform: scale(1.2); /* Aumenta el tamaño del anillo */
+        box-shadow: 0 0 0 10px rgba(var(--primary-color-rgba), 0.5); /* Ajusta el color y el tamaño del anillo */
+    }
+    100% {
+        transform: scale(1); /* Regresa al tamaño original */
+        box-shadow: 0 0 0 0 rgba(var(--primary-color-rgba), 0.5); /* Vuelve a desaparecer el anillo */
+    }
+}
