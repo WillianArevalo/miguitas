@@ -172,6 +172,13 @@
                                                             Top
                                                         </span>
                                                     @endif
+                                                    @if ($product->is_the_month)
+                                                        <span
+                                                            class="text-nowrap flex w-max items-center gap-2 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:bg-opacity-20 dark:text-blue-300">
+                                                            <x-icon icon="calendar" class="h-3 w-3" />
+                                                            Producto del mes
+                                                        </span>
+                                                    @endif
                                                     <span>{{ $product->name }}</span>
                                                 </div>
                                             </x-td>
