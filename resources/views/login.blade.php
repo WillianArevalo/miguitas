@@ -62,7 +62,9 @@
                                     Recuerdame
                                 </label>
                             </div>
-                            <a href="#" class="font-dine-r text-white underline">¿Olvidaste tu contraseña?</a>
+                            <a href="{{ Route('password.reset') }}" class="font-dine-r text-white underline">
+                                ¿Olvidaste tu contraseña?
+                            </a>
                         </div>
                         <x-button-store type="submit" text="Iniciar sesión" icon="login" typeButton="tertiary"
                             class="mt-4" />
