@@ -69,6 +69,12 @@
                                                         value="{{ $product->is_top }}"
                                                         checked="{{ $product->is_top === 1 }}" />
                                                 </div>
+                                                 <div>
+                                                    <x-input type="checkbox" name="is_the_month" id="is_the_month"
+                                                        label="Marcar como producto del mes"
+                                                        value="{{ $product->is_the_month }}"
+                                                        checked="{{ $product->is_the_month === 1 }}" />
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="border-t border-zinc-400 p-4 dark:border-zinc-800">
