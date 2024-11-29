@@ -14,7 +14,7 @@
                             <img src="{{ asset('img/logo.png') }}" alt="logo" class="me-4 h-8 w-8">
                             <span
                                 class="font-league-spartan self-center whitespace-nowrap text-xl font-bold text-primary-600 sm:text-2xl">
-                                Miguitas
+                                {{ config('app.name') }}
                             </span>
                         </a>
                         <a href="{{ Route('home') }}" data-tooltip-target="tooltip-default" target="_blank">
@@ -46,46 +46,53 @@
                                 <span class="sr-only">Notifications</span>
                                 <div
                                     class="absolute -end-1 -top-1 inline-flex h-6 w-6 items-center justify-center rounded-full border-2 border-white bg-primary-600 text-xs font-bold text-white dark:border-black">
-                                    3
+                                    {{ $countNotRead }}
                                 </div>
                             </button>
-                            <div class="z-50 my-4 hidden w-full list-none divide-y divide-zinc-100 rounded-lg bg-white text-base shadow dark:divide-zinc-900 dark:bg-zinc-950 sm:w-80"
+                            <div class="z-50 my-4 hidden w-full animate-fade list-none divide-y divide-zinc-200 rounded-lg bg-white text-base shadow dark:divide-zinc-900 dark:bg-zinc-950 sm:w-80"
                                 id="dropdown-alerts">
                                 <span class="block p-3 text-center text-zinc-700 dark:text-zinc-300">
                                     Notificaciones
                                 </span>
-                                <ul role="none" class="p-2">
+                                <ul role="none" class="flex flex-col gap-2 p-2">
+                                    @if ($notifications->count() > 0)
+                                        @foreach ($notifications as $notification)
+                                            <li>
+                                                <a href="{{ $notification->url }}"
+                                                    class="@if (!$notification->read) bg-zinc-100 dark:bg-zinc-900 @endif relative flex items-start gap-4 rounded-lg px-4 py-3 text-sm text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-white"
+                                                    role="menuitem">
+                                                    @if (!$notification->read)
+                                                        <span
+                                                            class="size-2 pulse-ring absolute -left-0 -top-0 inline-flex rounded-full bg-primary-600">
+                                                        </span>
+                                                    @endif
+                                                    <span
+                                                        class="flex items-center justify-center rounded-full bg-primary-100 p-2 text-primary-500 dark:bg-primary-950 dark:text-primary-400">
+                                                        <x-icon icon="{{ $notification->icon }}"
+                                                            class="size-5 min-w-5 min-h-5 max-w-5 max-h-5 text-current" />
+                                                    </span>
+                                                    <div class="flex flex-col gap-2">
+                                                        {{ $notification->message }}
+                                                        @if (!$notification->read)
+                                                            <span class="text-xs text-blue-500">
+                                                                {{ $notification->created_at->diffForHumans() }}
+                                                            </span>
+                                                        @endif
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    @else
+                                        <li>
+                                            <span
+                                                class="block p-3 text-center text-sm text-zinc-700 dark:text-zinc-300">
+                                                Vacío
+                                            </span>
+                                        </li>
+                                    @endif
                                     <li>
-                                        <a href="#"
-                                            class="flex items-start gap-4 rounded-lg px-4 py-3 text-sm text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-white"
-                                            role="menuitem">
-                                            <img src="{{ asset('images/photo.jpg') }}"
-                                                class="h-10 w-10 rounded-full object-cover" alt="">
-                                            <div class="flex flex-col gap-2">
-                                                Nuevo ticket abierto
-                                                <span class="text-xs text-blue-500">Hace 2 minutos</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            class="flex items-start gap-4 rounded-lg px-4 py-3 text-sm text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-white"
-                                            role="menuitem">
-                                            <img src="{{ asset('images/photo.jpg') }}"
-                                                class="h-10 w-10 rounded-full object-cover" alt="">
-                                            <div class="flex flex-col gap-2">
-                                                Nuevo ticket abierto
-                                                <span class="text-xs text-blue-500">Hace 2 minutos</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="mt-2 border-t border-zinc-100 pt-2 dark:border-zinc-800">
-                                        <a href="#"
-                                            class="flex items-center justify-center gap-2 rounded-lg p-3 text-sm text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-white"
-                                            role="menuitem">
-                                            <x-icon icon="view" class="h-5 w-5 text-current" />
-                                            Ver todas
-                                        </a>
+                                        <x-button type="a" href="" typeButton="secondary" text="Ver todas"
+                                            icon="eye" size="small" />
                                     </li>
                                 </ul>
                             </div>
@@ -313,7 +320,9 @@
                         Mensajes
                     </span>
                     <span
-                        class="ms-3 inline-flex h-3 w-3 items-center justify-center rounded-full bg-blue-700 p-3 text-sm font-medium text-blue-100 dark:bg-blue-900 dark:text-blue-300">3</span>
+                        class="ms-3 inline-flex h-3 w-3 items-center justify-center rounded-full bg-blue-700 p-3 text-sm font-medium text-blue-100 dark:bg-blue-900 dark:text-blue-300">
+                        {{ $messages->count() }}
+                    </span>
                 </a>
             </li>
             <li
