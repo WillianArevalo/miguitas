@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Mail\VerifyEmail;
+use App\Mail\ResetPasswordEmail;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 
@@ -89,24 +90,33 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $rules = [
-            "name" => "required",
-            "last_name" => "required",
+            "username" => "nullable|string",
+            "name" => "nullable|string",
+            "last_name" => "nullable|string",
             "email" => "required|email",
             "password" => "required"
         ];
+
         DB::beginTransaction();
         try {
             $request->validate($rules);
             $validated = $request->all();
+
+            $validated["username"] = $validated["username"] ?? "Usuario" . Str::random(6);
+            $validated["name"] = $validated["name"] ?? $validated["username"];
+            $validated["last_name"] = $validated["last_name"] ?? NULL;
             $validated["password"] = Hash::make($validated["password"]);
-            $validated["username"] = $validated["name"] . $validated["last_name"];
+
             $user = User::create($validated);
             Auth::login($user);
             DB::commit();
             return redirect()->route("home");
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->with("error", "Error al registrar el usuario.");
+            return redirect()->back()->with(
+                "error",
+                "Lo sentimos, ha ocurrido un error al registrar el usuario. Intenta nuevamente."
+            );
         }
     }
 
@@ -147,5 +157,85 @@ class AuthController extends Controller
             'error',
             'El enlace de verificación ha expirado o es inválido.'
         );
+    }
+
+    public function showResetPasswordForm()
+    {
+        return view("store.reset-password");
+    }
+
+    public function sendEmailResetPassword(Request $request)
+    {
+        $user = User::where("email", $request->email)->first();
+        if (!$user) {
+            return redirect()->back()->with("error", "Usuario no encontrado")->withInput(request()->only("email"));
+        }
+
+        $token = Str::random(60);
+        $user->remember_token = $token;
+        $user->password_token_expires_at = now()->addMinutes(10);
+        $user->save();
+
+        Mail::to($user->email)->send(new ResetPasswordEmail(
+            $user->name,
+            route("password.change", ["token" => $token]),
+            $token
+        ));
+
+        return redirect()->route("password.reset")
+            ->with("success", "Hemos enviado un correo electrónico para restablecer tu contraseña.");
+    }
+
+    public function showChangePasswordForm(Request $request)
+    {
+        $user = User::where("remember_token", $request->token)->first();
+
+        if (
+            $user->password_token_expires_at &&
+            Carbon::now()->lessThanOrEqualTo($user->password_token_expires_at)
+        ) {
+            $token = $request->token;
+            return view("reset-password-form", compact("token"));
+        }
+        return redirect()
+            ->route("password.reset")
+            ->with("error", "El enlace de restablecimiento de contraseña ha expirado o es inválido.");
+    }
+
+    public function changePassword(Request $request)
+    {
+        $rules = [
+            "new-password" => "required|string",
+            "confirm-password" => "required|string",
+            "token_password" => "required|string"
+        ];
+
+        $validated = $request->validate($rules);
+        $user = User::where("remember_token", $validated["token_password"])->first();
+
+        if (!$user) return response()->json([
+            "error" => "Usuario no encontrado"
+        ], 404);
+
+        if ($validated["new-password"] === $validated["confirm-password"]) {
+            DB::beginTransaction();
+            try {
+                $user->password = Hash::make($validated["new-password"]);
+                $user->save();
+                DB::commit();
+                return response()->json([
+                    "success" => "Contraseña actualizada correctamente"
+                ], 200);
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return response()->json([
+                    "error" => "Error al actualizar la contraseña"
+                ], 500);
+            }
+        } else {
+            return response()->json([
+                "error" => "Las contraseñas no coinciden"
+            ], 400);
+        }
     }
 }
