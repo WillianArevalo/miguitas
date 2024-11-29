@@ -251,6 +251,11 @@ Breadcrumbs::for("admin.reviews.index", function (BreadcrumbTrail $trail) {
     $trail->push($icon . "Reseñas", route("admin.reviews.index"));
 });
 
+//Admin > Contact Messages
+Breadcrumbs::for("admin.contact-messages.index", function (BreadcrumbTrail $trail) {
+    $trail->parent("admin.index");
+    $trail->push("Mensajes de contacto", route("admin.contact-messages.index"));
+});
 
 
 /* BREADCRUMBS STORE */
