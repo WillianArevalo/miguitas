@@ -46,7 +46,7 @@
                 {{ $products->links('vendor.pagination.pagination-store') }}
             @endif
 
-            <div class="flex items-center justify-center">
+            <div class="mt-4 flex items-center justify-center">
                 <x-button-store text="Ver más" type="a" href="{{ Route('store.products') }}" typeButton="primary" />
             </div>
 
