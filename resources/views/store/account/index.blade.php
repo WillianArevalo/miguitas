@@ -9,7 +9,7 @@
 
         <div class="mt-4 border-t-2 border-zinc-200 py-4">
             <div class="group relative h-40 w-40 rounded-full">
-                @if ($user->google_id)
+                @if ($user->google_id && !$user->profile)
                     <img src="{{ $user->google_profile }}" alt="profile" class="h-full w-full rounded-full object-cover"
                         id="image-profile">
                 @else
@@ -78,10 +78,6 @@
                                     text="Verificar correo" typeButton="secondary" class="w-max" size="small" />
                             @endif
                         </div>
-                        <div class="mt-2">
-                            <x-button-store type="a" icon="recovery-mail" text="Cambiar correo" typeButton="secondary"
-                                class="w-max" />
-                        </div>
                     </div>
                     <div class="mt-4 text-sm sm:text-base">
                         <div class="flex items-center gap-2">
@@ -103,11 +99,13 @@
                                 {{ $user->updated_at->diffForHumans() }}
                             </p>
                         </div>
-                        <div class="mt-4">
-                            <x-button-store type="a" href="{{ Route('account.change-password') }}"
-                                text="Cambiar contraseña" icon="reset-password" typeButton="secondary"
-                                class="w-max px-16" />
-                        </div>
+                        @if (!$user->google_id)
+                            <div class="mt-4">
+                                <x-button-store type="a" href="{{ Route('account.change-password') }}"
+                                    text="Cambiar contraseña" icon="reset-password" typeButton="secondary"
+                                    class="w-max px-16" />
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -124,11 +122,11 @@
                     </div>
                     <div class="flex gap-2">
                         <h4 class="text-secondary font-dine-r font-medium">Nombres:</h4>
-                        <p class="font-dine-r text-zinc-800">{{ $user->name }}</p>
+                        <p class="font-dine-r text-zinc-800">{{ $user->name ?? 'No definido' }}</p>
                     </div>
                     <div class="flex gap-2">
                         <h4 class="text-secondary font-dine-r font-medium">Apellidos:</h4>
-                        <p class="font-dine-r text-zinc-800">{{ $user->last_name }}</p>
+                        <p class="font-dine-r text-zinc-800">{{ $user->last_name ?? 'No definido' }}</p>
                     </div>
                     <div class="flex flex-col justify-between gap-2 sm:flex-row sm:gap-0">
                         <div class="flex items-center gap-2">
