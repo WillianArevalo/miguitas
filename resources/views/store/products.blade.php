@@ -147,7 +147,7 @@
                     </div>
                 </aside>
             </div>
-            <div class="flex-[3] px-4">
+            <div class="flex-[3] px-2">
                 <div class="flex items-center justify-end gap-4">
                     <div class="mt-3 flex items-center justify-center">
                         <x-button-store type="button" typeButton="secondary" icon="undo-left" onlyIcon="true"
