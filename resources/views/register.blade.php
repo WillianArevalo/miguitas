@@ -1,78 +1,77 @@
-@extends('layouts.template')
+@extends('layouts.login-template')
 @section('title', 'Miguitas | Registro')
 @section('content')
-    <div class="m-0 md:p-4 lg:mx-10 lg:mb-10">
-        <div class="relative mx-auto flex h-full w-full flex-col-reverse overflow-hidden border md:flex-row xl:w-4/5">
-
-            <div class="absolute left-5 top-4 h-2 w-full bg-white md:left-10 md:top-8"></div>
-            <div class="absolute bottom-4 right-5 h-2 w-full bg-white md:bottom-8 md:right-10"></div>
-            <div class="absolute left-5 top-4 h-full w-2 bg-white md:left-10 md:top-8"></div>
-            <div class="absolute bottom-4 right-5 h-full w-2 bg-white md:bottom-8 md:right-10"></div>
-
-            <div class="flex flex-[2] flex-col items-center justify-center bg-light-blue py-20 md:ps-10">
-                <h1
-                    class="flex flex-col items-center justify-center font-dine-r text-xl font-bold text-light-gray sm:text-2xl md:text-4xl">
-                    Bienvenido a Miguitas
-                    <span class="mt-2 text-sm text-white">
-                        Crear una cuenta
-                    </span>
-                </h1>
-                <div class="my-4 flex items-center justify-center gap-4">
-                    <a href="">
-                        <x-icon-store icon="facebook" class="h-8 w-8 text-white" />
-                    </a>
-                    <a href="{{ Route('auth.google') }}">
-                        <x-icon-store icon="google" class="h-8 w-8 text-white" />
-                    </a>
-                    <a href="#">
-                        <x-icon-store icon="linkedin" class="h-8 w-8 text-white" />
-                    </a>
-                </div>
-                <div class="mt-4 w-4/5">
-                    <form action="{{ Route('register.post') }}" method="POST">
-                        @csrf
-                        <div class="flex gap-4">
-                            <div class="flex flex-col gap-2">
-                                <x-input-store type="text" name="name" placeholder="Nombre" />
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <x-input-store type="text" name="last_name" placeholder="Apellido" />
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <x-input-store type="email" name="email" placeholder="Correo eletrónico" icon="email" />
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="flex flex-col gap-2">
-                                <x-input-store type="password" name="password" placeholder="Contraseña" icon="key" />
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <x-input-store type="password" name="password" placeholder="Confirmar" />
-                            </div>
-                        </div>
-                        <div class="mt-4 flex flex-col items-center justify-center gap-4">
-                            <x-button-store type="submit" text="Registrarse" typeButton="primary" />
-                            <p class="font-pluto-r text-white">
-                                ¿Ya tienes una cuenta?
-                                <a href="{{ Route('login') }}" class="font-dine-r text-white underline">
-                                    Iniciar sesión
-                                </a>
-                            </p>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-
-            <div class="flex flex-1 flex-col items-center justify-center gap-2 bg-light-pink py-10 md:pe-20 md:ps-10">
-                <h2 class="pt-10 text-center text-xl font-semibold text-dark-pink md:pt-0 md:text-2xl">
-                    ¡Hola amig@!
-                </h2>
-                <p class="w-1/2 text-center text-sm text-dark-blue md:w-full md:text-base">
+    <div class="flex flex-row-reverse">
+        <div class="hidden h-screen w-full flex-1 items-start justify-center sm:flex">
+            <img src="{{ asset('img/register-2.jpg') }}" alt="Login background" class="h-full w-full object-cover">
+        </div>
+        <div class="mx-auto flex h-screen flex-[2] flex-col items-center justify-center bg-blue-store lg:flex-1">
+            <img alt="login-logo" src="{{ asset('img/logo.png') }}" class="size-14 mb-4 block">
+            <h1 class="font-dine-r text-3xl font-bold text-light-gray sm:text-3xl md:text-4xl">
+                Bienvenido a Miguitas
+            </h1>
+            <div class="flex flex-col items-center justify-center">
+                <p class="mt-2 w-2/3 text-center font-dine-r text-sm text-light-gray md:text-base">
                     Registrate y cumple los antojos de tu mascota con los mejores productos de la región.
                 </p>
             </div>
+            <div class="mt-4 w-4/5 xl:w-2/3">
+                <div>
+                    <div class="mt-4 flex flex-col justify-center gap-4">
+                        <a href="{{ Route('auth.google') }}"
+                            class="flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 font-pluto-r text-sm text-zinc-500 hover:bg-zinc-200">
+                            <x-icon-store icon="google" class="size-5 text-current" />
+                            Registrate con Google
+                        </a>
+                    </div>
+                </div>
 
+                <p class="mt-4 text-center font-dine-r text-white">
+                    O continua con tu correo electrónico
+                </p>
+
+                <form action="{{ Route('register.post') }}" method="POST">
+                    @csrf
+                    <div class="mt-2 flex flex-col gap-1">
+                        <label for="email" class="text-start text-sm font-medium text-white md:text-base">
+                            Correo electrónico
+                        </label>
+                        <div class="relative w-full">
+                            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
+                                <x-icon-store icon="email" class="size-4 sm:size-5 text-white" />
+                            </div>
+                            <input type="email" name="email" id="email" placeholder="email@example.com"
+                                class="w-full rounded-xl border-2 border-white bg-transparent px-6 py-3 pl-12 text-sm text-zinc-200 transition duration-300 placeholder:font-dine-r placeholder:font-normal placeholder:text-zinc-100/70 focus:border-white focus:outline-none md:text-base" />
+                            @error('email')
+                                <p class="text-sm text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="mt-4 flex flex-col gap-1">
+                        <label for="password" class="text-start text-sm font-medium text-white md:text-base">
+                            Contraseña
+                        </label>
+                        <div class="relative w-full">
+                            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
+                                <x-icon-store icon="key" class="size-4 sm:size-5 text-white" />
+                            </div>
+                            <input type="password" name="password" id="password" placeholder="Ingresa tu contraseña"
+                                class="w-full rounded-xl border-2 border-white bg-transparent px-6 py-3 pl-12 text-sm text-zinc-200 transition duration-300 placeholder:font-dine-r placeholder:font-normal placeholder:text-zinc-100/70 focus:border-white focus:outline-none md:text-base" />
+                            @error('password')
+                                <p class="text-sm text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="mt-4 flex flex-col items-center justify-center gap-4">
+                        <x-button-store type="submit" text="Registrarse" typeButton="tertiary" class="mt-4" />
+                        <p class="font-pluto-r text-white">
+                            ¿Ya tienes una cuenta? <a href="{{ Route('login') }}" class="font-dine-r text-white underline">
+                                Inicia sesión
+                            </a>
+                        </p>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 @endsection
