@@ -14,6 +14,10 @@ Route::post("/validate", [AuthController::class, "validate"])->name("login.valid
 Route::get("/auth/google", [GoogleController::class, "redirectToGoogle"])->name("auth.google");
 Route::get("/auth/google/callback", [GoogleController::class, "handleGoogleCallback"])->name("auth.google.callback");
 
+Route::get("/password/reset", [AuthController::class, "showResetPasswordForm"])->name("password.reset");
+Route::post("/send-email-reset-password", [AuthController::class, "sendEmailResetPassword"])->name("password.send.email");
+Route::get("/password-change", [AuthController::class, "showChangePasswordForm"])->name("password.change");
+Route::post("/password/reset", [AuthController::class, "changePassword"])->name("password.change.post");
 
 Route::get("/email/verify", [AuthController::class, "showVerifyEmail"])->name("verification.notice");
 Route::get("/email/verified", [AuthController::class, "verifyEmail"])->name("verification.verify");
