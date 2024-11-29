@@ -112,7 +112,7 @@
                                                 <span>{{ $customer->user->email }}</span>
                                             </x-td>
                                             <x-td>
-                                                <span>{{ $customer->phone }}</span>
+                                                <span>{{ $customer->phone ?? '---' }}</span>
                                             </x-td>
                                             <x-td>
                                                 <x-badge-status :status="$customer->status" />
@@ -121,14 +121,14 @@
                                                 <div class="flex gap-2">
                                                     <x-button type="a"
                                                         href="{{ route('admin.customers.edit', $customer->id) }}"
-                                                        icon="edit" typeButton="secondary" onlyIcon="true" />
+                                                        icon="edit" typeButton="success" onlyIcon="true" />
                                                     <form action="{{ route('admin.customers.destroy', $customer->id) }}"
                                                         id="formDeleteCustomer-{{ $customer->id }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <x-button type="button"
                                                             data-form="formDeleteCustomer-{{ $customer->id }}"
-                                                            icon="delete" typeButton="secondary" class="buttonDelete"
+                                                            icon="delete" typeButton="danger" class="buttonDelete"
                                                             onlyIcon="true" data-modal-target="deleteModal"
                                                             data-modal-toggle="deleteModal" />
                                                     </form>
