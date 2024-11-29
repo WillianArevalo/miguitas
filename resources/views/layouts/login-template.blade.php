@@ -8,6 +8,7 @@
     <title>@yield('title')</title>
     <link rel="shortcut icon" href="{{ $favicon ? Storage::url($favicon) : asset('images/logo.png') }}">
     @vite('resources/css/store.css')
+    @vite('resources/css/app.css')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         (function() {
@@ -163,5 +164,6 @@
     </main>
 </body>
 @vite('resources/js/app.js')
+@stack('scripts')
 
 </html>
