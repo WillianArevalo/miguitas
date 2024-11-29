@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Store;
 
 use App\Helpers\Cart;
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
 use App\Models\Order;
 use App\Models\PaymentMethod;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -63,8 +65,17 @@ class OrderController extends Controller
                 ]);
             }
 
-            Cart::clear();
+            $admins = User::where("role", "admin")->get();
 
+            foreach ($admins as $admin) {
+                Notification::create([
+                    "user_id" => $admin->id,
+                    "reference_id" => $order->id,
+                    "type" => "App\Models\Order",
+                    "message" => "Se ha creado una nueva orden de compra: " . $order->number_order,
+                ]);
+            }
+            Cart::clear();
             DB::commit();
             return redirect()->route("orders.show", $order->number_order);
         } catch (\Exception $e) {
