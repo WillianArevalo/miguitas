@@ -43,9 +43,21 @@
                             </h1>
                         </div>
                         <div class="flex items-center gap-2">
-                            @for ($i = 0; $i < 5; $i++)
-                                <x-icon-store icon="star" class="h-6 w-6 fill-yellow-400" />
-                            @endfor
+                            <p class="text-lg font-semibold text-light-blue sm:text-xl md:text-2xl">
+                                {{ number_format($product->rating, 1) }}
+                            </p>
+                            <div class="flex items-center gap-2">
+                                @for ($i = 0; $i < 5; $i++)
+                                    @if ($i < floor($product->rating))
+                                        <x-icon-store icon="star" class="h-6 w-6 text-yellow-400" />
+                                    @elseif ($i < $product->rating)
+                                        <x-icon-store icon="star-half" class="h-6 w-6 text-yellow-400" />
+                                    @else
+                                        <x-icon-store icon="star" class="h-6 w-6 text-zinc-300" />
+                                    @endif
+                                @endfor
+                            </div>
+
                         </div>
                     </div>
                     <div>
@@ -158,65 +170,96 @@
                                     <p class="text-gray-700">Este es el contenido de la pestaña 2.</p>
                                 </div>
                                 <div id="tab-reviews" class="tab-panel hidden">
-                                    <div class="flex flex-col gap-4">
-                                        @for ($i = 0; $i < 4; $i++)
-                                            <div class="flex flex-col gap-2">
-                                                <div class="flex items-center gap-2">
-                                                    <img src="{{ asset('img/image.jpg') }}"
-                                                        alt="Imagen de perfil del usuario"
-                                                        class="h-12 w-12 rounded-full object-cover">
-                                                    <div class="flex w-full flex-col justify-between gap-2 sm:flex-row">
-                                                        <div class="flex flex-col">
-                                                            <p
-                                                                class="text-secondary font-pluto-r text-base font-bold text-zinc-600 md:text-lg">
-                                                                Nombre de usuario
-                                                            </p>
-                                                            <p
-                                                                class="font-secondary font-dine-r text-xs text-zinc-600 sm:text-sm">
-                                                                12 de septiembre de 2022
-                                                            </p>
-                                                        </div>
-                                                        <div class="flex items-center gap-1 sm:gap-2">
-                                                            @for ($i = 0; $i < 5; $i++)
-                                                                @if ($i < 3)
-                                                                    <x-icon-store icon="star-fill"
-                                                                        class="h-5 w-5 fill-yellow-300" />
-                                                                @else
-                                                                    <x-icon-store icon="star"
-                                                                        class="h-5 w-5 fill-zinc-300" />
-                                                                @endif
-                                                            @endfor
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <p
-                                                    class="font-secondary md::text-base text-secondary ms-14 font-dine-r text-sm text-zinc-500">
-                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro maiores
-                                                    at
-                                                    magni
-                                                </p>
-                                                <div>
-                                                    @if (auth()->check())
-                                                        <div class="ms-14 mt-2 flex items-center gap-2">
-                                                            <button id="btn-edit-review" type="button"
-                                                                class="flex items-center justify-center rounded-xl border border-zinc-300 p-2 text-green-500 hover:bg-zinc-50">
-                                                                <x-icon-store icon="edit"
-                                                                    class="h-4 w-4 fill-current" />
-                                                            </button>
-                                                            <form action="" method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="button"
-                                                                    class="flex items-center justify-center rounded-xl border border-red-300 p-2 text-red-400 hover:bg-red-50">
-                                                                    <x-icon-store icon="delete"
-                                                                        class="h-4 w-4 fill-current" />
-                                                                </button>
-                                                            </form>
-                                                        </div>
-                                                    @endif
+
+                                    @if (!$purchase)
+                                        <p class="text-gray-700">Debes comprar el producto para poder valorarlo.</p>
+                                    @else
+                                        @if (!$userReview)
+                                            <div class="flex items-center gap-4">
+                                                <span class="text-start text-sm font-medium text-zinc-600 md:text-base">
+                                                    Calificación
+                                                </span>
+                                                <div class="my-2 flex items-center gap-1" id="star-rating">
+                                                    <button data-value="1" class="star start-unselected">
+                                                        <x-icon-store icon="star" class="h-7 w-7" />
+                                                    </button>
+                                                    <button data-value="2" class="star start-unselected">
+                                                        <x-icon-store icon="star" class="h-7 w-7" />
+                                                    </button>
+                                                    <button data-value="3" class="star start-unselected">
+                                                        <x-icon-store icon="star" class="h-7 w-7" />
+                                                    </button>
+                                                    <button data-value="4" class="star start-unselected">
+                                                        <x-icon-store icon="star" class="h-7 w-7" />
+                                                    </button>
+                                                    <button data-value="5" class="star start-unselected">
+                                                        <x-icon-store icon="star" class="h-7 w-7" />
+                                                    </button>
                                                 </div>
                                             </div>
-                                        @endfor
+                                            <div class="flex flex-col gap-2">
+                                                <form action="{{ Route('reviews.store') }}" method="POST"
+                                                    id="form-review">
+                                                    @csrf
+                                                    <input type="hidden" name="rating" id="rating-value">
+                                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                    <x-input-store type="textarea" placeholder="Escribe tu valoración"
+                                                        name="comment" id="review" label="Valoración" />
+                                                    <span id="message-review" class="hidden text-xs text-red-600"></span>
+                                                    <div class="mt-4 flex items-center justify-end gap-4">
+                                                        <x-button-store type="submit" typeButton="primary"
+                                                            text="Enviar reseña" icon="send" />
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        @endif
+                                    @endif
+                                    <div class="mt-4 flex flex-col gap-4">
+                                        @if ($reviews->count() > 0)
+                                            @foreach ($reviews as $review)
+                                                <div class="flex flex-col gap-2">
+                                                    <div class="flex items-center gap-2">
+                                                        <img src="{{ Storage::url($review->user->profile) }}"
+                                                            alt="Imagen de perfil del usuario"
+                                                            class="h-12 w-12 rounded-full object-cover">
+                                                        <div
+                                                            class="flex w-full flex-col justify-between gap-2 sm:flex-row">
+                                                            <div class="flex flex-col">
+                                                                <p
+                                                                    class="text-secondary font-pluto-r text-base font-bold text-zinc-600 md:text-lg">
+                                                                    {{ $review->user->name }}
+                                                                </p>
+                                                                <p
+                                                                    class="font-secondary font-dine-r text-xs text-zinc-600 sm:text-sm">
+                                                                    {{ $review->created_at->timezone('America/El_Salvador')->format('d F Y h:i A') }}
+
+                                                                </p>
+                                                            </div>
+                                                            <div class="flex items-center gap-1 sm:gap-2">
+                                                                @for ($i = 0; $i < 5; $i++)
+                                                                    @if ($i < $review->rating)
+                                                                        <x-icon-store icon="star"
+                                                                            class="h-5 w-5 text-yellow-300" />
+                                                                    @else
+                                                                        <x-icon-store icon="star"
+                                                                            class="h-5 w-5 text-zinc-300" />
+                                                                    @endif
+                                                                @endfor
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <p
+                                                        class="font-secondary md::text-base text-secondary ms-14 font-dine-r text-sm text-zinc-500">
+                                                        {{ $review->comment }}
+                                                    </p>
+                                                </div>
+                                            @endforeach
+                                        @else
+                                            <p
+                                                class="rounded-xl border-2 border-dashed border-blue-500 bg-blue-50 p-10 text-center text-blue-500">
+                                                No hay valoraciones para este producto.
+                                            </p>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
