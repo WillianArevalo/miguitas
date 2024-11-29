@@ -1,4 +1,4 @@
-  <div class="card relative rounded-3xl border-[2px] border-light-blue p-2 sm:p-6">
+  <div class="card relative rounded-3xl border-[2px] border-light-blue p-4 sm:p-6">
       <div class="card-header flex items-center gap-2 md:gap-4">
           <img src="{{ asset('img/logo.png') }}" alt="Featured2 image"
               class="h-8 w-8 rounded-full object-cover md:h-14 md:w-14">
@@ -9,10 +9,10 @@
       </div>
       <div class="card-image mt-4">
           <img src="{{ Storage::url($product->main_image) }}" alt="Featured2 image"
-              class="h-48 w-full rounded-xl object-cover md:h-60">
+              class="mx-auto h-36 w-36 rounded-xl object-cover md:h-60 md:w-full">
       </div>
       <div class="card-body mt-4">
-          <div class="flex items-center justify-between">
+          <div class="flex flex-col items-start justify-between gap-y-2 sm:flex-row sm:items-center">
               <div class="flex items-center gap-3">
                   <form action="{{ Route('favorites.add', $product->id) }}" method="POST"
                       class="flex items-center justify-center">
