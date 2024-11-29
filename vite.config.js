@@ -45,6 +45,7 @@ export default defineConfig({
                 "resources/js/store/store.js",
                 "resources/js/store/toast.js",
                 "resources/js/store/slider-pack.js",
+                "resources/js/store/password.js",
             ],
             refresh: true,
         }),
