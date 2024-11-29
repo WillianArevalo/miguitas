@@ -45,7 +45,7 @@
                         <div class="swiper-pagination"></div>
                     </div>
                     <div class="mt-4 flex items-center justify-center">
-                        <x-button-store type="button" typeButton="primary" text="Ver más" />
+                        <x-button-store type="a" href="{{ Route('store') }}" typeButton="primary" text="Ver más" />
                     </div>
                 </div>
             </div>
@@ -81,35 +81,45 @@
         </div>
 
         <div>
-            <div class="flex flex-col gap-8 bg-pink-store py-4 xl:flex-row">
-                <div class="flex-1 text-center">
+            <div class="flex flex-col gap-10 bg-pink-store py-4 xl:flex-row">
+                <div class="flex flex-1 flex-col items-center text-center xl:items-end">
                     <h3 class="text-lg text-blue-store sm:text-xl md:text-2xl lg:text-3xl">
-                        Producto del mes
+                        @if ($theMonthProducts->count() > 1)
+                            Productos del mes
+                        @else
+                            Producto del mes
+                        @endif
                     </h3>
                     <div class="mt-4 flex flex-col items-center justify-center gap-4">
-                        @for ($i = 0; $i < 3; $i++)
-                            <div class="flex items-start justify-center gap-4">
+                        @foreach ($theMonthProducts as $product)
+                            <div class="flex flex-col items-center justify-center gap-4 sm:flex-row xl:justify-end">
                                 <span class="mt-1 flex items-center justify-center">
                                     <x-icon-store icon="circle-check" class="h-8 w-8 text-blue-store" />
                                 </span>
                                 <div class="flex w-1/2 flex-col gap-2 text-left">
                                     <p class="text-lg text-blue-store sm:text-xl md:text-2xl">
-                                        #Cake Corazón FurryLove
+                                        {{ $product->name }}
                                     </p>
-                                    <p class="text-wrap text-xs text-gray-store sm:text-sm md:text-base">
-                                        Pastel de cumpleaños para perros y gatos con ingredientes naturales.
+                                    <p
+                                        class="text-wrap text-truncate line-clamp-4 text-xs text-gray-store sm:text-sm md:text-base">
+                                        {{ $product->short_description }}
                                     </p>
+                                    <div class="mt-4 flex items-center justify-center">
+                                        <x-button-store type="a"
+                                            href="{{ Route('products.details', $product->slug) }}" typeButton="primary"
+                                            text="Ver producto" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <img src="{{ Storage::url($product->main_image) }}" alt="{{ $product->name }}"
+                                        class="h-48 w-48 rounded-lg object-cover">
                                 </div>
                             </div>
-                        @endfor
-                        <div class="flex items-center justify-center">
-                            <x-button-store type="button" typeButton="primary" text="Ver producto" />
-                        </div>
+                        @endforeach
                     </div>
                 </div>
-                <div class="flex-1">
-                    <img src="{{ asset('img/pet-food.png') }}" alt="Pet food"
-                        class="mx-auto h-96 w-96 object-cover xl:h-[500px]">
+                <div class="flex flex-1 items-center justify-center xl:justify-start">
+                    <img src="{{ asset('img/pet-food.png') }}" alt="Pet food" class="h-96 w-96 object-cover xl:h-[500px]">
                 </div>
             </div>
         </div>
