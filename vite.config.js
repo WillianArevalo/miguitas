@@ -31,6 +31,7 @@ export default defineConfig({
                 "resources/js/admin/toast-admin.js",
                 "resources/js/admin/user.js",
                 "resources/js/admin/order-table.js",
+                "resources/js/admin/reviews.js",
 
                 "resources/js/store/account.js",
                 "resources/js/store/cart.js",
@@ -41,7 +42,6 @@ export default defineConfig({
                 "resources/js/store/order.js",
                 "resources/js/store/product-view.js",
                 "resources/js/store/register.js",
-                "resources/js/store/reviews.js",
                 "resources/js/store/store.js",
                 "resources/js/store/toast.js",
                 "resources/js/store/slider-pack.js",
