@@ -73,7 +73,7 @@
                                 placeholder="Ingresa tu nombre" />
                         </div>
                         <div class="flex w-full flex-1 flex-col gap-1">
-                            <x-input-store type="text" name="last_name" label="Apellido"
+                            <x-input-store type="text" name="last_name" required label="Apellido"
                                 placeholder="Ingresa tu apellido" />
                         </div>
                     </div>
