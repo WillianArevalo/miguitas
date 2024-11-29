@@ -5,20 +5,25 @@
             <h2 class="text-3xl font-bold text-blue-store">
                 Devoluciones y cancelaciones
             </h2>
-            <div class="mt-4 flex w-full flex-col flex-wrap gap-4 sm:flex-row sm:gap-8">
-                <div class="flex w-full flex-[2]">
-                    <x-input-store type="search" icon="search" name="search-order" id="search-order"
-                        placeholder="Buscar pedido..." />
-                </div>
-                <div class="font-secondary flex w-full flex-1 flex-col gap-2 sm:w-80">
-                    <x-select-store label="" id="status-order" name="status-order" :options="[
-                        'mas_reciente' => 'Más reciente',
-                        'mas_antiguo' => 'Más antiguo',
-                        'ultimo_mes' => 'Último mes',
-                        'ultimo_año' => 'Último año',
-                    ]"
-                        value="{{ old('status-order') }}" selected="{{ old('status-order') }}" />
-                </div>
+            <div class="mt-4">
+                <form action="{{ Route('orders.search') }}" method="POST"
+                    class="flex w-full flex-col flex-wrap gap-4 sm:flex-row sm:gap-8">
+                    @csrf
+                    <input type="hidden" name="type" value="cancel-return">
+                    <div class="flex w-full flex-[2]">
+                        <x-input-store type="search" icon="search" name="search-order" id="search-order"
+                            placeholder="Buscar pedido..." value="{{ old('search-order') }}" />
+                    </div>
+                    <div class="font-secondary flex w-full flex-1 flex-col gap-2 sm:w-80">
+                        <x-select-store label="" id="order" name="order" :options="[
+                            'mas_reciente' => 'Más reciente',
+                            'mas_antiguo' => 'Más antiguo',
+                            'ultimo_mes' => 'Último mes',
+                            'ultimo_año' => 'Último año',
+                        ]"
+                            value="{{ old('status-order') }}" selected="{{ old('status-order') }}" />
+                    </div>
+                </form>
             </div>
         </div>
         @if ($orders->count() === 0)
@@ -64,7 +69,7 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-zinc-200 bg-white">
+                        <tbody class="divide-y divide-zinc-200 bg-white" id="orders-list">
                             @foreach ($orders as $order)
                                 <tr class="hover:bg-zinc-50">
                                     <td class="whitespace-nowrap px-4 py-4">
@@ -180,10 +185,14 @@
                 <div class="flex justify-end gap-4 bg-gray-50 px-4 py-3">
                     <x-button-store type="button" text="Cerrar" icon="cancel" class="closeModal w-max text-sm"
                         typeButton="secondary" />
-                    <x-button-store type="button" text="Sí, cancelar" icon="delete" class="confirmDelete w-max text-sm"
-                        typeButton="danger" />
+                    <x-button-store type="button" text="Sí, cancelar" icon="delete"
+                        class="confirmDelete w-max text-sm" typeButton="danger" />
                 </div>
             </div>
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/store/order.js')
+@endpush
