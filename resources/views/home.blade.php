@@ -570,7 +570,7 @@
 
         </div>
 
-        <div class="mt-56 sm:mt-24">
+        {{--    <div class="mt-56 sm:mt-24">
             <div class="text-center">
                 <h2 class="my-4 text-center text-3xl text-light-blue sm:text-4xl md:text-5xl">
                     MiguiNews
@@ -717,7 +717,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="mt-10">
             <div class="mb-8 flex flex-col items-center justify-center gap-2">
