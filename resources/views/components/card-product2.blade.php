@@ -1,10 +1,10 @@
-<div class="swiper-slide relative rounded-3xl border border-zinc-200 p-2 shadow-xl sm:p-6">
+<div class="swiper-slide relative rounded-3xl border border-zinc-200 p-4 shadow-xl sm:p-6">
     <div class="card-image">
         <img src="{{ Storage::url($product->main_image) }}" alt="Featured2 image"
-            class="h-48 w-full rounded-xl object-cover md:h-60">
+            class="mx-auto h-48 w-48 rounded-xl object-cover md:h-60 md:w-full">
     </div>
     <div class="card-body mt-4">
-        <div class="flex items-center justify-between">
+        <div class="flex flex-col items-start justify-between gap-y-2 sm:flex-row sm:items-center">
             <div class="flex items-center gap-3">
                 <form action="{{ Route('favorites.add', $product->id) }}" method="POST"
                     class="flex items-center justify-center">
