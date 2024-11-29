@@ -48,6 +48,7 @@ class ProductController extends Controller
             $validated = $request->validated();
             $validated['offer_active'] = $request->has('offer_active') ? 1 : 0;
             $validated['is_active'] = $request->has('is_active') ? 1 : 0;
+            $validated['is_the_month'] = $request->has('is_the_month') ? 1 : 0;
             $product = Product::create($validated);
 
             $optionsValues = $request->input('options');
@@ -178,6 +179,7 @@ class ProductController extends Controller
             $validated['offer_active'] = $request->has('offer_active') ? 1 : 0;
             $validated['is_active'] = $request->has('is_active') ? 1 : 0;
             $validated['is_top'] = $request->has('is_top') ? 1 : 0;
+            $validated['is_the_month'] = $request->has('is_the_month') ? 1 : 0;
 
             $currentFolderPath = $this->getProductImageFolder($request->input("name"));
             $newFolderPath = $this->getProductImageFolder($request->input('name'), $product->created_at);
