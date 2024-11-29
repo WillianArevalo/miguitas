@@ -193,9 +193,15 @@
                                                 <x-icon icon="credit-card" class="h-5 w-5" />
                                                 Método de pago:
                                             </span>
-                                            <x-paragraph class="ms-4">
-                                                {{ $order->payment_method->name }}
-                                            </x-paragraph>
+                                            @if ($order->payment_method)
+                                                <x-paragraph class="ms-4">
+                                                    {{ $order->payment_method->name }}
+                                                </x-paragraph>
+                                            @else
+                                                <x-paragraph class="ms-4">
+                                                    No se ha seleccionado un método de pago
+                                                </x-paragraph>
+                                            @endif
                                         </div>
                                     </div>
                                     @if ($order->payment_status === 'paid')
