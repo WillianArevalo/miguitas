@@ -10,7 +10,7 @@ import "./store/cart";
 import "./swiper";
 import "./navbar";
 import "./calendar";
-
+import "./admin/search";
 import { initSwiper } from "./swiper";
 
 initSwiper();
