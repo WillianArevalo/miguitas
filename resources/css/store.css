@@ -437,3 +437,22 @@
     -webkit-animation: dothatopcheck-19 0.4s ease 0s forwards;
     animation: dothatopcheck-19 0.4s ease 0s forwards;
 }
+
+/* Star's */
+.start-unselected {
+    svg {
+        @apply fill-gray-300 text-gray-400;
+    }
+}
+
+.star-selected {
+    svg {
+        @apply fill-yellow-400 text-yellow-400;
+    }
+}
+
+.star-selected:hover {
+    svg {
+        @apply fill-yellow-400 text-yellow-400;
+    }
+}
