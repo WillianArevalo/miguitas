@@ -33,7 +33,7 @@
             </div>
         @else
             <div
-                class="mt-4 flex flex-col items-center justify-center gap-2 rounded-xl border border-zinc-200 px-4 shadow-sm">
+                class="my-4 flex flex-col items-center justify-center gap-2 rounded-xl border border-zinc-200 px-4 shadow-sm">
                 <div class="w-full overflow-x-auto">
                     <table class="w-full table-auto font-dine-r">
                         <thead>
