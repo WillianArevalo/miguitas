@@ -10,9 +10,8 @@
         <div class="mt-8 p-2 sm:p-4 md:p-6">
             <div class="flex flex-wrap items-center gap-2 md:gap-4">
                 @foreach ($subcategories as $subcategory)
-                    <x-button-store type="button" class="uppercase"
-                        href="{{ Route('store.products', ['filter' => 'subcategory', 'search' => $subcategory->slug]) }}"
-                        typeButton="primary" text="{{ $subcategory->name }}" />
+                    <x-button-store type="a" class="uppercase" href="{!! Route('store.products', ['filter' => 'subcategory', 'search' => $subcategory->slug]) !!}" typeButton="primary"
+                        text="{!! $subcategory->name !!}" />
                 @endforeach
             </div>
         </div>
@@ -174,7 +173,7 @@
                         {{ $products->links('vendor.pagination.pagination-store') }}
                     @else
                         <div
-                            class="flex h-full flex-col items-center justify-center rounded-2xl border-2 border-dashed border-zinc-300 p-10 px-4">
+                            class="flex h-screen flex-col items-center justify-center rounded-2xl border-2 border-dashed border-zinc-300 p-10 px-4">
                             <x-icon-store icon="sad" class="mb-4 h-12 w-12 text-zinc-500" />
                             <p class="flex items-center gap-2 text-center text-base text-zinc-500">
                                 No se encontraron productos con los filtros aplicados, <br> intenta con otros filtros.
