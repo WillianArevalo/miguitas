@@ -49,7 +49,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="my-4 flex items-center justify-center sm:justify-start">
+                <div class="my-4 flex items-center justify-center">
                     <x-button-store type="submit" text="Guardar dirección" icon="check" class="w-max"
                         typeButton="primary" />
                 </div>
