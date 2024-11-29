@@ -20,6 +20,7 @@ class HomeController extends Controller
             ->take(10)
             ->get();
         $topProducts = Product::with("labels")->where("is_top", true)->get();
+        $theMonthProducts = Product::with("labels")->where("is_the_month", true)->get();
         $categories = Categorie::all();
         $flashOffers = Product::whereHas('flash_offers', function ($query) {
             $query->where('is_showing', true)
@@ -37,6 +38,7 @@ class HomeController extends Controller
             "topProducts" => $topProducts,
             "flashOffers" => $flashOffers,
             "categories" => $categories,
+            "theMonthProducts" => $theMonthProducts,
         ]);
     }
 }
