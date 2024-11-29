@@ -24,13 +24,13 @@
 
 /* Valid input */
 .is-valid {
-    border: 1px solid #38c172;
+    border-color: #38c172;
     box-shadow: 0 0 0 0.2rem rgba(64, 225, 75, 0.322);
 }
 
 /* Valid input dark */
 .dark .is-valid {
-    border: 1px solid #38c172 !important;
+    border-color: #38c172 !important;
 }
 
 /* Input styles */
