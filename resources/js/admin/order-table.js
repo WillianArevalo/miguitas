@@ -11,6 +11,11 @@ $(document).ready(function () {
         info: false,
     });
 
+    let table_contact_messages = new DataTable("#tableContactMessages", {
+        paging: false,
+        info: false,
+    });
+
     // Search products
     $("#inputSearchProducts").on("keyup", function () {
         console.log($(this).val());
@@ -36,5 +41,11 @@ $(document).ready(function () {
     $("#filter-status-orders").on("Changed", function () {
         let value = $(this).val();
         table_orders.search(value).draw();
+    });
+
+    // Search contact messages
+    $("#inputSearchContactMessages").on("keyup", function () {
+        console.log($(this).val());
+        table_contact_messages.search($(this).val()).draw();
     });
 });
