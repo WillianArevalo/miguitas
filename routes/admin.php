@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\{
     BrandController,
     CategorieController,
     ConfigurationController,
+    ContactMessageController,
     CouponController,
     CurrencyController,
     CustomerController,
@@ -65,6 +66,11 @@ Route::middleware("role:admin")->prefix("admin")->name("admin.")->group(function
     Route::post("/products/import", [ProductController::class, "import"])->name("products.import");
     Route::delete("/products/delete-image/{id}", [ProductController::class, "deleteImage"])->name("products.delete-image");
     Route::post("/products/search", [ProductController::class, "search"])->name("products.search");
+
+    // Contact Messages
+    Route::resource("/contact-messages", ContactMessageController::class);
+    Route::delete("/contact-messages/destroy/{id}", [ContactMessageController::class, "destroy"])->name("contact-messages.delete");
+
     // Taxes
     Route::resource("/taxes", TaxController::class);
 
