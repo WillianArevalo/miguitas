@@ -162,8 +162,11 @@
                                                     alt="{{ $item->product->name }}">
                                             </div>
                                             <div class="ml-4">
-                                                <div class="font-din-r text-sm font-medium text-zinc-600">
-                                                    {{ $item->product->name }}
+                                                <div class="text-sm font-medium text-zinc-600">
+                                                    <a href="{{ Route('products.details', $item->product->slug) }}"
+                                                        class="font-din-r hover:text-blue-store">
+                                                        {{ $item->product->name }}
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
