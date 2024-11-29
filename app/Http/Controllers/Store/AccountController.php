@@ -114,11 +114,15 @@ class AccountController extends Controller
             "new-password" => "required|string",
             "confirm-password" => "required|string"
         ];
+
         $validated = $request->validate($rules);
         $auth = auth()->user();
         $user = User::find($auth->id);
 
-        if (!$user) return redirect()->route("account.change-password")->with("error", "Usuario no encontrado");
+        if (!$user) return response()->json([
+            "error" => "Usuario no encontrado"
+        ], 404);
+
         if (password_verify($validated["password"], $user->password)) {
             if ($validated["new-password"] === $validated["confirm-password"]) {
                 DB::beginTransaction();
@@ -126,16 +130,24 @@ class AccountController extends Controller
                     $user->password = Hash::make($validated["new-password"]);
                     $user->save();
                     DB::commit();
-                    return redirect()->route("account.index")->with("success", "Contraseña actualizada correctamente");
+                    return response()->json([
+                        "success" => "Contraseña actualizada correctamente"
+                    ], 200);
                 } catch (\Exception $e) {
                     DB::rollBack();
-                    return redirect()->route("account.change-password")->with("error", "Error al actualizar la contraseña");
+                    return response()->json([
+                        "error" => "Error al actualizar la contraseña"
+                    ], 500);
                 }
             } else {
-                return redirect()->route("account.change-password")->with("error", "Las contraseñas no coinciden");
+                return response()->json([
+                    "error" => "Las contraseñas no coinciden"
+                ], 400);
             }
         } else {
-            return redirect()->route("account.change-password")->with("error", "La contraseña actual es incorrecta");
+            return response()->json([
+                "error" => "La contraseña actual es incorrecta"
+            ], 400);
         }
     }
 
