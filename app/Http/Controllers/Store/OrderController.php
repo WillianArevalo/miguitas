@@ -16,21 +16,29 @@ class OrderController extends Controller
 
     public function index()
     {
-        $orders = auth()->user()->customer->orders;
+        if (auth()->user()->customer && auth()->user()->customer->orders) {
+            $orders = auth()->user()->customer->orders;
 
-        $orders = $orders->filter(function ($order) {
-            return $order->status === "pending" || $order->status === "completed" || $order->status === "sent";
-        });
+            $orders = $orders->filter(function ($order) {
+                return $order->status === "pending" || $order->status === "completed" || $order->status === "sent";
+            });
+        } else {
+            $orders = collect([]);
+        }
 
         return view("store.orders.index", compact("orders"));
     }
 
     public function cancelReturn()
     {
-        $orders = auth()->user()->customer->orders;
-        $orders = $orders->filter(function ($order) {
-            return $order->status === "canceled" || $order->status === "returned";
-        });
+        if (auth()->user()->customer && auth()->user()->customer->orders) {
+            $orders = auth()->user()->customer->orders;
+            $orders = $orders->filter(function ($order) {
+                return $order->status === "canceled" || $order->status === "returned";
+            });
+        } else {
+            $orders = collect([]);
+        }
         return view("store.orders.cancel-return", compact("orders"));
     }
 
@@ -163,5 +171,44 @@ class OrderController extends Controller
     public function generateTrackingNumber()
     {
         return "TRK" . date("Ymd") . rand(1000, 9999);
+    }
+
+    public function search(Request $request)
+    {
+        $query = Order::query()->where("user_id", auth()->id());
+        $search = $request->input("search-order");
+        $status = $request->input("order");
+
+        if ($search) {
+            $query->where("number_order", "like", "%$search%")
+                ->orWhere("tracking_number", "like", "%$search%")
+                ->orWhere("status", "like", "%$search%");
+        }
+
+        if ($status) {
+            if ($status === "mas_reciente") {
+                $query->orderBy("created_at", "desc");
+            }
+
+            if ($status === "mas_antiguo") {
+                $query->orderBy("created_at", "asc");
+            }
+
+            if ($status === "ultimo_mes") {
+                $query->where("created_at", ">=", now()->subMonth());
+            }
+
+            if ($status === "ultimo_año") {
+                $query->where("created_at", ">=", now()->subYear());
+            }
+        }
+
+        $orders = $query->get();
+
+        if ($request->ajax()) {
+            return response()->json([
+                "html" => view("layouts.__partials.ajax.store.row-order", compact("orders"))->render(),
+            ], 200);
+        }
     }
 }
