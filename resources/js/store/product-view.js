@@ -101,32 +101,15 @@ $(document).ready(function () {
             });
         }
     });
-
-    /*   $(".secondary-image").on("click", function () {
+    /* 
+    $(".secondary-image").on("click", function () {
         $(".container-secondary-image").removeClass("selected");
         $(this).parent().addClass("selected");
         const newSrc = $(this).attr("src");
         $("#main-image").attr("src", newSrc);
-    });
+    }); */
 
-    var $review = $("#review");
-    var $messageReview = $("#message-review");
-    $("#add-review").on("click", function () {
-        if ($review.val() === "") {
-            $review.addClass("is-invalid");
-            $messageReview
-                .removeClass("hidden")
-                .text("El campo no puede estar vacío");
-        }
-    });
-
-    $review.on("input", function () {
-        if ($review.val() !== "") {
-            $review.removeClass("is-invalid");
-            $messageReview.addClass("hidden");
-        }
-    });
-
+    /* 
     $("#btn-review").on("click", function () {
         $("#review-container").toggleClass("hidden");
     });
@@ -143,7 +126,7 @@ $(document).ready(function () {
     $("#btn-cancel-edit-review").on("click", function () {
         $(".review-user-current").show();
         $("#edit-review-container").toggleClass("hidden");
-    });
+    }); */
 
     function updateStars(stars, ratingValue, starClass) {
         stars.each(function (index) {
@@ -159,10 +142,10 @@ $(document).ready(function () {
         });
     }
 
-    updateStars(
+    /* updateStars(
         $("#star-rating-edit .star-edit"),
         $("#rating-value-edit").val()
-    );
+    ); */
 
     $("#star-rating .star").on("click", function () {
         var value = $(this).data("value");
@@ -180,6 +163,44 @@ $(document).ready(function () {
         updateStars($("#star-rating .star"), value);
     });
 
+    var $review = $("#review");
+    var $messageReview = $("#message-review");
+
+    $("#form-review").on("submit", function (e) {
+        e.preventDefault();
+
+        if ($review.val() === "") {
+            $review.addClass("is-invalid");
+            $messageReview
+                .removeClass("hidden")
+                .text("El campo no puede estar vacío");
+            return;
+        }
+
+        if ($review.val().length < 10) {
+            $review.addClass("is-invalid");
+            $messageReview
+                .removeClass("hidden")
+                .text("El campo debe tener al menos 10 caracteres");
+            return;
+        }
+
+        if ($("#rating-value").val() === "") {
+            showToast("Debes seleccionar una valoración", "error");
+            return;
+        }
+
+        $(this).off("submit").submit();
+    });
+
+    $review.on("input", function () {
+        if ($review.val() !== "") {
+            $review.removeClass("is-invalid");
+            $messageReview.addClass("hidden");
+        }
+    });
+
+    /* 
     $("#star-rating-edit .star-edit").on("click", function () {
         var value = $(this).data("value");
         $("#rating-value-edit").val(value);
