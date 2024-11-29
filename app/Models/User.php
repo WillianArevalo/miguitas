@@ -38,6 +38,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(SupportTicket::class);
     }
 
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
