@@ -26,4 +26,30 @@ $(document).ready(function () {
             },
         });
     });
+
+    $("#search-order").on("keyup", function () {
+        const form = $(this).closest("form");
+        $.ajax({
+            url: form.attr("action"),
+            method: form.attr("method"),
+            data: form.serialize(),
+            success: function (response) {
+                console.log(response);
+                $("#orders-list").html(response.html);
+            },
+        });
+    });
+
+    $("#order").on("Changed", function () {
+        const form = $(this).closest("form");
+        $.ajax({
+            url: form.attr("action"),
+            method: form.attr("method"),
+            data: form.serialize(),
+            success: function (response) {
+                console.log(response);
+                $("#orders-list").html(response.html);
+            },
+        });
+    });
 });

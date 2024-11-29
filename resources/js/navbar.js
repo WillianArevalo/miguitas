@@ -80,4 +80,31 @@ $(document).ready(function () {
         const target = $(this).data("target");
         $(target).toggleClass("hidden");
     });
+
+    let url = "";
+    $("#search-input").on("keyup", function () {
+        const value = $(this).val();
+        generateUrlSearch(value);
+    });
+
+    $("#search-input-mobile").on("keyup", function () {
+        const value = $(this).val();
+        generateUrlSearch(value);
+    });
+
+    function generateUrlSearch(value) {
+        if (value) {
+            url = `/tienda/productos?filter=name&search=${encodeURIComponent(
+                value
+            )}`;
+        }
+    }
+
+    $("#search-btn").on("click", function () {
+        window.location.href = url;
+    });
+
+    $("#search-btn-mobile").on("click", function () {
+        window.location.href = url;
+    });
 });
