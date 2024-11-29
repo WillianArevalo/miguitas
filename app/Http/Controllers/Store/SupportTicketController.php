@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Store;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TicketRequest;
+use App\Models\Notification;
 use App\Models\SupportTicket;
 use App\Models\TicketComment;
+use App\Models\User;
+use App\Notifications\SupportTicketCreated;
 use App\Utils\CategoryTickets;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -55,6 +58,17 @@ class SupportTicketController extends Controller
                     "comment" => $request->input("comment"),
                     "attachments" => $attachments,
                     "type_user" => "user"
+                ]);
+            }
+
+            $admins = User::where("role", "admin")->get();
+
+            foreach ($admins as $admin) {
+                Notification::create([
+                    "user_id" => $admin->id,
+                    "type" => "App\Models\SupportTicket",
+                    "message" => "Nuevo ticket de soporte creado: " . $ticket->ticket_number,
+                    "reference_id" => $ticket->id
                 ]);
             }
 
