@@ -32,7 +32,7 @@ export default defineConfig({
                 "resources/js/admin/user.js",
                 "resources/js/admin/order-table.js",
                 "resources/js/admin/reviews.js",
-
+                "resources/js/admin/search.js",
                 "resources/js/store/account.js",
                 "resources/js/store/cart.js",
                 "resources/js/store/checkout.js",
