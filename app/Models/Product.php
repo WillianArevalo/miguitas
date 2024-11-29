@@ -78,6 +78,7 @@ class Product extends Model
         "weight",
         "status",
         "is_top",
+        "is_the_month",
         "categorie_id",
     ];
 
