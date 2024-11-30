@@ -37,6 +37,10 @@
             'class' => 'left-0 right-0 sm:right-5 sm:mx-auto top-10',
         ])
         @yield('content')
+
+        @if (!request()->cookie('accept_cookies'))
+            <x-cookie />
+        @endif
     </main>
     @include('layouts.__partials.store.footer')
     @stack('scripts')
