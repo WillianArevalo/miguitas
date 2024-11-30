@@ -1,4 +1,14 @@
+@import url("constans.css");
 @import url("scrollbar.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body.admin {
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
 
 /* Popup pages */
 .imagePoup:hover > button,

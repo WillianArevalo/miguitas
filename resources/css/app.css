@@ -1,15 +1,3 @@
-@import url("constans.css");
-@import url("admin.css");
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-* {
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-}
-
 /* Invalid input **/
 .is-invalid {
     border-color: #e3342f;
