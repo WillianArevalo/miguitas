@@ -119,7 +119,7 @@
                         </div>
                         <!--Information -->
 
-                        {{--        
+                        {{--
                         <div class="flex items-center justify-center">
                             <button
                                 class="relative flex h-10 w-10 items-center justify-center rounded-lg p-3 hover:bg-zinc-100 focus:ring-4 focus:ring-zinc-300 dark:hover:bg-zinc-950 dark:focus:ring-zinc-800">
@@ -324,7 +324,7 @@
                         Mensajes
                     </span>
                     <span
-                        class="ms-3 inline-flex h-3 w-3 items-center justify-center rounded-full bg-blue-700 p-3 text-sm font-medium text-blue-100 dark:bg-blue-900 dark:text-blue-300">
+                        class="ms-3 inline-flex h-3 w-3 items-center justify-center rounded-full bg-blue-700 p-3 text-sm font-medium text-blue-100 dark:bg-primary-600 dark:text-white">
                         {{ $messages->count() }}
                     </span>
                 </a>
