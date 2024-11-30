@@ -8,6 +8,8 @@ use App\Models\Categorie;
 use App\Models\HeadBand;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Request;
 
 class HomeController extends Controller
 {
@@ -40,5 +42,21 @@ class HomeController extends Controller
             "categories" => $categories,
             "theMonthProducts" => $theMonthProducts,
         ]);
+    }
+
+    public function acceptAllCookies(Request $request)
+    {
+
+        Cookie::queue('accept_cookies', true, 60 * 24 * 365);
+        if (Auth::check()) {
+            Auth::login(Auth::user(), true);
+        }
+
+        return response()->json(["success" => "Cookies aceptadas"]);
+    }
+
+    public function showCookies()
+    {
+        return view("store.policy-cookies");
     }
 }
