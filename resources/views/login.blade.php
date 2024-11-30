@@ -32,7 +32,7 @@
                                 <x-icon-store icon="email" class="size-4 sm:size-5 text-white" />
                             </div>
                             <input type="email" name="email" id="email" placeholder="email@example.com"
-                                class="w-full rounded-xl border-2 border-white bg-transparent px-6 py-3 pl-12 text-sm text-zinc-200 transition duration-300 placeholder:font-dine-r placeholder:font-normal placeholder:text-zinc-100/70 focus:border-white focus:outline-none md:text-base" />
+                                class="w-full rounded-xl border-2 border-white bg-transparent px-6 py-3 pl-12 text-sm text-white transition duration-300 placeholder:font-dine-r placeholder:font-normal placeholder:text-zinc-100/70 focus:border-white focus:outline-none md:text-base" />
                             @error('email')
                                 <p class="text-sm text-red-500">{{ $message }}</p>
                             @enderror
@@ -47,7 +47,7 @@
                                 <x-icon-store icon="key" class="size-4 sm:size-5 text-white" />
                             </div>
                             <input type="password" name="password" id="password" placeholder="Ingresa tu contraseña"
-                                class="w-full rounded-xl border-2 border-white bg-transparent px-6 py-3 pl-12 text-sm text-zinc-200 transition duration-300 placeholder:font-dine-r placeholder:font-normal placeholder:text-zinc-100/70 focus:border-white focus:outline-none md:text-base" />
+                                class="w-full rounded-xl border-2 border-white bg-transparent px-6 py-3 pl-12 text-sm text-white transition duration-300 placeholder:font-dine-r placeholder:font-normal placeholder:text-zinc-100/70 focus:border-white focus:outline-none md:text-base" />
                             @error('password')
                                 <p class="text-sm text-red-500">{{ $message }}</p>
                             @enderror
