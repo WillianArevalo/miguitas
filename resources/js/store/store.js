@@ -18,4 +18,23 @@ $(document).ready(function () {
     }
 
     setInterval(animateHeadBands, 4000);
+
+    $("#accept-all-cookies").click(function () {
+        const form = $(this).closest("form");
+
+        $.ajax({
+            url: form.attr("action"),
+            method: "POST",
+            data: form.serialize(),
+            success: function (response) {
+                if (response) {
+                    $(".cookies").addClass("hidden");
+                }
+                console.log(response);
+            },
+            error: function (error) {
+                console.log(error);
+            },
+        });
+    });
 });
