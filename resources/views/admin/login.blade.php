@@ -8,7 +8,7 @@
                     class="w-full rounded-lg bg-white shadow dark:border dark:border-zinc-800 dark:bg-zinc-950 sm:max-w-md md:mt-0 xl:p-0">
                     <div class="space-y-4 p-6 sm:p-8 md:space-y-6">
                         <h1
-                            class="text-center text-xl font-bold leading-tight tracking-tight text-primary-950 dark:text-white md:text-2xl">
+                            class="text-center font-poppins text-xl font-bold leading-tight tracking-tight text-primary-950 dark:text-white md:text-2xl">
                             Iniciar sesión
                         </h1>
                         <form class="space-y-4 md:space-y-4" action="{{ route('admin.validate') }}" method="POST">
