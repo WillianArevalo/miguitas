@@ -136,6 +136,11 @@
                                         </a>
                                     </li>
                                 @endforeach
+                                <li class="text-sm text-white md:text-base">
+                                    <a class="link font-dine-r" href="{{ route('cookies') }}">
+                                        Política de cookies
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </div>
