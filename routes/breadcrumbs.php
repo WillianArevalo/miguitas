@@ -159,7 +159,7 @@ Breadcrumbs::for('admin.policies.index', function (BreadcrumbTrail $trail) {
     $trail->push('Políticas', route('admin.policies.index'));
 });
 
-//Admin > FAQ 
+//Admin > FAQ
 Breadcrumbs::for('admin.faq.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.index');
     $trail->push('Preguntas frecuentes', route('admin.faq.index'));
@@ -273,7 +273,7 @@ Breadcrumbs::for("store", function (BreadcrumbTrail $trail) {
 });
 
 
-//Products 
+//Products
 Breadcrumbs::for("store.products", function (BreadcrumbTrail $trail) {
     $trail->parent("store");
     $trail->push("PAWstry eShop", route("store.products"));
@@ -287,7 +287,7 @@ Breadcrumbs::for("products.details", function (BreadcrumbTrail $trail, $product)
 });
 
 
-//Cart 
+//Cart
 Breadcrumbs::for("cart", function (BreadcrumbTrail $trail) {
     $trail->parent("store");
     $icon = Blade::render("<x-icon-store icon='cart' class='w-4 h-4' />");
@@ -329,7 +329,7 @@ Breadcrumbs::for("favorites", function (BreadcrumbTrail $trail) {
     $trail->push($icon . "Favoritos", route("favorites"));
 });
 
-//Account 
+//Account
 Breadcrumbs::for("account.index", function (BreadcrumbTrail $trail) {
     $trail->parent("store");
     $icon = Blade::render("<x-icon-store icon='user' class='w-4 h-4' />");
@@ -378,7 +378,7 @@ Breadcrumbs::for("orders.index", function (BreadcrumbTrail $trail) {
 });
 
 
-//Adress 
+//Adress
 Breadcrumbs::for("account.addresses.index", function (BreadcrumbTrail $trail) {
     $trail->parent("account.index");
     $trail->push("Direcciones", route("account.addresses.index"));
@@ -460,4 +460,10 @@ Breadcrumbs::for("account.verify-email", function (BreadcrumbTrail $trail) {
 Breadcrumbs::for("payments.index", function (BreadcrumbTrail $trail) {
     $trail->parent("account.index");
     $trail->push("Pagos", route("payments.index"));
+});
+
+//Cookies
+Breadcrumbs::for("cookies", function (BreadcrumbTrail $trail) {
+    $trail->parent("store");
+    $trail->push("Política de cookies", route("cookies"));
 });
