@@ -87,7 +87,7 @@
                                                         @if ($settings->where('key', 'store_logo')->first()->value)
                                                             <img src="{{ Storage::url($settings->where('key', 'store_logo')->first()->value) }}"
                                                                 alt="Preview Image" id="logo-preview"
-                                                                class="m-10 h-64 w-56 rounded-xl object-cover">
+                                                                class="m-10 h-64 w-56 rounded-xl object-cover p-4">
                                                         @else
                                                             <div
                                                                 class="flex flex-col items-center justify-center pb-6 pt-5">
@@ -116,7 +116,7 @@
                                                         @if ($settings->where('key', 'store_favicon')->first()->value)
                                                             <img src="{{ Storage::url($settings->where('key', 'store_favicon')->first()->value) }}"
                                                                 alt="Preview Image" id="favicon-preview"
-                                                                class="m-10 h-64 w-56 rounded-xl object-cover">
+                                                                class="m-10 h-64 w-56 rounded-xl object-cover p-4">
                                                         @else
                                                             <div
                                                                 class="flex flex-col items-center justify-center pb-6 pt-5">
@@ -181,7 +181,6 @@
                                     class="w-full sm:w-max" />
                             </div>
                         </form>
-
                         <div class="mt-4">
                             <x-paragraph>Redes sociales</x-paragraph>
                             <div class="mt-4 flex gap-4">
@@ -215,7 +214,6 @@
                                 @endif
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="hidden" id="settings-store" role="tabpanel" aria-labelledby="dashboard-tab">
@@ -225,8 +223,8 @@
                             class="mt-4 flex h-max w-max flex-col gap-4 rounded-lg border border-zinc-400 p-4 dark:border-zinc-800">
                             <div>
                                 <h3 class="text-zinc-700 dark:text-zinc-300">Modo mantenimiento</h3>
-                                <p class="text-sm text-zinc-600 dark:text-zinc-400">Activa o desactiva el modo
-                                    mantenimiento
+                                <p class="text-sm text-zinc-600 dark:text-zinc-400">
+                                    Activa o desactiva el modo mantenimiento
                                 </p>
                                 <form action="{{ Route('admin.general-settings.maintenance.update') }}" method="POST">
                                     @csrf
@@ -235,7 +233,7 @@
                                             value="{{ $maintenance->value ?? 0 }}" class="peer sr-only"
                                             {{ $maintenance->value == 1 ? 'checked' : '' }}>
                                         <div
-                                            class="peer relative h-6 w-11 rounded-full bg-zinc-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-zinc-400 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rtl:peer-checked:after:-translate-x-full dark:border-zinc-600 dark:bg-zinc-700 dark:peer-focus:ring-blue-800">
+                                            class="peer relative h-6 w-11 rounded-full bg-zinc-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-zinc-400 after:bg-white after:transition-all after:content-[''] peer-checked:bg-primary-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rtl:peer-checked:after:-translate-x-full dark:border-zinc-600 dark:bg-zinc-700 dark:peer-focus:ring-primary-950">
                                         </div>
                                         <span class="ms-3 text-sm font-medium text-zinc-900 dark:text-zinc-300">
                                             Activado
@@ -244,30 +242,6 @@
                                 </form>
                                 <x-button type="a" text="Ver página en mantimiento" icon="view"
                                     typeButton="secondary" class="mt-2 w-max" />
-                            </div>
-                        </div>
-                        <div
-                            class="mt-4 flex h-max w-max flex-col gap-4 rounded-lg border border-zinc-400 p-4 dark:border-zinc-800">
-                            <div>
-                                <h3 class="text-zinc-700 dark:text-zinc-300">Idiomas</h3>
-                                <p class="text-sm text-zinc-600 dark:text-zinc-400">
-                                    Configura los idiomas disponibles en la aplicación
-                                </p>
-                                <p class="text-sm text-zinc-600 dark:text-zinc-400">
-                                    Idiomas agregados:
-                                </p>
-                                <div class="mt-2 flex gap-2">
-                                    <span
-                                        class="me-2 rounded bg-blue-100 px-2.5 py-0.5 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300">
-                                        Español
-                                    </span>
-                                    <span
-                                        class="me-2 rounded bg-blue-100 px-2.5 py-0.5 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300">
-                                        Inglés
-                                    </span>
-                                </div>
-                                <x-button type="a" text="Agregar idioma" icon="plus" typeButton="primary"
-                                    class="mt-4 w-max" />
                             </div>
                         </div>
                         <div
