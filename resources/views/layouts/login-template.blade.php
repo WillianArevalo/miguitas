@@ -8,7 +8,7 @@
     <title>@yield('title')</title>
     <link rel="shortcut icon" href="{{ $favicon ? Storage::url($favicon) : asset('images/logo.png') }}">
     @vite('resources/css/store.css')
-    @vite('resources/css/app.css')
+    @vite('resources/css/admin.css')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         (function() {
@@ -152,7 +152,7 @@
     </script>
 </head>
 
-<body class="store">
+<body class="{{ Route::is('admin.login') ? 'admin' : 'store' }}">
     <main>
         @if (Route::is('admin.login'))
             @include('layouts.__partials.admin.toast')
