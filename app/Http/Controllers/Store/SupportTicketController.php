@@ -10,6 +10,7 @@ use App\Models\TicketComment;
 use App\Models\User;
 use App\Notifications\SupportTicketCreated;
 use App\Utils\CategoryTickets;
+use App\Utils\WhatsAppService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -70,6 +71,17 @@ class SupportTicketController extends Controller
                     "message" => "Nuevo ticket de soporte creado: " . $ticket->ticket_number,
                     "reference_id" => $ticket->id
                 ]);
+            }
+
+
+            $whatsappService = new WhatsAppService();
+            $response =  $whatsappService->sendMessage("50375456642", "Nuevo ticket de soporte creado: " . $ticket->ticket_number);
+
+            if (!$response["success"]) {
+                return redirect()->back()->with(
+                    "error",
+                    "An error occurred while sending the message to WhatsApp. Please try again. Error: " . $response["message"]
+                );
             }
 
             DB::commit();
