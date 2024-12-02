@@ -96,11 +96,11 @@
                                     </div>
                                     <div class="flex-1">
                                         <x-select label="Estado" name="status" id="status" :options="[
-                                            '0' => 'Activo',
-                                            '1' => 'Inactivo',
+                                            'active' => 'Activo',
+                                            'inactive' => 'Inactivo',
                                         ]"
-                                            selected="{{ old('status', $user->status) }}"
-                                            value="{{ old('status', $user->status) }}" />
+                                            selected="{{ old('status', $user->status === 1 ? 'active' : 'inactive') }}"
+                                            value="{{ old('status', $user->status === 1 ? 'active' : 'inactive') }}" />
                                     </div>
                                 </div>
 
