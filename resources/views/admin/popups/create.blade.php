@@ -27,6 +27,33 @@
                         Alerta emergente
                     </label>
                 </div>
+
+                <div class="my-4 flex items-center justify-center border-y border-zinc-400 py-8 dark:border-zinc-800"
+                    id="skeleton-popup">
+                    <div role="status"
+                        class="w-96 animate-pulse rounded-xl border border-zinc-400 p-4 shadow dark:border-zinc-800 md:p-6">
+                        <div class="flex items-center justify-center">
+                            <div class="mb-4 h-4 w-48 rounded-full bg-zinc-200 dark:bg-zinc-900"></div>
+                        </div>
+                        <div class="mb-4 flex h-48 items-center justify-center rounded-xl bg-gray-300 dark:bg-zinc-900">
+                            <x-icon icon="image" class="size-10 text-zinc-500 dark:text-zinc-600" />
+                        </div>
+                        <div>
+                            <div class="mb-4 h-2.5 w-48 rounded-full bg-zinc-200 dark:bg-zinc-900"></div>
+                            <div class="mb-2.5 h-2 rounded-full bg-zinc-200 dark:dark:bg-zinc-900"></div>
+                            <div class="mb-2.5 h-2 rounded-full bg-zinc-200 dark:dark:bg-zinc-900"></div>
+                            <div class="h-2 rounded-full bg-zinc-200 dark:dark:bg-zinc-900"></div>
+                        </div>
+                        <div class="mt-4 flex justify-end">
+                            <div class="flex items-center gap-4">
+                                <div class="mb-2 h-5 w-20 rounded-full bg-zinc-200 dark:bg-zinc-900"></div>
+                                <div class="mb-2 h-5 w-20 rounded-full bg-zinc-200 dark:bg-zinc-900"></div>
+                            </div>
+                        </div>
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+
                 <div class="flex items-center gap-2">
                     <input type="radio" name="type_alert"
                         class="border-zinc-400 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-950" value="headband">
@@ -34,12 +61,25 @@
                         Cabecera
                     </label>
                 </div>
+
+
+                <div id="skeleton-headband" class="hidden">
+                    <div class="my-4 flex items-center justify-center border-y border-zinc-400 py-8 dark:border-zinc-800">
+                        <div class="flex w-full items-center justify-center">
+                            <div
+                                class="flex w-full animate-pulse items-center justify-center bg-zinc-200 px-4 py-5 dark:bg-zinc-950">
+                                <div class="h-4 w-[500px] animate-pulse rounded-full bg-zinc-400 dark:bg-zinc-900"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div id="popup-container">
             <form action="{{ route('admin.popups.store') }}" method="POST" id="formPopup">
                 @csrf
+                <input type="hidden" name="reference_id" id="reference_id">
                 <div class="bg-white p-4 text-sm dark:bg-black">
                     <div class="mt-2">
                         <div class="flex flex-1 gap-4">
@@ -68,7 +108,7 @@
                             <h5 class="mb-2 font-bold text-zinc-700 dark:text-white">Previsualización</h5>
                             <!-- Preview Popup -->
                             <div
-                                class="popupContainer relative flex h-max w-full items-center justify-center overflow-auto rounded-lg border-2 border-dashed border-zinc-600 bg-zinc-300 py-32 dark:border-zinc-800 dark:bg-black">
+                                class="popupContainer popup relative flex h-max w-full items-center justify-center overflow-auto rounded-lg border-2 border-dashed border-zinc-600 bg-zinc-300 py-32 dark:border-zinc-800 dark:bg-black">
                                 <div class="relative w-[500px] animate-jump-in rounded-xl bg-white animate-duration-300"
                                     id="popup">
                                     <button type="button"
@@ -77,7 +117,7 @@
                                     </button>
                                     <div
                                         class="headerPopup mx-auto flex w-4/5 items-center justify-center rounded p-4 px-4 text-center">
-                                        <h2 class="headingPopup text-wrap font-font-pluto-m text-3xl font-bold uppercase text-black"
+                                        <h2 class="headingPopup text-wrap text-3xl font-bold uppercase text-black"
                                             id="textHeader">
                                             Encabezado
                                         </h2>
@@ -88,7 +128,7 @@
                                                 <div class="flex flex-1 flex-col items-center justify-center">
                                                     <div class="imagePoup w-full">
                                                         <img src="{{ asset('img/photo.jpg') }}" alt=""
-                                                            class="h-60 w-full object-cover" id="imagePoup">
+                                                            class="h-60 w-full object-contain" id="imagePoup">
                                                     </div>
                                                     <p id="descriptionPoupText" class="text-wrap mt-4 w-3/4 text-center">
                                                         Este es la descripción del anuncio
@@ -96,7 +136,8 @@
                                                     <div
                                                         class="inputPopup mt-4 flex w-4/5 flex-col items-center justify-center">
                                                         <x-input-store type="text" name="inputPopup" id="inputPopup"
-                                                            placeholder="Ingresa el nombre del campo" class="mb-4 hidden" />
+                                                            placeholder="Ingresa el nombre del campo"
+                                                            class="mb-4 hidden" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -144,8 +185,8 @@
                                 <div class="mt-4 flex gap-2">
                                     <div class="flex-[4]">
                                         <x-select label="" :options="[
-                                            'font-pluto-m' => 'Pluto Bold',
-                                            'font-dine-r' => 'Dine',
+                                            'pluto-m' => 'Pluto Bold',
+                                            'dine-r' => 'Dine',
                                             'dinc-r' => 'Dinc',
                                         ]" id="ff" name="ff"
                                             selected="primary" value="bold" />
@@ -186,8 +227,8 @@
                                 <div class="mt-4 flex gap-2">
                                     <div class="flex-[4]">
                                         <x-select label="" :options="[
-                                            'font-pluto-m' => 'Pluto Bold',
-                                            'font-dine-r' => 'Dine',
+                                            'pluto-m' => 'Pluto Bold',
+                                            'dine-r' => 'Dine',
                                             'dinc-r' => 'Dinc',
                                         ]" id="ffText" name="ffText"
                                             selected="secondary" value="bold" />
