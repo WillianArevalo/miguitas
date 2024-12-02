@@ -77,7 +77,7 @@
                                     </div>
                                 </div>
                                 <div class="flex gap-4">
-                                    <div class="flex-1">
+                                    {{--  <div class="flex-1">
                                         <x-select label="Lenguaje" name="locale" id="locale" :options="[
                                             'es' => 'Español',
                                             'en' => 'Inglés',
@@ -89,6 +89,10 @@
                                         <x-select label="Moneda" name="currency" id="currency" :options="$currencies->pluck('code', 'code')->toArray()"
                                             selected="{{ old('currency', $user->currency) }}"
                                             value="{{ old('currency', $user->currency) }}" />
+                                    </div> --}}
+                                    <div class="flex-1">
+                                        <x-input label="Zona horaria" placeholder="Ingresa la zona horaria" name="timezone"
+                                            icon="timezone" value="{{ old('timezone', $user->timezone) }}" />
                                     </div>
                                     <div class="flex-1">
                                         <x-select label="Estado" name="status" id="status" :options="[
@@ -99,10 +103,7 @@
                                             value="{{ old('status', $user->status) }}" />
                                     </div>
                                 </div>
-                                <div class="w-56">
-                                    <x-input label="Zona horaria" placeholder="Ingresa la zona horaria" name="timezone"
-                                        icon="timezone" value="{{ old('timezone', $user->timezone) }}" />
-                                </div>
+
                             </div>
                         </div>
                         <div class="flex-[1.5] border-s border-zinc-400 dark:border-zinc-800">
