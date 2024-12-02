@@ -19,7 +19,7 @@
                 </p>
             </div>
         </div>
-        <div class="mx-auto mt-20 w-full px-4 sm:w-4/5 sm:px-6">
+        <div class="mx-auto mt-20 w-full px-4 sm:px-6 xl:w-4/5">
             <div class="flex flex-col gap-8 lg:flex-row">
                 <div class="flex-1 gap-4 lg:flex-[2] xl:flex-[3]">
                     <form action="{{ Route('checkout.update') }}" method="POST" id="checkout-form">
@@ -278,17 +278,18 @@
                         <div class="mt-4 flex flex-col items-center justify-between gap-4 pt-4 sm:flex-row">
                             <x-button-store type="a" href="{{ Route('cart') }}" text="Regresar al carrito"
                                 typeButton="secondary" icon="cart" size="normal" class="h-max w-full sm:w-max" />
-                            <div class="flex flex-wrap items-center justify-end gap-4">
-                                <x-button-store type="button" text="Regresar" typeButton="secondary" id="prev-step" />
+                            <div class="flex w-full flex-wrap items-center justify-end gap-4">
+                                <x-button-store type="button" text="Regresar" class="w-full sm:w-max"
+                                    typeButton="secondary" id="prev-step" />
                                 <x-button-store type="button" text="Continuar"
                                     class="w-full font-bold uppercase sm:w-max" typeButton="primary" id="next-step" />
                             </div>
                         </div>
                     </form>
-                    <div class="mt-8 flex items-center justify-center">
-                        <form action="{{ Route('orders.store') }}" method="POST">
+                    <div class="mt-4 flex w-full items-center justify-center">
+                        <form action="{{ Route('orders.store') }}" method="POST" class="w-full">
                             @csrf
-                            <x-button-store id="btn-completed-order" class="hidden" type="submit"
+                            <x-button-store id="btn-completed-order" class="hidden w-full sm:w-max" type="submit"
                                 text="Realizar pedido" typeButton="primary" size="large" />
                         </form>
                     </div>
