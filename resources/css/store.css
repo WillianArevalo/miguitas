@@ -31,6 +31,10 @@ div[modal-backdrop] {
     display: none !important;
 }
 
+.bg-gray-900\/50.dark\:bg-gray-900\/80.fixed.inset-0.z-40 {
+    display: none;
+}
+
 .marquees:before,
 .marquees:after {
     position: absolute;
