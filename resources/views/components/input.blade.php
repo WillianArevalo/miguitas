@@ -21,7 +21,7 @@
 
     // Construir clases dinámicas para el input
     $classes = collect([
-        'bg-zinc-50 border border-zinc-400 text-zinc-900 text-sm rounded-lg  block w-full p-3 px-4',
+        'bg-zinc-50 border border-zinc-400 text-zinc-900 text-sm rounded-lg  block w-full p-3 px-4  ',
         'focus:ring-4 focus:ring-zinc-200 focus:border-zinc-600',
         'dark:bg-zinc-950 dark:border-zinc-800 dark:placeholder-zinc-400 dark:text-white',
         'dark:focus:ring-zinc-950 dark:focus:border-zinc-500',
@@ -33,7 +33,7 @@
         ->join(' ');
 @endphp
 
-@if ($label && $type !== 'checkbox')
+@if ($label && $type !== 'checkbox' && $type !== 'radio' && $type !== 'file')
     <label for="{{ $id }}"
         class="{{ $labelClass }} mb-2 block text-sm font-medium text-zinc-500 dark:text-zinc-300">
         {{ $label }}
@@ -52,7 +52,7 @@
     @if ($type === 'textarea')
         <textarea id="{{ $id }}" {{ $attributes }} name="{{ $name }}" rows="8"
             class="{{ $classes }} {{ $icon ? 'ps-10' : '' }}" placeholder="{{ $placeholder }}">{{ $value }}</textarea>
-    @elseif ($type === 'checkbox')
+    @elseif ($type === 'checkbox' || $type === 'radio')
         <input type="checkbox" value="{{ $value }}" name="{{ $name }}" id="{{ $id }}"
             {{ $attributes }} {{ $checked ? 'checked' : '' }}
             class="{{ $class }} h-4 w-4 rounded border-2 border-zinc-400 bg-zinc-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-zinc-800 dark:bg-zinc-950 dark:ring-offset-zinc-800 dark:focus:ring-primary-600">
