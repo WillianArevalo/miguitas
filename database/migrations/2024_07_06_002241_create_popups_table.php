@@ -19,6 +19,7 @@ return new class extends Migration
             $table->enum("type", ["redirect", "store"])->default("redirect");
             $table->boolean("active")->default(true);
             $table->string("link")->nullable();
+            $table->string("reference_id")->nullable();
             $table->timestamps();
         });
     }
