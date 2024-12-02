@@ -198,10 +198,15 @@ class ProductController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('admin.products.index')->with('success', 'Producto actualizado correctamente');
+            return response()->json([
+                'success' => 'Producto actualizado correctamente',
+                "redirect" => route('admin.products.index')
+            ]);
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('admin.products.index')->with('error', 'Error al actualizar el producto');
+            return response()->json([
+                'error' => 'Error al actualizar el producto'
+            ]);
         }
     }
 
@@ -335,10 +340,10 @@ class ProductController extends Controller
             ImageHelper::deleteImage($image->image);
             $image->delete();
             DB::commit();
-            return redirect()->route('admin.products.edit', $product->id)->with('success', 'Imagen eliminada correctamente');
+            return response()->json(['success' => 'Imagen eliminada correctamente']);
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('admin.products.edit', $product->id)->with('error', 'Error al eliminar la imagen');
+            return response()->json(['error' => 'Error al eliminar la imagen']);
         }
     }
 
