@@ -239,7 +239,7 @@
             </div>
 
             <!-- Cards mobile -->
-            <div class="my-4 flex flex-col gap-4 lg:hidden">
+            <div class="my-4 flex flex-col gap-4 lg:hidden" id="order-list-mobile">
                 @foreach ($orders as $order)
                     <x-order-card :order="$order" />
                 @endforeach
