@@ -74,7 +74,7 @@ class SupportTicketController extends Controller
             }
 
 
-            $whatsappService = new WhatsAppService();
+        /*     $whatsappService = new WhatsAppService();
             $response =  $whatsappService->sendMessage("50375456642", "Nuevo ticket de soporte creado: " . $ticket->ticket_number);
 
             if (!$response["success"]) {
@@ -82,7 +82,7 @@ class SupportTicketController extends Controller
                     "error",
                     "An error occurred while sending the message to WhatsApp. Please try again. Error: " . $response["message"]
                 );
-            }
+            } */
 
             DB::commit();
             return redirect()->route("account.tickets.index")->with("success", "Ticket created successfully");
