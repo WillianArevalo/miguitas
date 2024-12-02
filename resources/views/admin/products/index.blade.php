@@ -8,7 +8,7 @@
         ])
         <div class="bg-zinc-50 dark:bg-black">
             <div class="mx-auto w-full">
-                <div class="relative overflow-hidden bg-white dark:bg-black">
+                <div class="relative bg-white dark:bg-black">
                     <div class="mt-4 flex w-full flex-col items-center justify-between gap-2 px-4 sm:flex-row">
                         <div class="flex items-center">
                             <span
@@ -17,13 +17,13 @@
                             </span>
                         </div>
                         <div class="mt-2 flex w-full items-center gap-2 sm:mt-0 sm:w-auto">
-                            <x-button type="button" icon="delete" text="Eliminar productos seleccionados"
+                            <x-button type="button" icon="delete" text="Eliminar seleccionados"
                                 data-modal-target="deleteProducts" data-modal-toggle="deleteProducts" typeButton="danger"
                                 class="hidden w-full sm:w-auto" id="btn-delete-all-products" />
                             <x-button type="button" icon="import" class="w-full sm:w-auto" typeButton="secondary"
-                                text="Importar" />
-                            <x-button type="button" icon="export" class="w-full sm:w-auto" typeButton="secondary"
-                                text="Exportar" />
+                                text="Importar" data-modal-target="importProduct" data-modal-toggle="importProduct" />
+                            <x-button type="a" href="{{ Route('admin.products.export') }}" icon="export"
+                                class="w-full sm:w-auto" typeButton="secondary" text="Exportar" />
                         </div>
                     </div>
                     <div
@@ -40,7 +40,7 @@
                                 <x-button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" type="button"
                                     icon="filter" typeButton="secondary" text="Filtros" />
                                 <div id="filterDropdown"
-                                    class="z-10 hidden w-48 rounded-lg bg-white p-3 shadow dark:bg-zinc-950">
+                                    class="z-10 hidden w-48 animate-fade rounded-lg bg-white p-3 shadow animate-duration-300 dark:bg-zinc-950">
                                     <div>
                                         <h6 class="mb-3 text-sm font-medium text-zinc-900 dark:text-white">
                                             Estado
@@ -87,28 +87,6 @@
                                 </div>
                             </div>
 
-                            <div>
-                                <x-button type="button" id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown"
-                                    typeButton="secondary" text="Acciones" icon="arrow-down" />
-                                <div id="actionsDropdown" class="z-10 hidden w-60 rounded bg-white shadow dark:bg-zinc-950">
-                                    <ul class="p-2 text-sm text-zinc-700 dark:text-zinc-200"
-                                        aria-labelledby="actionsDropdownButton">
-                                        <li>
-                                            <a href="#"
-                                                class="block rounded px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-900 dark:hover:text-white">
-                                                Importar seleccionados
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#"
-                                                class="block rounded px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-100 dark:text-zinc-200 dark:hover:bg-zinc-900 dark:hover:text-white">
-                                                Eliminar seleccionados
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
                             <div class="w-full sm:w-auto">
                                 <x-button type="a" href="{{ route('admin.products.create') }}"
                                     text-="Agregar producto" icon="plus" typeButton="primary" />
@@ -150,7 +128,7 @@
                                     <x-th>
                                         Estado
                                     </x-th>
-                                    <x-th>
+                                    <x-th last="true">
                                         Acciones
                                     </x-th>
                                 </x-tr>
@@ -313,6 +291,55 @@
                             @csrf
                             @method('DELETE')
                             <x-button type="submit" text="Sí, eliminar" icon="delete" typeButton="danger" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="importProduct" tabindex="-1" aria-hidden="true"
+            class="fixed inset-0 left-0 right-0 top-0 z-[100] hidden h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-70">
+            <div class="relative flex h-full w-full max-w-md items-center justify-center p-4 md:h-auto">
+                <!-- Modal content -->
+                <div
+                    class="relative w-full animate-jump-in rounded-lg bg-white text-center shadow animate-duration-300 animate-once dark:bg-zinc-950">
+                    <div class="flex items-center justify-start p-4">
+                        <h5 id="drawer-new-categorie-label"
+                            class="mb-4 inline-flex text-left text-base font-semibold text-zinc-500 dark:text-zinc-400">
+                            Importar productos
+                        </h5>
+                        <button type="button"
+                            class="closeModal absolute right-2.5 top-2.5 ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-zinc-400 hover:bg-zinc-200 hover:text-zinc-900 dark:hover:bg-zinc-900 dark:hover:text-white"
+                            data-modal-toggle="importProduct">
+                            <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <div class="my-4">
+                        <form action="" class="px-4">
+                            <div class="w-full">
+                                <label for="document" id="document-label"
+                                    class="flex cursor-pointer items-center justify-center gap-2 rounded-xl border-2 border-dashed border-zinc-400 p-4 text-sm font-medium text-zinc-500 dark:border-zinc-800 dark:text-zinc-300 dark:hover:border-zinc-700 dark:hover:bg-zinc-900">
+                                    <x-icon icon="import" class="size-4" />
+                                    Seleccionar archivo
+                                    <input type="file" name="document" id="document" class="hidden"
+                                        accept=".csv,.xlxs" />
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                    <div
+                        class="flex items-center justify-center space-x-4 border-t border-zinc-300 py-4 dark:border-zinc-900">
+                        <x-button type="button" data-modal-toggle="importProduct" class="closeModal"
+                            text="No, cancelar" icon="cancel" typeButton="secondary" />
+                        <form method="POST" action="">
+                            @csrf
+                            <x-button type="submit" text="Importar" typeButton="primary" />
                         </form>
                     </div>
                 </div>
