@@ -365,12 +365,12 @@
                             Tickets de soporte
                         </a>
                     </li>
-                    <li>
+                    {{--        <li>
                         <a href="#"
                             class="group flex w-full items-center rounded-lg p-2 pl-11 text-zinc-900 transition duration-75 hover:bg-zinc-100 dark:text-white dark:hover:bg-zinc-950">
                             Suscripciones
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </li>
             <li
