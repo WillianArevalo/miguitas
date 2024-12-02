@@ -393,48 +393,54 @@
             <div class="flex flex-wrap gap-4">
                 @if ($product->reviews->count() > 0)
                     @foreach ($product->reviews as $review)
-                        <div
-                            class="mt-4 flex w-max flex-col gap-4 rounded-xl border border-zinc-400 p-4 dark:border-zinc-800">
-                            <div class="items center flex gap-2">
-                                <img src="{{ Storage::url($review->user->profile) }}" alt="user-image"
-                                    class="h-12 w-12 rounded-full object-cover" />
-                                <div>
-                                    <h3 class="text-sm font-medium text-zinc-700 dark:text-zinc-100">
-                                        {{ $review->user->name }}
-                                    </h3>
-                                    <x-paragraph class="text-xs text-zinc-500 dark:text-zinc-400">
-                                        {{ $review->created_at->diffForHumans() }}
-                                    </x-paragraph>
-                                    <div class="mt-2 flex-1">
-                                        <x-paragraph>
-                                            {{ $review->comment }}
-                                        </x-paragraph>
-                                    </div>
-                                    <div class="mt-1">
-                                        <span class="flex items-center gap-2 text-sm text-zinc-800 dark:text-zinc-400">
-                                            <x-icon icon="star" class="h-5 w-5 text-yellow-500" />
-                                            {{ number_format($review->rating, 1) }}
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="ms-4">
-                                    @if ($review->is_approved)
-                                        <span
-                                            class="flex items-center gap-1 rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800 dark:bg-green-900 dark:bg-opacity-20 dark:text-green-300">
-                                            <x-icon icon="check" class="h-3 w-3 text-green-500" />
-                                            Aprobado
-                                        </span>
+                        @if ($review->user)
+                            <div
+                                class="mt-4 flex w-max flex-col gap-4 rounded-xl border border-zinc-400 p-4 dark:border-zinc-800">
+                                <div class="items center flex gap-2">
+                                    @if ($review->user->profile)
+                                        <img src="{{ Storage::url($review->user->profile) }}" alt="user-image"
+                                            class="h-12 w-12 rounded-full object-cover" />
                                     @else
-                                        <span
-                                            class="flex items-center gap-1 rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-800 dark:bg-red-900 dark:bg-opacity-20 dark:text-red-300">
-                                            <x-icon icon="x" class="h-3 w-3 text-red-500" />
-                                            Pendiente
-                                        </span>
+                                        <x-icon icon="user" class="h-12 w-12 text-zinc-500 dark:text-zinc-400" />
                                     @endif
+                                    <div>
+                                        <h3 class="text-sm font-medium text-zinc-700 dark:text-zinc-100">
+                                            {{ $review->user->name }}
+                                        </h3>
+                                        <x-paragraph class="text-xs text-zinc-500 dark:text-zinc-400">
+                                            {{ $review->created_at->diffForHumans() }}
+                                        </x-paragraph>
+                                        <div class="mt-2 flex-1">
+                                            <x-paragraph>
+                                                {{ $review->comment }}
+                                            </x-paragraph>
+                                        </div>
+                                        <div class="mt-1">
+                                            <span class="flex items-center gap-2 text-sm text-zinc-800 dark:text-zinc-400">
+                                                <x-icon icon="star" class="h-5 w-5 text-yellow-500" />
+                                                {{ number_format($review->rating, 1) }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="ms-4">
+                                        @if ($review->is_approved)
+                                            <span
+                                                class="flex items-center gap-1 rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800 dark:bg-green-900 dark:bg-opacity-20 dark:text-green-300">
+                                                <x-icon icon="check" class="h-3 w-3 text-green-500" />
+                                                Aprobado
+                                            </span>
+                                        @else
+                                            <span
+                                                class="flex items-center gap-1 rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-800 dark:bg-red-900 dark:bg-opacity-20 dark:text-red-300">
+                                                <x-icon icon="x" class="h-3 w-3 text-red-500" />
+                                                Pendiente
+                                            </span>
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
 
-                        </div>
+                            </div>
+                        @endif
                     @endforeach
                 @else
                     <div
