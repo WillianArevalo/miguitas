@@ -85,7 +85,8 @@ class UserController extends Controller
     {
         $validated = $request->validated();
         $user = User::findOrFail($id);
-
+        $status = $validated["status"] === "active" ? 1 : 0;
+        $validated["status"] = $status;
         if ($request->hasFile("profile")) {
             if ($user->profile && $user->profile !== "images/default-profile.webp") {
                 ImageHelper::deleteImage($user->profile);
