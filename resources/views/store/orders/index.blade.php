@@ -1,6 +1,6 @@
 @extends('layouts.__partials.store.template-profile')
 @section('profile-content')
-    <div>
+    <div class="overflow-x-hidden">
         <div class="py-1">
             <h2 class="text-3xl font-bold text-blue-store">
                 Mis pedidos
@@ -28,7 +28,7 @@
         </div>
         @if ($orders->count() === 0)
             <div
-                class="mt-4 flex items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-zinc-200 p-10">
+                class="my-4 flex items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-zinc-200 p-10">
                 <x-icon-store icon="alert" class="h-8 w-8 text-blue-store" />
                 <div class="flex flex-col items-center gap-1">
                     <p class="font-pluto-r text-sm text-zinc-500">
@@ -38,7 +38,7 @@
             </div>
         @else
             <div
-                class="my-4 flex flex-col items-center justify-center gap-2 rounded-xl border border-zinc-200 px-4 shadow-sm">
+                class="my-4 hidden flex-col items-center justify-center gap-2 rounded-xl border border-zinc-200 px-4 shadow-sm lg:flex">
                 <div class="w-full overflow-x-auto">
                     <table class="w-full table-auto font-dine-r">
                         <thead>
@@ -236,6 +236,13 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+
+            <!-- Cards mobile -->
+            <div class="my-4 flex flex-col gap-4 lg:hidden">
+                @foreach ($orders as $order)
+                    <x-order-card :order="$order" />
+                @endforeach
             </div>
         @endif
     </div>
