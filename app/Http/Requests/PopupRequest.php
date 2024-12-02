@@ -25,7 +25,8 @@ class PopupRequest extends FormRequest
             "name" => "required|string",
             "content" => "required|string",
             "type" => "required|in:redirect,store",
-            "link" => "nullable|numeric",
+            "link" => "nullable|string",
+            "reference_id" => "nullable|string",
         ];
     }
 }
