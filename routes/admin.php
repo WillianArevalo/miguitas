@@ -66,7 +66,7 @@ Route::middleware("role:admin")->prefix("admin")->name("admin.")->group(function
     Route::delete("/products-delete", [ProductController::class, "deleteSelected"])->name("products.deleteSelected");
     Route::post("/products/import", [ProductController::class, "import"])->name("products.import");
     Route::get("/products/export", [ProductController::class, "export"])->name("products.export");
-    Route::delete("/products/delete-image/{id}", [ProductController::class, "deleteImage"])->name("products.delete-image");
+    Route::get("/products/delete-image/{id}", [ProductController::class, "deleteImage"])->name("products.delete-image");
     Route::post("/products/search", [ProductController::class, "search"])->name("products.search");
 
     // Contact Messages
