@@ -62,16 +62,19 @@
                 <div class="mt-2">
                     <div class="flex flex-col text-sm sm:text-base">
                         <div class="flex items-center justify-between gap-2">
-                            <div class="flex items-center gap-2">
+                            <div class="items-tart flex flex-col gap-2 sm:flex-row sm:items-center">
                                 <h4 class="text-secondary font-dine-r font-medium">Correo electrónico:</h4>
-                                <p class="font-dine-r">{{ $user->email }}</p>
-                                @if ($user->email_verified_at || $user->google_id)
-                                    <span
-                                        class="flex items-center justify-center gap-x-1 font-dine-r text-xs text-green-500">
-                                        <x-icon-store icon="check-bold" class="h-5 w-5 text-current" />
-                                        Correo verificado
-                                    </span>
-                                @endif
+                                <p class="flex items-center gap-x-4 font-dine-r">
+                                    {{ $user->email }}
+                                    @if ($user->email_verified_at || $user->google_id)
+                                        <span
+                                            class="flex items-center justify-center gap-x-1 font-dine-r text-xs text-green-500">
+                                            <x-icon-store icon="check-bold" class="h-5 w-5 text-current" />
+                                            Correo verificado
+                                        </span>
+                                    @endif
+                                </p>
+
                             </div>
                             @if (!$user->email_verified_at && !$user->google_id)
                                 <x-button-store type="a" href="{{ Route('verification.notice') }}" icon="mail-02"
@@ -79,7 +82,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="mt-4 text-sm sm:text-base">
+                    <div class="mt-2 text-sm sm:mt-4 sm:text-base">
                         <div class="flex items-center gap-2">
                             <h4 class="text-secondary font-dine-r font-medium">Contraseña:</h4>
                             <div class="flex items-center gap-1">
