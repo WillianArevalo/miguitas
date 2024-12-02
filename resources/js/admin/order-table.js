@@ -1,51 +1,63 @@
 import DataTable from "datatables.net-dt";
 
 $(document).ready(function () {
-    let table_products = new DataTable("#tableProduct", {
+    const defaultTableOptions = {
         paging: false,
         info: false,
+        language: {
+            emptyTable: "No data available",
+        },
+    };
+
+    const tables = [
+        { id: "#tableProduct", searchInput: "#inputSearchProducts" },
+        { id: "#tableOrders", searchInput: "#inputSearchOrders" },
+        {
+            id: "#tableContactMessages",
+            searchInput: "#inputSearchContactMessages",
+        },
+        { id: "#tablePopups", searchInput: "#inputSearchPopups" },
+        { id: "#tableShippingMethods", searchInput: "#inputShippingMethods" },
+        { id: "#tablePaymentMethods", searchInput: "#inputPaymentMethods" },
+        { id: "#tableCurrencies", searchInput: "#inputCurrencies" },
+        { id: "#tableCoupons", searchInput: "#inputCoupons" },
+        { id: "#tableUsers", searchInput: "#inputUsers" },
+        { id: "#tableCustomers", searchInput: "#inputCustomers" },
+        { id: "#tableSupportTickets", searchInput: "#inputSupportTickets" },
+        { id: "#tablePolicies", searchInput: "#inputPolicies" },
+        { id: "#tableFaq", searchInput: "#inputFaq" },
+    ];
+
+    const initializedTables = {};
+    tables.forEach(({ id, searchInput }) => {
+        const table = new DataTable(id, defaultTableOptions);
+        initializedTables[id] = table;
+        if (searchInput) {
+            $(searchInput).on("keyup", function () {
+                table.search($(this).val()).draw();
+            });
+        }
     });
 
-    let table_orders = new DataTable("#tableOrders", {
-        paging: false,
-        info: false,
-    });
+    const filters = [
+        {
+            tableId: "#tableProducts",
+            filterInput: "input[name='filter-status']",
+        },
+        {
+            tableId: "#tableProducts",
+            filterInput: "input[name='filter-category']",
+        },
+        {
+            tableId: "#tableSupportTickets",
+            filterInput: "#filter-status-tickets",
+        },
+    ];
 
-    let table_contact_messages = new DataTable("#tableContactMessages", {
-        paging: false,
-        info: false,
-    });
-
-    // Search products
-    $("#inputSearchProducts").on("keyup", function () {
-        console.log($(this).val());
-        table_products.search($(this).val()).draw();
-    });
-
-    $("input[name='filter-status']").on("change", function () {
-        let value = $(this).val();
-        table_products.search(value).draw();
-    });
-
-    $("input[name='filter-category']").on("change", function () {
-        let value = $(this).val();
-        table_products.search(value).draw();
-    });
-
-    // Search orders
-    $("#inputSearchOrders").on("keyup", function () {
-        console.log($(this).val());
-        table_orders.search($(this).val()).draw();
-    });
-
-    $("#filter-status-orders").on("Changed", function () {
-        let value = $(this).val();
-        table_orders.search(value).draw();
-    });
-
-    // Search contact messages
-    $("#inputSearchContactMessages").on("keyup", function () {
-        console.log($(this).val());
-        table_contact_messages.search($(this).val()).draw();
+    filters.forEach(({ tableId, filterInput }) => {
+        $(filterInput).on("change", function () {
+            const value = $(this).val();
+            initializedTables[tableId].search(value).draw();
+        });
     });
 });

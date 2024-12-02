@@ -1,5 +1,4 @@
 import { showToast } from "./toast-admin";
-import Quill from "quill";
 
 $(document).ready(function () {
     let checboxsProducts = $(".checkboxs-products");
@@ -822,5 +821,22 @@ $(document).ready(function () {
                 console.error("Error al enviar el formulario:", error);
             },
         });
+    });
+
+    //Import products
+    const fileInput = $("#document");
+    const fileLabel = $("#document-label");
+
+    fileInput.on("change", function (event) {
+        const fileName = event.target.files[0]?.name || "Seleccionar archivo";
+        fileLabel.text(fileName);
+    });
+
+    //Export products
+    $("#export-products-btn").on("click", function () {
+        if (idsProducts.length === 0) {
+            showToast("No hay productos seleccionados", "info");
+            return;
+        }
     });
 });

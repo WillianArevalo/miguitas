@@ -192,4 +192,79 @@ $(document).ready(function () {
             },
         });
     });
+
+    $("#current-password").on("keyup", function () {
+        if ($("#current-password").val() !== "") {
+            $("#current-password").removeClass("is-invalid");
+            $("#message-current-password").text("");
+        }
+    });
+
+    $("#new-password").on("keyup", function () {
+        if ($("#new-password").val() !== "") {
+            $("#new-password").removeClass("is-invalid");
+            $("#message-new-password").text("");
+        }
+    });
+
+    $("#confirm-password").on("keyup", function () {
+        const newPassword = $("#new-password").val();
+        const confirmPassword = $(this).val();
+        if (newPassword === confirmPassword && confirmPassword !== "") {
+            $(this).removeClass("is-invalid").addClass("is-valid");
+            $("#message-confirm-password").text("");
+        } else {
+            $(this).addClass("is-invalid").removeClass("is-valid");
+            $("#message-confirm-password").text("Las contraseñas no coinciden");
+        }
+    });
+
+    //Change password
+    $("#btnchangePassword").on("click", function () {
+        const currentPassword = $("#current-password");
+        const newPassword = $("#new-password");
+        const confirmPassword = $("#confirm-password");
+        let isValid = true;
+
+        if (currentPassword.val() === "") {
+            currentPassword.addClass("is-invalid");
+            $("#message-current-password")
+                .removeClass("hidden")
+                .text("La contraseña actual es requerida");
+            isValid = false;
+        } else {
+            currentPassword.removeClass("is-invalid");
+            $("#message-current-password").addClass("hidden");
+        }
+
+        if (newPassword.val() === "") {
+            newPassword.addClass("is-invalid");
+            $("#message-new-password")
+                .removeClass("hidden")
+                .text("La nueva contraseña es requerida");
+            isValid = false;
+        } else {
+            newPassword.removeClass("is-invalid");
+            $("#message-new-password").addClass("hidden");
+        }
+
+        if (confirmPassword.val() === "") {
+            confirmPassword.addClass("is-invalid");
+            $("#message-confirm-password")
+                .removeClass("hidden")
+                .text("La confirmación de la contraseña es requerida");
+            isValid = false;
+        } else {
+            confirmPassword.removeClass("is-invalid");
+            $("#message-confirm-password").addClass("hidden");
+        }
+
+        if (confirmPassword.val() !== newPassword.val()) {
+            isValid = false;
+        }
+
+        if (isValid) {
+            $("#form-change-password").submit();
+        }
+    });
 });

@@ -1,11 +1,11 @@
 $(document).ready(function () {
     $("input[name='type_alert']").on("change", function () {
         if ($(this).val() === "headband") {
-            $("#popup-container").addClass("hidden");
-            $("#headband-container").removeClass("hidden");
+            $("#popup-container, #skeleton-popup").addClass("hidden");
+            $("#headband-container, #skeleton-headband").removeClass("hidden");
         } else if ($(this).val() === "popup") {
-            $("#popup-container").removeClass("hidden");
-            $("#headband-container").addClass("hidden");
+            $("#popup-container, #skeleton-popup").removeClass("hidden");
+            $("#headband-container, #skeleton-headband").addClass("hidden");
         }
     });
 
@@ -79,7 +79,12 @@ $(document).ready(function () {
 
     $("#textButtonPrimary").on("keyup", function () {
         $("#buttonPopupPrimary").text($(this).val());
+        $("#buttonPopupPrimary").attr("data-reference", ramdomString());
     });
+
+    function ramdomString() {
+        return Math.random().toString(36).substring(7);
+    }
 
     $("#textButtonSecondary").on("keyup", function () {
         $("#buttonPopupSecondary").text($(this).val());
@@ -146,6 +151,8 @@ $(document).ready(function () {
 
     $("#addPopup").on("click", function () {
         const contentPopup = $(".popupContainer").html();
+        let reference = $("#buttonPopupPrimary").attr("data-reference");
+        $("#reference_id").val(reference);
         $("#content").val(contentPopup);
         $("#formPopup").submit();
     });
@@ -161,7 +168,9 @@ $(document).ready(function () {
                     .addClass("flex")
                     .html(response.popup.content);
             },
-            error: function (response) {},
+            error: function (response) {
+                console.log(response);
+            },
         });
     });
 
@@ -176,5 +185,12 @@ $(document).ready(function () {
         } else {
             $("#redirect-link").addClass("hidden");
         }
+    });
+
+    $(".change-status-popup").on("click", function () {
+        let status = $(this).data("status");
+        const form = $(this).closest("form");
+        form.find("input[name=status]").val(status);
+        form.submit();
     });
 });

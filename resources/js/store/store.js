@@ -37,4 +37,28 @@ $(document).ready(function () {
             },
         });
     });
+
+    const popups = $(".popup");
+
+    if (popups.length > 0) {
+        popups.each(function (index, popup) {
+            const $popup = $(popup);
+            const $popupClose = $popup.find("#buttonPopupPrimary");
+            const id = $popupClose.data("reference");
+            const form = $popup.closest("form");
+            $.ajax({
+                url: form.attr("action"),
+                method: "GET",
+                data: {
+                    reference_id: id,
+                },
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (error) {
+                    console.log(error);
+                },
+            });
+        });
+    }
 });
