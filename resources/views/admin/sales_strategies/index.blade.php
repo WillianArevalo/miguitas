@@ -20,11 +20,8 @@
                         <div
                             class="flex flex-col items-center justify-between space-y-3 p-4 md:flex-row md:space-x-4 md:space-y-0">
                             <div class="w-full md:w-1/2">
-                                <form class="flex items-center" action="{{ route('admin.brands.search') }}"
-                                    id="formSearchBrand">
-                                    @csrf
-                                    <x-input type="text" id="inputSearch" name="inputSearch" data-form="#formSearchBrand"
-                                        data-table="#tableBrand" placeholder="Buscar" icon="search" />
+                                <form class="flex items-center">
+                                    <x-input type="text" id="inputCoupons" placeholder="Buscar" icon="search" />
                                 </form>
                             </div>
                             <div
@@ -34,7 +31,7 @@
                             </div>
                         </div>
                         <div class="mx-4 mb-4">
-                            <x-table>
+                            <x-table id="tableCoupons">
                                 <x-slot name="thead">
                                     <x-tr>
                                         <x-th class="w-10">
@@ -163,4 +160,5 @@
 
 @push('scripts')
     @vite('resources/js/admin/sales-strategies.js')
+    @vite('resources/js/admin/order-table.js')
 @endpush
