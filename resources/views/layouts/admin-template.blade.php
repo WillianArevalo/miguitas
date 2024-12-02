@@ -8,6 +8,7 @@
     <title>@yield('title')</title>
     <link rel="shortcut icon" href="{{ asset('img/logo.png') }}" type="image/x-icon">
     @vite('resources/css/admin.css')
+    @vite('resources/css/store.css')
     @vite('resources/js/app.js')
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
@@ -173,6 +174,7 @@
             </div>
             @yield('content')
         </div>
+        <x-cookie class="hidden" />
     </main>
     <div class="dark:bg-opacity-65 bg-opacity-65 fixed inset-0 z-30 hidden bg-zinc-900 dark:bg-zinc-900"
         id="modal-search">
