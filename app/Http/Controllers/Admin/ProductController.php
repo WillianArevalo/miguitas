@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ProductsExport;
 use App\Http\Controllers\Controller;
 use App\Helpers\ImageHelper;
 use App\Http\Requests\ProductEditRequest;
@@ -313,6 +314,16 @@ class ProductController extends Controller
         }
 
         return response()->json(['error' => 'No se pudo abrir el archivo CSV.'], 500);
+    }
+
+    public function export()
+    {
+        try {
+            $fileName = "productos_" . now()->format('Y-m-d_H-i-s') . ".xlsx";
+            return Excel::download(new ProductsExport, $fileName);
+        } catch (\Exception $e) {
+            return redirect()->route('admin.products.index')->with('error', 'Error al exportar los productos');
+        }
     }
 
     public function deleteImage(string $id)
