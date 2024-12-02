@@ -20,13 +20,16 @@
 
 <body class="store overflow-x-hidden">
 
-    <div id="headbands-container" class="relative h-8 overflow-hidden bg-light-blue sm:h-10">
-        <div id="headbands-wrapper" class="absolute flex w-full flex-col">
-            @foreach ($headBands as $headBand)
-                <x-head-band :headBand="$headBand" />
-            @endforeach
+    @if ($headBands->count() > 0)
+        <div id="headbands-container" class="relative h-8 overflow-hidden bg-light-blue sm:h-10">
+            <div id="headbands-wrapper" class="absolute flex w-full flex-col">
+                @foreach ($headBands as $headBand)
+                    <x-head-band :headBand="$headBand" />
+                @endforeach
+            </div>
         </div>
-    </div>
+    @endif
+
     @include('layouts.__partials.store.navbar')
     <main>
         <div>
