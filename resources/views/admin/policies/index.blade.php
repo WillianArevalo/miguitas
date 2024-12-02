@@ -43,54 +43,18 @@
                     <div
                         class="flex flex-col items-center justify-between space-y-3 p-4 md:flex-row md:space-x-4 md:space-y-0">
                         <div class="w-full md:w-1/2">
-                            <form class="flex items-center" action="{{ route('admin.categories.search') }}"
-                                id="formSearchProduct">
-                                @csrf
-                                <x-input type="text" id="inputSearch" name="inputSearch" data-form="#formSearchProduct"
-                                    data-table="#tableProduct" placeholder="Buscar" icon="search" />
-                            </form>
+                            <div class="flex items-center">
+                                <x-input type="text" id="inputPolicies" placeholder="Buscar" icon="search" />
+                            </div>
                         </div>
                         <div
                             class="flex w-full flex-shrink-0 flex-col items-stretch justify-end space-y-2 md:w-auto md:flex-row md:items-center md:space-x-3 md:space-y-0">
                             <x-button data-drawer="#drawer-new-policie" class="open-drawer" type="button"
                                 text="Nueva política" icon="plus" typeButton="primary" />
-                            <div class="flex w-full items-center space-x-3 md:w-auto">
-                                <x-button type="button" id="filterDropdownButton" data-dropdown-toggle="filterDropdown"
-                                    typeButton="secondary" icon="filter" text="Filtros" />
-                                <div id="filterDropdown"
-                                    class="z-10 hidden w-48 rounded-lg bg-white p-3 shadow dark:bg-zinc-950">
-                                    <form action="{{ route('admin.categories.search') }}" method="POST"
-                                        id="formSearchCategorieCheck">
-                                        @csrf
-                                        <h6 class="mb-3 text-sm font-medium text-zinc-900 dark:text-white">
-                                            Filtros
-                                        </h6>
-                                        <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
-                                            <li class="flex items-center">
-                                                <input id="offers" name="filter[]" type="checkbox" value="offers"
-                                                    class="h-4 w-4 rounded border-zinc-400 bg-zinc-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-zinc-500 dark:bg-white dark:ring-offset-zinc-700 dark:focus:ring-blue-600">
-                                                <label for="offers"
-                                                    class="ml-2 text-sm font-medium text-zinc-900 dark:text-zinc-100">
-                                                    Con ofertas
-                                                </label>
-                                            </li>
-                                            <li class="flex items-center">
-                                                <input id="flash_offers" name="filter[]" type="checkbox"
-                                                    value="flash_offers"
-                                                    class="h-4 w-4 rounded border-zinc-400 bg-zinc-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-zinc-500 dark:bg-white dark:ring-offset-zinc-700 dark:focus:ring-blue-600">
-                                                <label for="flash_offers"
-                                                    class="ml-2 text-sm font-medium text-zinc-900 dark:text-zinc-100">
-                                                    Con ofertas flash
-                                                </label>
-                                            </li>
-                                        </ul>
-                                    </form>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="px-4 pb-4">
-                        <x-table>
+                        <x-table id="tablePolicies">
                             <x-slot name="thead">
                                 <x-tr>
                                     <x-th class="w-10">
@@ -183,8 +147,8 @@
                 <span class="sr-only">Close menu</span>
             </button>
             <div>
-                <form action="{{ route('admin.policies.store') }}" class="flex flex-col gap-4"
-                    enctype="multipart/form-data" method="POST" id="formAddCategorie">
+                <form action="{{ route('admin.policies.store') }}" class="flex flex-col gap-4" enctype="multipart/form-data"
+                    method="POST" id="formAddCategorie">
                     @csrf
                     <div class="w-full">
                         <x-input type="text" name="name" placeholder="Ingresa el nombre de la política"
@@ -240,4 +204,5 @@
 @push('scripts')
     @vite('resources/js/admin/policies.js')
     @vite('resources/js/admin/modal-image.js')
+    @vite('resources/js/admin/order-table.js')
 @endpush
