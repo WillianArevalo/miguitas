@@ -276,7 +276,7 @@
                     <x-icon icon="store"
                         class="h-5 w-5 flex-shrink-0 text-zinc-500 transition duration-75 group-hover:text-zinc-900 dark:text-zinc-400 dark:group-hover:text-white" />
                     <span class="ms-3 flex-1 whitespace-nowrap text-left rtl:text-right">
-                        {{ __('messages.store') }}
+                        Tienda
                     </span>
                     <x-icon icon="arrow-down" class="h-5 w-5 text-zinc-500 dark:text-zinc-400" />
                 </button>
@@ -284,13 +284,13 @@
                     <li>
                         <a href="{{ route('admin.popups.index') }}"
                             class="group flex w-full items-center rounded-lg p-2 pl-11 text-zinc-900 transition duration-75 dark:text-white">
-                            {{ __('messages.popups') }}
+                            Anuncios
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('admin.flash-offers.index') }}"
                             class="group flex w-full items-center rounded-lg p-2 pl-11 text-zinc-900 transition duration-75 dark:text-white">
-                            {{ __('messages.flash_offers') }}
+                            Ofertas
                         </a>
                     </li>
                     <li>
