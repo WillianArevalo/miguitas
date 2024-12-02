@@ -65,9 +65,8 @@ $(document).ready(function () {
     const subcategories = $("#subcategories_names").val()
         ? $("#subcategories_names").val().split(",")
         : [];
-    let isFirstCheck = true;
-    console.log(subcategories);
 
+    let isFirstCheck = true;
     if (subcategories.length > 0) {
         isFirstCheck = false;
     }
@@ -106,7 +105,6 @@ $(document).ready(function () {
         const name = $(this).data("name");
         if ($(this).is(":checked")) {
             subcategories.push(name);
-            console.log("Add", subcategories);
             subcategoriesList.append(
                 `<div class="flex items-center justify-between gap-2 bg-zinc-100 text-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 px-2 py-1 rounded-xl text-xs" data-name="${name}">
                 <span>${name}</span>
@@ -809,12 +807,6 @@ $(document).ready(function () {
             formData.append("gallery_image[]", file);
         });
 
-        // Para comprobar los datos en formData antes de enviarlos
-        console.log("Archivos seleccionados:", filesImages);
-        for (let pair of formData.entries()) {
-            console.log(pair[0] + ", " + pair[1]);
-        }
-
         // Enviar los datos usando AJAX
         $.ajax({
             url: $("#formAddProduct").attr("action"), // la URL del formulario (o una URL personalizada)
@@ -893,12 +885,6 @@ $(document).ready(function () {
         filesImages.forEach((file) => {
             formData.append("gallery_image[]", file);
         });
-
-        // Para comprobar los datos en formData antes de enviarlos
-        console.log("Archivos seleccionados:", filesImages);
-        for (let pair of formData.entries()) {
-            console.log(pair[0] + ", " + pair[1]);
-        }
 
         // Enviar los datos usando AJAX
         $.ajax({

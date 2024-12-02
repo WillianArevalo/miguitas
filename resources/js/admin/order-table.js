@@ -42,11 +42,11 @@ $(document).ready(function () {
 
     const filters = [
         {
-            tableId: "#tableProducts",
+            tableId: "#tableProduct",
             filterInput: "input[name='filter-status']",
         },
         {
-            tableId: "#tableProducts",
+            tableId: "#tableProduct",
             filterInput: "input[name='filter-category']",
         },
         {
