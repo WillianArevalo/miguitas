@@ -11,19 +11,19 @@
         </span>
     </div>
     <div class="flex items-center gap-2">
-        <span class="text-sm text-zinc-600">N° de seguimiento:</span>
-        <span class="text-sm text-zinc-600">{{ $order->tracking_number }}</span>
+        <span class="font-dine-r text-sm text-zinc-600">N° de seguimiento:</span>
+        <span class="font-dine-r text-sm text-zinc-600">{{ $order->tracking_number }}</span>
     </div>
     <div class="flex justify-end">
         <div class="flex flex-col items-end gap-2">
-            <span class="text-sm text-zinc-600">Fecha de compra:</span>
+            <span class="font-dine-r text-sm text-zinc-600">Fecha de compra:</span>
             <span
-                class="text-xs text-zinc-600">{{ $order->created_at->setTimeZone(auth()->timezone ?? 'UTC')->format('F y, Y, g:i A') }}</span>
+                class="font-dine-r text-xs text-zinc-600">{{ $order->created_at->setTimeZone(auth()->timezone ?? 'UTC')->format('F y, Y, g:i A') }}</span>
         </div>
     </div>
     <div class="flex items-center justify-between gap-2">
         <div class="flex flex-col">
-            <span class="text-sm text-zinc-600">Total:</span>
+            <span class="font-dine-r text-sm text-zinc-600">Total:</span>
             <span class="text-lg font-bold text-blue-store">${{ $order->total }}</span>
         </div>
         <div class="flex items-center gap-2">
@@ -40,7 +40,7 @@
                             data-form="formCancelOrder-{{ $order->id }}" />
                     </form>
                     <div id="tooltip-cancel-ticket" role="tooltip"
-                        class="tooltip invisible absolute z-10 inline-block rounded-lg bg-red-500 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300">
+                        class="tooltip invisible absolute z-10 inline-block rounded-lg bg-red-500 px-3 py-2 font-dine-r text-xs font-medium text-white opacity-0 shadow-sm transition-opacity duration-300">
                         Cancelar pedido
                         <div class="tooltip-arrow" data-popper-arrow></div>
                     </div>
