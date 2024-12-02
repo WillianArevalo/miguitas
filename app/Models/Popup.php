@@ -12,5 +12,8 @@ class Popup extends Model
     protected $fillable = [
         'name',
         'content',
+        'link',
+        'active',
+        'reference_id'
     ];
 }
