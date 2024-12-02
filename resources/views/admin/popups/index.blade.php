@@ -12,12 +12,9 @@
                     <div
                         class="flex flex-col items-center justify-between space-y-3 p-4 md:flex-row md:space-x-4 md:space-y-0">
                         <div class="w-full md:w-1/2">
-                            <form class="flex items-center" action="{{ route('admin.categories.search') }}"
-                                id="formSearchCategorie">
-                                @csrf
-                                <x-input type="text" id="inputSearch" name="inputSearch" data-form="#formSearchCategorie"
-                                    data-table="#tableCategorie" placeholder="Buscar" icon="search" />
-                            </form>
+                            <div class="flex items-center">
+                                <x-input type="text" id="inputSearchPopups" placeholder="Buscar" icon="search" />
+                            </div>
                         </div>
                         <div
                             class="flex w-full flex-shrink-0 flex-col items-stretch justify-end space-y-2 md:w-auto md:flex-row md:items-center md:space-x-3 md:space-y-0">
@@ -25,11 +22,11 @@
                                 text="Agregar anuncio" icon="plus" />
                         </div>
                     </div>
-                    <div class="p-4">
-                        <x-table>
+                    <div class="px-4">
+                        <x-table id="tablePopups">
                             <x-slot name="thead">
                                 <x-tr>
-                                    <x-th>
+                                    <x-th class="w-10">
                                         <x-icon icon="hash" class="h-4 w-4" />
                                     </x-th>
                                     <x-th>
@@ -50,7 +47,7 @@
                             <x-slot name="tbody">
                                 @if ($adversiments->count() > 0)
                                     @foreach ($adversiments as $adversiment)
-                                        <x-tr>
+                                        <x-tr :last="$loop->last">
                                             <x-td>
                                                 <span>{{ $loop->iteration }}</span>
                                             </x-td>
@@ -104,6 +101,43 @@
                                                             data-action="{{ route('admin.popups.show', $adversiment->id) }}"
                                                             onlyIcon="true" icon="view" typeButton="secondary" />
                                                     @endif
+                                                    <div class="relative">
+                                                        <x-button type="button" icon="refresh" typeButton="secondary"
+                                                            onlyIcon="true" class="show-options"
+                                                            data-target="#options-order-{{ $adversiment->id }}" />
+                                                        <div class="options absolute right-0 top-11 z-10 mt-2 hidden w-40 animate-jump-in rounded-lg border border-zinc-400 bg-white p-2 animate-duration-200 dark:border-zinc-800 dark:bg-zinc-950"
+                                                            id="options-order-{{ $adversiment->id }}">
+                                                            <p class="font-semibold text-zinc-800 dark:text-zinc-300">
+                                                                Cambiar estado
+                                                            </p>
+                                                            <form
+                                                                action="{{ Route('admin.popups.change-status', $adversiment->id) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                <input type="hidden" name="status">
+                                                                <input type="hidden" name="type"
+                                                                    value="{{ $adversiment->type }}">
+                                                                <ul class="mt-2 flex flex-col text-sm">
+                                                                    <li>
+                                                                        <button type="button"
+                                                                            class="change-status-popup flex w-full items-center gap-1 rounded-lg px-2 py-2 text-emerald-700 hover:bg-emerald-100 dark:text-emerald-400 dark:hover:bg-emerald-950 dark:hover:bg-opacity-20"
+                                                                            data-status="actived">
+                                                                            <x-icon icon="check" class="h-4 w-4" />
+                                                                            Activo
+                                                                        </button>
+                                                                    </li>
+                                                                    <li>
+                                                                        <button type="button" href="#"
+                                                                            class="change-status-popup flex w-full items-center gap-1 rounded-lg px-2 py-2 text-red-700 hover:bg-red-100 dark:text-red-400 dark:hover:bg-red-950 dark:hover:bg-opacity-20"
+                                                                            data-status="desactived">
+                                                                            <x-icon icon="x" class="h-4 w-4" />
+                                                                            Desactivado
+                                                                        </button>
+                                                                    </li>
+                                                                </ul>
+                                                            </form>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </x-td>
                                         </x-tr>
@@ -132,4 +166,5 @@
 
 @push('scripts')
     @vite('resources/js/admin/popup.js')
+    @vite('resources/js/admin/order-table.js')
 @endpush
