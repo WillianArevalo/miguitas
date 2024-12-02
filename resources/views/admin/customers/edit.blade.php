@@ -28,15 +28,56 @@
                         <form action="{{ route('admin.customers.update', $customer->id) }}" class="flex flex-col gap-4"
                             enctype="multipart/form-data" method="POST" id="form-update-customer">
                             @csrf
-                            @method('PUT') <!-- Usamos PUT para actualizar -->
-                            <div
-                                class="flex flex-col gap-4 rounded-lg border border-zinc-400 bg-white p-4 dark:border-zinc-800 dark:bg-black">
-                                <div class="w-full sm:w-96">
-                                    <x-select label="Cambiar usuario asignado" text="Seleccionar usuario existente"
-                                        id="user_id" name="user_id" value="{{ $customer->user->id }}" required
-                                        :options="$users->pluck('email', 'id')->toArray()" selected="{{ $customer->user->id }}" />
+                            @method('PUT')
+                            <div class="flex flex-col items-start gap-4 lg:flex-row">
+                                <div
+                                    class="flex w-full flex-1 flex-col gap-4 rounded-lg border border-zinc-400 bg-white p-4 dark:border-zinc-800 dark:bg-black">
+                                    <div class="w-full sm:w-96">
+                                        <x-select label="Cambiar usuario asignado" text="Seleccionar usuario existente"
+                                            id="user_id" name="user_id" value="{{ $customer->user->id }}" required
+                                            :options="$users->pluck('email', 'id')->toArray()" selected="{{ $customer->user->id }}" />
+                                    </div>
+                                </div>
+                                <div class="w-full flex-1 gap-4 rounded-xl border border-zinc-400 p-4 dark:border-zinc-800">
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-zinc-500 dark:text-zinc-400">
+                                            Usuario
+                                        </h3>
+                                    </div>
+                                    <div class="mt-2 flex items-center gap-4">
+                                        <div>
+                                            @if ($customer->user->google_id)
+                                                <img src="{{ $customer->user->google_profile }}" alt=""
+                                                    class="sm:size-10 size-8 md:size-20 rounded-xl object-cover">
+                                            @else
+                                                <img src="{{ Storage::url($customer->user->profile) }}" alt=""
+                                                    class="sm:size-10 size-8 md:size-20 rounded-xl object-cover">
+                                            @endif
+                                        </div>
+                                        <div class="flex flex-col gap-2">
+                                            <div class="flex gap-2 text-sm text-zinc-800 dark:text-zinc-300">
+                                                <x-icon icon="user" class="h-5 w-5" />
+                                                <x-paragraph>
+                                                    {{ $customer->user->full_name }}
+                                                </x-paragraph>
+                                            </div>
+                                            <div class="flex gap-2 text-sm text-zinc-800 dark:text-zinc-300">
+                                                <x-icon icon="mail" class="h-5 w-5" />
+                                                <x-paragraph>
+                                                    {{ $customer->user->email }}
+                                                </x-paragraph>
+                                            </div>
+                                            <div class="w-max">
+                                                <x-button type="a"
+                                                    href="{{ route('admin.users.edit', $customer->user->id) }}"
+                                                    text="Editar usuario" icon="edit" typeButton="secondary"
+                                                    size="small" />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
                             <div class="rounded-lg border border-zinc-400 bg-white p-4 dark:border-zinc-800 dark:bg-black">
                                 <h2 class="mb-2 text-base font-semibold text-black dark:text-white">
                                     Información general
@@ -107,7 +148,7 @@
                                 <x-slot name="tbody">
                                     @if ($address->count() > 0)
                                         @foreach ($address as $item)
-                                            <x-tr section="body">
+                                            <x-tr section="body" :last="$loop->last">
                                                 <x-td>
                                                     {{ App\Utils\Addresses::getAddress($item->type) }}
                                                 </x-td>
