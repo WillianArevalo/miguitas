@@ -1,6 +1,6 @@
 @extends('layouts.__partials.store.template-profile ')
 @section('profile-content')
-    <div class="mx-auto my-8 flex w-full flex-col px-4">
+    <div class="mx-auto my-8 flex w-full flex-col">
         <div class="gap flex flex-col-reverse justify-between gap-4 py-2 sm:flex-row sm:items-center">
             <h2 class="font-pluto-r text-3xl font-bold text-blue-store">
                 Detalles del pedido
@@ -10,7 +10,7 @@
                     <x-button-store type="a" href="{{ Route('orders.index') }}" typeButton="secondary" text="Regresar"
                         icon="return" />
                 </div>
-                <div class="hidden lg:block">
+                <div class="hidden sm:block">
                     @if ($order->status != 'canceled')
                         <form action="{{ Route('order.cancel', $order->id) }}" id="formCancelOrder" method="POST">
                             @csrf
@@ -223,29 +223,31 @@
                 <!-- End Products mobile -->
 
                 <!-- Payment button -->
-                @if (
-                    $payment_methods->count() > 0 &&
-                        $order->status !== 'canceled' &&
-                        $order->status !== 'completed' &&
-                        $order->payment_status !== 'paid')
-                    @foreach ($payment_methods as $method)
-                        @if ($method->name === 'Wompi')
-                            <div class="mt-4 flex items-center justify-center">
-                                <form action="{{ Route('link.wompi') }}" method="POST" class="form-paid">
-                                    @csrf
-                                    <input type="hidden" name="number_order" value="{{ $order->number_order }}">
-                                    <button type="submit"
-                                        class="flex h-12 items-center justify-center gap-2 rounded-full bg-[#4865ff] px-4 py-2 text-white">
-                                        <x-icon-store icon="wompi" class="h-10 w-20 text-current" />
-                                        <span class="pe-4 font-dine-r text-sm">
-                                            Pagar con {{ $method->name }}
-                                        </span>
-                                    </button>
-                                </form>
-                            </div>
-                        @endif
-                    @endforeach
-                @endif
+                <div class="hidden sm:block">
+                    @if (
+                        $payment_methods->count() > 0 &&
+                            $order->status !== 'canceled' &&
+                            $order->status !== 'completed' &&
+                            $order->payment_status !== 'paid')
+                        @foreach ($payment_methods as $method)
+                            @if ($method->name === 'Wompi')
+                                <div class="mt-4 flex w-full items-center justify-center">
+                                    <form action="{{ Route('link.wompi') }}" method="POST" class="form-paid w-full">
+                                        @csrf
+                                        <input type="hidden" name="number_order" value="{{ $order->number_order }}">
+                                        <button type="submit"
+                                            class="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#4865ff] px-4 py-2 text-white sm:w-max">
+                                            <x-icon-store icon="wompi" class="h-10 w-20 text-current" />
+                                            <span class="pe-4 font-dine-r text-sm">
+                                                Pagar con {{ $method->name }}
+                                            </span>
+                                        </button>
+                                    </form>
+                                </div>
+                            @endif
+                        @endforeach
+                    @endif
+                </div>
                 <!-- End Payment button -->
 
                 <!-- Payment alert -->
@@ -388,7 +390,33 @@
                 </div>
             </div>
 
-            <div class="mb-8 block lg:hidden">
+            <div class="block sm:hidden">
+                @if (
+                    $payment_methods->count() > 0 &&
+                        $order->status !== 'canceled' &&
+                        $order->status !== 'completed' &&
+                        $order->payment_status !== 'paid')
+                    @foreach ($payment_methods as $method)
+                        @if ($method->name === 'Wompi')
+                            <div class="mt-4 flex w-full items-center justify-center">
+                                <form action="{{ Route('link.wompi') }}" method="POST" class="form-paid w-full">
+                                    @csrf
+                                    <input type="hidden" name="number_order" value="{{ $order->number_order }}">
+                                    <button type="submit"
+                                        class="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#4865ff] px-4 py-2 text-white sm:w-max">
+                                        <x-icon-store icon="wompi" class="h-10 w-20 text-current" />
+                                        <span class="pe-4 font-dine-r text-sm">
+                                            Pagar con {{ $method->name }}
+                                        </span>
+                                    </button>
+                                </form>
+                            </div>
+                        @endif
+                    @endforeach
+                @endif
+            </div>
+
+            <div class="mb-8 block sm:hidden">
                 @if ($order->status != 'canceled' && $order->status != 'completed')
                     <form action="{{ Route('order.cancel', $order->id) }}" id="formCancelOrder-02" method="POST">
                         <x-button-store type="button" data-form="formCancelOrder-02" class="buttonDelete w-full"
