@@ -17,12 +17,9 @@
                     <div
                         class="flex flex-col items-center justify-between space-y-3 p-4 md:flex-row md:space-x-4 md:space-y-0">
                         <div class="w-full md:w-1/2">
-                            <form class="flex items-center" action="{{ route('admin.categories.search') }}"
-                                id="formSearchCategorie">
-                                @csrf
-                                <x-input type="text" id="inputSearch" name="inputSearch" data-form="#formSearchCategorie"
-                                    data-table="#tableCategorie" placeholder="Buscar" icon="search" />
-                            </form>
+                            <div class="flex items-center">
+                                <x-input type="text" id="inputFaq" placeholder="Buscar" icon="search" />
+                            </div>
                         </div>
                         <div
                             class="flex w-full flex-shrink-0 flex-col items-stretch justify-end space-y-2 md:w-auto md:flex-row md:items-center md:space-x-3 md:space-y-0">
@@ -32,8 +29,8 @@
                                 icon="plus" typeButton="primary" />
                         </div>
                     </div>
-                    <div class="p-4">
-                        <x-table>
+                    <div class="px-4">
+                        <x-table id="tableFaq">
                             <x-slot name="thead">
                                 <x-tr>
                                     <x-th class="w-10">
@@ -280,4 +277,5 @@
 
 @push('scripts')
     @vite('resources/js/admin/faq.js')
+    @vite('resources/js/admin/order-table.js')
 @endpush
