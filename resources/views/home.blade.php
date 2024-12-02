@@ -746,6 +746,16 @@
         </div>
 
     </div>
+
+    @if ($popups->isNotEmpty())
+        <form action="{{ Route('show-popup') }}" method="GET">
+            <div class="fixed inset-0 z-50 flex h-screen items-center justify-center bg-black bg-opacity-70">
+                @foreach ($popups as $popup)
+                    {!! $popup->content !!}
+                @endforeach
+            </div>
+        </form>
+    @endif
 @endsection
 
 
