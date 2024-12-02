@@ -113,4 +113,39 @@ class PopupController extends Controller
             return redirect()->route('admin.popups.index')->with('error', 'Error: ' . $e->getMessage());
         }
     }
+
+    public function changeStatus(Request $request, string $id)
+    {
+        DB::beginTransaction();
+        try {
+            $type = $request->type;
+
+            if ($type === "popup") {
+                $popup = Popup::find($id);
+                if ($popup) {
+                    $status = $request->status === "active" ? 1 : 0;
+                    $popup->active = $status;
+                    $popup->save();
+                    DB::commit();
+                    return redirect()->route('admin.popups.index')->with('success', 'Estado del anuncio cambiado correctamente');
+                } else {
+                    return redirect()->route('admin.popups.index')->with('error', 'Error al cambiar el estado del anuncio');
+                }
+            } else {
+                $headband = HeadBand::find($id);
+                if ($headband) {
+                    $status = $request->status === "active" ? 1 : 0;
+                    $headband->active = $status;
+                    $headband->save();
+                    DB::commit();
+                    return redirect()->route('admin.popups.index')->with('success', 'Estado del anuncio cambiado correctamente');
+                } else {
+                    return redirect()->route('admin.popups.index')->with('error', 'Error al cambiar el estado del anuncio');
+                }
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('admin.popups.index')->with('error', 'Error: ' . $e->getMessage());
+        }
+    }
 }
