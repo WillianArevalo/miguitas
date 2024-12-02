@@ -69,7 +69,7 @@
                                                         value="{{ $product->is_top }}"
                                                         checked="{{ $product->is_top === 1 }}" />
                                                 </div>
-                                                 <div>
+                                                <div>
                                                     <x-input type="checkbox" name="is_the_month" id="is_the_month"
                                                         label="Marcar como producto del mes"
                                                         value="{{ $product->is_the_month }}"
@@ -288,30 +288,22 @@
                                             </label>
                                         </div>
                                         <div class="mt-4">
-                                            <div
-                                                class="@php $product->images->count()>0 ? "h-auto": "h-24" @endphp mt-4 flex flex-wrap justify-start gap-2 rounded-lg border-2 border-dashed border-zinc-400 dark:border-zinc-800">
-                                                @if ($product->images->count() > 0)
+                                            @if ($product->images->count() > 0)
+                                                <div
+                                                    class="@php $product->images->count()>0 ? "h-auto": "h-24" @endphp mt-4 flex flex-wrap justify-start gap-2 rounded-lg border-2 border-dashed border-zinc-400 dark:border-zinc-800">
                                                     @foreach ($product->images as $image)
                                                         <div class="m-2 flex flex-col items-center justify-center gap-2">
                                                             <img src="{{ Storage::url($image->image) }}"
                                                                 alt="Galería de imágenes {{ $product->name }}"
-                                                                class="h-20 w-20 rounded-lg object-cover">
-                                                            <form action="{{ Route('admin.products.delete-image', $image->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <x-button type="submit" id="deleteImage"
-                                                                    typeButton="danger" icon="delete" size="small"
-                                                                    text="Eliminar" />
-                                                            </form>
+                                                                class="h-20 w-20 rounded-lg object-cover" />
+                                                            <x-button type="button" typeButton="danger"
+                                                                class="deleteImage" icon="delete" size="small"
+                                                                text="Eliminar"
+                                                                data-url="{{ Route('admin.products.delete-image', $image->id) }}" />
                                                         </div>
                                                     @endforeach
-                                                @else
-                                                    <x-paragraph>
-                                                        Sin imágenes registradas
-                                                    </x-paragraph>
-                                                @endif
-                                            </div>
+                                                </div>
+                                            @endif
 
                                             <div class="mb-2 mt-4 flex items-center justify-between">
                                                 <div>
@@ -576,7 +568,8 @@
                         </div>
                     </div>
                     <div class="flex items-center justify-center gap-2">
-                        <x-button type="submit" text="Editar producto" icon="edit" typeButton="primary" />
+                        <x-button type="button" id="editButtonProduct" text="Editar producto" icon="edit"
+                            typeButton="primary" />
                         <x-button type="a" href="{{ route('admin.products.index') }}" text="Cancelar"
                             typeButton="secondary" />
                     </div>
