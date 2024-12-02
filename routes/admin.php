@@ -65,6 +65,7 @@ Route::middleware("role:admin")->prefix("admin")->name("admin.")->group(function
     Route::resource("/products", ProductController::class);
     Route::delete("/products-delete", [ProductController::class, "deleteSelected"])->name("products.deleteSelected");
     Route::post("/products/import", [ProductController::class, "import"])->name("products.import");
+    Route::get("/products/export", [ProductController::class, "export"])->name("products.export");
     Route::delete("/products/delete-image/{id}", [ProductController::class, "deleteImage"])->name("products.delete-image");
     Route::post("/products/search", [ProductController::class, "search"])->name("products.search");
 
@@ -92,6 +93,7 @@ Route::middleware("role:admin")->prefix("admin")->name("admin.")->group(function
 
     // Popups
     Route::resource("/popups", PopupController::class);
+    Route::post("/popups/change-status/{id}", [PopupController::class, "changeStatus"])->name("popups.change-status");
     Route::resource("/headbands", HeadBandController::class);
 
     // Users
@@ -121,6 +123,8 @@ Route::middleware("role:admin")->prefix("admin")->name("admin.")->group(function
         Route::post("/change-color", [SettingsController::class, "changeColor"])->name("change-color");
         Route::post("/change-theme", [SettingsController::class, "changeTheme"])->name("change-theme");
         Route::post("/change-profile", [SettingsController::class, "changeProfilePhoto"])->name("change-profile");
+        Route::post("/change-password", [SettingsController::class, "changePassword"])->name("change-password");
+        Route::post("/change-email", [SettingsController::class, "changeEmail"])->name("change-email");
     });
 
     // Support Tickets
@@ -153,7 +157,7 @@ Route::middleware("role:admin")->prefix("admin")->name("admin.")->group(function
     // Social Networks
     Route::resource("/social-networks", SocialNetworkController::class);
 
-    // Reviews 
+    // Reviews
     Route::resource("/reviews", ReviewController::class);
     Route::post("/reviews/status/{id}", [ReviewController::class, "changeStatus"])->name("reviews.status");
 });

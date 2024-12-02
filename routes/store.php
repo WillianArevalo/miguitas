@@ -111,7 +111,6 @@ Route::middleware("auth")->group(function () {
     Route::post("/order/add-comment/{id}", [OrderController::class, "addComment"])->name("order.add-comment");
     Route::post("/order-remove-comment/{id}", [OrderController::class, "removeComment"])->name("order.remove-comment");
     Route::resource("/pedidos", OrderController::class)->names("orders");
-    Route::get("/pedido/{number_order}", [OrderController::class, "show"])->name("orders.show");
     Route::get("/cancelaciones-devoluciones", [OrderController::class, "cancelReturn"])->name("cancel-return");
     Route::post("/pedidos/buscar", [OrderController::class, "search"])->name("orders.search");
 
@@ -142,3 +141,5 @@ Route::post("/billing/wompi/link", [CheckoutController::class, "get_wompi_link"]
 
 Route::post("/accept-all-cookies", [HomeController::class, "acceptAllCookies"])->name("accept-all-cookies");
 Route::get("/politica-de-cookies", [HomeController::class, "showCookies"])->name("cookies");
+
+Route::get("/show-popup", [HomeController::class, "showPopup"])->name("show-popup");
