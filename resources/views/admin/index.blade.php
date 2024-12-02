@@ -21,7 +21,9 @@
                                     class="dark:text-primary-dark h-4 w-4 text-primary-600 sm:h-6 sm:w-6 md:h-8 md:w-8" />
                             </span>
                             <span
-                                class="dark:text-primary-dark text-2xl font-bold text-primary-600 sm:text-3xl md:text-5xl">20</span>
+                                class="dark:text-primary-dark text-2xl font-bold text-primary-600 sm:text-3xl md:text-5xl">
+                                {{ $customer->count() }}
+                            </span>
                         </div>
                         <span
                             class="font-league-spartan text-base font-semibold text-zinc-600 dark:text-zinc-300 sm:text-lg md:text-xl">
@@ -43,16 +45,9 @@
                                         id="options-orders">
                                         <ul class="flex flex-col text-sm">
                                             <li>
-                                                <a href="#"
-                                                    class="flex w-full items-center gap-1 rounded-lg px-2 py-2 text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-900">
-                                                    <x-icon icon="plus" class="h-4 w-4" />
-                                                    Nuevo pedido
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#"
+                                                <a href="{{ Route('admin.orders.index') }}"
                                                     class="block w-full rounded-lg px-2 py-2 text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-900">
-                                                    Ver todo
+                                                    Ver todos
                                                 </a>
                                             </li>
                                         </ul>
@@ -62,7 +57,9 @@
                             <div class="flex flex-col items-start gap-2 p-4">
                                 <div class="flex items-center gap-1 text-zinc-900 dark:text-zinc-300">
                                     <x-icon icon="truck-loading" class="h-4 w-4 text-current sm:h-6 sm:w-6 md:h-8 md:w-8" />
-                                    <span class="text-lg font-bold sm:text-2xl md:text-3xl">30</span>
+                                    <span class="text-lg font-bold sm:text-2xl md:text-3xl">
+                                        {{ $ordersPending }}
+                                    </span>
                                     <span class="text-sm">
                                         Pendientes
                                     </span>
@@ -80,7 +77,7 @@
                             <h2 class="text-base font-medium text-zinc-500 dark:text-zinc-300">
                                 Resumen de Ventas
                             </h2>
-                            <div class="relative">
+                            {{--   <div class="relative">
                                 <button type="button" class="show-options" data-target="#optiones-sales">
                                     <x-icon icon="more-hortizontal" class="h-6 w-6 text-zinc-500 dark:text-zinc-300" />
                                 </button>
@@ -102,10 +99,10 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <span class="font-secondary px-4 text-3xl font-bold text-primary-600 sm:text-4xl md:text-5xl">
-                            $400,000
+                            ${{ $salesTotal }}
                         </span>
                     </div>
                     <div class="h-max p-6">
@@ -136,19 +133,19 @@
                             <p class="flex items-center gap-2 text-xs uppercase">
                                 <span class="block h-3 w-8 rounded-full bg-[#f2d410]"></span>
                                 <span class="text-zinc-600 dark:text-zinc-300">
-                                    62% Nuevos usuarios
+                                    {{ $users->count() }} Usuarios en total
                                 </span>
                             </p>
                             <p class="flex items-center gap-2 text-xs uppercase">
-                                <span class="block h-3 w-6 rounded-full bg-[#f6e36b]"></span>
+                                <span class="block h-3 w-8 rounded-full bg-[#f6e36b]"></span>
                                 <span class="text-zinc-600 dark:text-zinc-300">
-                                    26% Activos
+                                    {{ $usersActives }} Usuarios activos
                                 </span>
                             </p>
                             <p class="flex items-center gap-2 text-xs uppercase">
-                                <span class="block h-3 w-4 rounded-full bg-[#eee7b9]"></span>
+                                <span class="block h-3 w-8 rounded-full bg-[#eee7b9]"></span>
                                 <span class="text-zinc-600 dark:text-zinc-300">
-                                    12% Inactivos
+                                    {{ $usersInactives }} Usuarios inactivos
                                 </span>
                             </p>
                         </div>
@@ -169,46 +166,24 @@
                         <div
                             class="mt-6 flex flex-col gap-1 border-t border-zinc-400 bg-zinc-100 p-4 dark:border-zinc-800 dark:bg-zinc-950">
                             <p class="flex items-center gap-2 text-xs uppercase">
-                                <span class="block h-3 w-8 rounded-full bg-[#138fdc]"></span>
-                                <span class="text-[#138fdc] dark:text-[#138fdc]">
-                                    50% Completados
+                                <span class="block h-3 w-8 rounded-full bg-[#38c172]"></span>
+                                <span class="text-[#38c172] dark:text-[#38c172]">
+                                    {{ $ordersCompleted }} Completados
                                 </span>
                             </p>
                             <p class="flex items-center gap-2 text-xs uppercase">
-                                <span class="block h-3 w-6 rounded-full bg-[#38c172]"></span>
-                                <span class="text-green-500 dark:text-[#38c172]">
-                                    45% Pendientes
+                                <span class="block h-3 w-8 rounded-full bg-[#f2d410]"></span>
+                                <span class="text-green-500 dark:text-[#f2d410]">
+                                    {{ $ordersPending }} Pendientes
                                 </span>
                             </p>
                             <p class="flex items-center gap-2 text-xs uppercase">
-                                <span class="block h-3 w-4 rounded-full bg-red-500"></span>
+                                <span class="block h-3 w-8 rounded-full bg-red-500"></span>
                                 <span class="text-green-500 dark:text-red-500">
-                                    5% Cancelados
+                                    {{ $ordersCanceled }} Cancelados
                                 </span>
                             </p>
                         </div>
-                    </div>
-                </div>
-                <div class="mt-4 flex rounded-lg border border-zinc-400 dark:border-zinc-800">
-                    <div class="flex flex-1 items-start gap-4 border-e border-zinc-400 p-4 dark:border-zinc-950">
-                        <span class="rounded-full p-2 dark:bg-zinc-950">
-                            <x-icon icon="package" class="h-6 w-6 text-yellow-500 dark:text-yellow-500" />
-                        </span>
-                        <span class="flex flex-col gap-1">
-                            <p class="text-xs text-zinc-500 dark:text-zinc-300 sm:text-sm">Productos en stock bajo</p>
-                            <a href="#" class="text-xs text-blue-500 underline dark:text-blue-300">Ver todo</a>
-                        </span>
-                    </div>
-                    <div class="flex flex-1 items-start gap-4 p-4">
-                        <span class="rounded-full p-2 dark:bg-zinc-950">
-                            <x-icon icon="package" class="h-6 w-6 text-red-500 dark:text-red-500" />
-                        </span>
-                        <span class="flex flex-col gap-1">
-                            <p class="text-xs text-zinc-500 dark:text-zinc-300 sm:text-sm">
-                                Productos agotados
-                            </p>
-                            <a href="#" class="text-xs text-blue-500 underline dark:text-blue-300">Ver todo</a>
-                        </span>
                     </div>
                 </div>
             </div>
@@ -223,50 +198,22 @@
                     <h2 class="p-4 text-lg font-bold uppercase text-primary-600 sm:text-xl md:text-2xl">
                         Últimos pedidos
                     </h2>
-                    <div class="flex w-full items-center gap-2 px-4 pb-4 sm:mx-0 sm:me-4 sm:w-auto sm:pb-0">
-                        <x-button text="Ver todos" icon="orders" type="a"
-                            href="{{ Route('admin.orders.index') }}" typeButton="primary" class="w-full" />
-                        <x-button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" type="button"
-                            icon="filter" typeButton="secondary" text="Filtros" />
-                        <div id="filterDropdown" class="z-10 hidden w-48 rounded-lg bg-white p-3 shadow dark:bg-zinc-950">
-                            <form action="{{ route('admin.categories.search') }}" method="POST"
-                                id="formSearchCategorieCheck">
-                                @csrf
-                                <h6 class="mb-3 text-sm font-medium text-zinc-900 dark:text-white">
-                                    Filtros
-                                </h6>
-                                <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
-                                    <li class="flex items-center">
-                                        <input id="offers" name="filter[]" type="checkbox" value="offers"
-                                            class="h-4 w-4 rounded border-zinc-400 bg-zinc-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-zinc-500 dark:bg-white dark:ring-offset-zinc-700 dark:focus:ring-blue-600">
-                                        <label for="offers"
-                                            class="ml-2 text-sm font-medium text-zinc-900 dark:text-zinc-100">
-                                            Con ofertas
-                                        </label>
-                                    </li>
-                                    <li class="flex items-center">
-                                        <input id="flash_offers" name="filter[]" type="checkbox" value="flash_offers"
-                                            class="h-4 w-4 rounded border-zinc-400 bg-zinc-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-zinc-500 dark:bg-white dark:ring-offset-zinc-700 dark:focus:ring-blue-600">
-                                        <label for="flash_offers"
-                                            class="ml-2 text-sm font-medium text-zinc-900 dark:text-zinc-100">
-                                            Con ofertas flash
-                                        </label>
-                                    </li>
-                                </ul>
-                            </form>
-                        </div>
+                    <div
+                        class="flex w-full flex-1 flex-col items-center gap-2 px-4 pb-4 sm:mx-0 sm:w-auto sm:flex-row sm:pb-0">
+
+                        <x-input type="search" placeholder="Buscar" class="w-full" icon="search"
+                            id="inputOrdersDashboard" />
+
+                        <x-button text="Ver todos" icon="orders" type="a" href="{{ Route('admin.orders.index') }}"
+                            typeButton="primary" class="w-full sm:w-40" />
                     </div>
                 </div>
             </div>
             <!-- Table order desktop -->
-            <div class="mx-4 mb-4 hidden lg:block">
-                <x-table>
+            <div class="mx-4 mb-4 block">
+                <x-table id="tableOrdersDashboard">
                     <x-slot name="thead">
                         <x-tr>
-                            <x-th class="flex w-12 items-center justify-center">
-                                <input id="default-checkbox" type="checkbox" value=""
-                                    class="h-4 w-4 rounded border-2 border-zinc-400 bg-zinc-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-zinc-800 dark:bg-zinc-950 dark:ring-offset-zinc-800 dark:focus:ring-primary-600">
-                            </x-th>
                             <x-th>Cliente</x-th>
                             <x-th>N° orden</x-th>
                             <x-th>Total</x-th>
@@ -280,10 +227,6 @@
                         @if ($orders->count() > 0)
                             @foreach ($orders as $order)
                                 <x-tr section="body">
-                                    <x-td>
-                                        <input id="default-checkbox" type="checkbox" value="{{ $order->id }}"
-                                            class="h-4 w-4 rounded border-2 border-zinc-400 bg-zinc-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-zinc-800 dark:bg-zinc-950 dark:ring-offset-zinc-800 dark:focus:ring-primary-600">
-                                    </x-td>
                                     <x-td>
                                         <div class="flex gap-4">
                                             <div>
@@ -322,58 +265,7 @@
                                                 onlyIcon="true" href="{{ route('admin.orders.show', $order->id) }}" />
                                             <x-button type="button" icon="printer" typeButton="secondary"
                                                 onlyIcon="true" />
-                                            <div class="relative">
-                                                <x-button type="button" icon="refresh" typeButton="secondary"
-                                                    onlyIcon="true" class="show-options"
-                                                    data-target="#options-order-{{ $order->id }}" />
-                                                <div class="options absolute right-0 top-11 z-10 hidden w-40 animate-jump-in rounded-lg border border-zinc-400 bg-white p-2 animate-duration-200 dark:border-zinc-800 dark:bg-zinc-950"
-                                                    id="options-order-{{ $order->id }}">
-                                                    <p class="font-semibold text-zinc-800 dark:text-zinc-300">
-                                                        Cambiar estado
-                                                    </p>
-                                                    <form action="{{ Route('admin.orders.status', $order->id) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        <input type="hidden" name="status">
-                                                        <ul class="mt-2 flex flex-col text-sm">
-                                                            <li>
-                                                                <button type="button"
-                                                                    class="change-status-order flex w-full items-center gap-1 rounded-lg px-2 py-2 text-emerald-700 hover:bg-emerald-100 dark:text-emerald-400 dark:hover:bg-emerald-950 dark:hover:bg-opacity-20"
-                                                                    data-status="completed">
-                                                                    <x-icon icon="check" class="h-4 w-4" />
-                                                                    Completado
-                                                                </button>
-                                                            </li>
-                                                            <li>
-                                                                <button type="button"
-                                                                    class="change-status-order flex w-full items-center gap-1 rounded-lg px-2 py-2 text-blue-700 hover:bg-blue-100 dark:text-blue-400 dark:hover:bg-blue-950 dark:hover:bg-opacity-20"
-                                                                    data-status="sent">
-                                                                    <x-icon icon="package-import" class="h-4 w-4" />
-                                                                    Enviado
-                                                                </button>
-                                                            </li>
-                                                            <li>
-                                                                <button type="button"
-                                                                    class="change-status-order flex w-full items-center gap-1 rounded-lg px-2 py-2 text-yellow-700 hover:bg-yellow-100 dark:text-yellow-400 dark:hover:bg-yellow-950 dark:hover:bg-opacity-20"
-                                                                    data-status="pending">
-                                                                    <x-icon icon="reload" class="h-4 w-4" />
-                                                                    Pendiente
-                                                                </button>
-                                                            </li>
-                                                            <li>
-                                                                <button type="button" href="#"
-                                                                    class="change-status-order flex w-full items-center gap-1 rounded-lg px-2 py-2 text-red-700 hover:bg-red-100 dark:text-red-400 dark:hover:bg-red-950 dark:hover:bg-opacity-20"
-                                                                    data-status="canceled">
-                                                                    <x-icon icon="x" class="h-4 w-4" />
-                                                                    Cancelado
-                                                                </button>
-                                                            </li>
-                                                        </ul>
-                                                    </form>
-                                                </div>
-                                            </div>
                                         </div>
-
                                         <div class="relative block w-max xl:hidden">
                                             <button type="button" class="show-options"
                                                 data-target="#options-{{ $order->id }}">
@@ -493,7 +385,7 @@
             </div>
             <!-- End Table order desktop -->
 
-            <!-- Cards order mobile -->
+            {{--      <!-- Cards order mobile -->
             <div class="lg:hidden">
                 @if ($orders->count() > 0)
                     @foreach ($orders as $order)
@@ -602,7 +494,7 @@
                     @endforeach
                 @endif
             </div>
-            <!-- End Cards order mobile -->
+            <!-- End Cards order mobile --> --}}
         </div>
         <!-- End Orders -->
 
@@ -614,4 +506,16 @@
 
 @push('scripts')
     @vite('resources/js/admin/chart.js')
+    @vite('resources/js/admin/order-table.js')
+    <script>
+        const usersCount = @json($users->count());
+        const userActives = @json($usersActives);
+        const userInactives = @json($usersInactives);
+
+        const ordersCanceledCount = @json($ordersCanceled);
+        const ordersCompletedCount = @json($ordersCompleted);
+        const ordersPendingCount = @json($ordersPending);
+
+        const sales = @json($sales);
+    </script>
 @endpush
