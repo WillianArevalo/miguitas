@@ -71,7 +71,7 @@
                                     </div>
                                 </div>
                                 <div class="flex gap-4">
-                                    <div class="flex-1">
+                                    {{--    <div class="flex-1">
                                         <x-select label="Lenguaje" name="locale" id="locale" :options="[
                                             'es' => 'Español',
                                             'en' => 'Inglés',
@@ -79,6 +79,10 @@
                                     </div>
                                     <div class="flex-1">
                                         <x-select label="Moneda" name="currency" id="currency" :options="$currencies->pluck('code', 'id')->toArray()" />
+                                    </div> --}}
+                                    <div class="flex-1">
+                                        <x-input label="Zona horiaria" placeholder="Ingresa la zona horaria" name="timezone"
+                                            icon="timezone" />
                                     </div>
                                     <div class="flex-1">
                                         <x-select label="Estado" name="status" id="status" :options="[
@@ -87,10 +91,7 @@
                                         ]" />
                                     </div>
                                 </div>
-                                <div class="w-56">
-                                    <x-input label="Zona horiaria" placeholder="Ingresa la zona horaria" name="timezone"
-                                        icon="timezone" />
-                                </div>
+
                             </div>
                         </div>
                         <div class="flex-[1.5] border-s border-zinc-400 dark:border-zinc-800">
@@ -98,7 +99,7 @@
                                 Foto de perfil
                             </h2>
                             <div class="group relative flex items-center justify-center p-4">
-                                <img src="{{ Storage::url('images/default-profile.png') }}" alt="Foto de perfil"
+                                <img src="{{ Storage::url('images/default-profile.webp') }}" alt="Foto de perfil"
                                     class="h-56 w-56 rounded-full object-cover" id="image-profile">
                                 <label for="profile"
                                     class="absolute inset-0 flex cursor-pointer items-center justify-center rounded-full bg-black bg-opacity-50 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
@@ -115,7 +116,7 @@
                     </div>
                     <div class="flex items-center justify-center gap-4 border-t border-zinc-400 py-4 dark:border-zinc-800">
                         <x-button type="submit" text="Guardar" icon="save" typeButton="primary" />
-                        <x-button type="a" href="{{ url()->previous() }}" text="Cancelar" icon="cancel"
+                        <x-button type="a" href="{{ Route('admin.users.index') }}" text="Cancelar" icon="cancel"
                             typeButton="secondary" />
                     </div>
                 </form>
