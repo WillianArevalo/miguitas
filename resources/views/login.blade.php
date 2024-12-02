@@ -54,7 +54,7 @@
                         </div>
                     </div>
                     <div class="mt-4 flex flex-col items-center justify-center gap-4">
-                        <div class="flex w-full justify-between">
+                        <div class="flex w-full flex-col justify-between sm:flex-row">
                             <div class="mb-4 flex items-center">
                                 <input id="remember" type="checkbox" value=""
                                     class="h-4 w-4 rounded border-white bg-white text-light-blue focus:ring-2 focus:ring-light-blue">
