@@ -22,7 +22,7 @@ class OrderCard extends Component
             case 'pending':
                 $this->styles = 'bg-yellow-100 text-yellow-700 border-yellow-200 bg-opacity-70 shadow-yellow-200';
                 $this->statusIcon = 'clock';
-                $this->statusBorder = 'border-yellow-200 bg-yellow-400';
+                $this->statusBorder = 'border-yellow-500';
                 break;
             case 'sent':
                 $this->styles = 'bg-blue-100 text-blue-700 border-blue-200 bg-opacity-70 shadow-blue-200';
@@ -31,7 +31,7 @@ class OrderCard extends Component
                 break;
             case 'completed':
                 $this->styles = 'bg-green-100 text-green-700 border-green-200 bg-opacity-70 shadow-green-200';
-                $this->statusIcon = 'checkmark-circle';
+                $this->statusIcon = 'circle-check';
                 $this->statusBorder = 'border-green-200 bg-green-400';
                 break;
             case 'canceled':
