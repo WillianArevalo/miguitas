@@ -249,11 +249,14 @@
                             </div>
                             <div>
                                 <p class="text-sm text-zinc-500 dark:text-zinc-300">
-                                    Método de pago: {{ $order->payment_method->name }}
+                                    Método de pago:
+                                    {{ $order->payment_method ? $order->payment_method->name : 'Sin definir' }}
                                 </p>
-                                <img src="{{ Storage::url($order->payment_method->image) }}"
-                                    alt="{{ $order->payment_method->name }}"
-                                    class="w-30 mt-2 aspect-auto h-20 rounded-xl object-cover">
+                                @if ($order->payment_method)
+                                    <img src="{{ Storage::url($order->payment_method->image) }}"
+                                        alt="{{ $order->payment_method->name }}"
+                                        class="w-30 mt-2 aspect-auto h-20 rounded-xl object-cover">
+                                @endif
                             </div>
                             <div>
                                 <p class="mt-4 text-sm text-zinc-500 dark:text-zinc-300">
