@@ -266,7 +266,7 @@
 
     <!-- Modal agregar etiqueta -->
     <div id="changePassword" tabindex="-1" aria-hidden="true"
-        class="fixed left-0 right-0 top-0 z-50 hidden h-modal w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-90 md:inset-0 md:h-full">
+        class="fixed inset-0 left-0 right-0 top-0 z-[100] hidden h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-70">
         <div class="relative h-full w-full max-w-md p-4 md:h-auto">
             <!-- Modal content -->
             <div
