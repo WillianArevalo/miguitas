@@ -23,7 +23,8 @@
                   class="{{ Route::is('orders.index') ? 'bg-blue-store rounded-xl text-white' : '' }} w-max p-2 text-blue-store">
                   <x-icon-store icon="bag" class="h-5 w-5 text-current" />
               </a>
-              <a href="#" class="w-max p-2 text-blue-store">
+              <a href="{{ Route('payments.index') }}"
+                  class="{{ Route::is('payments.index') ? 'bg-blue-store rounded-xl text-white' : '' }} w-max p-2 text-blue-store">
                   <x-icon-store icon="payment" class="h-5 w-5 text-current" />
               </a>
               <a href="{{ Route('cancel-return') }}"
