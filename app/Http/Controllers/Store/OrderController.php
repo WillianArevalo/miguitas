@@ -208,6 +208,7 @@ class OrderController extends Controller
         if ($request->ajax()) {
             return response()->json([
                 "html" => view("layouts.__partials.ajax.store.row-order", compact("orders"))->render(),
+                "html_mobile" => view("layouts.__partials.ajax.store.row-order-mobile", compact("orders"))->render(),
             ], 200);
         }
     }
