@@ -36,6 +36,7 @@ $(document).ready(function () {
             success: function (response) {
                 console.log(response);
                 $("#orders-list").html(response.html);
+                $("#order-list-mobile").html(response.html_mobile);
             },
         });
     });
@@ -49,6 +50,7 @@ $(document).ready(function () {
             success: function (response) {
                 console.log(response);
                 $("#orders-list").html(response.html);
+                $("#order-list-mobile").html(response.html_mobile);
             },
         });
     });
