@@ -28,25 +28,32 @@
                             Tickets abiertos
                         </button>
                     </li>
-                    <li class="me-2" role="presentation">
+                    {{--    <li class="me-2" role="presentation">
                         <button
                             class="inline-block rounded-t-lg border-b-2 p-4 hover:border-gray-300 hover:text-gray-600 dark:hover:text-gray-300"
                             id="settings-styled-tab" data-tabs-target="#styled-settings" type="button" role="tab"
                             aria-controls="settings" aria-selected="false">
                             Mis tickets
                         </button>
-                    </li>
-                    <li role="presentation">
-                        <button
-                            class="inline-block rounded-t-lg border-b-2 p-4 hover:border-gray-300 hover:text-gray-600 dark:hover:text-gray-300"
-                            id="contacts-styled-tab" data-tabs-target="#styled-contacts" type="button" role="tab"
-                            aria-controls="contacts" aria-selected="false">Contacts</button>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
             <div id="default-styled-tab-content">
+                <div class="flex gap-4 pb-4">
+                    <x-input id="inputSupportTickets" type="search" placeholder="Buscar ticket" />
+                    <div class="w-full md:w-56">
+                        <x-select label="" name="filter-status-tickes" id="filter-status-tickets" :options="[
+                            'open' => 'Abierto',
+                            'pending' => 'Pendiente',
+                            'resolved' => 'Resuelto',
+                            'closed' => 'Cerrado',
+                            'reopened' => 'Reabierto',
+                        ]"
+                            text="Estado del ticket" />
+                    </div>
+                </div>
                 <div class="hidden" id="styled-profile" role="tabpanel" aria-labelledby="profile-tab">
-                    <x-table>
+                    <x-table id="tableSupportTickets">
                         <x-slot name="thead">
                             <x-th class="w-10">
                                 <input id="default-checkbox" type="checkbox" value=""
@@ -112,7 +119,6 @@
                                         </x-td>
                                         <x-td>
                                             <div class="flex items-center gap-2">
-
                                                 <x-button icon="view" type="a"
                                                     href="{{ Route('admin.support-tickets.show', $ticket->id) }}" onlyIcon
                                                     typeButton="secondary" />
@@ -197,4 +203,5 @@
 
 @push('scripts')
     @vite('resources/js/admin/ticket.js')
+    @vite('resources/js/admin/order-table.js')
 @endpush
