@@ -53,10 +53,6 @@ input[type="color"]::-webkit-color-swatch {
     border-radius: 8px;
 }
 
-div[modal-backdrop] {
-    display: none !important;
-}
-
 .glass {
     background: rgba(249, 249, 250, 0.7);
     box-shadow: 0 1px 25px 0 rgba(31, 38, 135, 0.1);

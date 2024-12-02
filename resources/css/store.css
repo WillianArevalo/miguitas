@@ -27,6 +27,10 @@ body.store {
     align-items: center;
 }
 
+div[modal-backdrop] {
+    display: none !important;
+}
+
 .marquees:before,
 .marquees:after {
     position: absolute;

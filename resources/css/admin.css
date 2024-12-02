@@ -125,3 +125,7 @@ div.dt-container div.dt-layout-row {
     background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.9);
 }
+
+div[modal-backdrop] {
+    display: none !important;
+}
