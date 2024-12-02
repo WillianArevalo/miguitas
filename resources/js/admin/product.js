@@ -311,6 +311,22 @@ $(document).ready(function () {
         });
     }
 
+    $(".deleteImage").on("click", function () {
+        const url = $(this).data("url");
+        $.ajax({
+            url: url,
+            method: "GET",
+            success: function (response) {
+                showToast("Imagen eliminada correctamente", "success");
+                location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+                showToast("Error al eliminar la imagen", "error");
+            },
+        });
+    });
+
     function updatePreviewLabels() {
         const $previewLabelsContainer = $("#previewLabelsContainer");
         $previewLabelsContainer.html("");
@@ -802,6 +818,91 @@ $(document).ready(function () {
         // Enviar los datos usando AJAX
         $.ajax({
             url: $("#formAddProduct").attr("action"), // la URL del formulario (o una URL personalizada)
+            type: "POST",
+            data: formData,
+            processData: false, // No procesar los datos
+            contentType: false, // No establecer encabezados de contenido
+            success: function (response) {
+                if (response.success) {
+                    showToast(response.success, "success");
+                    setTimeout(() => {
+                        window.location.href = response.redirect;
+                    }, 1000);
+                } else {
+                    showToast(response.error, "error");
+                }
+            },
+            error: function (xhr, status, error) {
+                showToast("Error al enviar el formulario", "error");
+                console.error("Error al enviar el formulario:", error);
+            },
+        });
+    });
+
+    $("#editButtonProduct").on("click", function (e) {
+        const name = $("#name");
+        const shortDescription = $("#short_description");
+        const description = $("#long_description");
+        const mainImage = $("#main_image");
+        const price = $("#price");
+        const categorie = $("#categorie_id");
+        const subcategorie = $("#subcategorie_id");
+
+        if (!name.val().trim()) {
+            name.addClass("is-invalid");
+            showToast("El nombre del producto es requerido", "error");
+            return;
+        } else {
+            name.removeClass("is-invalid");
+        }
+
+        if (!price.val().trim()) {
+            price.addClass("is-invalid");
+            showToast("El precio es requerido", "error");
+            return;
+        } else {
+            price.removeClass("is-invalid");
+        }
+
+        if (!categorie.val().trim()) {
+            categorie.addClass("is-invalid");
+            showToast("La categoría es requerida", "error");
+            return;
+        } else {
+            categorie.removeClass("is-invalid");
+        }
+
+        if (!subcategorie.val() === "") {
+            subcategorie.addClass("is-invalid");
+            showToast("La subcategoría es requerida", "error");
+            return;
+        } else {
+            subcategorie.removeClass("is-invalid");
+        }
+
+        if (!name.val().trim() || !price.val().trim()) {
+            showToast("Todos los campos son requeridos", "error");
+            return;
+        }
+
+        const formData = new FormData(
+            document.getElementById("formEditProduct")
+        );
+
+        // Añadir las imágenes al FormData
+        filesImages.forEach((file) => {
+            formData.append("gallery_image[]", file);
+        });
+
+        // Para comprobar los datos en formData antes de enviarlos
+        console.log("Archivos seleccionados:", filesImages);
+        for (let pair of formData.entries()) {
+            console.log(pair[0] + ", " + pair[1]);
+        }
+
+        // Enviar los datos usando AJAX
+        $.ajax({
+            url: $("#formEditProduct").attr("action"), // la URL del formulario (o una URL personalizada)
             type: "POST",
             data: formData,
             processData: false, // No procesar los datos
