@@ -162,7 +162,7 @@
     </script>
 </head>
 
-<body class="admin font-secondary dark:bg-black">
+<body class="admin font-secondary overflow-x-hidden dark:bg-black">
     @include('layouts.__partials.admin.navbar')
     @include('layouts.__partials.toast-container', ['class' => 'right-5 top-5'])
     <main class="h-full bg-zinc-50 dark:bg-black">
