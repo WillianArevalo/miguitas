@@ -33,6 +33,7 @@ class UserRequest extends FormRequest
             "locale" => "nullable|string",
             "currency" => "nullable|string",
             "timezone" => "nullable|string",
+            "status" => "required|string",
         ];
 
         if ($isUpdate) {
