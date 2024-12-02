@@ -11,7 +11,7 @@
             {{ $user->fullName }}
         </p>
     </div>
-    <div class="flex items-center">
+    <div class="flex flex-col items-start gap-y-2 sm:flex-row sm:items-center">
         <div class="flex flex-[2] items-center gap-2">
             <h5 class="flex items-center gap-1 font-dine-r text-zinc-800">
                 <x-icon-store icon="email" class="h-5 w-5 text-current" />
@@ -44,7 +44,7 @@
             {{ $address->address_line_1 }}
         </p>
     </div>
-    <div class="flex items-center">
+    <div class="flex flex-col items-start gap-y-2 sm:flex-row sm:items-center">
         <div class="flex flex-[2] items-center gap-2">
             <h5 class="font-dine-r text-zinc-800">
                 Ciudad:
