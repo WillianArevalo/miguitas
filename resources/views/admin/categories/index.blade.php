@@ -88,7 +88,7 @@
                                     </x-tr>
                                 @else
                                     @foreach ($categories as $category)
-                                        <x-tr section="body">
+                                        <x-tr section="body" :last="$loop->last">
                                             <x-td>
                                                 <img src="{{ Storage::url($category->image) }}" alt="Product 1"
                                                     class="h-10 w-10 rounded-lg object-cover sm:h-16 sm:w-16">
@@ -98,7 +98,7 @@
                                             </x-td>
                                             <x-td>
                                                 @if ($category->subcategories->isNotEmpty())
-                                                    <div class="flex flex-col gap-2">
+                                                    <div class="flex flex-wrap items-center gap-2">
                                                         @foreach ($category->subcategories as $subcategorie)
                                                             <div
                                                                 class="relative flex w-max items-center gap-2 rounded-lg border px-4 py-2 dark:border-zinc-800">
@@ -109,7 +109,7 @@
                                                                         class="h-5 w-5 text-current" />
                                                                 </button>
                                                                 <div
-                                                                    class="dropDownContent absolute right-0 top-11 z-30 hidden w-28 rounded-lg border border-zinc-400 bg-white p-2 dark:border-zinc-800 dark:bg-zinc-950">
+                                                                    class="dropDownContent absolute right-0 top-11 z-30 hidden w-28 animate-jump-in rounded-lg border border-zinc-400 bg-white p-2 animate-duration-200 dark:border-zinc-800 dark:bg-zinc-950">
                                                                     <ul class="text-sm text-zinc-700 dark:text-zinc-200">
                                                                         <li>
                                                                             <button type="button"
