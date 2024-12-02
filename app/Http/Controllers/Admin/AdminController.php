@@ -4,15 +4,53 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use App\Models\Order;
+use App\Models\Payment;
+use App\Models\User;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
 
     public function index()
     {
-        $orders = Order::all();
-        return view('admin.index', compact('orders'));
+        $orders = Order::orderBy('created_at', 'desc')->take(5)->get();
+        $customer = Customer::whereBetween("created_at", [
+            Carbon::now()->startOfMonth(),
+            Carbon::now()->endOfMonth(),
+        ])->orderBy("created_at", "desc")->get();
+
+        $ordersPending = Order::where("status", "pending")->count();
+        $ordersCompleted = Order::where("status", "completed")->count();
+        $ordersCanceled = Order::where("status", "canceled")->count();
+
+        $users = User::all();
+        $usersActives = User::where("status", true)->count();
+        $usersInactives = User::where("status", false)->count();
+
+        $sales = Payment::selectRaw("MONTH(created_at) as month, SUM(amount) as total")
+            ->groupBy("month")
+            ->orderBy("month")
+            ->get()
+            ->mapWithKeys(function ($sale) {
+                return [Carbon::create()->month($sale->month)->translateFormat("F") => $sale->total];
+            });
+
+        $salesTotal = Payment::sum('amount');
+
+        return view('admin.index', compact(
+            'orders',
+            'customer',
+            'ordersPending',
+            'ordersCompleted',
+            'ordersCanceled',
+            'users',
+            'usersActives',
+            'usersInactives',
+            'sales',
+            'salesTotal'
+        ));
     }
 
     public function login()
