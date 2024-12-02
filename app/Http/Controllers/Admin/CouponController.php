@@ -37,13 +37,12 @@ class CouponController extends Controller
             $categories = Categorie::all();
             $labels = Label::all();
             $rules = CouponRules::getPredefinedRules();
-            $brands = Brand::all();
             return view("admin.sales_strategies.coupon.new-coupon", [
                 "products" => $products,
                 "categories" => $categories,
                 "labels" => $labels,
                 "rules" => $rules,
-                "brands" => $brands
+
             ]);
         } catch (\Exception $e) {
             return redirect()->route("admin.sales-strategies.index")->with("error", "Error al cargar los productos, categorías y etiquetas");
