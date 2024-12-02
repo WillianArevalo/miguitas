@@ -1,9 +1,23 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const labels = Object.keys(sales);
+    const data = Object.values(sales);
+
     var ctx = document.getElementById("salesChart").getContext("2d");
     const gradient = ctx.createLinearGradient(0, ctx.canvas.height, 0, 0);
     gradient.addColorStop(1, "#011b4e");
     gradient.addColorStop(0.5, "#138fdc");
     gradient.addColorStop(0, "#000000");
+
+    //Const users
+    const user = usersCount;
+    const usersInactives = userActives;
+    const usersActives = userActives;
+
+    const ordersPending = ordersPendingCount;
+    const ordersCompleted = ordersCompletedCount;
+    const ordersCanceled = ordersCanceledCount;
+
+    console.log(user, usersInactives, usersActives);
 
     let isDark = localStorage.getItem("theme") === "dark";
 
@@ -18,12 +32,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 labels: ["New", "Returning", "Inactive"],
                 datasets: [
                     {
-                        data: [62, 26, 12],
-                        backgroundColor: [
-                            "#f2d410", // Amarillo para "New"
-                            "#f6e36b", // Verde claro para "Returning"
-                            "#eee7b9", // Rojo para "Inactive"
-                        ],
+                        data: [user, usersActives, usersInactives],
+                        backgroundColor: ["#f2d410", "#f6e36b", "#eee7b9"],
                         borderWidth: 8,
                         borderColor: "rgba(0,0,0,0)", // Cambia el color del borde
                     },
@@ -56,14 +66,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 labels: ["Completed", "Pending", "Canceled"],
                 datasets: [
                     {
-                        data: [50, 45, 5],
-                        backgroundColor: [
-                            "#138fdc", // Amarillo para "New"
-                            "#38c172", // Verde claro para "Returning"
-                            "#e3342f", // Rojo para "Inactive"
-                        ],
+                        data: [ordersCompleted, ordersPending, ordersCanceled],
+                        backgroundColor: ["#38c172", "#f2d410", "#e3342f"],
                         borderWidth: 8,
-                        borderColor: "rgba(0,0,0,0)", // Cambia el color del borde
+                        borderColor: "rgba(0,0,0,0)",
                     },
                 ],
             },
@@ -90,27 +96,11 @@ document.addEventListener("DOMContentLoaded", function () {
     new Chart(ctx, {
         type: "line",
         data: {
-            labels: [
-                "Enero",
-                "Febrero",
-                "Marzo",
-                "Abril",
-                "Mayo",
-                "Junio",
-                "Julio",
-                "Agosto",
-                "Septiembre",
-                "Octubre",
-                "Noviembre",
-                "Diciembre",
-            ],
+            labels: labels,
             datasets: [
                 {
                     label: "Ventas",
-                    data: [
-                        1200, 1500, 800, 1700, 2000, 2300, 1800, 2200, 1900,
-                        2500, 2700, 3000,
-                    ],
+                    data: [data],
                     backgroundColor: gradient,
                     borderColor: "rgba(54, 162, 235, 1)",
                     borderWidth: 3,
@@ -194,6 +184,7 @@ document.addEventListener("DOMContentLoaded", function () {
             },
         },
     });
+
     var viewsNewCtx = document.getElementById("viewsNew").getContext("2d");
     new Chart(viewsNewCtx, {
         type: "line",
