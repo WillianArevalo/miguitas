@@ -63,7 +63,6 @@
                                             'product' => 'Producto',
                                             'label' => 'Etiqueta',
                                             'cart' => 'Carrito',
-                                            'brand' => 'Marca',
                                         ]" />
                                     </div>
                                 </div>
@@ -139,7 +138,7 @@
                                                     typeButton="primary" />
                                             </div>
                                         </div>
-                                        <div class="rules specific_brands mb-4 hidden w-full">
+                                        {{--                                         <div class="rules specific_brands mb-4 hidden w-full">
                                             <div class="flex items-center gap-4">
                                                 @if ($brands->count() > 0)
                                                     <x-select label="Marcas" id="brands_id" name="brands_id"
@@ -149,7 +148,7 @@
                                                     data-input="#brands_id" onlyIcon="true" type="button"
                                                     typeButton="primary" />
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="rules specific_category mb-4 hidden w-full">
                                             <div class="flex items-center gap-4">
                                                 @if ($categories->count() > 0)
