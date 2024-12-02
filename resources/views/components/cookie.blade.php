@@ -1,5 +1,5 @@
 <section
-    class="cookies fixed bottom-16 left-12 z-50 mx-auto max-w-md animate-fade-right rounded-2xl border border-white bg-white p-4 shadow-lg">
+    {{ $attributes->merge(['class' => 'cookies fixed bottom-16 left-12 z-50 mx-auto max-w-md animate-fade-right rounded-2xl border border-white bg-white p-4 shadow-lg']) }}>
     <h2 class="text-lg font-semibold text-blue-store">
         Cookies
     </h2>
