@@ -257,6 +257,12 @@ Breadcrumbs::for("admin.contact-messages.index", function (BreadcrumbTrail $trai
     $trail->push("Mensajes de contacto", route("admin.contact-messages.index"));
 });
 
+//Admin > Subscriptions
+Breadcrumbs::for("admin.subscriptions.index", function (BreadcrumbTrail $trail) {
+    $trail->parent("admin.index");
+    $trail->push("Suscripciones", route("admin.subscriptions.index"));
+});
+
 
 /* BREADCRUMBS STORE */
 
