@@ -32,6 +32,7 @@ use App\Http\Controllers\Admin\{
     ShippingController,
     SocialNetworkController,
     SubCategorieController,
+    SubscriptionController,
     SupportTicketController,
     TaxController,
     TicketCommentController,
@@ -71,7 +72,9 @@ Route::middleware("role:admin")->prefix("admin")->name("admin.")->group(function
 
     // Contact Messages
     Route::resource("/contact-messages", ContactMessageController::class);
-    Route::delete("/contact-messages/destroy/{id}", [ContactMessageController::class, "destroy"])->name("contact-messages.delete");
+
+    //Subscriptions
+    Route::resource("/subscriptions", SubscriptionController::class);
 
     // Taxes
     Route::resource("/taxes", TaxController::class);
