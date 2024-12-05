@@ -116,6 +116,7 @@ class PopupController extends Controller
 
     public function changeStatus(Request $request, string $id)
     {
+
         DB::beginTransaction();
         try {
             $type = $request->type;
@@ -123,7 +124,7 @@ class PopupController extends Controller
             if ($type === "popup") {
                 $popup = Popup::find($id);
                 if ($popup) {
-                    $status = $request->status === "active" ? 1 : 0;
+                    $status = $request->status === "actived" ? 1 : 0;
                     $popup->active = $status;
                     $popup->save();
                     DB::commit();
@@ -134,7 +135,7 @@ class PopupController extends Controller
             } else {
                 $headband = HeadBand::find($id);
                 if ($headband) {
-                    $status = $request->status === "active" ? 1 : 0;
+                    $status = $request->status === "actived" ? 1 : 0;
                     $headband->active = $status;
                     $headband->save();
                     DB::commit();
