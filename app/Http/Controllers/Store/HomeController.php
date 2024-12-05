@@ -8,9 +8,11 @@ use App\Models\Categorie;
 use App\Models\HeadBand;
 use App\Models\Popup;
 use App\Models\Product;
+use App\Models\Subscription;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -95,6 +97,24 @@ class HomeController extends Controller
             return response()->json(["success" => "Popup visto"]);
         } else {
             return response()->json(["error" => "Popup no encontrado"], 404);
+        }
+    }
+
+    public function acceptPopup(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $reference = $request->input("reference_id");
+            $content = $request->input("content");
+            Subscription::create([
+                "reference_id" => $reference,
+                "value" => $content,
+            ]);
+            DB::commit();
+            return response()->json(["success" => "Subscripción creada"]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(["error" => "Error al crear la subscripción"], 500);
         }
     }
 }
