@@ -72,7 +72,7 @@
                                             </x-td>
                                             <x-td :last="true">
                                                 <form
-                                                    action="{{ route('admin.contact-messages.delete', $contactMessage->id) }}"
+                                                    action="{{ route('admin.contact-messages.destroy', $contactMessage->id) }}"
                                                     method="POST" id="formDeleteContactMessage-{{ $contactMessage->id }}">
                                                     @csrf
                                                     @method('DELETE')
