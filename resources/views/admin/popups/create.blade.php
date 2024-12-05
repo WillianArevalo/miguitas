@@ -94,13 +94,14 @@
                                 <x-select label="Tipo" :options="[
                                     'redirect' => 'Redireccionar',
                                     'store' => 'Almacenar datos',
-                                ]" id="type" name="type" selected="store"
-                                    value="store" />
+                                ]" id="type" name="type"
+                                    text="Selecciona un tipo" />
                             </div>
                         </div>
                         <div id="redirect-link" class="mt-4 hidden">
                             <x-input label="Redireccionar a" type="text" name="link" id="link"
-                                placeholder="Ingresa la URL de redireccionamiento" icon="link" />
+                                value="{{ Route('popup.store') }}" placeholder="Ingresa la URL de redireccionamiento"
+                                icon="link" />
                         </div>
                     </div>
                     <div class="mt-4 flex flex-col gap-4 lg:flex-row">
@@ -109,7 +110,7 @@
                             <!-- Preview Popup -->
                             <div
                                 class="popupContainer popup relative flex h-max w-full items-center justify-center overflow-auto rounded-lg border-2 border-dashed border-zinc-600 bg-zinc-300 py-32 dark:border-zinc-800 dark:bg-black">
-                                <div class="relative w-[500px] animate-jump-in rounded-xl bg-white animate-duration-300"
+                                <div class="popup relative w-[500px] animate-jump-in rounded-xl bg-white animate-duration-300"
                                     id="popup">
                                     <button type="button"
                                         class="closePopup absolute right-0 top-0 m-2 rounded-full p-1.5 hover:bg-zinc-200">
@@ -123,25 +124,22 @@
                                         </h2>
                                     </div>
                                     <div class="bodyPopup">
-                                        <form action="">
-                                            <div class="flex gap-2">
-                                                <div class="flex flex-1 flex-col items-center justify-center">
-                                                    <div class="imagePoup w-full">
-                                                        <img src="{{ asset('img/photo.jpg') }}" alt=""
-                                                            class="h-60 w-full object-contain" id="imagePoup">
-                                                    </div>
-                                                    <p id="descriptionPoupText" class="text-wrap mt-4 w-3/4 text-center">
-                                                        Este es la descripción del anuncio
-                                                    </p>
-                                                    <div
-                                                        class="inputPopup mt-4 flex w-4/5 flex-col items-center justify-center">
-                                                        <x-input-store type="text" name="inputPopup" id="inputPopup"
-                                                            placeholder="Ingresa el nombre del campo"
-                                                            class="mb-4 hidden" />
-                                                    </div>
+                                        <div class="flex gap-2">
+                                            <div class="flex flex-1 flex-col items-center justify-center">
+                                                <div class="imagePoup w-full">
+                                                    <img src="{{ asset('img/photo.jpg') }}" alt=""
+                                                        class="h-60 w-full object-contain" id="imagePoup">
+                                                </div>
+                                                <p id="descriptionPoupText" class="text-wrap mt-4 w-3/4 text-center">
+                                                    Este es la descripción del anuncio
+                                                </p>
+                                                <div
+                                                    class="inputPopup mt-4 flex w-4/5 flex-col items-center justify-center">
+                                                    <x-input-store type="text" name="inputPopup" id="inputPopup"
+                                                        placeholder="Ingresa el nombre del campo" class="mb-4 hidden" />
                                                 </div>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                     <div class="footerPopup flex items-center justify-end gap-2 p-4">
                                         <x-button-store id="buttonPopupSecondary" type="button" typeButton="secondary"
