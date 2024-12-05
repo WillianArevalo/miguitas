@@ -143,3 +143,4 @@ Route::post("/accept-all-cookies", [HomeController::class, "acceptAllCookies"])-
 Route::get("/politica-de-cookies", [HomeController::class, "showCookies"])->name("cookies");
 
 Route::get("/show-popup", [HomeController::class, "showPopup"])->name("show-popup");
+Route::get("/popup/guardar-datos", [HomeController::class, "acceptPopup"])->name("popup.store");
