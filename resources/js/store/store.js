@@ -1,3 +1,5 @@
+import { showToast } from "../store/toast";
+
 $(document).ready(function () {
     const $wrapperHeadBands = $("#headbands-wrapper");
     const $headBands = $wrapperHeadBands.children();
@@ -39,13 +41,12 @@ $(document).ready(function () {
     });
 
     const popups = $(".popup");
-
     if (popups.length > 0) {
         popups.each(function (index, popup) {
             const $popup = $(popup);
             const $popupClose = $popup.find("#buttonPopupPrimary");
             const id = $popupClose.data("reference");
-            const form = $popup.closest("form");
+            const form = $("#form-show-popup");
             $.ajax({
                 url: form.attr("action"),
                 method: "GET",
@@ -61,4 +62,46 @@ $(document).ready(function () {
             });
         });
     }
+
+    $("#buttonPopupPrimary").click(function () {
+        const contentPopup = $(".popupContainer").html();
+        let reference = $(this).data("reference");
+        let action = $(this).data("action");
+        let url = $(this).data("url");
+
+        if (action === "redirect") {
+            location.href = url;
+        } else {
+            const inputPopup = $("#inputPopup");
+
+            if (inputPopup.val() === "") {
+                showToast("Por favor rellena el campo requerido", "info");
+                return;
+            }
+
+            $.ajax({
+                url: url,
+                type: "GET",
+                data: {
+                    reference_id: reference,
+                    content: inputPopup.val(),
+                },
+                success: function (response) {
+                    showToast("Datos guardados correctamente", "success");
+                    $("#container-popup").addClass("hidden");
+                },
+                error: function (response) {
+                    console.log(response);
+                },
+            });
+        }
+
+        $("#reference_id").val(reference);
+        $("#content").val(contentPopup);
+        $("#formPopup").submit();
+    });
+
+    $("#buttonPopupSecondary").click(function () {
+        $("#container-popup").addClass("hidden");
+    });
 });

@@ -9,6 +9,19 @@ $(document).ready(function () {
         }
     });
 
+    $("#type").on("Changed", function () {
+        const type = $(this).val();
+        if (type === "redirect") {
+            $("#buttonPopupPrimary").attr("data-action", "redirect");
+            $("#link").on("keyup", function () {
+                $("#buttonPopupPrimary").attr("data-url", $(this).val());
+            });
+        } else {
+            $("#buttonPopupPrimary").attr("data-action", "store");
+            $("#buttonPopupPrimary").attr("data-url", $("#link").val());
+        }
+    });
+
     $("#header").on("keyup", function () {
         $("#textHeader").text($(this).val());
     });
@@ -85,6 +98,8 @@ $(document).ready(function () {
     function ramdomString() {
         return Math.random().toString(36).substring(7);
     }
+
+    $("#buttonPopupPrimary").attr("data-reference", ramdomString());
 
     $("#textButtonSecondary").on("keyup", function () {
         $("#buttonPopupSecondary").text($(this).val());
