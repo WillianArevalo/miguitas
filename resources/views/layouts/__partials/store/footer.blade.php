@@ -156,10 +156,10 @@
                     Patricia Eugenia Solórzano Rivera
                 </p>
                 <p class="font-dine-r text-sm text-dark-blue md:text-base">
-                    Miguitas Pet Treats © 2020 Desarrollado X Innovadesa.
+                    Miguitas Pet Treats © 2020 Desarrollado por BotBlaze Technologies
                 </p>
             </div>
-            <div class="flex items-center gap-4">
+            <div class="flex justify-center gap-4 sm:items-center sm:justify-end">
                 @if ($paymentMethods->count() > 0)
                     @foreach ($paymentMethods as $paymentMethod)
                         <img src="{{ Storage::url($paymentMethod->image) }}" alt="Logo Innovadesa"
