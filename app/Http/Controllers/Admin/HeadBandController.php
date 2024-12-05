@@ -27,36 +27,12 @@ class HeadBandController extends Controller
         try {
             HeadBand::create($request->all());
             DB::commit();
-            return redirect()->route('admin.popups.create')->with('success', 'Anuncio de cabecera creada correctamente');
+            return redirect()->route('admin.popups.index')->with('success', 'Anuncio de cabecera creada correctamente');
         } catch (\Throwable $th) {
             DB::rollBack();
             Log::error('Error al crear el anuncio de cabecera: ' . $th->getMessage());
             return redirect()->route('admin.popups.create')->with('error', 'Error al crear el anuncio de cabecera');
         }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
     }
 
     /**
