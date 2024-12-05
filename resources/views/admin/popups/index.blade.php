@@ -87,7 +87,10 @@
                                             </x-td>
                                             <x-td>
                                                 <div class="flex gap-2">
-                                                    <form action="{{ route('admin.popups.destroy', $adversiment->id) }}"
+                                                    <form
+                                                        action="{{ $adversiment->type == 'popup'
+                                                            ? route('admin.popups.destroy', $adversiment->id)
+                                                            : route('admin.headbands.destroy', $adversiment->id) }}"
                                                         id="formDeletePopup-{{ $adversiment->id }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
