@@ -46,7 +46,8 @@
                                             <p class="text-zinc-600 dark:text-zinc-400">
                                                 {{ $ticket->assignedTo->username }}
                                             </p>
-                                            <span class="rounded-full bg-blue-500 px-3 py-1 text-xs text-white">
+                                            <span
+                                                class="flex w-max items-center gap-2 rounded-xl bg-blue-100 px-2 py-1 text-sm font-medium uppercase text-blue-600 dark:bg-blue-950 dark:bg-opacity-20 dark:text-blue-400">
                                                 {{ $ticket->assignedTo->role }}
                                             </span>
                                         </div>
