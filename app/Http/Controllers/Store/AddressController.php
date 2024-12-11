@@ -38,14 +38,12 @@ class AddressController extends Controller
         return view("store.account.address.new", ["addresses" => $addresses, "countries" => $countries]);
     }
 
-
     public function getAllCountries()
     {
         $path = resource_path('data/countries.json');
         $countries = json_decode(file_get_contents($path), true);
         return $countries;
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -142,5 +140,52 @@ class AddressController extends Controller
             DB::rollBack();
             return redirect()->route("account.index")->with("error", "Error al eliminar la dirección. Error: " . $e->getMessage());
         }
+    }
+
+    public function getDepartamento(string $name)
+    {
+        $path = resource_path('data/elsalvador.json');
+        $departamentos = json_decode(file_get_contents($path), true);
+        $departamento = collect($departamentos)->firstWhere('departamento', $name);
+        if (!$departamento) {
+            return response()->json(['error' => 'Departamento no encontrado'], 404);
+        }
+        return $departamento;
+    }
+
+    public function getMunicipios(Request $request)
+    {
+        $departamento = $this->getDepartamento($request->state);
+        $names = array_column($departamento['municipios'], "nombre");
+        $municipios = array_combine($names, $names);
+
+        return response()->json([
+            "status" => "success",
+            "names" => $names,
+            "html" => view("layouts.__partials.ajax.store.select", [
+                "options" => $municipios,
+                "type" => "Municipio"
+            ])->render()
+        ]);
+    }
+
+    public function getDistritos(Request $request)
+    {
+        $departamento = $this->getDepartamento($request->state);
+        $municipio = collect($departamento['municipios'])->firstWhere('nombre', $request->city);
+        if (!$municipio) {
+            return response()->json(['error' => 'Municipio no encontrado'], 404);
+        }
+
+        $distritos = array_combine($municipio['distritos'], $municipio['distritos']);
+
+        return response()->json([
+            "status" => "success",
+            "names" => $municipio['distritos'],
+            "html" => view("layouts.__partials.ajax.store.select", [
+                "options" => $distritos,
+                "type" => "Distrito"
+            ])->render()
+        ]);
     }
 }
