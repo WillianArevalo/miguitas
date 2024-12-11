@@ -132,6 +132,7 @@ Route::middleware("role:admin")->prefix("admin")->name("admin.")->group(function
 
     // Support Tickets
     Route::resource("/support-tickets", SupportTicketController::class);
+    Route::post("/support-tickets/status/{id}", [SupportTicketController::class, "changeStatus"])->name("ticket.status");
     Route::resource("/ticket-comment", TicketCommentController::class);
     Route::post("/support-tickets/asign/{id}", [SupportTicketController::class, "asign"])->name("support-tickets.asign");
 
