@@ -33,7 +33,7 @@
     @include('layouts.__partials.store.navbar')
     <main>
         @include('layouts.__partials.store.breadcrumb')
-        @include('layouts.__partials.store.toast-store', ['top' => 'top-28'])
+        @include('layouts.__partials.store.toast-store', ['top' => 'top-10'])
         @include('layouts.__partials.toast-container', [
             'class' => 'left-0 right-0 sm:right-5 sm:mx-auto top-10',
         ])
