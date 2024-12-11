@@ -111,7 +111,6 @@
                                     </h2>
                                 </div>
                                 <div class="flex items-center gap-4">
-
                                     <img src="{{ Storage::url($ticket->lastRepliedBy->profile) }}"
                                         alt="Profile photo {{ $ticket->lastRepliedBy->name }}"
                                         class="h-14 w-14 rounded-full object-cover">
@@ -123,7 +122,6 @@
                                             {{ $ticket->lastRepliedBy->email }}
                                         </p>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="flex flex-col items-end gap-1">
@@ -151,16 +149,15 @@
                     Comentarios
                 </h2>
                 @forelse ($ticket->comments as $comment)
-                    <div class="p-8">
-                        <div class="flex flex-col gap-4">
+                    <div class="px-8">
+                        <div class="flex flex-col">
                             <div class="{{ $comment->type_user === 'admin' ? 'justify-end' : 'justify-start' }} flex">
                                 <div class="flex items-start gap-2.5">
-
                                     @if ($comment->type_user === 'admin')
                                         <button id="dropdownMenuIconButton-{{ $comment->type_user . '-' . $comment->id }}"
                                             data-dropdown-toggle="dropdownDots-{{ $comment->type_user . '-' . $comment->id }}"
                                             data-dropdown-placement="bottom-start"
-                                            class="inline-flex items-center self-center rounded-lg bg-zinc-200 p-2 text-center text-sm font-medium text-zinc-950 hover:bg-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-400 focus:ring-opacity-70 dark:bg-zinc-950 dark:text-white dark:hover:bg-zinc-900 dark:focus:ring-zinc-900 dark:focus:ring-opacity-70"
+                                            class="inline-flex items-center self-center rounded-lg border border-zinc-400 bg-zinc-200 p-2 text-center text-sm font-medium text-zinc-950 hover:bg-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-400 focus:ring-opacity-70 dark:border-zinc-800 dark:bg-zinc-950 dark:text-white dark:hover:bg-zinc-900 dark:focus:ring-zinc-900 dark:focus:ring-opacity-70"
                                             type="button">
                                             <svg class="h-4 w-4 text-current" aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 4 15">
@@ -169,16 +166,9 @@
                                             </svg>
                                         </button>
                                         <div id="dropdownDots-{{ $comment->type_user . '-' . $comment->id }}"
-                                            class="z-10 hidden w-40 rounded-xl border border-zinc-400 bg-white shadow dark:border-zinc-800 dark:bg-zinc-950">
+                                            class="z-10 hidden w-40 animate-fade rounded-xl border border-zinc-400 bg-white shadow animate-duration-300 dark:border-zinc-800 dark:bg-zinc-950">
                                             <ul class="p-2 text-sm text-zinc-700 dark:text-gray-200"
                                                 aria-labelledby="dropdownMenuIconButton-{{ $comment->type_user . '-' . $comment->id }}">
-                                                <li>
-                                                    <a href="#"
-                                                        class="flex items-center gap-1 rounded-lg p-2 hover:bg-gray-200 dark:hover:bg-zinc-900 dark:hover:text-white">
-                                                        <x-icon icon="edit" class="h-4 w-4" />
-                                                        Editar
-                                                    </a>
-                                                </li>
                                                 <li>
                                                     <form
                                                         action="{{ Route('admin.ticket-comment.destroy', $comment->id) }}"
@@ -186,7 +176,7 @@
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit"
-                                                            class="flex w-full items-center gap-1 rounded-lg p-2 hover:bg-gray-200 dark:hover:bg-zinc-900 dark:hover:text-white">
+                                                            class="flex w-full items-center gap-1 rounded-lg p-2 text-xs hover:bg-gray-200 dark:hover:bg-zinc-900 dark:hover:text-white">
                                                             <x-icon icon="delete" class="h-4 w-4" />
                                                             Eliminar
                                                         </button>
@@ -195,13 +185,26 @@
                                             </ul>
                                         </div>
                                     @else
-                                        <img class="h-8 w-8 rounded-full object-cover"
-                                            src="{{ Storage::url($comment->user->profile) }}"
-                                            alt="Profile image {{ $comment->user->username }}">
+                                        @if ($comment->user->profile)
+                                            @if ($comment->user->profile)
+                                                <img class="h-8 w-8 rounded-full object-cover"
+                                                    src="{{ Storage::url($comment->user->profile) }}"
+                                                    alt="Profile image {{ $comment->user->username }}">
+                                            @else
+                                                <div
+                                                    class="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-200 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
+                                                    <x-icon icon="user" class="h-5 w-5" />
+                                                </div>
+                                            @endif
+                                        @else
+                                            <div
+                                                class="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-200 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
+                                                <x-icon icon="user" class="h-5 w-5" />
+                                            </div>
+                                        @endif
                                     @endif
-
                                     <div
-                                        class="leading-1.5 {{ $comment->type_user === 'admin' ? 'rounded-s-xl rounded-ee-xl' : 'rounded-e-xl rounded-es-xl' }} flex w-full max-w-[400px] flex-col border border-zinc-200 bg-zinc-100 p-4 dark:border-zinc-900 dark:bg-zinc-950">
+                                        class="leading-1.5 {{ $comment->type_user === 'admin' ? 'rounded-s-xl rounded-ee-xl' : 'rounded-e-xl rounded-es-xl' }} mt-4 flex w-full max-w-[400px] flex-col border border-zinc-400 bg-zinc-100 p-4 dark:border-zinc-800 dark:bg-zinc-950">
                                         <div class="flex items-center space-x-2 rtl:space-x-reverse">
                                             <span class="text-sm font-semibold text-zinc-800 dark:text-zinc-300">
                                                 {{ $comment->user->username }}
@@ -233,14 +236,21 @@
                                         @endif
                                     </div>
                                     @if ($comment->type_user === 'admin')
-                                        <img class="h-8 w-8 rounded-full object-cover"
-                                            src="{{ Storage::url($comment->user->profile) }}"
-                                            alt="Profile image {{ $comment->user->username }}">
+                                        @if ($comment->user->profile)
+                                            <img class="h-8 w-8 rounded-full object-cover"
+                                                src="{{ Storage::url($comment->user->profile) }}"
+                                                alt="Profile image {{ $comment->user->username }}">
+                                        @else
+                                            <div
+                                                class="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-200 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
+                                                <x-icon icon="user" class="h-5 w-5" />
+                                            </div>
+                                        @endif
                                     @else
                                         <button id="dropdownMenuIconButton-{{ $comment->type_user . '-' . $comment->id }}"
                                             data-dropdown-toggle="dropdownDots-{{ $comment->type_user . '-' . $comment->id }}"
                                             data-dropdown-placement="bottom-start"
-                                            class="inline-flex items-center self-center rounded-lg bg-zinc-200 p-2 text-center text-sm font-medium text-zinc-950 hover:bg-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-400 focus:ring-opacity-70 dark:bg-zinc-950 dark:text-white dark:hover:bg-zinc-900 dark:focus:ring-zinc-900 dark:focus:ring-opacity-70"
+                                            class="inline-flex items-center self-center rounded-lg border border-zinc-400 bg-zinc-200 p-2 text-center text-sm font-medium text-zinc-950 hover:bg-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-400 focus:ring-opacity-70 dark:border-zinc-800 dark:bg-zinc-950 dark:text-white dark:hover:bg-zinc-900 dark:focus:ring-zinc-900 dark:focus:ring-opacity-70"
                                             type="button">
                                             <svg class="h-4 w-4 text-current" aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -250,16 +260,9 @@
                                             </svg>
                                         </button>
                                         <div id="dropdownDots-{{ $comment->type_user . '-' . $comment->id }}"
-                                            class="z-10 hidden w-40 rounded-xl border border-zinc-400 bg-white shadow dark:border-zinc-800 dark:bg-zinc-950">
+                                            class="z-10 hidden w-40 animate-fade rounded-xl border border-zinc-400 bg-white shadow animate-duration-300 dark:border-zinc-800 dark:bg-zinc-950">
                                             <ul class="p-2 text-sm text-zinc-700 dark:text-gray-200"
                                                 aria-labelledby="dropdownMenuIconButton-{{ $comment->type_user . '-' . $comment->id }}">
-                                                <li>
-                                                    <a href="#"
-                                                        class="flex items-center gap-1 rounded-lg p-2 hover:bg-gray-200 dark:hover:bg-zinc-900 dark:hover:text-white">
-                                                        <x-icon icon="edit" class="h-4 w-4" />
-                                                        Editar
-                                                    </a>
-                                                </li>
                                                 <li>
                                                     <form
                                                         action="{{ Route('admin.ticket-comment.destroy', $comment->id) }}"
@@ -267,7 +270,7 @@
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit"
-                                                            class="flex w-full items-center gap-1 rounded-lg p-2 hover:bg-gray-200 dark:hover:bg-zinc-900 dark:hover:text-white">
+                                                            class="flex w-full items-center gap-1 rounded-lg p-2 text-xs hover:bg-gray-200 dark:hover:bg-zinc-900 dark:hover:text-white">
                                                             <x-icon icon="delete" class="h-4 w-4" />
                                                             Eliminar
                                                         </button>
@@ -287,30 +290,43 @@
                         <p class="text-sm text-zinc-600 dark:text-zinc-400">No hay comentarios</p>
                     </div>
                 @endforelse
-                <form action="{{ Route('admin.ticket-comment.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ Route('admin.ticket-comment.store') }}" method="POST" class="mt-4"
+                    enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="ticket_id" value="{{ $ticket->id }}">
                     <div
-                        class="mb-4 w-full rounded-lg border border-zinc-400 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900">
-                        <div
-                            class="flex items-center justify-between border-b border-zinc-400 px-3 py-2 dark:border-zinc-800">
-                            <div
-                                class="flex flex-wrap items-center divide-zinc-200 dark:divide-zinc-600 sm:divide-x sm:rtl:divide-x-reverse">
-                                <div class="flex items-center space-x-1 rtl:space-x-reverse sm:pe-4">
-                                    <label for="attachments"
-                                        class="cursor-pointer rounded-lg p-2 text-zinc-500 hover:bg-zinc-200 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-white">
-                                        <x-icon icon="paperclip" class="h-4 w-4" />
-                                        <span class="sr-only">Attach file</span>
-                                        <input id="attachments" type="file" class="hidden" name="attachments[]"
-                                            multiple />
-                                    </label>
+                        class="mb-4 w-full rounded-lg border border-zinc-400 bg-zinc-100 dark:border-zinc-800 dark:bg-black">
+                        <div class="flex flex-col items-start border-b border-zinc-400 px-3 py-2 dark:border-zinc-800">
+                            <div class="flex w-full justify-between">
+                                <div
+                                    class="flex flex-wrap items-center divide-zinc-200 dark:divide-zinc-600 sm:divide-x sm:rtl:divide-x-reverse">
+                                    <div class="flex items-center space-x-1 rtl:space-x-reverse sm:pe-4">
+                                        <label for="attachments" data-tooltip-target="tooltip-attachments"
+                                            class="cursor-pointer rounded-lg p-2 text-zinc-500 hover:bg-zinc-200 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-950 dark:hover:text-white">
+                                            <x-icon icon="paperclip" class="h-4 w-4" />
+                                            <span class="sr-only">Attach file</span>
+                                            <input id="attachments" type="file" class="hidden" name="attachments[]"
+                                                multiple />
+                                        </label>
+                                        <div id="tooltip-attachments" role="tooltip"
+                                            class="tooltip invisible absolute z-40 inline-block rounded-lg bg-zinc-900 px-3 py-2 text-xs font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-zinc-900">
+                                            <span>Adjuntar archivos</span>
+                                            <div class="tooltip-arrow" data-popper-arrow></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <x-button typeButton="secondary" text="Eliminar archivos" size="small"
+                                    id="btn-remove-attachments" class="hidden" type="button" icon="delete" />
+                            </div>
+                            <div class="hidden" id="container-preview-images">
+                                <div class="mb-2 mt-4 flex w-full items-center gap-2" id="preview-images">
                                 </div>
                             </div>
                         </div>
-                        <div class="rounded-b-lg bg-white px-4 py-2 dark:bg-zinc-950">
+                        <div class="rounded-b-lg bg-white px-4 py-2 dark:bg-black">
                             <label for="editor" class="sr-only">Publish post</label>
                             <textarea id="comment" name="comment" rows="8"
-                                class="block w-full border-0 bg-white px-0 text-sm text-zinc-800 focus:ring-0 dark:bg-zinc-950 dark:text-white dark:placeholder-zinc-500"
+                                class="block w-full border-0 bg-white px-0 text-sm text-zinc-800 focus:ring-0 dark:bg-black dark:text-white dark:placeholder-zinc-500"
                                 placeholder="Escribe tu comentario aquí..." required></textarea>
                         </div>
                     </div>
