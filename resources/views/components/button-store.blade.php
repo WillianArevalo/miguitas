@@ -41,9 +41,10 @@
         'primary' => 'bg-blue-store text-white hover:bg-blue-selected',
         'secondary' => 'bg-white text-zinc-600 border-2 border-zinc-300 hover:bg-zinc-200/50',
         'tertiary' => 'bg-pink-store text-dark-blue hover:bg-pink-selected hover:text-white',
-        'danger' => 'bg-red-100/70 text-red-500 hover:bg-red-200/70',
-        'warning' => 'bg-yellow-100/70 text-yellow-600 hover:bg-yellow-600',
-        'success' => 'bg-green-100/70 text-green-500 hover:bg-green-200/70',
+        'danger' => 'bg-red-100/70 text-red-500 hover:bg-red-200/70 border-2 border-red-500/70',
+        'warning' => 'bg-yellow-100/70 text-yellow-600 hover:bg-yellow-600 border-2 border-yellow-600/70',
+        'info' => 'bg-blue-100/70 text-blue-500 hover:bg-blue-200/70',
+        'success' => 'bg-green-100/70 text-green-500 hover:bg-green-200/70 border-2 border-green-500/70',
         'default' => 'bg-white text-zinc-600 border border-zinc-400 hover:bg-zinc-100',
     ];
 
