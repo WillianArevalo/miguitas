@@ -45,7 +45,7 @@
                                     <tr class="hover:bg-zinc-50">
                                         <td class="whitespace-nowrap px-4 py-4">
                                             <span
-                                                class="font-secondary rounded-full bg-purple-100 px-4 py-1 text-sm text-blue-store">
+                                                class="font-secondary rounded-full bg-purple-100 px-3 py-1 text-sm text-blue-store">
                                                 {{ $ticket->ticket_number }}
                                             </span>
                                         </td>
@@ -55,46 +55,75 @@
                                             </span>
                                         </td>
                                         <td class="whitespace-nowrap px-4 py-4">
-                                            <span
-                                                class="rounded-full bg-red-100 px-4 py-1 font-dine-b text-xs font-medium text-red-700">
-                                                {{ ucfirst($ticket->priority) }}
-                                            </span>
+                                            @switch($ticket->priority)
+                                                @case('low')
+                                                    <span
+                                                        class="rounded-full bg-blue-100 px-2 py-1 font-dine-b text-xs font-medium text-blue-700">
+                                                        Baja
+                                                    </span>
+                                                @break
+
+                                                @case('medium')
+                                                    <span
+                                                        class="rounded-full bg-yellow-100 px-2 py-1 font-dine-b text-xs font-medium text-yellow-700">
+                                                        Media
+                                                    </span>
+                                                @break
+
+                                                @case('high')
+                                                    <span
+                                                        class="rounded-full bg-orange-100 px-2 py-1 font-dine-b text-xs font-medium text-orange-700">
+                                                        Alta
+                                                    </span>
+                                                @break
+
+                                                @case('urgent')
+                                                    <span
+                                                        class="rounded-full bg-red-100 px-2 py-1 font-dine-b text-xs font-medium text-red-700">
+                                                        Urgente
+                                                    </span>
+                                                @break
+
+                                                @default
+                                            @endswitch
                                         </td>
                                         <td class="whitespace-nowrap px-4 py-4 text-sm text-zinc-500">
-
                                             @switch($ticket->status)
                                                 @case('open')
                                                     <span
-                                                        class="rounded-full bg-blue-100 px-4 py-1 font-dine-b text-xs font-medium text-blue-700">
-                                                        {{ ucfirst($ticket->status) }}
+                                                        class="rounded-full bg-blue-100 px-2 py-1 font-dine-b text-xs font-medium text-blue-700">
+                                                        Abierto
                                                     </span>
                                                 @break
 
                                                 @case('pending')
                                                     <span
-                                                        class="rounded-full bg-yellow-100 px-4 py-1 font-dine-b text-xs font-medium text-yellow-700">
-                                                        {{ ucfirst($ticket->status) }}
+                                                        class="rounded-full bg-yellow-100 px-2 py-1 font-dine-b text-xs font-medium text-yellow-700">
+                                                        Pendiente
                                                     </span>
                                                 @break
 
                                                 @case('resolved')
                                                     <span
-                                                        class="rounded-full bg-green-100 px-4 py-1 font-dine-b text-xs font-medium text-green-700">
-                                                        {{ ucfirst($ticket->status) }}
+                                                        class="flex w-max items-center gap-1 rounded-full bg-green-100 px-2 py-1 font-dine-b text-xs font-medium text-green-700">
+                                                        <x-icon-store icon="circle-check" class="h-4 w-4 text-green-700" />
+                                                        Resuelto
                                                     </span>
                                                 @break
 
-                                                @case('reopend')
+                                                @case('reopened')
                                                     <span
-                                                        class="rounded-full bg-orange-100 px-4 py-1 font-dine-b text-xs font-medium text-orange-700">
-                                                        {{ ucfirst($ticket->status) }}
+                                                        class="flex w-max items-center gap-1 rounded-full bg-blue-100 px-2 py-1 font-dine-b text-xs font-medium text-blue-700">
+                                                        <x-icon-store icon="arrow-up" class="h-4 w-4 text-blue-700" />
+                                                        Reabierto
                                                     </span>
                                                 @break
 
                                                 @case('closed')
                                                     <span
-                                                        class="rounded-full bg-red-100 px-4 py-1 font-dine-b text-xs font-medium text-red-700">
-                                                        {{ ucfirst($ticket->status) }}
+                                                        class="flex w-max items-center gap-1 rounded-full bg-red-100 px-2 py-1 font-dine-b text-xs font-medium text-red-700">
+                                                        <x-icon-store icon="close" class="h-4 w-4 text-red-700" />
+                                                        Cerrado
                                                     </span>
                                                 @break
 
@@ -103,27 +132,44 @@
                                         </td>
                                         <td class="whitespace-nowrap px-4 py-4 text-sm">
                                             <div class="flex items-center gap-2">
-                                                <x-button-store icon="eye" type="a" href="#"
+                                                <x-button-store icon="comment" type="a"
+                                                    href="{{ Route('account.tickets.show', $ticket->ticket_number) }}"
                                                     typeButton="secondary" onlyIcon="true" class="w-max" />
-                                                <x-button-store icon="comment" type="a" href="#"
-                                                    typeButton="secondary" onlyIcon="true" class="w-max" />
-                                                <div>
-                                                    <form action="{{ Route('account.tickets.close', $ticket->id) }}"
-                                                        method="POST" id="formCancelTicket-{{ $ticket->id }}">
-                                                        @csrf
-                                                        <x-button-store icon="trash" type="button"
-                                                            href="{{ Route('account.tickets.show', $ticket->id) }}"
-                                                            typeButton="danger" onlyIcon="true" class="buttonDelete w-max"
-                                                            data-tooltip-target="tooltip-cancel-ticket-{{ $ticket->id }}"
-                                                            data-form="formCancelTicket-{{ $ticket->id }}" />
-                                                    </form>
-                                                    <div id="tooltip-cancel-ticket-{{ $ticket->id }}" role="tooltip"
-                                                        class="tooltip invisible absolute z-10 inline-block rounded-lg bg-red-500 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300">
-                                                        Cancelar ticket
-                                                        <div class="tooltip-arrow" data-popper-arrow></div>
+                                                @if ($ticket->status == 'open' || $ticket->status == 'pending' || $ticket->status == 'reopened')
+                                                    <div>
+                                                        <form action="{{ Route('account.tickets.close', $ticket->id) }}"
+                                                            method="POST" id="formCancelTicket-{{ $ticket->id }}">
+                                                            @csrf
+                                                            <x-button-store icon="trash" type="button"
+                                                                href="{{ Route('account.tickets.show', $ticket->id) }}"
+                                                                typeButton="danger" onlyIcon="true"
+                                                                class="buttonDelete w-max"
+                                                                data-tooltip-target="tooltip-cancel-ticket-{{ $ticket->id }}"
+                                                                data-form="formCancelTicket-{{ $ticket->id }}" />
+                                                        </form>
+                                                        <div id="tooltip-cancel-ticket-{{ $ticket->id }}" role="tooltip"
+                                                            class="tooltip invisible absolute z-10 inline-block rounded-lg bg-red-500 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300">
+                                                            Cancelar ticket
+                                                            <div class="tooltip-arrow" data-popper-arrow></div>
+                                                        </div>
                                                     </div>
-                                                </div>
-
+                                                @else
+                                                    <div>
+                                                        <form action="{{ Route('account.tickets.reopen', $ticket->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            <x-button-store icon="arrow-up" type="submit"
+                                                                href="{{ Route('account.tickets.show', $ticket->id) }}"
+                                                                typeButton="info" onlyIcon="true" class="w-max"
+                                                                data-tooltip-target="tooltip-cancel-ticket-{{ $ticket->id }}" />
+                                                        </form>
+                                                        <div id="tooltip-cancel-ticket-{{ $ticket->id }}" role="tooltip"
+                                                            class="tooltip invisible absolute z-10 inline-block rounded-lg bg-blue-500 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300">
+                                                            Reabrir ticket
+                                                            <div class="tooltip-arrow" data-popper-arrow></div>
+                                                        </div>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>
@@ -188,7 +234,7 @@
                                             @break
 
                                             @case('closed')
-                                                <span class="rounded-full bg-red-100 px-4 py-1 text-xs font-medium text-red-700">
+                                                <span class="rounded-full bg-blue-100 px-4 py-1 text-xs font-medium text-red-700">
                                                     {{ ucfirst($ticket->status) }}
                                                 </span>
                                             @break
@@ -197,10 +243,10 @@
                                         @endswitch
                                     </div>
                                     <div class="flex items-center gap-2">
-                                        <x-button-store icon="view" type="a" href="#" typeButton="secondary"
-                                            onlyIcon="true" class="w-max" />
-                                        <x-button-store icon="comment" type="a" href="#" typeButton="secondary"
-                                            onlyIcon="true" class="w-max" />
+                                        <x-button-store icon="view" type="a" href="#"
+                                            typeButton="secondary" onlyIcon="true" class="w-max" />
+                                        <x-button-store icon="comment" type="a" href="#"
+                                            typeButton="secondary" onlyIcon="true" class="w-max" />
                                         <div>
                                             <form action="{{ Route('account.tickets.close', $ticket->id) }}"
                                                 method="POST" id="formCancelTicket-{{ $ticket->id }}">
