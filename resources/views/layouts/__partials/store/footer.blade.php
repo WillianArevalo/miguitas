@@ -156,7 +156,7 @@
                     Patricia Eugenia Solórzano Rivera
                 </p>
                 <p class="font-dine-r text-sm text-dark-blue md:text-base">
-                    Miguitas Pet Treats © 2020 Desarrollado por BotBlaze Technologies
+                    Miguitas Pet Treats © 2024 Desarrollado por BotBlaze Technologies
                 </p>
             </div>
             <div class="flex justify-center gap-4 sm:items-center sm:justify-end">
