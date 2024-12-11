@@ -25,7 +25,8 @@ use App\Http\Controllers\Store\{
     GaleryController,
     PaymentController,
     SupportTicketController,
-    TermsAndConditionsController
+    TermsAndConditionsController,
+    TicketCommentController
 };
 
 // Public Routes
@@ -103,6 +104,8 @@ Route::middleware("auth")->group(function () {
 
         Route::resource("/tickets", SupportTicketController::class);
         Route::post("/tickets/{id}/close", [SupportTicketController::class, "close"])->name("tickets.close");
+        Route::post("/tickets/{id}/reopen", [SupportTicketController::class, "reopen"])->name("tickets.reopen");
+        Route::post("/tickets/comment", [TicketCommentController::class, "store"])->name("tickets.comment");
     });
 
     // Orders
@@ -144,3 +147,6 @@ Route::get("/politica-de-cookies", [HomeController::class, "showCookies"])->name
 
 Route::get("/show-popup", [HomeController::class, "showPopup"])->name("show-popup");
 Route::get("/popup/guardar-datos", [HomeController::class, "acceptPopup"])->name("popup.store");
+
+Route::get("/departamentos/search", [AddressController::class, "getMunicipios"])->name("departamentos.search");
+Route::get("/distritos", [AddressController::class, "getDistritos"])->name("distritos");
