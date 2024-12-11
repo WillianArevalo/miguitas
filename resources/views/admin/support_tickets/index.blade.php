@@ -115,22 +115,22 @@
                                             {{ App\Utils\CategoryTickets::getCategory($ticket->category) }}
                                         </x-td>
                                         <x-td>
-                                            {{ $ticket->assigned_to }}
+                                            @if ($ticket->assignedTo)
+                                                {{ $ticket->assignedTo->name }}
+                                            @endif
                                         </x-td>
                                         <x-td>
                                             <div class="flex items-center gap-2">
-                                                <x-button icon="view" type="a"
-                                                    href="{{ Route('admin.support-tickets.show', $ticket->id) }}" onlyIcon
-                                                    typeButton="secondary" />
                                                 <x-button icon="message" type="a"
                                                     href="{{ Route('admin.support-tickets.show', $ticket->id) }}"
                                                     typeButton="secondary" onlyIcon />
                                                 <div class="relative">
                                                     <x-button type="button" icon="user-star" typeButton="secondary"
-                                                        onlyIcon="true" class="show-options" />
-                                                    <div
+                                                        onlyIcon="true" class="show-options"
+                                                        data-target="#options-assigned-users" />
+                                                    <div id="options-assigned-users"
                                                         class="options absolute right-0 top-11 z-10 hidden w-max rounded-lg border border-zinc-400 bg-white p-2 dark:border-zinc-800 dark:bg-zinc-950">
-                                                        <p class="font-semibold text-zinc-800 dark:text-zinc-300">
+                                                        <p class="text-sm font-semibold text-zinc-800 dark:text-zinc-300">
                                                             Asignar ticket a
                                                         </p>
                                                         <form
@@ -150,6 +150,65 @@
                                                                         </button>
                                                                     </li>
                                                                 @endforeach
+                                                            </ul>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <div class="relative">
+                                                    <x-button type="button" icon="refresh" typeButton="secondary"
+                                                        onlyIcon="true" class="show-options"
+                                                        data-target="#options-order-{{ $ticket->id }}" />
+                                                    <div class="options absolute right-0 top-11 z-10 hidden w-40 animate-fade rounded-lg border border-zinc-400 bg-white p-2 dark:border-zinc-800 dark:bg-zinc-950"
+                                                        id="options-order-{{ $ticket->id }}">
+                                                        <p class="font-semibold text-zinc-800 dark:text-zinc-300">
+                                                            Cambiar estado
+                                                        </p>
+                                                        <form action="{{ Route('admin.ticket.status', $ticket->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="status">
+                                                            <ul class="mt-2 flex flex-col text-sm">
+                                                                <li>
+                                                                    <button type="button"
+                                                                        class="change-status-ticket flex w-full items-center gap-1 rounded-lg px-2 py-2 text-sky-700 hover:bg-sky-100 dark:text-sky-400 dark:hover:bg-sky-950 dark:hover:bg-opacity-20"
+                                                                        data-status="open">
+                                                                        <x-icon icon="ticket" class="h-5 w-5" />
+                                                                        Abierto
+                                                                    </button>
+                                                                </li>
+                                                                <li>
+                                                                    <button type="button"
+                                                                        class="change-status-ticket flex w-full items-center gap-1 rounded-lg px-2 py-2 text-emerald-700 hover:bg-emerald-100 dark:text-emerald-400 dark:hover:bg-emerald-950 dark:hover:bg-opacity-20"
+                                                                        data-status="resolved">
+                                                                        <x-icon icon="check" class="h-5 w-5" />
+                                                                        Resuelto
+                                                                    </button>
+                                                                </li>
+                                                                <li>
+                                                                    <button type="button"
+                                                                        class="change-status-ticket flex w-full items-center gap-1 rounded-lg px-2 py-2 text-blue-700 hover:bg-blue-100 dark:text-blue-400 dark:hover:bg-blue-950 dark:hover:bg-opacity-20"
+                                                                        data-status="reopened">
+                                                                        <x-icon icon="arrow-big-up-line"
+                                                                            class="h-5 w-5" />
+                                                                        Reabierto
+                                                                    </button>
+                                                                </li>
+                                                                <li>
+                                                                    <button type="button"
+                                                                        class="change-status-ticket flex w-full items-center gap-1 rounded-lg px-2 py-2 text-yellow-700 hover:bg-yellow-100 dark:text-yellow-400 dark:hover:bg-yellow-950 dark:hover:bg-opacity-20"
+                                                                        data-status="pending">
+                                                                        <x-icon icon="clock" class="h-5 w-5" />
+                                                                        Pendiente
+                                                                    </button>
+                                                                </li>
+                                                                <li>
+                                                                    <button type="button" href="#"
+                                                                        class="change-status-ticket flex w-full items-center gap-1 rounded-lg px-2 py-2 text-red-700 hover:bg-red-100 dark:text-red-400 dark:hover:bg-red-950 dark:hover:bg-opacity-20"
+                                                                        data-status="closed">
+                                                                        <x-icon icon="x" class="h-5 w-5" />
+                                                                        Cerrado
+                                                                    </button>
+                                                                </li>
                                                             </ul>
                                                         </form>
                                                     </div>
@@ -185,12 +244,6 @@
                     </x-table>
                 </div>
                 <div class="hidden p-4" id="styled-dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
-
-                </div>
-                <div class="hidden p-4" id="styled-settings" role="tabpanel" aria-labelledby="settings-tab">
-
-                </div>
-                <div class="hidden p-4" id="styled-contacts" role="tabpanel" aria-labelledby="contacts-tab">
 
                 </div>
             </div>
