@@ -4,7 +4,7 @@
     $colorMap = [
         'pending' => 'yellow',
         'high' => 'yellow',
-        'open' => 'blue',
+        'open' => 'sky',
         'sent' => 'blue',
         'refunded' => 'blue',
         'completed' => 'green',
@@ -13,7 +13,7 @@
         'closed' => 'red',
         'canceled' => 'red',
         'urgent' => 'red',
-        'reopened' => 'orange',
+        'reopened' => 'blue',
         'low' => 'zinc',
     ];
 
