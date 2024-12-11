@@ -38,6 +38,13 @@ class CheckoutController extends Controller
             return redirect()->route("cart")->with("info", "Agrega productos al carrito para continuar con la compra.");
         }
 
+        $data = resource_path("data/elsalvador.json");
+        $data = json_decode(file_get_contents($data), true);
+        $departamentos = array_reduce($data, function ($carry, $item) {
+            $carry[$item["departamento"]] = $item["departamento"];
+            return $carry;
+        }, []);
+
         $customer = $user->customer;
         if ($customer) {
             $address = $customer->address()->where("type", "shipping_address")->first();
@@ -53,7 +60,8 @@ class CheckoutController extends Controller
             //"countries" => $countries,
             "payment_methods" => $payment_methods,
             "shipping_methods" => $shipping_methods,
-            "cart_totals" => CartHelper::totals()
+            "cart_totals" => CartHelper::totals(),
+            "departamentos" => $departamentos
         ]);
     }
 
