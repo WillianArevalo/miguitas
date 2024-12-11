@@ -74,7 +74,7 @@ class SupportTicketController extends Controller
             }
 
 
-        /*     $whatsappService = new WhatsAppService();
+            /*     $whatsappService = new WhatsAppService();
             $response =  $whatsappService->sendMessage("50375456642", "Nuevo ticket de soporte creado: " . $ticket->ticket_number);
 
             if (!$response["success"]) {
@@ -105,12 +105,50 @@ class SupportTicketController extends Controller
             if (!$ticket) {
                 return redirect()->route("account.tickets.index")->with("error", "Ticket not found");
             }
-            $ticket->update(["status" => "closed"]);
+            $ticket->update([
+                "status" => "closed",
+                "closed_at" => now()
+            ]);
             DB::commit();
-            return redirect()->route("account.tickets.index")->with("success", "Ticket closed successfully");
+            return redirect()->route("account.tickets.index")->with("success", "Ticket cerrado correctamente");
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route("account.tickets.index")->with("error", "An error occurred while closing the ticket. Please try again. Error: " . $e->getMessage());
+            return redirect()->route("account.tickets.index")->with(
+                "error",
+                "Ha ocurrido un error al cerrar el ticket. Por favor, inténtelo de nuevo."
+            );
         }
+    }
+
+    public function reopen(string $id)
+    {
+        DB::beginTransaction();
+        try {
+            $ticket = SupportTicket::where("user_id", auth()->id())->where("id", $id)->first();
+            if (!$ticket) {
+                return redirect()->route("account.tickets.index")->with("error", "Ticket not found");
+            }
+            $ticket->update([
+                "status" => "reopened",
+                "reopened_at" => now(),
+            ]);
+            DB::commit();
+            return redirect()->route("account.tickets.index")->with("success", "Ticket reabierto correctamente");
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route("account.tickets.index")->with(
+                "error",
+                "Ha ocurrido un error al reabrir el ticket. Por favor, inténtelo de nuevo."
+            );
+        }
+    }
+
+    public function show(string $ticket_number)
+    {
+        $ticket = SupportTicket::where("ticket_number", $ticket_number)->first();
+        if (!$ticket) {
+            return redirect()->route("account.tickets.index")->with("error", "Ticket not found");
+        }
+        return view("store.account.support-ticket.show", compact("ticket"));
     }
 }
