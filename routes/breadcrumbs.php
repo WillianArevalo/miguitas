@@ -411,7 +411,8 @@ Breadcrumbs::for("account.settings-edit", function (BreadcrumbTrail $trail) {
 //Support tickets
 Breadcrumbs::for("account.tickets.index", function (BreadcrumbTrail $trail) {
     $trail->parent("account.index");
-    $trail->push("Soporte técnico", route("account.tickets.index"));
+    $icon = Blade::render("<x-icon-store icon='headpones' class='w-4 h-4' />");
+    $trail->push($icon . "Soporte técnico", route("account.tickets.index"));
 });
 
 //Support tickets create
@@ -423,14 +424,9 @@ Breadcrumbs::for("account.tickets.create", function (BreadcrumbTrail $trail) {
 //Support tickets show
 Breadcrumbs::for("account.tickets.show", function (BreadcrumbTrail $trail, $supportTicket) {
     $trail->parent("account.tickets.index");
-    $trail->push("Detalles", route("account.tickets.show", $supportTicket));
+    $trail->push("Ticket de soporte", route("account.tickets.show", $supportTicket));
 });
 
-//Support tickets close
-Breadcrumbs::for("account.tickets.close", function (BreadcrumbTrail $trail, $supportTicket) {
-    $trail->parent("account.tickets.index");
-    $trail->push("Cerrar", route("account.tickets.close", $supportTicket));
-});
 
 //Cancel return
 Breadcrumbs::for("cancel-return", function (BreadcrumbTrail $trail) {
