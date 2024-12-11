@@ -65,4 +65,56 @@ class SupportTicketController extends Controller
             return redirect()->back()->with('error', 'An error occurred while deleting the ticket. Please try again. Error: ' . $e->getMessage());
         }
     }
+
+    public function changeStatus(string $id, Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $ticket = SupportTicket::findOrFail($id);
+            $date = now();
+            switch ($request->status) {
+                case 'open':
+                    $ticket->update([
+                        "status" => $request->status,
+                        "opened_at" => $date
+                    ]);
+                    break;
+                case 'closed':
+                    $ticket->update([
+                        "status" => $request->status,
+                        "closed_at" => $date
+                    ]);
+                    break;
+
+
+                case 'resolved':
+                    $ticket->update([
+                        "status" => $request->status,
+                        "resolved_at" => $date
+                    ]);
+                    break;
+
+                case 'reopened':
+                    $ticket->update([
+                        "status" => $request->status,
+                        "reopened_at" => $date
+                    ]);
+                    break;
+
+                default:
+                    $ticket->update([
+                        "status" => $request->status
+                    ]);
+                    break;
+            }
+            DB::commit();
+            return redirect()->back()->with('success', 'Estado del ticket cambiado con éxito');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with(
+                'error',
+                'Ocurrió un error al cambiar el estado del ticket. Por favor, inténtelo de nuevo.'
+            );
+        }
+    }
 }
