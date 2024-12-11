@@ -12,7 +12,7 @@ $(document).ready(function () {
                     imageIndex++;
                     const imgSrc = e.target.result;
 
-                    const imgPreview = ` 
+                    const imgPreview = `
                         <div class="relative border border-zinc-200 rounded-xl w-max animate-jump-in" id="image-${imageIndex}">
                             <img src="${imgSrc}" alt="Imagen seleccionada" class="w-32 h-32 object-cover rounded-xl">
                             <button type="button" data-id="image-${imageIndex}" class="absolute top-1 w-6 h-6 right-1 bg-red-500 text-white rounded-full p-1 deleteImage">
@@ -57,5 +57,32 @@ $(document).ready(function () {
         } else {
             $("#comment-container").addClass("hidden");
         }
+    });
+
+    const $previewImagesShow = $("#preview-images");
+    const $inputImages = $("#attachments");
+    const $btnRemoveImages = $("#btn-remove-attachments");
+
+    $inputImages.on("change", function () {
+        $("#container-preview-images").removeClass("hidden");
+        $previewImagesShow.html("");
+        const files = Array.from($inputImages.prop("files"));
+        $btnRemoveImages.removeClass("hidden");
+        files.forEach((file) => {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                $previewImagesShow.append(
+                    `<img src="${e.target.result}" class="rounded-lg size-32 object-cover" width="100">`
+                );
+            };
+            reader.readAsDataURL(file);
+        });
+    });
+
+    $btnRemoveImages.on("click", function () {
+        $inputImages.val("");
+        $previewImagesShow.html("");
+        $btnRemoveImages.addClass("hidden");
+        $("#container-preview-images").addClass("hidden");
     });
 });
