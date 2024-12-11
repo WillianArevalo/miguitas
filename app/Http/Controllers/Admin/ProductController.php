@@ -324,7 +324,7 @@ class ProductController extends Controller
     public function export()
     {
         try {
-            $fileName = "productos_" . now()->format('Y-m-d_H-i-s') . ".xlsx";
+            $fileName = "productos_" . now()->format('Y-m-d H-i-s') . ".xlsx";
             return Excel::download(new ProductsExport, $fileName);
         } catch (\Exception $e) {
             return redirect()->route('admin.products.index')->with('error', 'Error al exportar los productos');
