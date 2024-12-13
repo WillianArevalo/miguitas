@@ -1,6 +1,10 @@
 $(document).ready(function () {
     const $dateInput = $("#date-input");
     const $calendar = $("#calendar");
+
+    const weekendSelected = $("#date-input").data("weekend") ?? true;
+    let allowWeekendSelection = weekendSelected === true;
+
     const months = [
         "Enero",
         "Febrero",
@@ -53,8 +57,8 @@ $(document).ready(function () {
             ? new Date(selectedDateValue)
             : null;
 
-        const calendarHeader = $(`
-        <div class="flex justify-between items-center mb-4">
+        const calendarHeader = $(
+            `<div class="flex justify-between items-center mb-4">
             <button class="prev-month text-blue-store p-2 rounded-xl bg-blue-100 hover:bg-blue-200">
                 <!-- Left arrow -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M11.596 8.303L8.165 11.63a.5.5 0 0 0 0 .74l6.63 6.43c.414.401 1.205.158 1.205-.37v-5.723z"/><path fill="currentColor" d="M16 11.293V5.57c0-.528-.791-.771-1.205-.37l-2.482 2.406z" opacity="0.5"/></svg>
@@ -76,12 +80,12 @@ $(document).ready(function () {
                 <!-- Right arrow -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m12.404 8.303l3.431 3.327c.22.213.22.527 0 .74l-6.63 6.43C8.79 19.201 8 18.958 8 18.43v-5.723z"/><path fill="currentColor" d="M8 11.293V5.57c0-.528.79-.771 1.205-.37l2.481 2.406z" opacity="0.5"/></svg>
             </button>
-        </div>
-    `);
+        </div>`
+        );
         $calendar.append(calendarHeader);
 
-        const calendarTable = $(`
-        <table class="table-auto w-full text-center">
+        const calendarTable = $(
+            `<table class="table-auto w-full text-center">
             <thead>
                 <tr class="text-secondary text-sm">
                     <th class="p-2">Dom</th>
@@ -94,8 +98,8 @@ $(document).ready(function () {
                 </tr>
             </thead>
             <tbody></tbody>
-        </table>
-    `);
+        </table>`
+        );
         $calendar.append(calendarTable);
 
         const $calendarBody = calendarTable.find("tbody");
@@ -111,6 +115,9 @@ $(document).ready(function () {
                 row = $("<tr></tr>");
             }
 
+            const currentDay = new Date(year, month, day).getDay();
+            const isWeekend = currentDay === 0 || currentDay === 6; // Domingo o Sábado
+
             const isToday =
                 day === today.getDate() &&
                 month === today.getMonth() &&
@@ -118,7 +125,7 @@ $(document).ready(function () {
 
             const isSelected =
                 selectedDate &&
-                day === selectedDate.getDate() + 1 && // Aquí sumamos 1 al día seleccionado
+                day === selectedDate.getDate() + 1 &&
                 month === selectedDate.getMonth() &&
                 year === selectedDate.getFullYear();
 
@@ -126,21 +133,31 @@ $(document).ready(function () {
                 ? "bg-blue-store text-white hover:bg-blue-900"
                 : isSelected
                 ? "bg-green-500 text-white hover:bg-green-600"
+                : isWeekend && !allowWeekendSelection
+                ? "text-gray-400 cursor-not-allowed"
                 : "hover:bg-gray-200 text-zinc-800";
 
             const cell = $(
-                `<td class="p-2 text-xs sm:text-sm cursor-pointer rounded-xl ${cellClass}" data-day="${day}" data-month="${
+                `<td class="p-2 text-xs sm:text-sm rounded-xl ${cellClass}" data-day="${day}" data-month="${
                     month + 1
                 }" data-year="${year}">${day}</td>`
             );
-            cell.click(function () {
-                $calendar
-                    .find("td.bg-green-500")
-                    .removeClass("bg-green-500 text-white hover:bg-green-600");
-                $(this).addClass("bg-green-500 text-white hover:bg-green-600");
-                $dateInput.val(`${year}-${month + 1}-${day}`);
-                $calendar.hide();
-            });
+
+            if (!isWeekend || allowWeekendSelection) {
+                cell.click(function () {
+                    $calendar
+                        .find("td.bg-green-500")
+                        .removeClass(
+                            "bg-green-500 text-white hover:bg-green-600"
+                        );
+                    $(this).addClass(
+                        "bg-green-500 text-white hover:bg-green-600"
+                    );
+                    $dateInput.val(`${year}-${month + 1}-${day}`);
+                    $calendar.hide();
+                });
+            }
+
             row.append(cell);
         }
         $calendarBody.append(row);
@@ -162,6 +179,11 @@ $(document).ready(function () {
 
         $("#year-input").change(function () {
             currentDate.setFullYear(parseInt(this.value));
+            buildCalendar(currentDate);
+        });
+
+        $("#weekend-switch").change(function () {
+            allowWeekendSelection = $(this).is(":checked");
             buildCalendar(currentDate);
         });
     }
