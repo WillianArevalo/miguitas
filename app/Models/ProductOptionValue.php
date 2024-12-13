@@ -19,7 +19,12 @@ class ProductOptionValue extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, "product_product_option_value")
-            ->withPivot("stock");
+        return $this->belongsToMany(Product::class, "product_product_option_value");
+    }
+
+    public function variations()
+    {
+        return $this->belongsToMany(ProductVariation::class, "product_variation_option_value")
+            ->withPivot("product_variation_id");
     }
 }
