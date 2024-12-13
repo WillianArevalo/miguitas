@@ -1,3 +1,4 @@
+import { list } from "postcss";
 import { showToast } from "./toast-admin";
 
 $(document).ready(function () {
@@ -452,265 +453,87 @@ $(document).ready(function () {
         }
     });
 
-    //Muestra el modal para agregar una opción padre
-    $("#showModalOption").on("click", function () {
-        resetFormAndHideInvalidFeedback("#formAddOption");
-    });
+    //! LOGICA PARA LOS ATRIBUTOS Y VARIANTES
 
-    //Agrega una opción padre
-    $("#addOptionButton").on("click", function () {
-        const optionName = $("#name-option");
-        const messageName = optionName.data("message");
+    const options = [];
+    const listOptions = $("#list-options");
 
-        if (optionName.val() === "") {
-            optionName.addClass("is-invalid");
-            $(messageName).removeClass("hidden").text("El nombre es requerido");
-        } else {
-            optionName.removeClass("is-invalid");
-            $.ajax({
-                url: $("#formAddOption").attr("action"),
-                method: "POST",
-                data: $("#formAddOption").serialize(),
-                success: function (response) {
-                    $("body").removeClass("overflow-hidden");
-                    showToast("Opción agregada correctamente", "success");
-                    $("#list-options").html(response.html);
-                    $("#addOption").addClass("hidden");
-                },
-                error: function (error) {
-                    console.log(error);
-                },
+    $("#option_id").on("Changed", function () {
+        const value = $(this).val();
+        const text = $("#option_id_selected").text().replace(/\s+/g, "");
+
+        if (options.length === 0) {
+            listOptions.empty();
+        }
+
+        if (!options.some((option) => option.id === value)) {
+            options.push({
+                id: value,
+                name: text,
+                values: [],
             });
+            const optionHTML = `
+            <div data-id="${value}">
+                <div class="flex items-center justify-between">
+                    <p class="text-sm text-zinc-500 dark:text-zinc-300">${text}</p>
+                    <div class="flex items-center gap-2">
+                        <button data-id="${value}" type="button" class="delete-option border text-zinc-600 hover:bg-zinc-100 border-zinc-400 dark:border-zinc-800 dark:text-white dark:hover:bg-zinc-900 font-medium rounded-lg flex items-center justify-center gap-2 transition-colors duration-300 text-nowrap px-4 py-2">
+                            <svg class="h-4 w-4 text-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M20 6a1 1 0 0 1 .117 1.993l-.117 .007h-.081l-.919 11a3 3 0 0 1 -2.824 2.995l-.176 .005h-8c-1.598 0 -2.904 -1.249 -2.992 -2.75l-.005 -.167l-.923 -11.083h-.08a1 1 0 0 1 -.117 -1.993l.117 -.007h16z"></path>
+                                <path d="M14 2a2 2 0 0 1 2 2a1 1 0 0 1 -1.993 .117l-.007 -.117h-4l-.007 .117a1 1 0 0 1 -1.993 -.117a2 2 0 0 1 1.85 -1.995l.15 -.005h4z"></path>
+                            </svg>
+                            <span class="text-xs">Eliminar</span>
+                        </button>
+                        <button data-id="${value}" data-modal-target="addOptionValue" type="button" class="add-option border text-zinc-600 hover:bg-zinc-100 border-zinc-400 dark:border-zinc-800 dark:text-white dark:hover:bg-zinc-900 font-medium rounded-lg flex items-center justify-center gap-2 transition-colors duration-300 text-nowrap px-4 py-2">
+                            <svg class="h-4 w-4 text-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M12 5l0 14"></path>
+                                <path d="M5 12l14 0"></path>
+                            </svg>
+                            <span class="text-xs">Agregar opciones</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-4 rounded-xl flex items-center flex-wrap gap-2 border-2 border-dashed border-zinc-400 p-4 dark:border-zinc-800" id="container-options-${value}">
+                    <p class="text-sm text-zinc-500 dark:text-zinc-300 mx-auto">Sin opciones seleccionadas</p>
+                </div>
+            </div>
+        `;
+            listOptions.append(optionHTML);
+            updatePreviewOptions();
+        } else {
+            showToast("La opción ya ha sido seleccionada", "info");
         }
     });
 
-    //Arreglo para los valores de una opción
-    let options = [
-        {
-            id: "",
-            option_id: "",
-            value: "",
-            stock: 0,
-            price: 0,
-        },
-    ];
-
-    let container;
-
-    $("#add-option-value-button").on("click", addOption);
-
-    $(document).on("click", ".showModalOptionValue", function () {
-        resetFormAndHideInvalidFeedback("#formAddOptionValue");
+    $(document).on("click", ".delete-option", function () {
         const id = $(this).data("id");
-        container = $($(this).data("container"));
-        $("#option_id").val(id);
-        $("#addOptionValue").removeClass("hidden").addClass("flex");
-        $("body").addClass("overflow-hidden");
-        options = [];
+        const index = options.findIndex((option) => option.id == id);
+        options.splice(index, 1);
+        listOptions.find(`div[data-id="${id}"]`).remove();
         updatePreviewOptions();
     });
-
-    function addOption() {
-        let isValid = true;
-        $("#formAddOptionValue input").each(function () {
-            const input = $(this);
-            const messageSelector = input.data("message");
-            const message = $(messageSelector);
-            if (!input.val().trim()) {
-                message.removeClass("hidden").text("El valor es requerido");
-                input.addClass("is-invalid");
-                isValid = false;
-            } else {
-                message.addClass("hidden");
-                input.removeClass("is-invalid");
-            }
-        });
-        if (isValid) {
-            const optionValue = $("#name-option-value").val();
-            const stock = $("#stock-option-value").val();
-            const price = $("#price-option-value").val();
-            options.push({
-                id: Date.now(),
-                option_id: $("#option_id").val(),
-                value: optionValue,
-                stock: stock,
-                price: price,
-            });
-
-            $("#name-option-value").val("");
-            $("#stock-option-value").val("");
-            $("#price-option-value").val("");
-            updatePreviewOptions();
-        }
-    }
 
     function updatePreviewOptions() {
-        const $previewOptionsContainer = $("#previewOptionsContainer");
-        $previewOptionsContainer.html("");
-        options.forEach((option, index) => {
-            const previewDiv = $("<div></div>").addClass(
-                "bg-white text-zinc-600 border-zinc-400 text-sm font-medium px-4 py-2 border dark:text-white dark:bg-black dark:border-zinc-800 rounded-lg flex items-center justify-between gap-2"
-            );
-            const optionElement = $("<span class='text-nowrap'></span>").text(
-                option.value +
-                    " - " +
-                    "$" +
-                    option.price +
-                    "(" +
-                    option.stock +
-                    ")"
-            );
-            const removeBtn = $("<button></button>")
-                .html(
-                    '<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-current" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none"> <path d="M19.0005 4.99988L5.00049 18.9999M5.00049 4.99988L19.0005 18.9999" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>'
-                )
-                .attr("type", "button")
-                .addClass("text-current hover:text-primary-600");
-            removeBtn.on("click", () => removeOption(index));
-            previewDiv.append(optionElement).append(removeBtn);
-            $previewOptionsContainer.append(previewDiv);
-        });
-    }
-
-    //Elimina una opción del arreglo de opciones padre
-    function removeOption(index) {
-        options.splice(index, 1);
-        updatePreviewOptions();
-    }
-
-    //Agrega la opción al arreglo de opciones y a los contenedores de preview e inputs
-    $("#addOptionValueButton").on("click", function () {
         if (options.length === 0) {
-            showToast("Debe agregar al menos una opción", "info");
-        }
-        updatePreviewAddedOptions(container, options);
-        updateHiddenOptions(options);
-        $("#addOptionValue").addClass("hidden").removeClass("flex");
-        $("body").removeClass("overflow-hidden");
-    });
-
-    //Agrega el preview al contenedor de las opciones agregadas
-    function updatePreviewAddedOptions(container, options) {
-        options.forEach((option) => {
-            if (!container.find(`[data-id-option="${option.id}"]`).length) {
-                const optionItem = $("<div></div>")
-                    .addClass(
-                        "bg-zinc-100 flex justify-between items-center text-zinc-800 dark:bg-zinc-950  dark:text-zinc-300 px-4 py-2 mb-1 rounded-xl text-sm"
-                    )
-                    .attr("data-id-option", option.id);
-
-                const optionElement = $(
-                    "<span class='text-nowrap'></span>"
-                ).text(
-                    `${option.value} - $${option.price} (Stock: ${option.stock})`
-                );
-
-                const removeBtn = $("<button></button>")
-                    .html(
-                        '<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-current" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none"> <path d="M19.0005 4.99988L5.00049 18.9999M5.00049 4.99988L19.0005 18.9999" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>'
-                    )
-                    .attr("type", "button")
-                    .addClass("text-current hover:text-primary-600");
-                removeBtn.on("click", () => {
-                    removeOptionAdded(option.id);
-                });
-                optionItem.append(optionElement).append(removeBtn);
-                container.append(optionItem);
-            }
-        });
-    }
-
-    //Elimina una opción del arreglo de opciones y del contenedor
-    function removeOptionAdded(id) {
-        const index = options.findIndex((option) => option.id === id);
-        if (index !== -1) {
-            options.splice(index, 1);
-        }
-        $(`[data-id-option="${id}"]`).remove();
-        removeHiddenOption(id);
-    }
-
-    //Agrega al contenedor el input con los valores de las opciones
-    function updateHiddenOptions(options) {
-        const $hiddenOptionsContainer = $("#hiddenOptionsContainer");
-        options.forEach((option) => {
-            $hiddenOptionsContainer.append(
-                $("<input>")
-                    .attr({
-                        type: "hidden",
-                        name: "options[]",
-                        "data-id-option": option.id,
-                    })
-                    .val(JSON.stringify(option))
+            listOptions.html(
+                '<p class="text-sm text-zinc-500 dark:text-zinc-300 m-auto">Sin opciones seleccionadas</p>'
             );
-        });
-    }
-
-    //Elimina la opción del grupo de inpust ocultos
-    function removeHiddenOption(id) {
-        $(`#hiddenOptionsContainer [data-id-option="${id}"]`).remove();
-    }
-
-    //Eliminar opción
-    $(".buttonDeleteOption").on("click", function () {
-        const url = $(this).data("url");
-        const form = $("#formDeleteOption");
-        form.attr("action", url);
-    });
-
-    //Confirmar eliminación de la opción
-    $(".confirmDeleteOption").on("click", function () {
-        $("#formDeleteOption").submit();
-    });
-
-    //Mostrar modal de agregar opción en la edición del producto
-    $(document).on("click", ".showModalOptionValueEdit", function () {
-        resetFormAndHideInvalidFeedback("#formAddOptionEdit");
-        const id = $(this).data("id");
-        $("#option_id").val(id);
-    });
-
-    //Agregar opción en la edición del producto
-    $("#addOptionValueButtonEdit").on("click", function () {
-        let isValid = true;
-        $("#formAddOptionEdit input").each(function () {
-            const input = $(this);
-            const messageSelector = input.data("message");
-            const message = $(messageSelector);
-            if (!input.val().trim()) {
-                message.removeClass("hidden").text("El valor es requerido");
-                input.addClass("is-invalid");
-                isValid = false;
-            } else {
-                message.addClass("hidden");
-                input.removeClass("is-invalid");
-            }
-        });
-
-        if (isValid) {
-            $("#formAddOptionEdit").submit();
         }
-    });
+    }
 
-    // Editar opción
-    $(".btnEditOption").on("click", function () {
-        const url = $(this).data("url");
-        const id_product = $(this).data("id-product");
-        const id_option = $(this).data("id-option");
-        const action = $(this).data("action");
+    $(document).on("click", ".add-option", function () {
+        const value = $(this).data("id");
         $.ajax({
-            url: url,
+            url: `/admin/options/search`,
             method: "GET",
-            data: { id_product: id_product, id_option: id_option },
+            data: { option_id: value },
             success: function (response) {
-                $("#option_id_edit").val(response.option.id);
-                $("#name_option_edit").val(response.option.value);
-                $("#price_option_edit").val(
-                    parseFloat(response.values.price).toFixed(2)
-                );
-                $("#stock_option_edit").val(response.values.stock);
-                $("#option_value_id").val(response.values.id);
-                $("#formEditOption").attr("action", action);
+                $("#option_value_id").val(value);
+                $("#addOptionValue").removeClass("hidden").addClass("flex");
+                $("body").addClass("overflow-hidden");
+                $("#previewOptionsContainer").html(response.html);
             },
             error: function (error) {
                 console.log(error);
@@ -718,26 +541,151 @@ $(document).ready(function () {
         });
     });
 
-    //Confirmar edición de la opción
-    $("#editOptionValueButton").on("click", function () {
-        let isValid = true;
-        $("#formEditOption input").each(function () {
-            const input = $(this);
-            const messageSelector = input.data("message");
-            const message = $(messageSelector);
-            if (!input.val().trim()) {
-                message.removeClass("hidden").text("El valor es requerido");
-                input.addClass("is-invalid");
-                isValid = false;
-            } else {
-                message.addClass("hidden");
-                input.removeClass("is-invalid");
+    $(".closeAddOptionValue").on("click", function () {
+        $("#addOptionValue").addClass("hidden").removeClass("flex");
+        $("body").removeClass("overflow-hidden");
+    });
+
+    $(document).on("click", "input[name='options_checkbox']", function () {
+        if ($(this).is(":checked")) {
+            const value = $(this).val();
+            const text = $(this).data("name");
+            const optionId = $(this).data("option-id");
+
+            const existingOption = options.find(
+                (option) => option.id == optionId
+            );
+
+            const valueExists = existingOption.values.some(
+                (val) => val.id == value
+            );
+
+            if (!valueExists) {
+                existingOption.values.push({
+                    id: value,
+                    name: text,
+                });
             }
+            console.log(options);
+        } else {
+            const value = $(this).val();
+            const optionId = $(this).data("option-id");
+
+            const existingOption = options.find(
+                (option) => option.id == optionId
+            );
+
+            const index = existingOption.values.findIndex(
+                (val) => val.id == value
+            );
+
+            if (index > -1) {
+                existingOption.values.splice(index, 1);
+            }
+        }
+    });
+
+    $("#add-option-value-button").on("click", function () {
+        const form = $(this).closest("form");
+        $.ajax({
+            url: form.attr("action"),
+            method: "POST",
+            data: form.serialize(),
+            success: function (response) {
+                $("#previewOptionsContainer").html(response.html);
+            },
+        });
+    });
+
+    $("#addOptionValueButton").on("click", function () {
+        const id = $("#option_value_id").val();
+        updatePreviwOptionsValues(id);
+        $("#addOptionValue").addClass("hidden").removeClass("flex");
+        $("body").removeClass("overflow-hidden");
+    });
+
+    function updatePreviwOptionsValues(id) {
+        const option = options.find((option) => option.id == id);
+        const container = $(`#container-options-${id}`);
+        container.html("");
+        option.values.forEach((value) => {
+            container.append(
+                `<div class="flex items-center dark:bg-zinc-950 px-2 gap-2 py-1 rounded-full bg-zinc-200" data-id="${value.id}">
+                    <p class="text-zinc-500 dark:text-zinc-300 text-xs">
+                        ${value.name}
+                    </p>
+                    <button data-id="${value.id}" type="button" class="delete-option-value text-zinc-800 dark:text-zinc-400 dark:hover:text-white hover:text-zinc-900">
+                        <svg class="size-4" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
+                    </button>
+                </div>`
+            );
         });
 
-        if (isValid) {
-            $("#formEditOption").submit();
+        if (option.values.length === 0) {
+            container.html(
+                '<p class="text-center text-sm text-zinc-500 dark:text-zinc-300 m-auto">Sin opciones seleccionadas</p>'
+            );
         }
+    }
+
+    $(document).on("click", ".delete-option-value", function () {
+        const id = $(this).data("id");
+        const optionId = $("#option_value_id").val();
+        const option = options.find((option) => option.id == optionId);
+        const index = option.values.findIndex((value) => value.id == id);
+        option.values.splice(index, 1);
+        updatePreviwOptionsValues(optionId);
+    });
+
+    //! ----------------------------
+
+    //Al agregar nuevas opciones a un atributo
+    $(".showModalOptionValue").on("click", function () {
+        const id = $(this).data("id");
+        $("#option_parent_id").val(id);
+    });
+
+    //Al eliminar una opción de un atributo
+    $(".buttonDeleteOption").on("click", function () {
+        const url = $(this).data("url");
+        const form = $("#formDeleteOption");
+        form.attr("action", url);
+    });
+
+    //Confirmar la eliminación de una opción
+    $(".confirmDeleteOption").on("click", function () {
+        const form = $("#formDeleteOption");
+        form.submit();
+    });
+
+    //Al eliminar un atributo
+    $(".showModalRemoveOptions").on("click", function () {
+        const url = $(this).data("url");
+        const form = $("#formDeleteAttribute");
+        form.attr("action", url);
+    });
+
+    //Confirmar la eliminación de un atributo
+    $(".confirmDeleteAttribute").on("click", function () {
+        const form = $("#formDeleteAttribute");
+        form.submit();
+    });
+
+    $(".editVariation").on("click", function () {
+        const url = $(this).data("url");
+        const action = $(this).data("form");
+        $.ajax({
+            url: url,
+            method: "GET",
+            success: function (response) {
+                $("#formEditVariation").attr("action", action);
+                $("#price_variation").val(response.price);
+                $("#stock_variation").val(response.stock);
+            },
+            error: function (error) {
+                console.log(error);
+            },
+        });
     });
 
     $("#addButtonProduct").on("click", function (e) {
@@ -807,6 +755,8 @@ $(document).ready(function () {
             formData.append("gallery_image[]", file);
         });
 
+        formData.append("attributes", JSON.stringify(options));
+
         // Enviar los datos usando AJAX
         $.ajax({
             url: $("#formAddProduct").attr("action"), // la URL del formulario (o una URL personalizada)
@@ -823,6 +773,7 @@ $(document).ready(function () {
                 } else {
                     showToast(response.error, "error");
                 }
+                console.log(response);
             },
             error: function (xhr, status, error) {
                 showToast("Error al enviar el formulario", "error");
