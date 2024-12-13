@@ -45,11 +45,13 @@
         'secondary' =>
             'border text-zinc-600 hover:bg-zinc-100 border-zinc-400 dark:border-zinc-800 dark:text-white dark:hover:bg-zinc-900',
         'danger' =>
-            'bg-red-100 border border-transparent text-red-500 dark:bg-red-950 dark:text-red-300 hover:bg-red-200  dark:hover:bg-opacity-100 dark:bg-opacity-50',
-        'warning' => 'bg-yellow-500 text-white hover:bg-yellow-600',
-        'info' => 'border border-sky-500 border-opacity-30 text-sky-500 hover:text-white hover:bg-sky-500',
+            'bg-red-50 border border border-red-500 text-red-500 hover:bg-red-100 dark:bg-red-950 dark:text-red-500 dark:hover:bg-opacity-30 dark:bg-opacity-10 dark:border-red-800',
+        'warning' =>
+            'bg-yellow-50 border border border-yellow-500 text-yellow-500 hover:bg-yellow-100 dark:bg-yellow-950 dark:text-yellow-500 dark:hover:bg-opacity-30 dark:bg-opacity-10 dark:border-yellow-800',
+        'info' =>
+            'bg-sky-50 border border border-sky-500 text-sky-500 hover:bg-sky-100 dark:bg-sky-950 dark:text-sky-500 dark:hover:bg-opacity-30 dark:bg-opacity-10 dark:border-sky-800',
         'success' =>
-            'bg-emerald-100 border border-transparent text-emerald-500 dark:bg-emerald-950 dark:text-emerald-300 hover:bg-emerald-200  dark:hover:bg-opacity-100 dark:bg-opacity-50',
+            'bg-emerald-50 border border border-emerald-500 text-emerald-500 hover:bg-emerald-100 dark:bg-emerald-950 dark:text-emerald-500 dark:hover:bg-opacity-30 dark:bg-opacity-10 dark:border-emerald-800',
         'default' =>
             'border text-zinc-600 hover:bg-zinc-100 border-zinc-400 dark:border-zinc-800 dark:text-white dark:hover:bg-zinc-900',
     ];
