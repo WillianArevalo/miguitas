@@ -26,10 +26,20 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with(['categories', 'subcategories', 'taxes', 'labels', 'images'])->paginate(20);
+        $products = Product::with([
+            'categories',
+            'subcategories',
+            'taxes',
+            'labels',
+            'images'
+        ])->paginate(20);
         $count = Product::count();
         $categories = Categorie::all();
-        return view('admin.products.index', compact('products', 'count', 'categories'));
+        return view('admin.products.index', compact(
+            'products',
+            'count',
+            'categories'
+        ));
     }
 
     public function create()
@@ -52,27 +62,17 @@ class ProductController extends Controller
             $validated['is_the_month'] = $request->has('is_the_month') ? 1 : 0;
             $product = Product::create($validated);
 
-            $optionsValues = $request->input('options');
-
-            if ($optionsValues !== null) {
-                $optionsValues = array_map(function ($option) {
-                    return json_decode($option, true);
-                }, $optionsValues);
-
-                foreach ($optionsValues as $option) {
-                    $createdOption =
-                        ProductOptionValue::create([
-                            "product_option_id" => $option["option_id"],
-                            "value" => $option["value"]
-                        ]);
-
-                    $options[] = [
-                        "product_option_value_id" => $createdOption->id,
-                        "stock" => $option["stock"],
-                        "price" => $option["price"]
-                    ];
+            if ($request->has("attributes")) {
+                $attributes = json_decode($request->input('attributes'), true);
+                $valuesIds = [];
+                foreach ($attributes as $attribute) {
+                    foreach ($attribute['values'] as $value) {
+                        $valuesIds[] = $value['id'];
+                    }
                 }
-                $product->options()->attach($options);
+
+                //return response()->json(["Atributos" => $attributes, "Values" => $valuesIds]);
+                $product->options()->attach($valuesIds);
             }
 
             if ($request->has('subcategories')) {
@@ -162,14 +162,53 @@ class ProductController extends Controller
 
     public function edit(string $id)
     {
-        $product = Product::with(['categories', 'taxes', 'labels', 'images', 'options.option'])->findOrFail($id);
+        $product = Product::with([
+            'categories',
+            'taxes',
+            'labels',
+            'images',
+            'options.option',
+            'variations.values.optionValue',
+        ])->findOrFail($id);
+
         $categories = Categorie::all();
         $taxes = Tax::all();
         $labels = Label::all();
-        $options = ProductOption::with('values')->get();
+
+        $relatedOptionIds = $product->options->pluck('product_option_id')->toArray();
+        $unrelatedOptions = ProductOption::with('values')
+            ->whereNotIn('id', $relatedOptionIds)
+            ->get();
+
+        // Agrupar opciones relacionadas por nombre
+        $groupedOptions = $product->options->groupBy(function ($item) {
+            return $item->option->name;
+        })->map(function ($optionValues, $optionName) {
+            return [
+                'name' => $optionName,
+                'id' => $optionValues->first()->option->id,
+                'values' => $optionValues->map(function ($value) {
+                    return [
+                        'id' => $value->id,
+                        'value' => $value->value,
+                    ];
+                }),
+            ];
+        });
+
         $subcategories = SubCategorie::where('categorie_id', $product->categorie_id)->get();
-        return view('admin.products.edit', compact('product', 'categories', 'taxes', 'labels', 'options', 'subcategories'));
+
+        return view('admin.products.edit', compact(
+            'product',
+            'categories',
+            'taxes',
+            'labels',
+            'unrelatedOptions',
+            'groupedOptions',
+            'subcategories'
+        ));
     }
+
 
     public function update(ProductEditRequest $request, string $id)
     {
