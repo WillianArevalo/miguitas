@@ -52,10 +52,15 @@ class Product extends Model
 
     public function options()
     {
-        return $this->belongsToMany(ProductOptionValue::class, "product_product_option_value")
-            ->withPivot("stock")
-            ->withPivot("price")
-            ->withPivot("id");
+        return $this->belongsToMany(
+            ProductOptionValue::class,
+            "product_product_option_value",
+        );
+    }
+
+    public function variations()
+    {
+        return $this->hasMany(ProductVariation::class, "product_id");
     }
 
     protected $fillable = [
