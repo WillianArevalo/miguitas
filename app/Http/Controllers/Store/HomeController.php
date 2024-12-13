@@ -57,15 +57,21 @@ class HomeController extends Controller
         ]);
     }
 
-    public function acceptAllCookies(Request $request)
-    {
-
-        Cookie::queue('accept_cookies', true, 60 * 24 * 365);
-        if (Auth::check()) {
-            Auth::login(Auth::user(), true);
+    public function cookies(Request $request)
+    {;
+        $action = $request->input("action");
+        if ($action === "accept-all") {
+            Cookie::queue('accept_cookies', true, 60 * 24 * 365);
+            if (Auth::check()) {
+                Auth::login(Auth::user(), true);
+            }
+            return response()->json(["success" => "Cookies aceptadas"]);
+        } else if ($action === "deny-all") {
+            Cookie::queue('deny_cookies', true, 60 * 24 * 365);
+            return response()->json(["success" => "Cookies rechazadas"]);
+        } else {
+            return response()->json(["error" => "Acción no válida"], 400);
         }
-
-        return response()->json(["success" => "Cookies aceptadas"]);
     }
 
     public function showCookies()
