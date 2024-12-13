@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Helpers\Favorites;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\ProductVariation;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -156,9 +157,44 @@ class ProductController extends Controller
 
     public function getOption(Request $request)
     {
-        $product = Product::find($request->input("product_id"));
-        $option = $product->options->where("id", $request->input("option_id"))->first();
-        $option->pivot->price = number_format($option->pivot->price, 2);
-        return response()->json(["option" => $option]);
+        $productId = $request->input("product_id");
+        $optionIds = $request->input("options");
+        $optionIds = is_array($optionIds) ? $optionIds : [$optionIds];
+
+        try {
+            $variation = ProductVariation::where('product_id', $productId)
+                ->whereHas('values', function ($query) use ($optionIds) {
+                    $query->whereIn('product_option_value_id', $optionIds);
+                }, '=', count($optionIds)) // Verifica que tenga exactamente el número de opciones
+                ->whereDoesntHave('values', function ($query) use ($optionIds) {
+                    $query->whereNotIn('product_option_value_id', $optionIds);
+                }) // Asegura que no tenga más opciones que las proporcionadas
+                ->first();
+
+            // Si no se encuentra una variación, devolver un mensaje de error
+            if (!$variation) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No se encontró una variación con las opciones seleccionadas.',
+                ]);
+            }
+
+            // Si se encuentra una variación, devolver la información
+            return response()->json([
+                'success' => true,
+                'variation' => [
+                    'id' => $variation->id,
+                    'price' => $variation->price,
+                    'stock' => $variation->stock,
+                ],
+            ]);
+        } catch (\Exception $e) {
+            // Manejar errores inesperados
+            return response()->json([
+                'success' => false,
+                'message' => 'Ocurrió un error al buscar la variación.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 }
