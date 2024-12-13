@@ -26,44 +26,69 @@ $(document).ready(function () {
         }
     });
 
+    const optionsValues = $(".options_values");
+    const options = [];
+
     $(".options_values").on("Changed", function () {
-        const option_id = $(this).val();
+        const optionValue = $(this).val();
+        const optionName = $(this).attr("id");
+
+        const index = options.findIndex((option) => option.type === optionName);
+
+        if (index !== -1) {
+            options[index].id = optionValue;
+        } else {
+            if (options.length < optionsValues.length) {
+                options.push({ type: optionName, id: optionValue });
+            }
+        }
+
         const product_id = $("#product_id").val();
         const url = $(this).data("url");
-        const container = $(this).parent().parent().next();
-        $.ajax({
-            type: "GET",
-            url: url,
-            data: {
-                product_id: product_id,
-                option_id: option_id,
-            },
-            success: function (response) {
-                const data = response.option;
-                let price = data.pivot.price;
-                let stock = data.pivot.stock;
-                if (price !== 0.0) {
-                    let formattedPrice = "$" + price;
-                    let div = $("<div>").addClass("flex items-center gap-4");
-                    let spanPrice = $("<span>").text(formattedPrice);
-                    spanPrice.addClass("text-blue-store text-xl");
-                    let spanStock = $("<span>");
-                    spanStock.addClass(
-                        "text-gray-500  flex items-center gap-1 din-r"
-                    );
-                    spanStock.append(
-                        `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M15.493 6.935a.75.75 0 0 1 .072 1.058l-7.857 9a.75.75 0 0 1-1.13 0l-3.143-3.6a.75.75 0 0 1 1.13-.986l2.578 2.953l7.292-8.353a.75.75 0 0 1 1.058-.072m5.025.085c.3.285.311.76.025 1.06l-8.571 9a.75.75 0 0 1-1.14-.063l-.429-.563a.75.75 0 0 1 1.076-1.032l7.978-8.377a.75.75 0 0 1 1.06-.026" clip-rule="evenodd"/></svg>`
-                    );
-                    spanStock.append(stock + " disponibles");
+        const container = $("#info-variation");
 
-                    div.append(spanPrice, spanStock);
-                    container.html(div);
-                }
-            },
-            error: function (error) {
-                console.log(error);
-            },
-        });
+        if (options.length === optionsValues.length) {
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    product_id: product_id,
+                    options: options.map((option) => option.id),
+                },
+                success: function (response) {
+                    console.log(response);
+                    const data = response.variation;
+                    if (data) {
+                        const price = parseFloat(data.price);
+                        const stock = data.stock;
+                        const formattedPrice = "$" + price.toFixed(2);
+                        $("#add-to-cart").prop("disabled", false);
+                        $("#buy-now").prop("disabled", false);
+                        $("#price").val(price);
+                        const html = `
+                        <div class="flex items-center gap-4">
+                            <span class="text-blue-store text-xl">${formattedPrice}</span>
+                            <span class="text-gray-500 flex items-center gap-1 font-dine-r">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" class="size-5" height="1em" viewBox="0 0 24 24">
+                                    <path fill="currentColor" fill-rule="evenodd" d="M15.493 6.935a.75.75 0 0 1 .072 1.058l-7.857 9a.75.75 0 0 1-1.13 0l-3.143-3.6a.75.75 0 0 1 1.13-.986l2.578 2.953l7.292-8.353a.75.75 0 0 1 1.058-.072m5.025.085c.3.285.311.76.025 1.06l-8.571 9a.75.75 0 0 1-1.14-.063l-.429-.563a.75.75 0 0 1 1.076-1.032l7.978-8.377a.75.75 0 0 1 1.06-.026" clip-rule="evenodd"/>
+                                </svg>
+                                ${stock} disponibles
+                            </span>
+                        </div>`;
+                        container.html(html);
+                    } else {
+                        container.html(
+                            '<span class="text-red-500 font-dine-r">No disponible</span>'
+                        );
+                        $("#add-to-cart").prop("disabled", true);
+                        $("#buy-now").prop("disabled", true);
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                },
+            });
+        }
     });
 
     $("#add-to-cart, #buy-now").on("click", function () {
@@ -101,7 +126,7 @@ $(document).ready(function () {
             });
         }
     });
-    /* 
+    /*
     $(".secondary-image").on("click", function () {
         $(".container-secondary-image").removeClass("selected");
         $(this).parent().addClass("selected");
@@ -109,7 +134,7 @@ $(document).ready(function () {
         $("#main-image").attr("src", newSrc);
     }); */
 
-    /* 
+    /*
     $("#btn-review").on("click", function () {
         $("#review-container").toggleClass("hidden");
     });
@@ -200,7 +225,7 @@ $(document).ready(function () {
         }
     });
 
-    /* 
+    /*
     $("#star-rating-edit .star-edit").on("click", function () {
         var value = $(this).data("value");
         $("#rating-value-edit").val(value);
