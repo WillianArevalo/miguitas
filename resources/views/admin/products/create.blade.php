@@ -60,55 +60,37 @@
                                                     label="Producto activo" value="0" />
                                             </div>
                                         </div>
-                                        <div class="border-t border-zinc-400 p-4 dark:border-zinc-800">
-                                            <div class="flex items-center justify-between">
-                                                <h4 class="text-base font-semibold text-black dark:text-white">
-                                                    Opciones
-                                                </h4>
-                                                <x-button type="button" typeButton="secondary" id="showModalOption"
-                                                    data-modal-target="addOption" data-modal-toggle="addOption"
-                                                    text="Agregar opción" icon="plus" />
-                                            </div>
-                                            <div class="mt-4" id="list-options">
-                                                @if ($options->count() > 0)
-                                                    <div class="flex w-full flex-col gap-4">
-                                                        @foreach ($options as $option)
-                                                            <div class="flex items-start justify-between">
-                                                                <div class="flex flex-1 flex-col justify-center gap-2">
-                                                                    <label for="{{ $option->name }}"
-                                                                        class="flex items-center gap-2">
-                                                                        <span
-                                                                            class="text-sm text-zinc-500 dark:text-zinc-300">
-                                                                            {{ $option->name }}
-                                                                        </span>
-                                                                    </label>
-                                                                </div>
-                                                                <div class="flex flex-1 items-center justify-end gap-2">
-                                                                    <x-button type="button" typeButton="secondary"
-                                                                        size="small" text="Agregar opciones"
-                                                                        icon="plus" data-modal-target="addOptionValue"
-                                                                        class="showModalOptionValue"
-                                                                        data-modal-toggle="addOptionValue"
-                                                                        data-container="#previewOptions-{{ $option->id }}"
-                                                                        data-id="{{ $option->id }}" />
-                                                                </div>
-                                                            </div>
-                                                            <div id="previewOptions-{{ $option->id }}"
-                                                                class="flex flex-wrap gap-2">
-                                                            </div>
-                                                        @endforeach
-                                                    </div>
-                                                    <div id="hiddenOptionsContainer" class="flex flex-wrap gap-4"></div>
-                                                @else
-                                                    <x-paragraph>
-                                                        Sin opciones registradas
-                                                    </x-paragraph>
-                                                @endif
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                                 <!-- End general info -->
+
+                                <div>
+                                    <h4
+                                        class="mb-2 text-base font-semibold text-primary-800 dark:text-primary-500 md:text-lg">
+                                        Atributos y variaciones
+                                    </h4>
+                                    <div
+                                        class="h-max rounded-lg border border-zinc-400 bg-transparent dark:border-zinc-800 dark:bg-black">
+                                        <div class="flex justify-end gap-4 p-4">
+                                            <div>
+                                                <x-button type="button" id="showModalOption" data-modal-target="addOption"
+                                                    data-modal-toggle="addOption" text="Nuevo atributo" icon="plus"
+                                                    typeButton="secondary" />
+                                            </div>
+                                            <div class="w-60">
+                                                <x-select label="" id="option_id" name="option_id" :options="$options->pluck('name', 'id')->toArray()"
+                                                    text="Añadir existente" value="{{ old('option_id') }}"
+                                                    selected="{{ old('option_id') }}" />
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col gap-4 border-t border-zinc-400 p-4 dark:border-zinc-800"
+                                            id="list-options">
+                                            <x-paragraph class="text-center">
+                                                Sin opciones seleccionadas
+                                            </x-paragraph>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <!-- SEO info -->
                                 <div>
@@ -555,20 +537,19 @@
 
         <!-- Modal agregar valor de cada opción -->
         <div id="addOptionValue" tabindex="-1" aria-hidden="true"
-            class="fixed left-0 right-0 top-0 z-50 hidden h-modal w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-90 md:inset-0 md:h-full">
-            <div class="relative h-full w-full max-w-md p-4 md:h-auto">
+            class="fixed left-0 right-0 top-0 z-[70] hidden h-screen w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-90 md:inset-0">
+            <div class="relative flex h-full items-center justify-center p-4 md:h-auto">
                 <!-- Modal content -->
                 <div
-                    class="relative animate-jump-in rounded-lg bg-white p-4 shadow animate-duration-300 dark:bg-zinc-950 sm:p-5">
+                    class="relative w-96 animate-jump-in rounded-lg bg-white p-4 shadow animate-duration-300 dark:bg-zinc-950 sm:p-5">
                     <!-- Modal header -->
                     <div
-                        class="mb-4 flex items-center justify-between rounded-t border-b pb-4 dark:border-zinc-800 sm:mb-5">
+                        class="mb-4 flex items-center justify-between rounded-t border-b border-zinc-400 pb-4 dark:border-zinc-800 sm:mb-5">
                         <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">
                             Agregar opciones
                         </h3>
                         <button type="button"
-                            class="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-zinc-400 hover:bg-zinc-200 hover:text-zinc-900 dark:hover:bg-zinc-900 dark:hover:text-white"
-                            data-modal-toggle="addOptionValue">
+                            class="closeAddOptionValue ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-zinc-400 hover:bg-zinc-200 hover:text-zinc-900 dark:hover:bg-zinc-900 dark:hover:text-white">
                             <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -583,28 +564,13 @@
                         @csrf
                         <div class="flex flex-col gap-4">
                             <div>
-                                <input type="text" id="option_id" name="option_id" class="hidden">
+                                <input type="text" name="option_id" id="option_value_id" class="hidden">
                                 <div>
-                                    <x-input label="Nombre" id="name-option-value" name="name"
-                                        data-message="#message-name-option-value"
-                                        placeholder="Escribe el nombre de la opción" required="required"
-                                        type="text" />
+                                    <x-input label="Nombre" id="name-option" name="value"
+                                        data-message="#message-name-option" placeholder="Escribe el nombre de la opción"
+                                        required="required" type="text" />
                                     <span class="invalid-feedback hidden text-sm text-red-500"
                                         id="message-name-option-value"></span>
-                                </div>
-                                <div class="mt-2">
-                                    <x-input label="Precio" id="price-option-value" name="price"
-                                        data-message="#message-price-option-value" icon="dollar" required="required"
-                                        type="number" placeholder="0.00" step="0.01" min="0.01" />
-                                    <span class="invalid-feedback hidden text-sm text-red-500"
-                                        id="message-price-option-value"></span>
-                                </div>
-                                <div class="mt-2">
-                                    <x-input label="Stock" id="stock-option-value" name="price"
-                                        data-message="#message-stock-option-value" required="required" type="number"
-                                        step="0.01" min="0.01" icon="cube" placeholder="#" />
-                                    <span class="invalid-feedback hidden text-sm text-red-500"
-                                        id="message-stock-option-value"></span>
                                 </div>
                             </div>
                             <x-button type="button" typeButton="secondary" text="Agregar opción" icon="plus"
@@ -615,7 +581,7 @@
                         <div class="mt-4 flex justify-end gap-2">
                             <x-button type="button" id="addOptionValueButton" text="Agregar" icon="plus"
                                 typeButton="primary" />
-                            <x-button type="button" data-modal-toggle="addOptionValue" text="Cancelar"
+                            <x-button type="button" class="closeAddOptionValue" text="Cancelar"
                                 typeButton="secondary" />
                         </div>
                     </form>
