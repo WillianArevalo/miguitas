@@ -39,7 +39,7 @@
         ])
         @yield('content')
 
-        @if (!request()->cookie('accept_cookies'))
+        @if (!request()->cookie('accept_cookies') && !request()->cookie('deny_cookies'))
             <x-cookie />
         @endif
     </main>
