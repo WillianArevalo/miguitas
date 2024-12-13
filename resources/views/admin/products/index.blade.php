@@ -102,13 +102,7 @@
                                             class="h-4 w-4 rounded border-2 border-zinc-400 bg-zinc-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-zinc-800 dark:bg-zinc-950 dark:ring-offset-zinc-800 dark:focus:ring-primary-600">
                                     </x-th>
                                     <x-th>
-                                        <div>
-                                            <button class="sort-button flex w-full justify-between" data-column="name"
-                                                data-order="asc">
-                                                Producto
-                                                <x-icon icon="sort" class="inline-block h-4 w-4 cursor-pointer" />
-                                            </button>
-                                        </div>
+                                        Producto
                                     </x-th>
                                     <x-th>
                                         Imagen
@@ -136,7 +130,7 @@
                             <x-slot name="tbody">
                                 @if ($products->count() > 0)
                                     @foreach ($products as $product)
-                                        <x-tr section="body">
+                                        <x-tr section="body" :last="$loop->last">
                                             <x-td>
                                                 <input type="checkbox" value="{{ $product->id }}" name="products_ids[]"
                                                     class="checkboxs-products h-4 w-4 rounded border-2 border-zinc-400 bg-zinc-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-zinc-800 dark:bg-zinc-950 dark:ring-offset-zinc-800 dark:focus:ring-primary-600">
