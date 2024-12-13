@@ -36,7 +36,8 @@ use App\Http\Controllers\Admin\{
     SupportTicketController,
     TaxController,
     TicketCommentController,
-    UserController
+    UserController,
+    VariantController
 };
 
 
@@ -70,6 +71,16 @@ Route::middleware("role:admin")->prefix("admin")->name("admin.")->group(function
     Route::get("/products/delete-image/{id}", [ProductController::class, "deleteImage"])->name("products.delete-image");
     Route::post("/products/search", [ProductController::class, "search"])->name("products.search");
 
+    //Options
+    Route::get("/options/search", [OptionController::class, "search"])->name("options.search");
+    Route::resource("/options", OptionController::class);
+
+
+    Route::post("/options-values", [OptionValueController::class, "store"])->name("options-values.store");
+    Route::delete("/options-values/{id}", [OptionValueController::class, "destroy"])->name("options-values.destroy");
+
+    Route::resource("/variants", VariantController::class);
+
     // Contact Messages
     Route::resource("/contact-messages", ContactMessageController::class);
 
@@ -82,9 +93,6 @@ Route::middleware("role:admin")->prefix("admin")->name("admin.")->group(function
     // Labels
     Route::resource("/labels", LabelController::class);
 
-    //Options products
-    Route::resource("/options", OptionController::class);
-    Route::resource("/options-values", OptionValueController::class);
 
     // Flash Offers
     Route::resource("/flash-offers", FlashOfferController::class);
@@ -135,7 +143,6 @@ Route::middleware("role:admin")->prefix("admin")->name("admin.")->group(function
     Route::post("/support-tickets/status/{id}", [SupportTicketController::class, "changeStatus"])->name("ticket.status");
     Route::resource("/ticket-comment", TicketCommentController::class);
     Route::post("/support-tickets/asign/{id}", [SupportTicketController::class, "asign"])->name("support-tickets.asign");
-
 
     // Orders
     Route::resource("/orders", OrderController::class);
