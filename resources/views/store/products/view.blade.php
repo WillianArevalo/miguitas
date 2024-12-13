@@ -2,7 +2,7 @@
 @section('title', 'Detalles del producto')
 @section('content')
     <div class="my-4">
-        <div class="flex flex-col gap-8 px-4 lg:flex-row lg:px-10">
+        <div class="flex flex-col gap-8 px-8 lg:flex-row lg:px-10">
             <div class="flex flex-1 flex-col items-center lg:items-start">
                 <div class="main-image relative flex w-full items-center justify-center">
                     <img src="{{ Storage::url($product->main_image) }}" alt="Imagen {{ $product->name }}"
@@ -89,6 +89,7 @@
                     <form action="{{ Route('cart.add', $product->id) }}" id="form-add-to-cart" method="POST">
                         @csrf
                         <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}">
+                        <input type="hidden" name="price" id="price">
                         <div class="mt-4 flex flex-col items-center justify-start gap-4 sm:flex-row">
                             <div class="w-72">
                                 @if ($product->options->count() > 0)
@@ -97,20 +98,19 @@
                                             return $item->option->name;
                                         });
                                     @endphp
-                                    <div class="flex flex-col gap-2">
+                                    <div class="flex flex-col gap-4">
                                         @foreach ($groupedOptions as $optionName => $optionValues)
                                             <div class="flex flex-col">
                                                 <x-select-store :options="$optionValues->pluck('value', 'id')->toArray()" id="{{ $optionName }}"
-                                                    class="options_values"
-                                                    data-container="#price-option-{{ $optionName }}"
-                                                    name="options_values[]" label="{{ $optionName }}"
+                                                    class="options_values" name="options_values[]"
+                                                    label="{{ $optionName }}"
                                                     text="Selecciona un {{ strtolower($optionName) }}"
                                                     data-url="{{ Route('product.get-option') }}" />
                                             </div>
-                                            <div class="price-option mt-2 flex items-center justify-center"
-                                                id="price-option-{{ $optionName }}">
-                                            </div>
                                         @endforeach
+                                    </div>
+                                    <div id="info-variation" class="mt-4">
+
                                     </div>
                                 @endif
                             </div>
