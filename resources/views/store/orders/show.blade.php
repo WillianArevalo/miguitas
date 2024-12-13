@@ -25,7 +25,7 @@
         <div class="mt-2 flex flex-col gap-4 lg:flex-row">
             <div class="flex flex-[2] flex-col gap-4">
                 <div
-                    class="flex h-max w-full flex-col gap-2 rounded-xl border border-zinc-200 p-4 text-sm shadow sm:flex-row sm:text-base">
+                    class="flex h-max w-full flex-col gap-2 rounded-xl border border-zinc-300 p-4 text-sm shadow sm:flex-row sm:text-base">
                     <div class="flex flex-1 flex-col justify-between gap-2">
                         <h2 class="text-2xl font-bold text-zinc-800">
                             <span class="">
@@ -77,7 +77,7 @@
                     </div>
                 </div>
                 <div class="flex flex-col gap-4 text-sm sm:flex-row sm:text-base">
-                    <div class="flex-[2] rounded-xl border border-zinc-200 p-4 shadow">
+                    <div class="flex-[2] rounded-xl border border-zinc-300 p-4 shadow">
                         <div>
                             <span class="font-dine-r font-bold text-zinc-900">Método de envío:</span>
                             <span class="font-dine-r text-zinc-600">
@@ -106,7 +106,7 @@
                         </div>
 
                     </div>
-                    <div class="flex-1 rounded-xl border border-zinc-200 p-4 shadow">
+                    <div class="flex-1 rounded-xl border border-zinc-300 p-4 shadow">
                         <div>
                             <span class="font-dine-r font-bold text-zinc-900">Método de pago:</span>
                             <span class="font-dine-r text-zinc-600">
@@ -129,7 +129,7 @@
                 </div>
 
                 <!-- Products desktop -->
-                <div class="hidden rounded-xl border border-zinc-200 p-4 shadow sm:block">
+                <div class="hidden rounded-xl border border-zinc-300 p-4 shadow sm:block">
                     <table class="w-full">
                         <thead>
                             <tr class="border-b border-zinc-200">
@@ -151,7 +151,7 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-zinc-300 bg-white">
+                        <tbody class="divide-y divide-zinc-400 bg-white">
                             @foreach ($order->items as $item)
                                 <tr class="hover:bg-zinc-50">
                                     <td class="whitespace-nowrap px-4 py-4">
@@ -194,7 +194,7 @@
                 <!-- End Products desktop -->
 
                 <!-- Products mobile -->
-                <div class="flex flex-col gap-4 rounded-xl border border-zinc-200 p-4 shadow sm:hidden">
+                <div class="flex flex-col gap-4 rounded-xl border border-zinc-300 p-4 shadow sm:hidden">
                     <h3 class="text-base font-bold text-zinc-800">
                         Productos
                     </h3>
@@ -221,6 +221,39 @@
                     @endforeach
                 </div>
                 <!-- End Products mobile -->
+
+                <div class="mt-4 rounded-xl border border-zinc-300 p-4 shadow">
+                    <span class="font-bold text-zinc-800">
+                        Notas para el pedido
+                    </span>
+                    @if ($order->customer_notes)
+                        <div class="mt-2">
+                            <p class="font-dine-r text-sm text-zinc-600">
+                                Tu nota:
+                            </p>
+                            <p class="font-dine-r text-zinc-600">
+                                {{ $order->customer_notes }}
+                            </p>
+                            <form action="{{ Route('order.remove-comment', $order->id) }}" method="POST">
+                                @csrf
+                                <x-button-store type="submit" text="Eliminar" icon="delete" typeButton="danger"
+                                    class="mt-2" size="small" />
+                            </form>
+                        </div>
+                    @else
+                        <div>
+                            <p
+                                class="my-4 rounded-xl border-2 border-dashed border-zinc-400 p-4 text-center font-dine-r text-zinc-600">
+                                Sin notas
+                            </p>
+                            <div>
+                                <x-button-store type="button" text="Agregar nota" class="btn-add-comment w-max text-sm"
+                                    typeButton="secondary" icon="plus" data-modal-target="addComment"
+                                    data-modal-toggle="addComment" />
+                            </div>
+                        </div>
+                    @endif
+                </div>
 
                 <!-- Payment button -->
                 <div class="hidden sm:block">
@@ -266,7 +299,7 @@
                 @endif
             </div>
             <div class="flex flex-1 flex-col-reverse text-sm sm:text-base lg:block">
-                <div class="mb-4 mt-4 overflow-hidden rounded-xl border border-zinc-200 shadow lg:mb-0 lg:mt-0">
+                <div class="mb-4 mt-4 overflow-hidden rounded-xl border border-zinc-300 shadow lg:mb-0 lg:mt-0">
                     <div class="flex flex-col gap-4 p-4">
                         <h3 class="text-xl font-bold text-zinc-800">
                             Resumen
@@ -307,7 +340,7 @@
                             </div>
                         </div>
 
-                        <div class="flex justify-between border-t border-dashed border-zinc-200 pt-4 font-semibold">
+                        <div class="flex justify-between border-t-2 border-dashed border-zinc-400 pt-4 font-semibold">
                             <div class="font-dine-b text-xl uppercase text-zinc-800">
                                 Total
                             </div>
@@ -318,45 +351,12 @@
                     </div>
                 </div>
 
-                <div class="mt-4 rounded-xl border border-zinc-200 p-4 shadow">
+                <div class="mt-4 rounded-xl border border-zinc-300 p-4 shadow">
                     <span class="font-bold text-zinc-800">Fecha de pedido:</span>
                     <p class="font-dine-r text-zinc-600">
                         {{ $order->created_at->toFormattedDateString() }}
                     </p>
                 </div>
-
-                <div class="mt-4 rounded-xl border border-zinc-200 p-4 shadow">
-                    <span class="font-bold text-zinc-800">
-                        Comentarios:
-                    </span>
-                    @if ($order->customer_notes)
-                        <div class="mt-2">
-                            <p class="font-dine-r text-sm text-zinc-600">
-                                Tu comentario:
-                            </p>
-                            <p class="font-dine-r text-zinc-600">
-                                {{ $order->customer_notes }}
-                            </p>
-                            <form action="{{ Route('order.remove-comment', $order->id) }}" method="POST">
-                                @csrf
-                                <x-button-store type="submit" text="Eliminar" icon="delete" typeButton="danger"
-                                    class="mt-2" size="small" />
-                            </form>
-                        </div>
-                    @else
-                        <div>
-                            <p class="py-2 font-dine-r text-zinc-600">
-                                Sin comentarios
-                            </p>
-                            <div>
-                                <x-button-store type="button" text="Agregar comentario"
-                                    class="btn-add-comment w-max text-sm" typeButton="secondary" size="small"
-                                    icon="plus" />
-                            </div>
-                        </div>
-                    @endif
-                </div>
-
                 <div>
                     @if ($order->status === 'canceled')
                         <div
@@ -460,7 +460,7 @@
         </div>
 
         <div class="addComment fixed inset-0 z-50 hidden items-center justify-center bg-zinc-800 bg-opacity-75 transition-opacity"
-            aria-labelledby="modal-title" role="dialog" aria-modal="true">
+            id="addComment" aria-labelledby="modal-title" role="dialog" aria-modal="true">
             <div class="flex items-center justify-center px-4 pb-20 pt-4 text-center sm:block sm:p-0">
                 <div class="inline-block transform animate-jump-in overflow-hidden rounded-xl bg-white p-6 text-left align-bottom shadow-xl transition-all animate-duration-300 animate-once sm:my-8 sm:w-full sm:max-w-lg sm:align-middle"
                     role="dialog" aria-modal="true" aria-labelledby="modal-headline">
@@ -476,7 +476,7 @@
                             </div>
                         </div>
                         <div class="mt-4 flex justify-end gap-4 bg-gray-50">
-                            <x-button-store type="button" text="Cancelar" icon="cancel"
+                            <x-button-store type="button" text="Cancelar" icon="cancel" data-modal-toggle="addComment"
                                 class="closeModalAddComment w-max text-sm" typeButton="secondary" />
                             <x-button-store type="submit" text="Agregar comentario" icon="comment-add"
                                 class="confirmAddComment w-max text-sm" typeButton="primary" />
