@@ -2,23 +2,6 @@
 @section('title', 'Miguitas | Facturación')
 @section('content')
     <div class="my-10">
-        <div class="pe-4 ps-8 lg:pe-0 lg:ps-0">
-            <div
-                class="schedule mx-auto flex w-full flex-col items-center justify-center rounded-2xl border-[3px] border-blue-store p-4 text-center md:p-6 lg:w-1/2">
-                <h2 class="text-xl text-blue-store sm:text-2xl md:text-3xl">
-                    Horarios de entrega
-                </h2>
-                <p class="mt-2 font-pluto-r text-sm text-zinc-500 sm:text-base md:text-lg">
-                    A domicilio:
-                </p>
-                <p class="mt-2 font-pluto-r text-sm text-zinc-500 sm:text-base md:text-lg">
-                    Martes a Viernes 10:00 a.m. a 3:00 p.m. y Sábados de 9:00 a.m. a 4:00 p.m.
-                </p>
-                <p class="mt-2 font-pluto-r text-sm text-zinc-500 sm:text-base md:text-lg">
-                    En PAWstry en La Sultana Martes a Viernes 1100 a.m. a 6:00 p.m. y Sábados de 10:00 a.m. a 4:00 p.m.
-                </p>
-            </div>
-        </div>
         <div class="mx-auto mt-20 w-full px-4 sm:px-6 xl:w-4/5">
             <div class="flex flex-col gap-8 lg:flex-row">
                 <div class="flex-1 gap-4 lg:flex-[2] xl:flex-[3]">
@@ -161,7 +144,8 @@
                                         <div class="relative">
                                             <div class="flex flex-col gap-2">
                                                 <x-input-store type="text" icon="calendar" name="date"
-                                                    label="Fecha de entrega" id="date-input" placeholder="XXXX-XX-XX" />
+                                                    autocomplete="off" label="Fecha de entrega" id="date-input"
+                                                    placeholder="XXXX-XX-XX" data-weekend="false" />
                                             </div>
                                             <div id="calendar"
                                                 class="absolute top-20 z-50 mt-2 hidden rounded-2xl border bg-white p-4 shadow-lg">
