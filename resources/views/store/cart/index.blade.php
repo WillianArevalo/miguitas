@@ -3,7 +3,34 @@
 @section('content')
     <div>
         <div class="py-20 text-center" style="background-image: url({{ asset('img/bg-image.png') }});">
-            <h1 class="text-5xl font-bold text-white">Carrito de compras</h1>
+            <h1 class="text-3xl font-bold text-white sm:text-4xl md:text-5xl">Carrito de compras</h1>
+        </div>
+
+        <div class="bg-blue-store p-4">
+            <div class="flex items-center justify-center gap-4">
+                <x-icon-store icon="truck" class="h-8 w-8 fill-current text-white" />
+                <p class="text-center font-dine-r text-xs text-white sm:text-sm md:text-base">
+                    Tomamos órdenes con mínimo 1 día de anticipación. Domingo y Lunes cerrado. (no se realizan entregas)
+                </p>
+            </div>
+        </div>
+
+        <div class="mb-14 mt-8 pe-4 ps-8 lg:pe-0 lg:ps-0">
+            <div
+                class="schedule mx-auto flex w-full flex-col items-center justify-center rounded-2xl border-[3px] border-blue-store p-4 text-center md:p-6 lg:w-1/2">
+                <h2 class="text-xl text-blue-store sm:text-2xl md:text-3xl">
+                    Horarios de entrega
+                </h2>
+                <p class="mt-2 font-dine-r text-xs text-zinc-500 sm:text-sm md:text-base">
+                    A domicilio:
+                </p>
+                <p class="mt-2 font-dine-r text-xs text-zinc-500 sm:text-sm md:text-base">
+                    Martes a Viernes 10:00 a.m. a 3:00 p.m. y Sábados de 9:00 a.m. a 4:00 p.m.
+                </p>
+                <p class="mt-2 font-dine-r text-xs text-zinc-500 sm:text-sm md:text-base">
+                    En PAWstry en La Sultana Martes a Viernes 1100 a.m. a 6:00 p.m. y Sábados de 10:00 a.m. a 4:00 p.m.
+                </p>
+            </div>
         </div>
 
         <div class="my-10 flex flex-col gap-8 lg:flex-row lg:gap-0">
@@ -40,7 +67,7 @@
                                             </h3>
                                             <ul>
                                                 @foreach ($item->options as $option)
-                                                    <li class="font-pluto-r text-sm text-zinc-700">
+                                                    <li class="font-dine-r text-sm text-zinc-500">
                                                         <span class="font-medium">
                                                             {{ $option->productOptionValue->option->name }}:
                                                         </span>
@@ -48,7 +75,7 @@
                                                     </li>
                                                 @endforeach
                                             </ul>
-                                            <p class="font-dine-r text-sm text-zinc-700">
+                                            <p class="font-dine-r text-sm font-semibold text-blue-store">
                                                 $ {{ $item->price }}
                                             </p>
                                         </div>
@@ -114,7 +141,7 @@
                 </div>
                 <div class="mt-4 flex flex-col gap-2">
                     <div class="flex justify-between">
-                        <p class="text-sm text-light-blue sm:text-base md:text-lg">
+                        <p class="font-dine-r text-sm text-blue-store sm:text-base md:text-lg">
                             Subtotal
                         </p>
                         <p class="text-sm text-blue-store sm:text-base md:text-lg" id="totalPriceCart">
@@ -122,7 +149,7 @@
                         </p>
                     </div>
                     <div class="flex justify-between">
-                        <p class="text-sm text-light-blue sm:text-base md:text-lg">
+                        <p class="font-dine-r text-sm text-blue-store sm:text-base md:text-lg">
                             Impuestos
                         </p>
                         <p class="text-sm text-blue-store sm:text-base md:text-lg" id="totalTaxes">
@@ -130,15 +157,15 @@
                         </p>
                     </div>
                     <div class="flex justify-between border-b-2 border-blue-store pb-4">
-                        <p class="text-sm text-light-blue sm:text-base md:text-lg">
+                        <p class="font-dine-r text-sm text-blue-store sm:text-base md:text-lg">
                             Envío
                         </p>
-                        <p class="text-sm text-light-blue sm:text-base md:text-lg">
+                        <p class="text-sm text-blue-store sm:text-base md:text-lg">
                             ---
                         </p>
                     </div>
                     <div class="flex justify-between">
-                        <p class="text-xl text-light-blue">
+                        <p class="font-dine-r text-xl text-blue-store">
                             Total del pedido
                         </p>
                         <p class="text-xl text-blue-store" id="subtotal">
