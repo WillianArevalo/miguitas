@@ -1,7 +1,9 @@
 <div class="swiper-slide relative rounded-3xl border border-zinc-200 p-4 shadow-xl sm:p-6">
     <div class="card-image">
-        <img src="{{ Storage::url($product->main_image) }}" alt="Featured2 image"
-            class="mx-auto h-48 w-48 rounded-xl object-cover md:h-60 md:w-full">
+        <a href="{{ Route('products.details', $product->slug) }}">
+            <img src="{{ Storage::url($product->main_image) }}" alt="Featured2 image"
+                class="mx-auto h-48 w-48 rounded-xl object-cover md:h-60 md:w-full">
+        </a>
     </div>
     <div class="card-body mt-4">
         <div class="flex flex-col items-start justify-between gap-y-2 sm:flex-row sm:items-center">
@@ -47,10 +49,11 @@
                     {{ $product->reviews->count() }} reseñas
                 </p>
             </small>
-            <h2 class="overflow-hidden text-ellipsis whitespace-nowrap text-start font-pluto-r text-sm font-semibold text-blue-store sm:text-base md:text-lg"
+            <a href="{{ Route('products.details', $product->slug) }}"
+                class="overflow-hidden text-ellipsis whitespace-nowrap text-start font-pluto-r text-sm font-semibold text-blue-store sm:text-base md:text-lg"
                 title="{{ $product->name }}">
                 {{ $product->name }}
-            </h2>
+            </a>
             <div class="flex gap-4">
                 <p class="text-start">
                     <span class="font-dine-r text-lg text-gray-store">$</span>
