@@ -142,7 +142,7 @@ Route::middleware("auth")->group(function () {
 Route::post("/billing/wompi", [CheckoutController::class, "wompi"])->name("checkout.wompi");
 Route::post("/billing/wompi/link", [CheckoutController::class, "get_wompi_link"])->name("link.wompi");
 
-Route::post("/accept-all-cookies", [HomeController::class, "acceptAllCookies"])->name("accept-all-cookies");
+Route::post("/cookies", [HomeController::class, "cookies"])->name("cookies.store");
 Route::get("/politica-de-cookies", [HomeController::class, "showCookies"])->name("cookies");
 
 Route::get("/show-popup", [HomeController::class, "showPopup"])->name("show-popup");
