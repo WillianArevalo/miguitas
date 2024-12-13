@@ -53,6 +53,7 @@ class CartController extends Controller
         $user = auth()->user();
         $optionValues = $request->input("options_values", []);
         $quantity = $request->input("quantity") ?? 1;
+        $price = $request->input("price") ?? 0;
         DB::beginTransaction();
 
         try {
@@ -64,8 +65,8 @@ class CartController extends Controller
                 foreach ($optionValues as $optionId) {
                     $optionValue = $product->options->where("id", $optionId)->first();
                     if ($optionValue) {
-                        $optionPrice = $optionValue->pivot->price;
-                        $itemPrice += $optionPrice;
+                        $optionPrice = $price;
+                        $itemPrice = $optionPrice;
                     }
                 }
                 $subTotal = $itemPrice * $quantity;
@@ -95,7 +96,7 @@ class CartController extends Controller
                 $cartItem->price = $itemPrice;
                 $cartItem->save();
                 DB::commit();
-                return $this->responseJson("success", "Product quantity updated");
+                return $this->responseJson("success", "Cantidad de producto actualizada");
             } else {
                 $cartItem = $cart->items()->create([
                     "product_id" => $product->id,
@@ -108,7 +109,7 @@ class CartController extends Controller
                     foreach ($optionValues as $optionId) {
                         $optionValue = $product->options->where("id", $optionId)->first();
                         if ($optionValue) {
-                            $optionPrice = $optionValue->pivot->price;
+                            $optionPrice = $price;
                             $cartItem->options()->create([
                                 "product_option_value_id" => $optionValue->id,
                                 "option_price" => $optionPrice,
@@ -121,7 +122,7 @@ class CartController extends Controller
             }
 
             DB::commit();
-            return $this->responseJson("success", "Product added to cart");
+            return $this->responseJson("success", "Producto añadido al carrito");
         } catch (\Exception $e) {
             DB::rollBack();
             return $this->responseJson("error", "An error occurred while adding product to cart. Error: " . $e->getMessage());
