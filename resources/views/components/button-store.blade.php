@@ -38,8 +38,10 @@
 
     // Tipos de botones (estilos únicos para la tienda)
     $buttonTypes = [
-        'primary' => 'bg-blue-store text-white hover:bg-blue-selected',
-        'secondary' => 'bg-white text-zinc-600 border-2 border-zinc-300 hover:bg-zinc-200/50',
+        'primary' =>
+            'bg-blue-store text-white hover:bg-blue-selected disabled:bg-violet-400 disabled:text-violet-200 disabled:cursor-not-allowed',
+        'secondary' =>
+            'bg-white text-zinc-600 border-2 border-zinc-300 hover:bg-zinc-200/50 disabled:bg-zinc-100/50 disabled:text-zinc-400 disabled:cursor-not-allowed',
         'tertiary' => 'bg-pink-store text-dark-blue hover:bg-pink-selected hover:text-white',
         'danger' => 'bg-red-100/70 text-red-500 hover:bg-red-200/70 border-2 border-red-500/70',
         'warning' => 'bg-yellow-100/70 text-yellow-600 hover:bg-yellow-600 border-2 border-yellow-600/70',
