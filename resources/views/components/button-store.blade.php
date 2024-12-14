@@ -25,7 +25,7 @@
         ],
         'large' => [
             'padding' => 'px-8 py-4',
-            'text' => 'text-base sm:text-lg',
+            'text' => 'text-base',
             'icon' => 'h-6 w-6',
         ],
     ];
