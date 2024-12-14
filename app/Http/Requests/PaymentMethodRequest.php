@@ -24,8 +24,8 @@ class PaymentMethodRequest extends FormRequest
         return [
             "name" => "string|required",
             "image" => "nullable|image",
-            "description" => "string|required",
-            "provider" => "string|required",
+            "description" => "nullable|string",
+            "provider" => "string|nullable",
             "active" => "nullable|boolean"
         ];
     }
