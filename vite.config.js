@@ -10,7 +10,7 @@ export default defineConfig({
                 "resources/css/admin.css",
                 "resources/css/store/galeria.css",
                 "resources/js/app.js",
-
+                "resources/js/select-address.js",
                 "resources/js/admin/admin.js",
                 "resources/js/admin/brand.js",
                 "resources/js/admin/categorie.js",
