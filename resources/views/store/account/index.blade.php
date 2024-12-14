@@ -205,8 +205,8 @@
                                 </p>
                             </div>
                         @else
-                            <div class="mt-3 rounded-xl border-2 border-dashed border-zinc-300 bg-zinc-100 p-8 text-sm">
-                                <p class="text-center font-dine-r text-zinc-800">
+                            <div class="mt-3 rounded-xl border-2 border-dashed border-blue-400 bg-blue-50 p-8 text-sm">
+                                <p class="text-center font-dine-r text-blue-400">
                                     No has definido una dirección
                                 </p>
                             </div>
@@ -216,8 +216,6 @@
             </div>
         </div>
     </div>
-
-
 
     <div id="tab-pet" class="tab-panel hidden">
         <div class="mt-4">
@@ -273,9 +271,6 @@
             </form>
         </div>
     </div>
-
-
-
 @endsection
 
 @push('scripts')
