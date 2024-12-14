@@ -24,11 +24,11 @@
                                     <x-input type="text" id="inputPaymentMethods" placeholder="Buscar" icon="search" />
                                 </div>
                             </div>
-                            <div
+                            {{--   <div
                                 class="flex w-full flex-shrink-0 flex-col items-stretch justify-end space-y-2 md:w-auto md:flex-row md:items-center md:space-x-3 md:space-y-0">
                                 <x-button type="button" class="open-drawer" data-drawer="#drawer-new-method"
                                     typeButton="primary" text="Agregar método" icon="plus" />
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="mx-4 mb-4">
                             <x-table id="tablePaymentMethods">
@@ -71,8 +71,14 @@
                                                 </x-td>
                                                 <x-td>
                                                     <div class="min-h-12 h-12 w-full min-w-full">
-                                                        <img src="{{ Storage::url($method->image) }}"
-                                                            alt="{{ $method->name }}" class="h-full w-full object-contain">
+                                                        @if ($method->image || $method->image === 'images/no-photo.jpg')
+                                                            <img src="{{ Storage::url($method->image) }}"
+                                                                alt="{{ $method->name }}"
+                                                                class="h-full w-full object-contain">
+                                                        @else
+                                                            <x-icon icon="image"
+                                                                class="h-12 w-12 text-zinc-400 dark:text-zinc-500" />
+                                                        @endif
                                                     </div>
                                                 </x-td>
                                                 <x-td>
@@ -172,14 +178,12 @@
                         @enderror
                     </div>
                     <div class="w-full">
-                        <x-input type="textarea" name="description" required
-                            placeholder="Ingresa la descripción del método" label="Descripción"
-                            value="{{ old('description') }}" />
+                        <x-input type="textarea" name="description" placeholder="Ingresa la descripción del método"
+                            label="Descripción" value="{{ old('description') }}" />
                     </div>
                     <div class="w-full">
-                        <x-input type="text" name="provider" required
-                            placeholder="Ingresa el proveedor del método de pago" label="Proveedor"
-                            value="{{ old('provider') }}" />
+                        <x-input type="text" name="provider" placeholder="Ingresa el proveedor del método de pago"
+                            label="Proveedor" value="{{ old('provider') }}" />
                     </div>
                     <div class="w-full">
                         <input type="checkbox" value="0" name="active"
