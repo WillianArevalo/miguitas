@@ -27,17 +27,18 @@ class PaymentController extends Controller
             if ($request->hasFile("image")) {
                 $validated["image"] = ImageHelper::saveImage($request->file("image"), "images/payment_methods");
             } else {
-                $validated["image"] = "images/no-photo.jpg";
+                $validated["image"] = null;
             }
 
             $method = PaymentMethod::create($validated);
             if ($method) {
                 DB::commit();
-                return redirect()->route("admin.sales-strategies.payment-methods.index")->with("success", "Payment method created successfully");
+                return redirect()->route("admin.sales-strategies.payment-methods.index")
+                    ->with("success", "Método de pago creado correctamente.");
             }
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->with("error", "Failed to create payment method. Error: " . $e->getMessage());
+            return redirect()->back()->with("error", "Ha occurrido un error al crear el método de pago.");
         }
     }
 
