@@ -35,7 +35,19 @@ class AddressController extends Controller
     {
         $addresses = Addresses::getAddresses();
         $countries = $this->getAllCountries();
-        return view("store.account.address.new", ["addresses" => $addresses, "countries" => $countries]);
+
+        $data = resource_path("data/elsalvador.json");
+        $data = json_decode(file_get_contents($data), true);
+        $departamentos = array_reduce($data, function ($carry, $item) {
+            $carry[$item["departamento"]] = $item["departamento"];
+            return $carry;
+        }, []);
+
+        return view("store.account.address.new", [
+            "addresses" => $addresses,
+            "countries" => $countries,
+            "departamentos" => $departamentos
+        ]);
     }
 
     public function getAllCountries()
