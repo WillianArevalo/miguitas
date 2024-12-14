@@ -9,7 +9,7 @@
                         @csrf
                         <div class="tab-content" id="tab-user-info">
                             <div class="flex flex-col gap-4">
-                                <h3 class="text-2xl uppercase text-blue-store sm:text-3xl md:text-4xl">
+                                <h3 class="text-lg font-bold uppercase text-blue-store sm:text-xl md:text-2xl">
                                     Detalles de facturación
                                 </h3>
                                 <div class="flex w-full flex-col gap-4">
@@ -39,7 +39,7 @@
                             </div>
                             <div class="mt-8">
                                 <div class="flex flex-col items-center justify-between gap-4 md:flex-row">
-                                    <h3 class="text-2xl uppercase text-blue-store sm:text-3xl md:text-4xl">
+                                    <h3 class="text-lg font-bold uppercase text-blue-store sm:text-xl md:text-2xl">
                                         Dirección de envío
                                     </h3>
                                     <x-button-store type="a" typeButton="secondary" size="small"
@@ -156,29 +156,41 @@
 
                                 <div class="mt-8">
                                     <div class="flex flex-col gap-4">
-                                        <h3 class="text-2xl uppercase text-blue-store sm:text-3xl md:text-4xl">
+                                        <h3 class="text-lg font-bold uppercase text-blue-store sm:text-xl md:text-2xl">
                                             Método de pago
                                         </h3>
                                         <div class="flex flex-col gap-4">
-                                            <div
-                                                class="flex items-center gap-4 p-4 font-pluto-r text-sm text-zinc-600 shadow-sm sm:text-base">
-                                                <input type="radio" name="payment_method" value="0"
-                                                    data-url="{{ Route('cart.apply-payment-method', 0) }}" />
-                                                Marcar como pago pendiente
-                                            </div>
                                             @if ($payment_methods->count() > 0)
                                                 @foreach ($payment_methods as $method)
+                                                    @if ($method->name === 'Tarjeta de crédito')
+                                                        <button
+                                                            class="flex w-96 items-center justify-center gap-4 rounded-full bg-[#f0f1eb] p-4 font-dine-r text-base text-blue-950 hover:bg-zinc-200">
+                                                            <x-icon-store icon="visa" class="h-8 w-8 fill-current" />
+                                                            <x-icon-store icon="mastercard"
+                                                                class="h-8 w-8 fill-current" />
+                                                            Pagar con tarjeta de crédito
+                                                        </button>
+                                                    @endif
+
                                                     @if ($method->name === 'Wompi')
-                                                        <div>
-                                                            <form action="{{ Route('link.wompi') }}" method="POST"
-                                                                class="form-paid">
-                                                                @csrf
-                                                                <input type="hidden" name="number_order" value="">
-                                                                <x-button-store icon="credit-card" type="submit"
-                                                                    typeButton="primary" onlyIcon="true" class="w-max"
-                                                                    class="pay-order" />
-                                                            </form>
-                                                        </div>
+                                                        <button
+                                                            class="flex w-96 items-center justify-center rounded-full bg-[#4865ff] p-4 font-dine-r text-base text-white">
+                                                            <img src="{{ Storage::url($method->image) }}" alt="Wompi"
+                                                                class="h-8 w-20 object-cover">
+                                                            Pagar con Wompi
+                                                        </button>
+                                                    @endif
+
+                                                    @if ($method->name === 'Pago en efectivo')
+                                                        <x-button-store type="button" text="Pagar en efectivo"
+                                                            class="w-96 font-dine-r text-base" typeButton="secondary"
+                                                            size="large" />
+                                                    @endif
+
+                                                    @if ($method->name === 'Transferencia bancaria')
+                                                        <x-button-store type="button" text="Transferencia bancaria"
+                                                            class="w-96 font-dine-r text-base" typeButton="secondary"
+                                                            size="large" />
                                                     @endif
                                                 @endforeach
                                             @endif
@@ -402,5 +414,6 @@
 
 @push('scripts')
     @vite('resources/js/store/checkout.js')
+    @vite('resources/js/select-address.js')
     {{--  <script src="https://pagos.wompi.sv/js/wompi.pagos.js"></script> --}}
 @endpush
