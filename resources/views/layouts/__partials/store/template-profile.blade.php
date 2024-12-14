@@ -15,3 +15,7 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/select-address.js')
+@endpush
