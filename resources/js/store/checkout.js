@@ -28,6 +28,12 @@ $(document).ready(function () {
         step.each(function (i) {
             $(this).toggleClass("step-completed", i < index);
         });
+
+        if (index === 1) {
+            $("#next-step").text("Proceder al pago");
+        } else {
+            $("#next-step").text("Siguiente");
+        }
     }
 
     btnPrev.on("click", function () {
