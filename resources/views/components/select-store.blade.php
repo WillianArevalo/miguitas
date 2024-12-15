@@ -6,10 +6,10 @@
         </label>
     @endif
     <input type="hidden" id="{{ $id }}" name="{{ $name }}" value="{{ $value }}"
-        {{ $attributes }}>
+        {{ $attributes }} data-type="select" data-content="select-{{ $name }}">
     <div class="relative">
         <div
-            class="selected @error($name) is-invalid @enderror flex w-full items-center justify-between rounded-xl border-2 border-blue-store bg-white px-6 py-3 text-sm text-zinc-700 md:text-base">
+            class="selected select-{{ $name }} @error($name) is-invalid @enderror flex w-full items-center justify-between rounded-xl border-2 border-blue-store bg-white px-6 py-3 text-sm text-zinc-700 md:text-base">
             <span class="itemSelected truncate font-pluto-r" id="{{ $id }}_selected">
                 {{ $selected && isset($options[$selected]) ? $options[$selected] : ($text ?: 'Seleccionar') }}
             </span>
