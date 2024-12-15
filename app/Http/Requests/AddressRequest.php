@@ -24,9 +24,10 @@ class AddressRequest extends FormRequest
         return [
             "address_line_1" => "required|string",
             "address_line_2" => "nullable|string",
-            "city" => "nullable|string",
-            "state"  => "nullable|string",
             "country" => "required|string",
+            "department" => "nullable|string",
+            "municipality"  => "nullable|string",
+            "district" => "nullable|string",
             "zip_code" => "required|string",
             "type" => "required|string",
             "customer_id" => "nullable|integer",
