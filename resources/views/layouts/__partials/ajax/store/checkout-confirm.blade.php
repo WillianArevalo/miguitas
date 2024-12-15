@@ -41,26 +41,36 @@
             Dirección:
         </h5>
         <p class="font-dine-r text-zinc-600">
-            {{ $address->address_line_1 }}
+            {{ $address->address_line_1 }}@if ($address->address_line_2)
+                {{ ', ' . $address->address_line_2 }}
+            @endif
         </p>
     </div>
     <div class="flex flex-col items-start gap-y-2 sm:flex-row sm:items-center">
         <div class="flex flex-[2] items-center gap-2">
             <h5 class="font-dine-r text-zinc-800">
-                Ciudad:
+                Departamento:
             </h5>
             <p class="font-dine-r text-zinc-600">
-                {{ $address->city }}
+                {{ $address->department }}
             </p>
         </div>
         <div class="flex flex-1 items-center gap-2">
             <h5 class="font-dine-r text-zinc-800">
-                Departamento:
+                Municipio:
             </h5>
             <p class="font-dine-r text-zinc-600">
-                {{ $address->state }}
+                {{ $address->municipality }}
             </p>
         </div>
+    </div>
+    <div class="flex items-center gap-2">
+        <h5 class="font-dine-r text-zinc-800">
+            Distrito:
+        </h5>
+        <p class="font-dine-r text-zinc-600">
+            {{ $address->district }}
+        </p>
     </div>
 </div>
 <div class="mt-8 flex flex-col gap-2">
