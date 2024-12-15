@@ -9,10 +9,12 @@ use App\Models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Cart as CartHelper;
+use App\Models\Address;
 use App\Models\Coupon;
 use App\Models\Currency;
 use App\Models\PaymentMethod;
 use App\Models\ProductOptionValue;
+use App\Models\Rate;
 use App\Utils\CouponRules;
 use Illuminate\Support\Facades\Auth;
 
@@ -291,30 +293,67 @@ class CartController extends Controller
         }
     }
 
-    public function applyShippingMethod(string $id)
+    public function applyShippingMethod(string $id, Request $request)
     {
+        $user = auth()->user();
         $shipping_method = ShippingMethod::find($id);
         if (!$shipping_method) return response()->json(["status" => "error", "message" => "Shipping method not found"]);
         $cart = CartHelper::get();
+
+        $cost = 0;
+        parse_str($request->input("form"), $form);
+
+        if ($user->customer) {
+            $addressShipping = Address::where("customer_id", $user->customer->id)->where("type", "shipping_address")->first();
+            if (!$addressShipping && $shipping_method->name === "Envío a domicilio") {
+                return response()->json([
+                    "status" => "error",
+                    "message" => "Debes tener una dirección de envío para calcular la tarifa de envío a tu dirección."
+                ], 400);
+            } else if ($addressShipping && $shipping_method->name === "Envío a domicilio") {
+                $department = $form["department"];
+                $municipality = $form["municipality"];
+                $district = $form["district"];
+
+                $rate = Rate::where("department", $department)
+                    ->where("municipality", $municipality)
+                    ->where("district", $district)
+                    ->first();
+
+                if ($rate) {
+                    $cost = $rate->cost;
+                } else {
+                    return response()->json([
+                        "status" => "error",
+                        "message" => "No se encontró una tarifa de envío para tu dirección."
+                    ], 400);
+                }
+            }
+        }
+
         DB::beginTransaction();
         try {
             $cart->shippingMethod()->associate($shipping_method);
+            $cart->shipping_cost = $cost;
             $cart->save();
             DB::commit();
             return response()->json([
                 "status" => "success",
                 "message" => "Shipping method applied",
-                "price" => $this->priceFormat($shipping_method->cost),
+                "price" => $this->priceFormat($cost),
                 "total" => $this->priceFormat(CartHelper::totalWithShippingMethod()),
+                "rate" => $rate ?? null,
             ]);
         } catch (\Exception $e) {
-            return response()->json(["status" => "error", "message" => "An error occurred while applying the shipping method. Error: " . $e->getMessage()]);
+            return response()->json([
+                "status" => "error",
+                "message" => "An error occurred while applying the shipping method. Error: " . $e->getMessage()
+            ]);
         }
     }
 
     public function applyPaymentMethod(string $id)
     {
-
         $cart = CartHelper::get();
         if ($id == 0) {
             $cart->paymentMethod()->dissociate();
