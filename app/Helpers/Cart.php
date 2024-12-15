@@ -120,7 +120,7 @@ class Cart
             return 0;
         }
         $subtotalWithCoupon = self::subtotal();
-        $shippingCost = $cart->shippingMethod ? $cart->shippingMethod->cost : 0;
+        $shippingCost = $cart->shipping_cost ?? 0;
         return $subtotalWithCoupon + $shippingCost;
     }
 
@@ -134,7 +134,7 @@ class Cart
             "total_with_taxes" => $symbol . number_format(self::totalWithTaxes(), 2),
             "discount" => $symbol . number_format(self::totalDiscount(), 2),
             "subtotal" => $symbol . number_format(self::subtotal(), 2),
-            "shipping" => $symbol . number_format($cart->shippingMethod->cost ?? 0, 2),
+            "shipping" => $symbol . number_format($cart->shipping_cost ?? 0, 2),
             "total_with_shipping" => $symbol . number_format(self::totalWithShippingMethod(), 2)
         ];
     }
