@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\{
     PoliciesController,
     PopupController,
     ProductController,
+    RateController,
     ReviewController,
     SaleStrategyController,
     SettingsController,
@@ -74,11 +75,8 @@ Route::middleware("role:admin")->prefix("admin")->name("admin.")->group(function
     //Options
     Route::get("/options/search", [OptionController::class, "search"])->name("options.search");
     Route::resource("/options", OptionController::class);
-
-
     Route::post("/options-values", [OptionValueController::class, "store"])->name("options-values.store");
     Route::delete("/options-values/{id}", [OptionValueController::class, "destroy"])->name("options-values.destroy");
-
     Route::resource("/variants", VariantController::class);
 
     // Contact Messages
@@ -156,7 +154,10 @@ Route::middleware("role:admin")->prefix("admin")->name("admin.")->group(function
         Route::resource("/shipping-methods", ShippingController::class);
         Route::resource("/payment-methods", PaymentController::class);
         Route::resource("/currencies", CurrencyController::class);
+        Route::resource("/rates", RateController::class);
     });
+
+
 
     // General Settings
     Route::prefix("general-settings")->name("general-settings.")->group(function () {
