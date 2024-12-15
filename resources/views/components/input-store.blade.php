@@ -32,12 +32,12 @@
         </div>
         <input type="{{ $type }}" name="{{ $name }}" id="{{ $id }}"
             placeholder="{{ $placeholder }}" value="{{ $value }}" class="{{ $classes }} w-full pl-12"
-            {{ $attributes }}>
+            {{ $attributes }} @if ($required) required @endif>
     </div>
 @elseif ($type !== 'textarea')
     <input type="{{ $type }}" name="{{ $name }}" id="{{ $id }}"
         placeholder="{{ $placeholder }}" value="{{ $value }}" class="{{ $classes }} w-full"
-        {{ $attributes }}>
+        {{ $attributes }} @if ($required) required @endif>
 @else
     <textarea id="{{ $id }}" name="{{ $name }}" rows="4"
         class="{{ $inputBaseClasses }} {{ $errorClass }} {{ $class }} w-full border border-blue-store px-6 py-3 text-base focus:border-blue-500 focus:ring-4 focus:ring-blue-200"
