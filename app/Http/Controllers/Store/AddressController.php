@@ -87,10 +87,10 @@ class AddressController extends Controller
             $address->customer_id = $customer->id;
             $address->save();
             DB::commit();
-            return redirect()->route("account.index")->with("success", "Dirección guardada correctamente");
+            return redirect()->route("account.addresses.index")->with("success", "Dirección guardada correctamente");
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route("account.index")->with("error", "Error al guardar la dirección. Error: " . $e->getMessage());
+            return redirect()->route("account.addresses.index")->with("error", "Error al guardar la dirección. Error: " . $e->getMessage());
         }
     }
 
@@ -100,9 +100,19 @@ class AddressController extends Controller
     public function edit(string $slug)
     {
         $address = Address::where("slug", $slug)->first();
+        $data = resource_path("data/elsalvador.json");
+        $data = json_decode(file_get_contents($data), true);
+        $departamentos = array_reduce($data, function ($carry, $item) {
+            $carry[$item["departamento"]] = $item["departamento"];
+            return $carry;
+        }, []);
         if (!$address) return redirect()->route("account.index")->with("error", "Dirección no encontrada");
         $addresses = Addresses::getAddresses();
-        return view("store.account.address.edit", ["address" => $address, "addresses" => $addresses]);
+        return view("store.account.address.edit", [
+            "address" => $address,
+            "addresses" => $addresses,
+            "departamentos" => $departamentos
+        ]);
     }
 
     /**
@@ -121,7 +131,7 @@ class AddressController extends Controller
             ->first();
 
         if ($existingAddress) {
-            return redirect()->route("account.index")->with("error", "Ya existe una dirección con el mismo tipo");
+            return redirect()->route("account.addresses.index")->with("error", "Ya existe una dirección con el mismo tipo");
         }
 
         DB::beginTransaction();
@@ -129,10 +139,10 @@ class AddressController extends Controller
             $address->fill($validated);
             $address->save();
             DB::commit();
-            return redirect()->route("account.index")->with("success", "Dirección actualizada correctamente");
+            return redirect()->route("account.addresses.index")->with("success", "Dirección actualizada correctamente");
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route("account.index")->with("error", "Error al actualizar la dirección. Error: " . $e->getMessage());
+            return redirect()->route("account.addresses.index")->with("error", "Error al actualizar la dirección. Error: " . $e->getMessage());
         }
     }
 
@@ -147,10 +157,10 @@ class AddressController extends Controller
         try {
             $address->delete();
             DB::commit();
-            return redirect()->route("account.index")->with("success", "Dirección eliminada correctamente");
+            return redirect()->route("account.addresses.index")->with("success", "Dirección eliminada correctamente");
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route("account.index")->with("error", "Error al eliminar la dirección. Error: " . $e->getMessage());
+            return redirect()->route("account.addresses.index")->with("error", "Error al eliminar la dirección. Error: " . $e->getMessage());
         }
     }
 
@@ -167,7 +177,8 @@ class AddressController extends Controller
 
     public function getMunicipios(Request $request)
     {
-        $departamento = $this->getDepartamento($request->state);
+        $departamento = $this->getDepartamento($request->department);
+        $rol = auth()->user()->role;
         $names = array_column($departamento['municipios'], "nombre");
         $municipios = array_combine($names, $names);
 
@@ -176,15 +187,17 @@ class AddressController extends Controller
             "names" => $names,
             "html" => view("layouts.__partials.ajax.store.select", [
                 "options" => $municipios,
-                "type" => "Municipio"
+                "type" => "Municipio",
+                "rol" => $rol
             ])->render()
         ]);
     }
 
     public function getDistritos(Request $request)
     {
-        $departamento = $this->getDepartamento($request->state);
-        $municipio = collect($departamento['municipios'])->firstWhere('nombre', $request->city);
+        $departamento = $this->getDepartamento($request->department);
+        $municipio = collect($departamento['municipios'])->firstWhere('nombre', $request->district);
+        $rol = auth()->user()->role;
         if (!$municipio) {
             return response()->json(['error' => 'Municipio no encontrado'], 404);
         }
@@ -196,7 +209,8 @@ class AddressController extends Controller
             "names" => $municipio['distritos'],
             "html" => view("layouts.__partials.ajax.store.select", [
                 "options" => $distritos,
-                "type" => "Distrito"
+                "type" => "Distrito",
+                "rol" => $rol
             ])->render()
         ]);
     }
