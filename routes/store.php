@@ -117,7 +117,6 @@ Route::middleware("auth")->group(function () {
     Route::get("/cancelaciones-devoluciones", [OrderController::class, "cancelReturn"])->name("cancel-return");
     Route::post("/pedidos/buscar", [OrderController::class, "search"])->name("orders.search");
 
-
     // Payments
     Route::resource("/pagos", PaymentController::class)->names("payments");
 
@@ -132,8 +131,8 @@ Route::middleware("auth")->group(function () {
     Route::get("/my-coupons", [CouponController::class, "index"])->name("mycoupons");
 
     // Checkout
-    Route::get("/facturación", [CheckoutController::class, "index"])->name("checkout");
-    Route::post("/facturación/update", [CheckoutController::class, "update"])->name("checkout.update");
+    Route::get("/facturacion", [CheckoutController::class, "index"])->name("checkout");
+    Route::post("/facturacion/update", [CheckoutController::class, "update"])->name("checkout.update");
 
     // Reviews
     Route::resource("/reviews", ReviewController::class);
