@@ -52,7 +52,6 @@ class CheckoutController extends Controller
                 ->where("municipality", $address->municipality)
                 ->where("district", $address->district)
                 ->first();
-            //Cada vez que se muestre la vista de checkout se calcula el costo de envío en base a la dirección de envío
             $this->calculateCostShipping($address);
         } else {
             $address = null;
