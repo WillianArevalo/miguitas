@@ -11,6 +11,7 @@ use App\Models\Order;
 use App\Models\Payment;
 use App\Models\PaymentMethod;
 use App\Models\Product;
+use App\Models\Rate;
 use App\Models\ShippingMethod;
 use App\Models\User;
 use GuzzleHttp\Client;
@@ -30,7 +31,6 @@ class CheckoutController extends Controller
     {
         $cart = CartHelper::get();
         $user = auth()->user();
-        //$countries = $this->getAllCountries();
         $shipping_methods = ShippingMethod::where("active", true)->get();
         $payment_methods = PaymentMethod::where("active", true)->get();
 
@@ -48,6 +48,12 @@ class CheckoutController extends Controller
         $customer = $user->customer;
         if ($customer) {
             $address = $customer->address()->where("type", "shipping_address")->first();
+            $existingRate = Rate::where("department", $address->department)
+                ->where("municipality", $address->municipality)
+                ->where("district", $address->district)
+                ->first();
+            //Cada vez que se muestre la vista de checkout se calcula el costo de envío en base a la dirección de envío
+            $this->calculateCostShipping($address);
         } else {
             $address = null;
         }
@@ -57,12 +63,35 @@ class CheckoutController extends Controller
             "cart" => $cart,
             "customer" => $customer,
             "address" => $address ?? null,
-            //"countries" => $countries,
             "payment_methods" => $payment_methods,
             "shipping_methods" => $shipping_methods,
             "cart_totals" => CartHelper::totals(),
-            "departamentos" => $departamentos
+            "departamentos" => $departamentos,
+            "existingRate" => $existingRate ?? null
         ]);
+    }
+
+    public function calculateCostShipping($address)
+    {
+        $cost = 0;
+        $cart = CartHelper::get();
+        if ($address != null) {
+            $department = $address->department;
+            $municipality = $address->municipality;
+            $district = $address->district;
+            $rate = Rate::where("department", $department)
+                ->where("municipality", $municipality)
+                ->where("district", $district)
+                ->first();
+
+            if (!$rate) {
+                $cost = 0;
+            } else {
+                $cost = $rate->cost;
+            }
+        }
+        $cart->shipping_cost = $cost;
+        $cart->save();
     }
 
     public function update(Request $request)
@@ -83,6 +112,7 @@ class CheckoutController extends Controller
             } else {
                 $customer = new Customer();
                 $customer->user_id = $user->id;
+                $customer->phone = $request->phone;
                 $customer->save();
             }
 
@@ -95,11 +125,12 @@ class CheckoutController extends Controller
             }
 
             $address->address_line_1 = $request->address;
-            $address->city = $request->city;
-            $address->state = $request->state;
+            $address->department = $request->department;
+            $address->municipality = $request->municipality;
+            $address->district = $request->district;
             $address->save();
-            DB::commit();
 
+            DB::commit();
             $cart = CartHelper::get();
             $address = $customer ? $customer->address()->where("type", "shipping_address")->first() : null;
             return response()->json([
