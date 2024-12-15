@@ -68,7 +68,6 @@
                                     </div>
                                 </div>
 
-
                                 @if (!$existingRate)
                                     <div
                                         class="mt-4 flex items-start gap-4 rounded-xl border-2 border-dashed border-blue-400 bg-blue-50 p-4 text-blue-500">
@@ -104,7 +103,6 @@
                                         </div>
                                     </div>
                                 @endif
-
 
                                 <div class="mt-4">
                                     <div class="flex flex-col gap-4">
@@ -194,55 +192,6 @@
                                             <div id="calendar"
                                                 class="absolute top-20 z-50 mt-2 hidden rounded-2xl border bg-white p-4 shadow-lg">
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="mt-8">
-                                    <div class="flex flex-col gap-4">
-                                        <h3 class="text-lg font-bold uppercase text-blue-store sm:text-xl md:text-2xl">
-                                            Método de pago
-                                        </h3>
-                                        <div class="flex flex-col gap-4">
-                                            @if ($payment_methods->count() > 0)
-                                                @foreach ($payment_methods as $method)
-                                                    @if ($method->name === 'Tarjeta de crédito')
-                                                        <button
-                                                            data-url="{{ Route('cart.apply-payment-method', $method->id) }}"
-                                                            class="flex w-96 items-center justify-center gap-4 rounded-full bg-[#f0f1eb] p-4 font-dine-r text-base text-blue-950 hover:bg-zinc-200">
-                                                            <x-icon-store icon="visa" class="h-8 w-8 fill-current" />
-                                                            <x-icon-store icon="mastercard"
-                                                                class="h-8 w-8 fill-current" />
-                                                            Pagar con tarjeta de crédito
-                                                        </button>
-                                                    @endif
-
-                                                    @if ($method->name === 'Wompi')
-                                                        <button
-                                                            data-url="{{ Route('cart.apply-payment-method', $method->id) }}"
-                                                            class="flex w-96 items-center justify-center rounded-full bg-[#4865ff] p-4 font-dine-r text-base text-white">
-                                                            <img src="{{ Storage::url($method->image) }}" alt="Wompi"
-                                                                class="h-8 w-20 object-cover">
-                                                            Pagar con Wompi
-                                                        </button>
-                                                    @endif
-
-                                                    @if ($method->name === 'Pago en efectivo')
-                                                        <x-button-store type="button"
-                                                            data-url="{{ Route('cart.apply-payment-method', $method->id) }}"
-                                                            text="Pagar en efectivo" class="w-96 font-dine-r text-base"
-                                                            typeButton="secondary" size="large" />
-                                                    @endif
-
-                                                    @if ($method->name === 'Transferencia bancaria')
-                                                        <x-button-store type="button"
-                                                            data-url="{{ Route('cart.apply-payment-method', $method->id) }}"
-                                                            text="Transferencia bancaria"
-                                                            class="w-96 font-dine-r text-base" typeButton="secondary"
-                                                            size="large" />
-                                                    @endif
-                                                @endforeach
-                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -372,6 +321,55 @@
                             </div>
                         </div>
                         <!-- End Confirm data -->
+
+                        <div class="tab-content hidden" id="tab-payment">
+                            <div class="mt-8">
+                                <div class="flex flex-col gap-4">
+                                    <h3 class="text-lg font-bold uppercase text-blue-store sm:text-xl md:text-2xl">
+                                        Selecciona un método de pago
+                                    </h3>
+                                    <div class="flex flex-col gap-4">
+                                        @if ($payment_methods->count() > 0)
+                                            @foreach ($payment_methods as $method)
+                                                @if ($method->name === 'Tarjeta de crédito')
+                                                    <button
+                                                        data-url="{{ Route('cart.apply-payment-method', $method->id) }}"
+                                                        class="flex w-96 items-center justify-center gap-4 rounded-full bg-[#f0f1eb] p-4 font-dine-r text-base text-blue-950 hover:bg-zinc-200">
+                                                        <x-icon-store icon="visa" class="h-8 w-8 fill-current" />
+                                                        <x-icon-store icon="mastercard" class="h-8 w-8 fill-current" />
+                                                        Pagar con tarjeta de crédito
+                                                    </button>
+                                                @endif
+
+                                                @if ($method->name === 'Wompi')
+                                                    <button
+                                                        data-url="{{ Route('cart.apply-payment-method', $method->id) }}"
+                                                        class="flex w-96 items-center justify-center rounded-full bg-[#4865ff] p-4 font-dine-r text-base text-white">
+                                                        <img src="{{ Storage::url($method->image) }}" alt="Wompi"
+                                                            class="h-8 w-20 object-cover">
+                                                        Pagar con Wompi
+                                                    </button>
+                                                @endif
+
+                                                @if ($method->name === 'Pago en efectivo')
+                                                    <x-button-store type="button"
+                                                        data-url="{{ Route('cart.apply-payment-method', $method->id) }}"
+                                                        text="Pagar en efectivo" class="w-96 font-dine-r text-base"
+                                                        typeButton="secondary" size="large" />
+                                                @endif
+
+                                                @if ($method->name === 'Transferencia bancaria')
+                                                    <x-button-store type="button"
+                                                        data-url="{{ Route('cart.apply-payment-method', $method->id) }}"
+                                                        text="Transferencia bancaria" class="w-96 font-dine-r text-base"
+                                                        typeButton="secondary" size="large" />
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
                         <!-- BUTTONS OF ACTIONS -->
