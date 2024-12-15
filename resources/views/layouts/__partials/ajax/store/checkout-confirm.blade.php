@@ -82,16 +82,35 @@
             {{ $cart->shippingMethod->name }}
         </p>
     </div>
-    <div class="flex items-center">
-        <div class="flex items-center gap-2">
-            <h5 class="font-dine-r text-zinc-800">
-                Precio:
-            </h5>
-            <p class="font-dine-r text-zinc-600">
-                ${{ $cart->shippingMethod->cost }}
-            </p>
+    @if ($cart->shipping_cost)
+        <div class="flex items-center">
+            <div class="flex items-center gap-2">
+                <h5 class="font-dine-r text-zinc-800">
+                    Precio:
+                </h5>
+                <p class="font-dine-r text-zinc-600">
+                    ${{ $cart->shippingMethod->cost }}
+                </p>
+            </div>
         </div>
-    </div>
+    @else
+        <div class="hidden" id="shipping-rate-info">
+            <div
+                class="mt-4 flex items-start gap-4 rounded-xl border-2 border-dashed border-blue-400 bg-blue-50 p-4 text-blue-500">
+                <span>
+                    <x-icon-store icon="circle-info" class="size-8 text-blue-500" />
+                </span>
+                <p class="font-dine-r text-sm">
+                    No se encontró una tarifa de envío para tu dirección.
+                    Miguitas Pet Treats se reserva el derecho de de modificar la tarifa de envío
+                    y/o
+                    realizar el cobro diferencial pertinente.
+                    Mas información en nuestras <a href="{{ Route('terms-and-conditions', 'politicas-de-envio') }}"
+                        class="text-dark-pink underline">políticas de envío</a>.
+                </p>
+            </div>
+        </div>
+    @endif
 </div>
 {{-- <div class="mt-8 flex flex-col gap-2">
     <h3 class="text-sm uppercase text-blue-store sm:text-base md:text-lg">
