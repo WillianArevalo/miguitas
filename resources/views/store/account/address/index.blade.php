@@ -27,53 +27,53 @@
                             <div class="flex flex-col gap-2">
                                 <div class="flex items-center gap-2">
                                     <x-icon-store icon="location" class="h-6 w-6 text-blue-store" />
-                                    <p class="text-lg text-blue-store">
+                                    <p class="text-lg font-semibold text-blue-store">
                                         {{ App\Utils\Addresses::getAddress($address->type) }}
                                     </p>
                                 </div>
                                 <div class="flex flex-col gap-2">
                                     <div class="flex flex-1 items-center gap-2">
-                                        <p class="font-dine-b text-base text-zinc-800">
+                                        <p class="font-din-b text-base text-zinc-800">
                                             Línea 1:
                                         </p>
-                                        <p class="font-dine-r text-base text-zinc-600">
+                                        <p class="font-din-r text-base text-zinc-600">
                                             {{ $address->address_line_1 ?? '---' }}
                                         </p>
                                     </div>
                                     <div class="flex flex-1 items-center gap-2">
-                                        <p class="font-dine-b text-base text-zinc-800">
+                                        <p class="font-din-b text-base text-zinc-800">
                                             Línea 2:
                                         </p>
-                                        <p class="font-dine-r text-base text-zinc-600">
+                                        <p class="font-din-r text-base text-zinc-600">
                                             {{ $address->address_line_2 ?? '---' }}
                                         </p>
                                     </div>
                                 </div>
                                 <div class="flex flex-col gap-2">
                                     <div class="flex flex-1 items-center gap-2">
-                                        <p class="font-dine-b text-base text-zinc-800">
-                                            Ciudad:
+                                        <p class="font-din-b text-base text-zinc-800">
+                                            Departamento:
                                         </p>
-                                        <p class="font-dine-r text-base text-zinc-600">
-                                            {{ $address->city ?? '---' }}
+                                        <p class="font-din-r text-base text-zinc-600">
+                                            {{ $address->department ?? '---' }}
                                         </p>
                                     </div>
                                     <div class="flex flex-1 items-center gap-2">
-                                        <p class="font-dine-b text-base text-zinc-800">
-                                            Estado:
+                                        <p class="font-din-b text-base text-zinc-800">
+                                            Municipio:
                                         </p>
-                                        <p class="font-dine-r text-base text-zinc-600">
-                                            {{ $address->state ?? '---' }}
+                                        <p class="font-din-r text-base text-zinc-600">
+                                            {{ $address->municipality ?? '---' }}
                                         </p>
                                     </div>
                                 </div>
                                 <div class="flex flex-col sm:flex-row">
                                     <div class="flex flex-1 items-center gap-2">
                                         <p class="font-din-b text-base text-zinc-800">
-                                            País:
+                                            Distrito:
                                         </p>
                                         <p class="font-din-r text-base text-zinc-600">
-                                            {{ $address->country ?? '---' }}
+                                            {{ $address->district ?? '---' }}
                                         </p>
                                     </div>
                                     <div class="flex flex-1 items-center gap-2">
@@ -88,7 +88,7 @@
                             </div>
                             <div class="absolute right-0 top-0 m-4 flex items-center gap-2">
                                 <a href="{{ Route('account.addresses.edit', $address->slug) }}"
-                                    class="flex items-center justify-center text-blue-store">
+                                    class="flex items-center justify-center text-green-500">
                                     <x-icon-store icon="edit" class="h-6 w-6" />
                                 </a>
                                 <form action="{{ Route('account.addresses.destroy', $address->id) }}" method="POST"
@@ -133,7 +133,7 @@
                                 Eliminar dirección
                             </h3>
                             <div class="mt-2">
-                                <p class="text-sm text-gray-500">
+                                <p class="font-dine-r text-sm text-gray-500">
                                     ¿Estás seguro de que deseas eliminar esta dirección? Todos los datos relacionados con
                                     esta dirección se eliminarán. Esta acción no se puede deshacer.
                                 </p>
