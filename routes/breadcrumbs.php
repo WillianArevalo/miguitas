@@ -244,6 +244,13 @@ Breadcrumbs::for("admin.sales-strategies.currencies.index", function (Breadcrumb
     $trail->push("Monedas", route("admin.sales-strategies.currencies.index"));
 });
 
+//Admin > Sales Strategies > Rates
+Breadcrumbs::for("admin.sales-strategies.rates.index", function (BreadcrumbTrail $trail) {
+    $trail->parent("admin.sales-strategies.index");
+    $trail->push("Tasas de cambio", route("admin.sales-strategies.rates.index"));
+});
+
+
 //Admin > Reviews
 Breadcrumbs::for("admin.reviews.index", function (BreadcrumbTrail $trail) {
     $trail->parent("admin.index");
@@ -277,7 +284,6 @@ Breadcrumbs::for("store", function (BreadcrumbTrail $trail) {
     $icon = Blade::render("<x-icon-store icon='shop' class='w-4 h-4' />");
     $trail->push($icon . "Tienda", route("store"));
 });
-
 
 //Products
 Breadcrumbs::for("store.products", function (BreadcrumbTrail $trail) {
