@@ -8,6 +8,11 @@ body.store {
     font-family: "pluto-r";
 }
 
+.is-invalid {
+    border-color: #e3342f;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
 @keyframes slide {
     from {
         transform: translateX(0);
@@ -449,7 +454,7 @@ div[modal-backdrop] {
 /* Star's */
 .start-unselected {
     svg {
-        @apply fill-gray-300 text-gray-400;
+        @apply text-gray-400 fill-gray-300;
     }
 }
 
