@@ -26,9 +26,8 @@ class AccountController extends Controller
         $customer =  Customer::where("user_id", $user->id)->first();
 
         $addressesCustomer = $customer
-            ? Address::where("customer_id", $customer->id)->get()
+            ? Address::where("customer_id", $customer->id)->where("default", true)->get()
             : [];
-
 
         $orders =
             $customer
