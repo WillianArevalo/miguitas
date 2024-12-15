@@ -5,7 +5,8 @@
             {{ ucfirst($label) }}
         </label>
     @endif
-    <input type="hidden" id="{{ $id }}" name="{{ $name }}" value="{{ $value }}">
+    <input type="hidden" id="{{ $id }}" name="{{ $name }}" value="{{ $value }}"
+        {{ $attributes }}>
     <div class="relative">
         <div
             class="selected @error($name) is-invalid @enderror flex w-full items-center justify-between rounded-lg border border-zinc-400 bg-zinc-50 px-4 py-3 text-sm dark:border-zinc-800 dark:bg-zinc-950 dark:text-white">
