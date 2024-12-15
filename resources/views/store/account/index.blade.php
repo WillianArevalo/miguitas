@@ -162,7 +162,7 @@
                     <div class="mt-2 border-t-2 border-zinc-200">
                         <div class="flex items-center justify-between pt-4">
                             <h3 class="text-base font-semibold text-zinc-700 sm:text-lg">
-                                Dirección
+                                Dirección por defecto
                             </h3>
                             @if ($user->customer && $user->customer->address)
                                 <x-button-store type="a"
@@ -193,15 +193,21 @@
                                 </p>
                             </div>
                             <div class="mt-3 flex gap-2">
-                                <h4 class="text-secondary font-dine-r font-medium">Estado:</h4>
+                                <h4 class="text-secondary font-dine-r font-medium">Departamento:</h4>
                                 <p class="font-dine-r text-zinc-800">
-                                    {{ $user->customer->address->state ?? '---' }}
+                                    {{ $user->customer->address->department ?? '---' }}
                                 </p>
                             </div>
                             <div class="mt-3 flex gap-2">
-                                <h4 class="text-secondary font-dine-r font-medium">Ciudad:</h4>
+                                <h4 class="text-secondary font-dine-r font-medium">Municipio:</h4>
                                 <p class="font-dine-r text-zinc-800">
-                                    {{ $user->customer->address->city ?? '---' }}
+                                    {{ $user->customer->address->municipality ?? '---' }}
+                                </p>
+                            </div>
+                            <div class="mt-3 flex gap-2">
+                                <h4 class="text-secondary font-dine-r font-medium">Distrito:</h4>
+                                <p class="font-dine-r text-zinc-800">
+                                    {{ $user->customer->address->district ?? '---' }}
                                 </p>
                             </div>
                         @else
