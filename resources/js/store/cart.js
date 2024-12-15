@@ -119,29 +119,6 @@ $(document).ready(function () {
         });
     });
 
-    $("input[name='shipping_method']").on("change", function () {
-        $(".shipping-method")
-            .removeClass("method-shipping-selected")
-            .addClass("border-zinc-400");
-
-        const id = $(this).val();
-        $(".shipping-method-" + id)
-            .removeClass("border-zinc-400")
-            .addClass("method-shipping-selected");
-        const form = $(this).closest("form");
-        $.ajax({
-            url: form.attr("action"),
-            method: "POST",
-            data: form.serialize(),
-            success: function (response) {
-                console.log(response);
-                if (response.status === "success") {
-                    $("#totalWithShippingMethod").text(response.total);
-                }
-            },
-        });
-    });
-
     $("#remove-coupon").on("click", function () {
         window.location.reload();
     });

@@ -1,28 +1,45 @@
 $(document).ready(function () {
-    $("#state").on("Changed", function () {
+    const $department = $("#department");
+    const $municipio = $("#municipio");
+
+    if ($department.val() !== "") {
+        const value = $department.val();
+        const url = $department.data("url");
+        getMunicipios(value, url);
+    }
+
+    if ($municipio.val() !== "") {
+        const value = $municipio.val();
+        const url = $municipio.data("url");
+        const department = $department.val();
+        getDistritos(department, value, url);
+    }
+
+    $department.on("Changed", function () {
         const value = $(this).val();
         const url = $(this).data("url");
         $(".itemSelectedMunicipio").html("Seleccione un municipio");
         $(".itemSelectedDistrito").html("Seleccione un distrito");
+        getMunicipios(value, url);
+    });
+
+    function getMunicipios(value, url) {
         $.ajax({
             url: url,
             method: "GET",
-            data: { state: value },
+            data: { department: value },
             success: function (response) {
                 if (response.status === "success") {
                     $("#list-municipios").html(response.html);
                 }
-                console.log(response);
             },
             error: function (response) {
                 if (response.status === "error") {
                     showToast(response.message, "error");
-                    console.log(response);
                 }
-                console.log(response);
             },
         });
-    });
+    }
 
     $(document).on("click", ".itemOptionMunicipio", function () {
         $(".itemSelectedMunicipio").html($(this).html());
@@ -34,28 +51,29 @@ $(document).ready(function () {
         $("#distrito").val($(this).data("value")).trigger("Changed");
     });
 
-    $("#municipio").on("Changed", function () {
-        const value = $(this).val();
-        const url = $(this).data("url");
-        const state = $("#state").val();
-        $(".itemSelectedDistrito").html("Seleccione un distrito");
+    function getDistritos(department, value, url) {
         $.ajax({
             url: url,
             method: "GET",
-            data: { state: state, city: value },
+            data: { department: department, district: value },
             success: function (response) {
                 if (response.status === "success") {
                     $("#list-distritos").html(response.html);
                 }
-                console.log(response);
             },
             error: function (response) {
                 if (response.status === "error") {
                     showToast(response.message, "error");
-                    console.log(response);
                 }
-                console.log(response);
             },
         });
+    }
+
+    $("#municipio").on("Changed", function () {
+        const value = $(this).val();
+        const url = $(this).data("url");
+        const department = $("#department").val();
+        $(".itemSelectedDistrito").html("Seleccione un distrito");
+        getDistritos(department, value, url);
     });
 });

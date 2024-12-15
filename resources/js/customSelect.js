@@ -8,7 +8,7 @@ $(document).ready(function () {
             var selectedItems = $(this).next();
             if (selectedItems) {
                 selectedItems.toggleClass("hidden");
-                adjustDropdownPosition(selectedItems, $(this));
+                //adjustDropdownPosition(selectedItems, $(this));
             }
         });
     });

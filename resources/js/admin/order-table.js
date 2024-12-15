@@ -27,6 +27,7 @@ $(document).ready(function () {
         { id: "#tablePolicies", searchInput: "#inputPolicies" },
         { id: "#tableFaq", searchInput: "#inputFaq" },
         { id: "#tableOrdersDashboard", searchInput: "#inputOrdersDashboard" },
+        { id: "#tableRates", searchInput: "#inputRates" },
     ];
 
     const initializedTables = {};

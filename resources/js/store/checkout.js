@@ -41,13 +41,27 @@ $(document).ready(function () {
 
     btnNext.on("click", function () {
         const shippingMethod = $("input[name='shipping_method']:checked").val();
-
         if (shippingMethod === undefined) {
-            showToast("Seleccione un método de envío", "error");
+            showToast("Seleccione un método de envío", "info");
             return;
         }
 
         const form = $("#checkout-form");
+
+        ["department", "municipality", "district"].forEach((field) => {
+            const input = form.find(`input[name='${field}']`);
+            const select = $("." + input.data("content"));
+            if (!input.val().trim()) {
+                select.addClass("is-invalid");
+            } else {
+                select.removeClass("is-invalid");
+            }
+        });
+
+        if (!validateForm("#checkout-form")) {
+            showToast("Complete los campos requeridos", "error");
+            return;
+        }
 
         $.ajax({
             url: form.attr("action"),
@@ -74,6 +88,50 @@ $(document).ready(function () {
         });
     });
 
+    function validateForm(formId) {
+        let isValid = true;
+        $(formId)
+            .find("input[required], textarea[required]")
+            .each(function () {
+                const input = $(this);
+                const erroMsg = input.closest("div").find(".error-msg");
+
+                if (!input.val().trim()) {
+                    erroMsg.text("Este campo es requerido").show();
+                    input.addClass("is-invalid");
+                    isValid = false;
+                } else {
+                    erroMsg.hide();
+                    input.removeClass("is-invalid");
+                }
+            });
+
+        /*      $(formId)
+            .find("input[type='hidden'][required][data-type='select']")
+            .each(function () {
+                const hiddenInput = $(this);
+                const selectedItem = hiddenInput
+                    .siblings(".relative")
+                    .find(".itemSelected");
+
+                const options = hiddenInput
+                    .siblings(".relative")
+                    .find(".selectOptions .itemOption");
+                const errorMsg = hiddenInput.closest("div").find(".error-msg");
+
+                if (!selectedItem.text().trim()) {
+                    errorMsg.text("Este campo es requerido").show();
+                    hiddenInput.addClass("is-invalid");
+                    isValid = false;
+                } else {
+                    errorMsg.hide();
+                    hiddenInput.removeClass("is-invalid");
+                }
+            }); */
+
+        return isValid;
+    }
+
     showTab(currentTab);
 
     // Formato de tarjeta de crédito
@@ -86,30 +144,42 @@ $(document).ready(function () {
         $(this).val(cardType.trim());
     });
 
-    $("input[name='shipping_method'], input[name='payment_method']").on(
-        "change",
-        function () {
-            const id = $(this).val();
-            const url = $(this).data("url");
-            $.ajax({
-                url: url,
-                method: "GET",
-                data: { id: id },
-                success: function (response) {
-                    if (response.status === "success") {
-                        $("#price-shipping-method").text(response.price);
-                        $("#checkout-total").text(response.total);
-                    }
-                    console.log(response);
-                },
-                error: function (response) {
-                    if (response.status === "error") {
-                        showToast(response.message, "error");
-                        console.log(response);
-                    }
-                    console.log(error);
-                },
-            });
+    $("input[name='shipping_method']").on("change", function () {
+        const id = $(this).val();
+        const url = $(this).data("url");
+        getCostShipping(id, url);
+    });
+
+    $("#municipio, #department, #distrito").on("Changed", function () {
+        const shippingMethodSelected = $(
+            "input[name='shipping_method']:checked"
+        );
+        const url = shippingMethodSelected.data("url");
+        const nameShipping = shippingMethodSelected.data("name");
+        const id = shippingMethodSelected.val();
+
+        if (nameShipping === "Envío a domicilio") {
+            getCostShipping(id, url);
         }
-    );
+    });
+
+    function getCostShipping(id, url) {
+        const form = $("#checkout-form");
+        $.ajax({
+            url: url,
+            method: "GET",
+            data: { id: id, form: form.serialize() },
+            success: function (response) {
+                if (response.status === "success") {
+                    $("#shipping-rate-info").addClass("hidden");
+                    $("#price-shipping-method").text(response.price);
+                    $("#checkout-total").text(response.total);
+                }
+                console.log(response);
+            },
+            error: function (response) {
+                $("#shipping-rate-info").removeClass("hidden");
+            },
+        });
+    }
 });

@@ -130,7 +130,6 @@ $(document).ready(function () {
         $(buttonClass).on("click", function () {
             var action = $(this).data("action");
             var href = $(this).data("href");
-
             $.ajax({
                 url: href,
                 type: "GET",
@@ -140,7 +139,7 @@ $(document).ready(function () {
                         openDrawer(drawerId);
 
                         if (dataObject.active !== undefined) {
-                            $("#active").prop(
+                            $("input[name='active']").prop(
                                 "checked",
                                 dataObject.active === 1
                             );
@@ -182,8 +181,8 @@ $(document).ready(function () {
                         );
                     }
                 },
-                error: function (xhr, status, error) {
-                    console.error("Error en la solicitud AJAX:", status, error);
+                error: function (response) {
+                    console.error("Error al obtener los datos:", response);
                 },
             });
         });
@@ -208,6 +207,13 @@ $(document).ready(function () {
         ".btnEditCurrency",
         "#drawer-edit-currency",
         "#formEditCurrency",
+        "active"
+    );
+
+    handleEditMethod(
+        ".btnEditRate",
+        "#drawer-edit-rate",
+        "#formEditRate",
         "active"
     );
 
