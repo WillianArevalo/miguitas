@@ -16,23 +16,23 @@
                                     <div class="flex w-full flex-col items-center gap-4 sm:flex-row">
                                         <div class="flex w-full flex-1 flex-col gap-2">
                                             <x-input-store type="text" name="name" label="Nombre" placeholder="Nombre"
-                                                value="{{ $user->name }}" />
+                                                value="{{ $user->name }}" required />
                                         </div>
                                         <div class="flex w-full flex-1 flex-col gap-2">
                                             <x-input-store type="text" name="last_name" label="Apellido"
-                                                placeholder="Apellido" value="{{ $user->last_name }}" />
+                                                placeholder="Apellido" value="{{ $user->last_name }}" required />
                                         </div>
                                     </div>
                                     <div class="flex w-full flex-col items-center gap-4 sm:flex-row">
                                         <div class="flex w-full flex-1 flex-col gap-2 sm:flex-[2]">
                                             <x-input-store type="email" name="email" label="Correo electrónico"
-                                                placeholder="example@example.com" icon="email"
-                                                value="{{ $user->email }}" />
+                                                placeholder="example@example.com" icon="email" value="{{ $user->email }}"
+                                                required />
                                         </div>
                                         <div class="flex w-full flex-1 flex-col gap-2">
                                             <x-input-store type="text" name="phone" label="Teléfono"
                                                 placeholder="XXXX XXXX" icon="phone"
-                                                value="{{ $user->customer ? $user->customer->phone : '' }}" />
+                                                value="{{ $user->customer ? $user->customer->phone : '' }}" required />
                                         </div>
                                     </div>
                                 </div>
@@ -42,8 +42,11 @@
                                     <h3 class="text-lg font-bold uppercase text-blue-store sm:text-xl md:text-2xl">
                                         Dirección de envío
                                     </h3>
-                                    <x-button-store type="a" typeButton="secondary" size="small"
-                                        href="{{ Route('account.index') }}" icon="location" text="Editar dirección" />
+                                    @if ($address)
+                                        <x-button-store type="a" typeButton="secondary" size="small"
+                                            href="{{ Route('account.addresses.edit', $address->slug) }}" icon="location"
+                                            text="Editar dirección" />
+                                    @endif
                                 </div>
                                 <div class="mt-4">
                                     <div class="flex flex-col gap-4">
@@ -55,7 +58,7 @@
                                                 <div
                                                     class="flex items-center gap-4 rounded-2xl border border-zinc-300 p-4 font-pluto-r text-sm text-zinc-600 shadow-sm sm:text-base">
                                                     <input type="radio" name="shipping_method" id="{{ $method->id }}"
-                                                        value="{{ $method->id }}"
+                                                        value="{{ $method->id }}" data-name="{{ $method->name }}"
                                                         @if ($method->id == $cart->shipping_method_id) checked @endif
                                                         data-url="{{ Route('cart.apply-shipping-method', $method->id) }}">
                                                     {{ $method->name }}
@@ -64,6 +67,45 @@
                                         @endif
                                     </div>
                                 </div>
+
+
+                                @if (!$existingRate)
+                                    <div
+                                        class="mt-4 flex items-start gap-4 rounded-xl border-2 border-dashed border-blue-400 bg-blue-50 p-4 text-blue-500">
+                                        <span>
+                                            <x-icon-store icon="circle-info" class="size-8 text-blue-500" />
+                                        </span>
+                                        <p class="font-dine-r text-sm">
+                                            No se encontró una tarifa de envío para tu dirección.
+                                            Miguitas Pet Treats se reserva el derecho de de modificar la tarifa de envío
+                                            y/o
+                                            realizar el cobro diferencial pertinente.
+                                            Mas información en nuestras <a
+                                                href="{{ Route('terms-and-conditions', 'politicas-de-envio') }}"
+                                                class="text-dark-pink underline">políticas de envío</a>.
+                                        </p>
+                                    </div>
+                                @else
+                                    <div class="hidden" id="shipping-rate-info">
+                                        <div
+                                            class="mt-4 flex items-start gap-4 rounded-xl border-2 border-dashed border-blue-400 bg-blue-50 p-4 text-blue-500">
+                                            <span>
+                                                <x-icon-store icon="circle-info" class="size-8 text-blue-500" />
+                                            </span>
+                                            <p class="font-dine-r text-sm">
+                                                No se encontró una tarifa de envío para tu dirección.
+                                                Miguitas Pet Treats se reserva el derecho de de modificar la tarifa de envío
+                                                y/o
+                                                realizar el cobro diferencial pertinente.
+                                                Mas información en nuestras <a
+                                                    href="{{ Route('terms-and-conditions', 'politicas-de-envio') }}"
+                                                    class="text-dark-pink underline">políticas de envío</a>.
+                                            </p>
+                                        </div>
+                                    </div>
+                                @endif
+
+
                                 <div class="mt-4">
                                     <div class="flex flex-col gap-4">
                                         @if (!$address)
@@ -73,25 +115,25 @@
                                         @endif
                                         <div class="flex flex-col gap-4 sm:flex-row">
                                             <div class="flex w-full flex-1 flex-col gap-2">
-                                                <x-select-store name="state" label="Departamento" id="state"
-                                                    value="{{ $address->state ?? '' }}"
-                                                    data-url="{{ Route('departamentos.search') }}"
-                                                    selected="{{ $address->state ?? '' }}" :options="$departamentos" />
+                                                <x-select-store name="department" label="Departamento" id="department"
+                                                    value="{{ $address->department ?? '' }}"
+                                                    data-url="{{ Route('departamentos.search') }}" required
+                                                    selected="{{ $address->department ?? '' }}" :options="$departamentos" />
                                             </div>
                                             <div class="w-full flex-1">
                                                 <label
-                                                    class="mb-2 block text-start text-sm font-medium text-zinc-600 md:text-base">
+                                                    class="mb-2 block text-start text-sm font-medium text-zinc-600 after:ml-0.5 after:text-red-500 after:content-['*'] md:text-base">
                                                     Municipio
                                                 </label>
-                                                <input type="hidden" id="municipio" name="municipio"
-                                                    value="{{ $address->city ?? '' }}"
-                                                    data-url="{{ Route('distritos') }}">
+                                                <input type="hidden" id="municipio" name="municipality"
+                                                    value="{{ $address->municipality ?? '' }}" required
+                                                    data-url="{{ Route('distritos') }}" data-content="select-municipality">
                                                 <div class="relative">
                                                     <div
-                                                        class="selected @error('municipio') is-invalid @enderror flex w-full items-center justify-between rounded-xl border-2 border-blue-store bg-white px-6 py-3 text-sm text-zinc-700 md:text-base">
+                                                        class="selected select-municipality @error('municipio') is-invalid @enderror flex w-full items-center justify-between rounded-xl border-2 border-blue-store bg-white px-6 py-3 text-sm text-zinc-700 md:text-base">
                                                         <span class="itemSelectedMunicipio truncate font-pluto-r"
                                                             id="municipio_selected">
-                                                            Seleccione un departamento
+                                                            {{ $address->municipality ?? 'Seleccione un departamento' }}
                                                         </span>
                                                         <x-icon icon="arrow-down" class="ms-4 h-5 w-5 text-zinc-500" />
                                                     </div>
@@ -110,16 +152,18 @@
                                         </div>
                                         <div class="w-full flex-1">
                                             <label
-                                                class="mb-2 block text-start text-sm font-medium text-zinc-600 md:text-base">
+                                                class="mb-2 block text-start text-sm font-medium text-zinc-600 after:ml-0.5 after:text-red-500 after:content-['*'] md:text-base">
                                                 Distrito
                                             </label>
-                                            <input type="hidden" id="distrito" name="distrito">
+                                            <input type="hidden" id="distrito" name="district"
+                                                value="{{ $address->district ?? '' }}" data-content="select-district"
+                                                required>
                                             <div class="relative">
                                                 <div
-                                                    class="selected @error('distrito') is-invalid @enderror flex w-full items-center justify-between rounded-xl border-2 border-blue-store bg-white px-6 py-3 text-sm text-zinc-700 md:text-base">
+                                                    class="selected select-district @error('distrito') is-invalid @enderror flex w-full items-center justify-between rounded-xl border-2 border-blue-store bg-white px-6 py-3 text-sm text-zinc-700 md:text-base">
                                                     <span class="itemSelectedDistrito truncate font-pluto-r"
                                                         id="municipio_selected">
-                                                        Seleccione un distrito
+                                                        {{ $address->district ?? 'Seleccione un distrito' }}
                                                     </span>
                                                     <x-icon icon="arrow-down" class="ms-4 h-5 w-5 text-zinc-500" />
                                                 </div>
@@ -137,7 +181,7 @@
                                         </div>
                                         <div class="flex flex-col gap-2">
                                             <x-input-store icon="location" type="text" name="address"
-                                                label="Dirección"
+                                                label="Dirección" required
                                                 placeholder="Ingresa tu dirección (calle, colonia, N° de casa)"
                                                 value="{{ $address->address_line_1 ?? '' }}" />
                                         </div>
@@ -145,7 +189,7 @@
                                             <div class="flex flex-col gap-2">
                                                 <x-input-store type="text" icon="calendar" name="date"
                                                     autocomplete="off" label="Fecha de entrega" id="date-input"
-                                                    placeholder="XXXX-XX-XX" data-weekend="false" />
+                                                    placeholder="XXXX-XX-XX" data-weekend="false" required />
                                             </div>
                                             <div id="calendar"
                                                 class="absolute top-20 z-50 mt-2 hidden rounded-2xl border bg-white p-4 shadow-lg">
@@ -164,6 +208,7 @@
                                                 @foreach ($payment_methods as $method)
                                                     @if ($method->name === 'Tarjeta de crédito')
                                                         <button
+                                                            data-url="{{ Route('cart.apply-payment-method', $method->id) }}"
                                                             class="flex w-96 items-center justify-center gap-4 rounded-full bg-[#f0f1eb] p-4 font-dine-r text-base text-blue-950 hover:bg-zinc-200">
                                                             <x-icon-store icon="visa" class="h-8 w-8 fill-current" />
                                                             <x-icon-store icon="mastercard"
@@ -174,6 +219,7 @@
 
                                                     @if ($method->name === 'Wompi')
                                                         <button
+                                                            data-url="{{ Route('cart.apply-payment-method', $method->id) }}"
                                                             class="flex w-96 items-center justify-center rounded-full bg-[#4865ff] p-4 font-dine-r text-base text-white">
                                                             <img src="{{ Storage::url($method->image) }}" alt="Wompi"
                                                                 class="h-8 w-20 object-cover">
@@ -182,13 +228,16 @@
                                                     @endif
 
                                                     @if ($method->name === 'Pago en efectivo')
-                                                        <x-button-store type="button" text="Pagar en efectivo"
-                                                            class="w-96 font-dine-r text-base" typeButton="secondary"
-                                                            size="large" />
+                                                        <x-button-store type="button"
+                                                            data-url="{{ Route('cart.apply-payment-method', $method->id) }}"
+                                                            text="Pagar en efectivo" class="w-96 font-dine-r text-base"
+                                                            typeButton="secondary" size="large" />
                                                     @endif
 
                                                     @if ($method->name === 'Transferencia bancaria')
-                                                        <x-button-store type="button" text="Transferencia bancaria"
+                                                        <x-button-store type="button"
+                                                            data-url="{{ Route('cart.apply-payment-method', $method->id) }}"
+                                                            text="Transferencia bancaria"
                                                             class="w-96 font-dine-r text-base" typeButton="secondary"
                                                             size="large" />
                                                     @endif
@@ -323,6 +372,9 @@
                             </div>
                         </div>
                         <!-- End Confirm data -->
+
+
+                        <!-- BUTTONS OF ACTIONS -->
                         <div class="mt-4 flex flex-col items-center justify-between gap-4 pt-4 sm:flex-row">
                             <x-button-store type="a" href="{{ Route('cart') }}" text="Regresar al carrito"
                                 typeButton="secondary" icon="cart" size="normal" class="h-max w-full sm:w-max" />
@@ -333,6 +385,8 @@
                                     class="w-full font-bold uppercase sm:w-max" typeButton="primary" id="next-step" />
                             </div>
                         </div>
+                        <!-- END BUTTONS OF ACTIONS -->
+
                     </form>
                     <div class="mt-4 flex w-full items-center justify-center">
                         <form action="{{ Route('orders.store') }}" method="POST" class="w-full">
@@ -345,7 +399,7 @@
 
                 <!-- Order summary -->
                 <div class="flex-[1.5]">
-                    <div class="rounded-2xl border-2 border-zinc-200 p-4 shadow-md">
+                    <div class="sticky top-10 rounded-2xl border-2 border-zinc-200 p-4 shadow-md">
                         <div class="flex items-center justify-between gap-4">
                             <h3 class="text-lg uppercase text-blue-store sm:text-xl md:text-2xl">Su pedido</h3>
                             <x-button-store type="a" href="{{ Route('cart') }}" text="Editar carrito"
@@ -415,5 +469,4 @@
 @push('scripts')
     @vite('resources/js/store/checkout.js')
     @vite('resources/js/select-address.js')
-    {{--  <script src="https://pagos.wompi.sv/js/wompi.pagos.js"></script> --}}
 @endpush
