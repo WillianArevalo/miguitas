@@ -72,7 +72,7 @@ class CheckoutController extends Controller
 
     public function calculateCostShipping($address)
     {
-        $cost = 0;
+        $cost = null;
         $cart = CartHelper::get();
         if ($address != null) {
             $department = $address->department;
@@ -83,9 +83,7 @@ class CheckoutController extends Controller
                 ->where("district", $district)
                 ->first();
 
-            if (!$rate) {
-                $cost = 0;
-            } else {
+            if ($rate) {
                 $cost = $rate->cost;
             }
         }
@@ -132,6 +130,12 @@ class CheckoutController extends Controller
             DB::commit();
             $cart = CartHelper::get();
             $address = $customer ? $customer->address()->where("type", "shipping_address")->first() : null;
+
+            $rate = Rate::where("department", $address->department)
+                ->where("municipality", $address->municipality)
+                ->where("district", $address->district)
+                ->first();
+
             return response()->json([
                 "status" => "success",
                 "message" => "Datos actualizados correctamente.",
@@ -141,6 +145,7 @@ class CheckoutController extends Controller
                         "user" => $user,
                         "cart" => $cart,
                         "address" => $address ?? null,
+                        "rate" => $rate,
                     ]
                 )->render()
             ], 200);
