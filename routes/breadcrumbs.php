@@ -389,7 +389,6 @@ Breadcrumbs::for("orders.index", function (BreadcrumbTrail $trail) {
     $trail->push("Pedidos", route("orders.index"));
 });
 
-
 //Adress
 Breadcrumbs::for("account.addresses.index", function (BreadcrumbTrail $trail) {
     $trail->parent("account.index");
@@ -433,7 +432,6 @@ Breadcrumbs::for("account.tickets.show", function (BreadcrumbTrail $trail, $supp
     $trail->push("Ticket de soporte", route("account.tickets.show", $supportTicket));
 });
 
-
 //Cancel return
 Breadcrumbs::for("cancel-return", function (BreadcrumbTrail $trail) {
     $trail->parent("account.index");
@@ -468,6 +466,11 @@ Breadcrumbs::for("account.verify-email", function (BreadcrumbTrail $trail) {
 Breadcrumbs::for("payments.index", function (BreadcrumbTrail $trail) {
     $trail->parent("account.index");
     $trail->push("Pagos", route("payments.index"));
+});
+
+Breadcrumbs::for("payment", function (BreadcrumbTrail $trail) {
+    $trail->parent("store");
+    $trail->push("Pago", route("payment"));
 });
 
 //Cookies
