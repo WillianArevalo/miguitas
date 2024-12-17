@@ -58,13 +58,13 @@ $(document).ready(function () {
             : null;
 
         const calendarHeader = $(
-            `<div class="flex justify-between items-center mb-4">
+            `<div class="flex justify-between gap-x-2 items-center mb-4">
             <button class="prev-month text-blue-store p-2 rounded-xl bg-blue-100 hover:bg-blue-200">
                 <!-- Left arrow -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M11.596 8.303L8.165 11.63a.5.5 0 0 0 0 .74l6.63 6.43c.414.401 1.205.158 1.205-.37v-5.723z"/><path fill="currentColor" d="M16 11.293V5.57c0-.528-.791-.771-1.205-.37l-2.482 2.406z" opacity="0.5"/></svg>
             </button>
             <div class="flex items-center space-x-2">
-                <select id="month-select" class="text-zinc-800 p-2 rounded-xl border border-zinc-400 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 text-xs sm:text-sm">
+                <select id="month-select" class="text-zinc-800 p-2 rounded-xl border border-zinc-400 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 text-xs sm:text-sm font-dine-r">
                     ${months
                         .map(
                             (m, i) =>
@@ -74,7 +74,7 @@ $(document).ready(function () {
                         )
                         .join("")}
                 </select>
-                <input type="number" id="year-input" class="text-xs sm:text-sm border border-zinc-400 text-zinc-800 p-2 w-20 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200" value="${year}">
+                <input type="number" id="year-input" class="text-xs sm:text-sm border border-zinc-400 text-zinc-800 p-2 w-20 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-200 font-dine-r" value="${year}">
             </div>
             <button class="next-month text-blue-store p-2 rounded-xl bg-blue-100 hover:bg-blue-200">
                 <!-- Right arrow -->
@@ -82,19 +82,20 @@ $(document).ready(function () {
             </button>
         </div>`
         );
+
         $calendar.append(calendarHeader);
 
         const calendarTable = $(
             `<table class="table-auto w-full text-center">
             <thead>
                 <tr class="text-secondary text-sm">
-                    <th class="p-2">Dom</th>
-                    <th class="p-2">Lun</th>
-                    <th class="p-2">Mar</th>
-                    <th class="p-2">Mié</th>
-                    <th class="p-2">Jue</th>
-                    <th class="p-2">Vie</th>
-                    <th class="p-2">Sáb</th>
+                    <th class="p-2 font-dine-r">Dom</th>
+                    <th class="p-2 font-dine-r">Lun</th>
+                    <th class="p-2 font-dine-r">Mar</th>
+                    <th class="p-2 font-dine-r">Mié</th>
+                    <th class="p-2 font-dine-r">Jue</th>
+                    <th class="p-2 font-dine-r">Vie</th>
+                    <th class="p-2 font-dine-r">Sáb</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -130,7 +131,9 @@ $(document).ready(function () {
                 year === selectedDate.getFullYear();
 
             const cellClass = isToday
-                ? "bg-blue-store text-white hover:bg-blue-900"
+                ? !allowWeekendSelection || isWeekend
+                    ? "text-gray-400 cursor-not-allowed"
+                    : "bg-blue-500 text-white hover:bg-blue-600"
                 : isSelected
                 ? "bg-green-500 text-white hover:bg-green-600"
                 : isWeekend && !allowWeekendSelection
@@ -143,7 +146,10 @@ $(document).ready(function () {
                 }" data-year="${year}">${day}</td>`
             );
 
-            if (!isWeekend || allowWeekendSelection) {
+            if (
+                (!isWeekend || allowWeekendSelection) &&
+                (!isToday || (allowWeekendSelection && !isWeekend))
+            ) {
                 cell.click(function () {
                     $calendar
                         .find("td.bg-green-500")
@@ -155,11 +161,13 @@ $(document).ready(function () {
                     );
                     $dateInput.val(`${year}-${month + 1}-${day}`);
                     $calendar.hide();
+                    $dateInput.trigger("change");
                 });
             }
 
             row.append(cell);
         }
+
         $calendarBody.append(row);
 
         $(".prev-month").click(function () {
