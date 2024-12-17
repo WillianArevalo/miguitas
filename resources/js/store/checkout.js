@@ -156,6 +156,21 @@ $(document).ready(function () {
         getCostShipping(id, url);
     });
 
+    $("input[name='estimated_delivery']").on("change", function () {
+        const delivery = $(this).val();
+        const currentDate = new Date();
+
+        const [year, month, day] = delivery.split("-").map(Number);
+        const deliveryDate = new Date(year, month - 1, day);
+        if (deliveryDate < currentDate) {
+            showToast(
+                "La fecha de entrega no puede ser menor a la fecha actual",
+                "error"
+            );
+            $(this).val("");
+        }
+    });
+
     $("#municipio, #department, #distrito").on("Changed", function () {
         const shippingMethodSelected = $(
             "input[name='shipping_method']:checked"
@@ -185,6 +200,8 @@ $(document).ready(function () {
             },
             error: function (response) {
                 $("#shipping-rate-info").removeClass("hidden");
+                $("#price-shipping-method").text(response.responseJSON.price);
+                console.log(response);
             },
         });
     }
