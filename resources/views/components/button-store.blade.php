@@ -19,7 +19,7 @@
             'icon' => 'h-4 w-4',
         ],
         'normal' => [
-            'padding' => 'px-6 py-3',
+            'padding' => 'px-6 py-2.5',
             'text' => 'text-sm sm:text-base',
             'icon' => 'h-5 w-5 sm:h-6 sm:w-6',
         ],
@@ -34,19 +34,20 @@
     $padding = $onlyIcon ? 'px-2 py-1' : $sizes[$size]['padding'];
 
     // Clases base
-    $baseClasses = 'rounded-full flex items-center justify-center gap-2 transition-colors duration-300 ' . $padding;
+    $baseClasses =
+        'rounded-full flex items-center font-din-r justify-center gap-2 transition-colors duration-300 ' . $padding;
 
     // Tipos de botones (estilos únicos para la tienda)
     $buttonTypes = [
         'primary' =>
             'bg-blue-store text-white hover:bg-blue-selected disabled:bg-violet-400 disabled:text-violet-200 disabled:cursor-not-allowed',
         'secondary' =>
-            'bg-white text-zinc-600 border-2 border-zinc-300 hover:bg-zinc-200/50 disabled:bg-zinc-100/50 disabled:text-zinc-400 disabled:cursor-not-allowed',
+            'bg-white text-zinc-600 border border-zinc-300 hover:bg-zinc-200/50 disabled:bg-zinc-100/50 disabled:text-zinc-400 disabled:cursor-not-allowed',
         'tertiary' => 'bg-pink-store text-dark-blue hover:bg-pink-selected hover:text-white',
-        'danger' => 'bg-red-100/70 text-red-500 hover:bg-red-200/70 border-2 border-red-500/70',
-        'warning' => 'bg-yellow-100/70 text-yellow-600 hover:bg-yellow-600 border-2 border-yellow-600/70',
+        'danger' => 'bg-red-100/70 text-red-500 hover:bg-red-200/70 border border-red-500/70',
+        'warning' => 'bg-yellow-100/70 text-yellow-600 hover:bg-yellow-600 border border-yellow-600/70',
         'info' => 'bg-blue-100/70 text-blue-500 hover:bg-blue-200/70',
-        'success' => 'bg-green-100/70 text-green-500 hover:bg-green-200/70 border-2 border-green-500/70',
+        'success' => 'bg-green-100/70 text-green-500 hover:bg-green-200/70 border border-green-500/70',
         'default' => 'bg-white text-zinc-600 border border-zinc-400 hover:bg-zinc-100',
     ];
 
