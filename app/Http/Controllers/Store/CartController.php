@@ -300,7 +300,7 @@ class CartController extends Controller
         if (!$shipping_method) return response()->json(["status" => "error", "message" => "Shipping method not found"]);
         $cart = CartHelper::get();
 
-        $cost = 0;
+        $cost = null;
         parse_str($request->input("form"), $form);
 
         if ($user->customer) {
@@ -325,6 +325,7 @@ class CartController extends Controller
                 } else {
                     return response()->json([
                         "status" => "error",
+                        "price" => $this->priceFormat(0),
                         "message" => "No se encontró una tarifa de envío para tu dirección."
                     ], 400);
                 }
