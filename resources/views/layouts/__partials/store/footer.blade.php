@@ -162,8 +162,10 @@
             <div class="flex justify-center gap-4 sm:items-center sm:justify-end">
                 @if ($paymentMethods->count() > 0)
                     @foreach ($paymentMethods as $paymentMethod)
-                        <img src="{{ Storage::url($paymentMethod->image) }}" alt="Logo Innovadesa"
-                            class="h-20 w-20 rounded-xl">
+                        @if ($paymentMethod->image !== null)
+                            <img src="{{ Storage::url($paymentMethod->image) }}" alt="Logo Innovadesa"
+                                class="h-16 w-32 rounded-xl object-cover">
+                        @endif
                     @endforeach
                 @endif
             </div>
