@@ -8,11 +8,14 @@ use App\Models\Notification;
 use App\Models\Order;
 use App\Models\PaymentMethod;
 use App\Models\User;
+use App\Traits\HandlesOrders;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
+
+    use HandlesOrders;
 
     public function index()
     {
@@ -44,50 +47,10 @@ class OrderController extends Controller
 
     public function store()
     {
-        DB::beginTransaction();
-        $cart = Cart::get();
-        $currency = session()->get("currency");
         try {
-            $data = [
-                "number_order" => $this->generateNumberOrder(),
-                "status" => "pending",
-                "subtotal" => Cart::total(),
-                "total" => Cart::totalWithShippingMethod(),
-                "tax" => Cart::totalTaxes(),
-                "discount" => Cart::totalDiscount(),
-                "tracking_number" => $this->generateTrackingNumber(),
-                "customer_id" => auth()->user()->customer->id,
-                "currency_id" => $currency->id,
-                "user_id" => auth()->id(),
-                "shipping_method_id" => $cart->shipping_method_id,
-                "payment_method_id" =>  $cart->payment_method_id,
-                "address_id" => auth()->user()->customer->address->id,
-            ];
-            $order = Order::create($data);
-            foreach ($cart->items as $item) {
-                $order->items()->create([
-                    "product_id" => $item->product->id,
-                    "quantity" => $item->quantity,
-                    "price" => $item->price,
-                    "total" => $item->price * $item->quantity
-                ]);
-            }
-
-            $admins = User::where("role", "admin")->get();
-
-            foreach ($admins as $admin) {
-                Notification::create([
-                    "user_id" => $admin->id,
-                    "reference_id" => $order->id,
-                    "type" => "App\Models\Order",
-                    "message" => "Se ha creado una nueva orden de compra: " . $order->number_order,
-                ]);
-            }
-            Cart::clear();
-            DB::commit();
-            return redirect()->route("orders.show", $order->number_order);
+            $this->createOrder();
+            return redirect()->route("store")->with("success", "Orden creada correctamente");
         } catch (\Exception $e) {
-            DB::rollBack();
             return back()->with("error", "Error al crear la orden: " . $e->getMessage());
         }
     }
