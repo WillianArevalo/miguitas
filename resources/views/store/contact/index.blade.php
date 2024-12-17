@@ -54,10 +54,7 @@
                         PAWstry Shop la Sultana: Martes a Viernes 11:00 am a 6:00 pm y Sábados 10:00 am a 4:00 pm
                     </li>
                     <li class="font-din-r text-zinc-500">
-                        Domingo y Lunes CERRADO.
-                    </li>
-                    <li class="font-din-r text-zinc-500">
-                        NO se realizan entregas.
+                        Domingo y Lunes CERRADO ( NO se realizan entregas.)
                     </li>
                     <li class="font-din-r text-zinc-500">
                         Tienda virtual abierta para programar pedidos con envío a domicilio o RETIRO en tienda.</li>
