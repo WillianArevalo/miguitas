@@ -8,9 +8,23 @@ body.store {
     font-family: "pluto-r";
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
+input[type="date"] {
+    -webkit-appearance: none;
+    margin: 0;
+    padding-right: 10px;
+}
+
+.active {
+    @apply border-blue-store ring-2 ring-violet-200;
+}
+
 .is-invalid {
     border-color: #e3342f;
-    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    box-shadow: 0 0 0 0.1rem rgba(220, 53, 69, 0.25);
 }
 
 @keyframes slide {
