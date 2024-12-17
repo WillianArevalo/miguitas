@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('carts', function (Blueprint $table) {
-            $table->decimal('shipping_cost', 10, 2)->default(0);
+            $table->decimal('shipping_cost', 10, 2)->nullable()->after('coupon_id');
         });
     }
 
