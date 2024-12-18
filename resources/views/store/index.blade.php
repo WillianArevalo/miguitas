@@ -54,13 +54,13 @@
 
         <section class="flex items-center justify-center">
             <div
-                class="relative my-14 flex w-full flex-col items-center justify-center gap-8 bg-pink-store p-20 text-zinc-800 sm:rounded-3xl md:w-3/4 lg:w-1/2">
-                <p class="text-base md:text-lg">
+                class="relative my-14 flex w-full flex-col items-center justify-center gap-8 bg-light-pink p-20 text-zinc-800 sm:rounded-3xl md:w-3/4 lg:w-1/2">
+                <p class="font-dine-r text-base md:text-lg">
                     Programa tu Pedido mínimo 1 día antes y máximo con 3 semanas de anticipación considerando que DOM y
                     LUNES
                     estamos CERRADOS.
                 </p>
-                <p class="text-base md:text-lg">
+                <p class="font-dine-r text-base md:text-lg">
                     Medios de Pago: tarjeta (en línea), transferencia bancaria o QR Banco Agrícola (enviando comprobante
                     antes
                     de 10 am del día de la entrega).
