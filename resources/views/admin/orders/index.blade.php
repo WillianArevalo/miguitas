@@ -60,7 +60,7 @@
                             <x-slot name="tbody">
                                 @if ($orders->count() > 0)
                                     @foreach ($orders as $order)
-                                        <x-tr section="body">
+                                        <x-tr section="body" :last="$loop->last">
                                             <x-td>
                                                 <input id="default-checkbox" type="checkbox" value="{{ $order->id }}"
                                                     class="h-4 w-4 rounded border-2 border-zinc-400 bg-zinc-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-zinc-800 dark:bg-zinc-950 dark:ring-offset-zinc-800 dark:focus:ring-primary-600">
@@ -168,7 +168,7 @@
                                     @endforeach
                                 @else
                                     <x-tr section="body">
-                                        <x-td class="text-center" :colspan="7">
+                                        <x-td class="text-center" colspan="7">
                                             No se encontraron registros
                                         </x-td>
                                     </x-tr>
