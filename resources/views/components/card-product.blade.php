@@ -1,4 +1,4 @@
-      <div class="card relative rounded-3xl border-[2px] border-light-blue p-4 sm:p-6">
+      <div class="card relative rounded-3xl border border-light-blue p-4 sm:p-6">
           <div class="card-header flex items-center gap-2 md:gap-4">
               <img src="{{ asset('img/logo.png') }}" alt="Featured2 image"
                   class="h-8 w-8 rounded-full object-cover md:h-14 md:w-14">
@@ -81,7 +81,7 @@
               </div>
           </div>
           <a href="{{ Route('products.details', $product->slug) }}"
-              class="absolute bottom-0 right-0 m-2 rounded-full border-2 border-blue-store bg-light-pink p-2 sm:m-4">
+              class="absolute bottom-0 right-0 m-2 rounded-full border border-blue-store bg-light-pink p-2 hover:bg-pink-store sm:m-4">
               <x-icon-store icon="arrow-right" class="h-5 w-5 text-blue-store sm:h-7 sm:w-7" />
           </a>
       </div>
