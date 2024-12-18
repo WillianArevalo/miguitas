@@ -27,11 +27,10 @@
             </div>
         </div>
         @if ($orders->count() === 0)
-            <div
-                class="my-4 flex items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-zinc-200 p-10">
-                <x-icon-store icon="alert" class="h-8 w-8 text-blue-store" />
+            <div class="my-4 flex h-full items-center justify-center gap-4 rounded-2xl p-20">
+                <x-icon-store icon="alert" class="size-5 text-blue-store" />
                 <div class="flex flex-col items-center gap-1">
-                    <p class="font-pluto-r text-sm text-zinc-500">
+                    <p class="font-dine-r text-sm text-zinc-500">
                         No tienes ningún pedido registrado
                     </p>
                 </div>
@@ -101,36 +100,41 @@
                                             @switch($order->status)
                                                 @case('pending')
                                                     <span
-                                                        class="rounded-full bg-yellow-100 px-4 py-1 font-dine-b text-xs font-medium text-yellow-700">
-                                                        Pediente
+                                                        class="flex items-center justify-center gap-1 rounded-full bg-yellow-100 px-2 py-1 font-dine-b text-xs font-medium text-yellow-700">
+                                                        <x-icon-store icon="clock" class="h-4 w-4 text-yellow-700" />
+                                                        Pendiente
                                                     </span>
                                                 @break
 
                                                 @case('sent')
                                                     <span
-                                                        class="rounded-full bg-blue-100 px-4 py-1 font-dine-b text-xs font-medium text-blue-700">
+                                                        class="flex items-center justify-center gap-1 rounded-full bg-blue-100 px-2 py-1 font-dine-b text-xs font-medium text-blue-700">
+                                                        <x-icon icon="truck" class="h-4 w-4 text-blue-700" />
                                                         Enviado
                                                     </span>
                                                 @break
 
                                                 @case('completed')
                                                     <span
-                                                        class="rounded-full bg-green-100 px-4 py-1 font-dine-b text-xs font-medium text-green-700">
+                                                        class="flex items-center justify-center gap-1 rounded-full bg-green-100 px-2 py-1 font-dine-b text-xs font-medium text-green-700">
+                                                        <x-icon icon="check-circle" class="h-4 w-4 text-green-700" />
                                                         Completado
                                                     </span>
                                                 @break
 
                                                 @case('canceled')
                                                     <span
-                                                        class="rounded-full bg-red-100 px-4 py-1 font-dine-b text-xs font-medium text-red-700">
+                                                        class="flex items-center justify-center gap-1 rounded-full bg-red-100 px-2 py-1 font-dine-b text-xs font-medium text-red-700">
+                                                        <x-icon icon="check-circle" class="h-4 w-4 text-red-700" />
                                                         Cancelado
                                                     </span>
                                                 @break
 
-                                                @default
+                                                @case('pending')
                                                     <span
-                                                        class="rounded-full bg-yellow-100 px-4 py-1 font-dine-b text-xs font-medium text-yellow-700">
-                                                        Pediente
+                                                        class="flex items-center justify-center gap-1 rounded-full bg-yellow-100 px-2 py-1 font-dine-b text-xs font-medium text-yellow-700">
+                                                        <x-icon-store icon="clock" class="h-4 w-4 text-yellow-700" />
+                                                        Pendiente
                                                     </span>
                                                 @break
                                             @endswitch
@@ -139,35 +143,35 @@
                                             @switch($order->payment_status)
                                                 @case('pending')
                                                     <span
-                                                        class="rounded-full bg-yellow-100 px-4 py-1 font-dine-b text-xs font-medium text-yellow-700">
+                                                        class="rounded-full bg-yellow-100 px-2 py-1 font-dine-b text-xs font-medium text-yellow-700">
                                                         Pendiente
                                                     </span>
                                                 @break
 
                                                 @case('refunded')
                                                     <span
-                                                        class="rounded-full bg-blue-100 px-4 py-1 font-dine-b text-xs font-medium text-blue-700">
+                                                        class="rounded-full bg-blue-100 px-2 py-1 font-dine-b text-xs font-medium text-blue-700">
                                                         Reembolsado
                                                     </span>
                                                 @break
 
                                                 @case('paid')
                                                     <span
-                                                        class="rounded-full bg-green-100 px-4 py-1 font-dine-b text-xs font-medium text-green-700">
+                                                        class="rounded-full bg-green-100 px-2 py-1 font-dine-b text-xs font-medium text-green-700">
                                                         Pagado
                                                     </span>
                                                 @break
 
                                                 @case('failed')
                                                     <span
-                                                        class="rounded-full bg-red-100 px-4 py-1 font-dine-b text-xs font-medium text-red-700">
+                                                        class="rounded-full bg-red-100 px-2 py-1 font-dine-b text-xs font-medium text-red-700">
                                                         Fallido
                                                     </span>
                                                 @break
 
                                                 @default
                                                     <span
-                                                        class="rounded-full bg-yellow-100 px-4 py-1 font-dine-b text-xs font-medium text-yellow-700">
+                                                        class="rounded-full bg-yellow-100 px-2 py-1 font-dine-b text-xs font-medium text-yellow-700">
                                                         Pendiente
                                                     </span>
                                                 @break
