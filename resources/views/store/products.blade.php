@@ -2,11 +2,11 @@
 @section('title', 'Miguitas | Productos')
 @section('content')
     <div class="mb-10">
-        <div class="bg-light-blue py-20 text-center">
+        {{--     <div class="bg-light-blue py-20 text-center">
             <h1 class="text-5xl font-bold text-white">
                 Categoría de productos
             </h1>
-        </div>
+        </div> --}}
         <div class="mt-8 p-2 sm:p-4 md:p-6">
             <div class="flex flex-wrap items-center gap-2 md:gap-4">
                 @foreach ($subcategories as $subcategory)
@@ -30,7 +30,7 @@
                                 label="Buscar" id="search" />
                         </form>
                     </div>
-                    <div class="mt-4 border-t-2 border-zinc-200 px-2 pt-4 sm:px-4">
+                    <div class="mt-4 border-t border-zinc-200 px-2 pt-4 sm:px-4">
                         <div class="accordion-item">
                             <button
                                 class="accordion-header-filter flex w-full items-center justify-between md:pointer-events-none"
