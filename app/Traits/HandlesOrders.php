@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 trait HandlesOrders
 {
-    public function createOrder($statusPayment = "pending")
+    public function createOrder($statusPayment = "pending", $shippingCost = 0)
     {
         DB::beginTransaction();
         $cart = Cart::get();
@@ -25,14 +25,14 @@ trait HandlesOrders
                 "total" => Cart::totalWithShippingMethod(),
                 "tax" => Cart::totalTaxes(),
                 "discount" => Cart::totalDiscount(),
-                "tracking_number" => null,
                 "customer_id" => auth()->user()->customer->id,
                 "currency_id" => $currency->id,
                 "user_id" => auth()->id(),
                 "shipping_method_id" => $cart->shipping_method_id,
                 "payment_method_id" =>  $cart->payment_method_id,
                 "address_id" => auth()->user()->customer->address->id,
-                "payment_status" => $statusPayment
+                "payment_status" => $statusPayment,
+                "shipping_cost" => $shippingCost,
             ];
 
             $order = Order::create($data);
@@ -69,6 +69,6 @@ trait HandlesOrders
 
     private function generateNumberOrder()
     {
-        return now()->timestamp . rand(1000, 9999);
+        return now()->timestamp . rand(100, 999);
     }
 }
