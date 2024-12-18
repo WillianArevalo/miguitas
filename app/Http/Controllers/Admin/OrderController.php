@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Helpers\Cart;
 use App\Http\Requests\InfoOrderRequest;
 use App\Mail\OrderEmail;
+use App\Mail\ShippingCostEmail;
 use App\Models\Address;
 use App\Models\Customer;
 use App\Models\Notification;
@@ -52,12 +53,18 @@ class OrderController extends Controller
         $paymentMethods = PaymentMethod::all();
         $shippingMethods = ShippingMethod::all();
         $addresses = Addresses::getAddresses();
+
+        $customer = $order->customer;
+        $address = $customer ? $customer->address()->where("type", "shipping_address")->first() : null;
+
         return view("admin.orders.edit", compact(
             "order",
             "customers",
             "paymentMethods",
             "shippingMethods",
-            "addresses"
+            "addresses",
+            "customer",
+            "address"
         ));
     }
 
@@ -129,7 +136,6 @@ class OrderController extends Controller
         }
     }
 
-
     public function mapStatus($status)
     {
         return match ($status) {
@@ -167,12 +173,31 @@ class OrderController extends Controller
             "cancelled_at" => "nullable|date",
             "admin_notes" => "nullable|string|max:255",
             "estimated_delivery" => "nullable|string",
+            "shipping_cost" => "nullable|numeric",
+            "total" => "nullable|numeric",
         ]);
 
         DB::beginTransaction();
         try {
             $order = Order::find($id);
+            $originalShippingCost = $order->shipping_cost;
             $order->update($request->all());
+
+            if (
+                $request->has("shipping_cost") &&
+                (is_null($originalShippingCost) || $originalShippingCost != $request->shipping_cost)
+            ) {
+                $customer = $order->customer;
+                $email = $customer->user->email;
+                $order->total = $order->total + $request->shipping_cost - ($originalShippingCost ?? 0);
+                $order->save();
+                Mail::to($email)->send(new ShippingCostEmail(
+                    $order->number_order,
+                    $customer->user->name,
+                    $request->shipping_cost
+                ));
+            }
+
             DB::commit();
             return redirect()->route("admin.orders.index")->with("success", "Orden actualizada correctamente");
         } catch (\Exception $e) {
