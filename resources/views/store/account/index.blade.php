@@ -7,7 +7,7 @@
             </h2>
         </div>
 
-        <div class="mt-4 border-t-2 border-zinc-200 py-4">
+        <div class="mt-4 border-t border-zinc-200 py-4">
             <div class="group relative h-40 w-40 rounded-full">
                 @if ($user->google_id && !$user->profile)
                     <img src="{{ $user->google_profile }}" alt="profile" class="h-full w-full rounded-full object-cover"
@@ -27,7 +27,7 @@
             </div>
         </div>
 
-        <div class="border-t-2 border-zinc-200">
+        <div class="border-t border-zinc-200">
             @if (session('warning') && !session('success') && !session('error'))
                 <div class="mt-4 flex flex-row items-center gap-2 rounded-xl border border-yellow-500 bg-yellow-500/10 p-4">
                     <x-icon-store icon="alert" class="h-5 w-5 text-yellow-500" />
@@ -56,15 +56,15 @@
             @endif
 
             <div class="mt-4 flex flex-col">
-                <h3 class="text-base font-semibold text-zinc-700 sm:text-lg">
+                <h3 class="text-base font-bold text-blue-store sm:text-lg">
                     Datos de seguridad
                 </h3>
                 <div class="mt-2">
                     <div class="flex flex-col text-sm sm:text-base">
                         <div class="flex items-center justify-between gap-2">
                             <div class="items-tart flex flex-col gap-2 sm:flex-row sm:items-center">
-                                <h4 class="text-secondary font-dine-r font-medium">Correo electrónico:</h4>
-                                <p class="flex items-center gap-x-4 font-dine-r">
+                                <h4 class="text-secondary font-dine-r font-semibold text-zinc-800">Correo electrónico:</h4>
+                                <p class="flex items-center gap-x-4 font-dine-r text-zinc-600">
                                     {{ $user->email }}
                                     @if ($user->email_verified_at || $user->google_id)
                                         <span
@@ -74,7 +74,6 @@
                                         </span>
                                     @endif
                                 </p>
-
                             </div>
                             @if (!$user->email_verified_at && !$user->google_id)
                                 <x-button-store type="a" href="{{ Route('verification.notice') }}" icon="mail-02"
@@ -84,16 +83,16 @@
                     </div>
                     <div class="mt-2 text-sm sm:mt-4 sm:text-base">
                         <div class="flex items-center gap-2">
-                            <h4 class="text-secondary font-dine-r font-medium">Contraseña:</h4>
+                            <h4 class="font-dine-r font-semibold text-zinc-800">Contraseña:</h4>
                             <div class="flex items-center gap-1">
-                                <div class="h-1.5 w-1.5 rounded-full bg-zinc-800"></div>
-                                <div class="h-1.5 w-1.5 rounded-full bg-zinc-800"></div>
-                                <div class="h-1.5 w-1.5 rounded-full bg-zinc-800"></div>
-                                <div class="h-1.5 w-1.5 rounded-full bg-zinc-800"></div>
-                                <div class="h-1.5 w-1.5 rounded-full bg-zinc-800"></div>
-                                <div class="h-1.5 w-1.5 rounded-full bg-zinc-800"></div>
-                                <div class="h-1.5 w-1.5 rounded-full bg-zinc-800"></div>
-                                <div class="h-1.5 w-1.5 rounded-full bg-zinc-800"></div>
+                                <div class="h-1.5 w-1.5 rounded-full bg-zinc-600"></div>
+                                <div class="h-1.5 w-1.5 rounded-full bg-zinc-600"></div>
+                                <div class="h-1.5 w-1.5 rounded-full bg-zinc-600"></div>
+                                <div class="h-1.5 w-1.5 rounded-full bg-zinc-600"></div>
+                                <div class="h-1.5 w-1.5 rounded-full bg-zinc-600"></div>
+                                <div class="h-1.5 w-1.5 rounded-full bg-zinc-600"></div>
+                                <div class="h-1.5 w-1.5 rounded-full bg-zinc-600"></div>
+                                <div class="h-1.5 w-1.5 rounded-full bg-zinc-600"></div>
                             </div>
                         </div>
                         <div class="mt-1">
@@ -112,29 +111,29 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-4 border-t-2 border-zinc-200">
+            <div class="mt-4 border-t border-zinc-200">
                 <div class="flex items-center justify-between pt-4">
-                    <h3 class="text-base font-semibold text-zinc-700 sm:text-lg">Datos personales</h3>
+                    <h3 class="text-base font-bold text-blue-store sm:text-lg">Datos personales</h3>
                     <x-button-store type="a" href="{{ Route('account.settings-edit') }}" text="Editar datos"
                         typeButton="success" class="w-max" size="small" />
                 </div>
                 <div class="mt-2 flex flex-col gap-3 text-sm sm:text-base">
                     <div class="flex gap-2">
-                        <h4 class="text-secondary font-dine-r font-medium">Usuario:</h4>
-                        <p class="font-dine-r text-zinc-800">{{ $user->username }}</p>
+                        <h4 class="font-dine-r font-semibold text-zinc-800">Usuario:</h4>
+                        <p class="font-dine-r text-zinc-600">{{ $user->username }}</p>
                     </div>
                     <div class="flex gap-2">
-                        <h4 class="text-secondary font-dine-r font-medium">Nombres:</h4>
-                        <p class="font-dine-r text-zinc-800">{{ $user->name ?? 'No definido' }}</p>
+                        <h4 class="font-dine-r font-semibold text-zinc-800">Nombres:</h4>
+                        <p class="font-dine-r text-zinc-600">{{ $user->name ?? 'No definido' }}</p>
                     </div>
                     <div class="flex gap-2">
-                        <h4 class="text-secondary font-dine-r font-medium">Apellidos:</h4>
-                        <p class="font-dine-r text-zinc-800">{{ $user->last_name ?? 'No definido' }}</p>
+                        <h4 class="font-dine-r font-semibold text-zinc-800">Apellidos:</h4>
+                        <p class="font-dine-r text-zinc-600">{{ $user->last_name ?? 'No definido' }}</p>
                     </div>
                     <div class="flex flex-col justify-between gap-2 sm:flex-row sm:gap-0">
                         <div class="flex items-center gap-2">
-                            <h4 class="text-secondary font-dine-r font-medium">Género:</h4>
-                            <span class="flex items-center gap-1 font-dine-r text-zinc-800">
+                            <h4 class="font-dine-r font-semibold text-zinc-800">Género:</h4>
+                            <span class="flex items-center gap-1 font-dine-r text-zinc-600">
                                 @if ($user->customer)
                                     @if ($user->customer->gender === 'female')
                                         <x-icon-store icon="female" class="h-6 w-6 text-rose-500" />
@@ -149,19 +148,19 @@
                             </span>
                         </div>
                         <div class="flex items-center gap-2">
-                            <h4 class="text-secondary font-dine-r font-medium">Telefono:</h4>
-                            <p class="font-dine-r text-zinc-800">{{ $user->customer->phone ?? 'No definido' }}</p>
+                            <h4 class="font-dine-r font-semibold text-zinc-800">Telefono:</h4>
+                            <p class="font-dine-r text-zinc-600">{{ $user->customer->phone ?? 'No definido' }}</p>
                         </div>
                         <div class="flex items-center gap-2">
-                            <h4 class="text-secondary font-dine-r font-medium">Fecha de nacimiento:</h4>
-                            <p class="font-dine-r text-zinc-800">
+                            <h4 class="font-dine-r font-semibold text-zinc-800">Fecha de nacimiento:</h4>
+                            <p class="font-dine-r text-zinc-600">
                                 {{ isset($user->customer->birthdate) ? \Carbon\Carbon::parse($user->customer->birthdate)->format('d M, Y') : 'Sin definir' }}
                             </p>
                         </div>
                     </div>
-                    <div class="mt-2 border-t-2 border-zinc-200">
+                    <div class="mt-2 border-t border-zinc-200">
                         <div class="flex items-center justify-between pt-4">
-                            <h3 class="text-base font-semibold text-zinc-700 sm:text-lg">
+                            <h3 class="text-base font-semibold text-blue-store sm:text-lg">
                                 Dirección por defecto
                             </h3>
                             @if ($user->customer && $user->customer->address)
@@ -175,38 +174,32 @@
                         </div>
                         @if ($user->customer && $user->customer->address)
                             <div class="mt-3 flex gap-2">
-                                <h4 class="text-secondary font-dine-r font-medium">País:</h4>
-                                <p class="font-dine-r text-zinc-800">
-                                    {{ $user->customer->address->country }}
-                                </p>
-                            </div>
-                            <div class="mt-3 flex gap-2">
-                                <h4 class="text-secondary font-dine-r font-medium">Dirección:</h4>
+                                <h4 class="font-dine-r font-semibold text-zinc-800">Dirección:</h4>
                                 <p class="font-dine-r text-zinc-800">
                                     {{ $user->customer->address->address_line_1 . ', ' . $user->customer->address->address_line_2 }}
                                 </p>
                             </div>
                             <div class="mt-3 flex gap-2">
-                                <h4 class="text-secondary font-dine-r font-medium">Código postal:</h4>
-                                <p class="font-dine-r text-zinc-800">
+                                <h4 class="font-dine-r font-semibold text-zinc-800">Código postal:</h4>
+                                <p class="font-dine-r text-zinc-600">
                                     {{ $user->customer->address->zip_code }}
                                 </p>
                             </div>
                             <div class="mt-3 flex gap-2">
-                                <h4 class="text-secondary font-dine-r font-medium">Departamento:</h4>
-                                <p class="font-dine-r text-zinc-800">
+                                <h4 class="font-dine-r font-semibold text-zinc-800">Departamento:</h4>
+                                <p class="font-dine-r text-zinc-600">
                                     {{ $user->customer->address->department ?? '---' }}
                                 </p>
                             </div>
                             <div class="mt-3 flex gap-2">
-                                <h4 class="text-secondary font-dine-r font-medium">Municipio:</h4>
-                                <p class="font-dine-r text-zinc-800">
+                                <h4 class="font-dine-r font-semibold text-zinc-800">Municipio:</h4>
+                                <p class="font-dine-r text-zinc-600">
                                     {{ $user->customer->address->municipality ?? '---' }}
                                 </p>
                             </div>
                             <div class="mt-3 flex gap-2">
-                                <h4 class="text-secondary font-dine-r font-medium">Distrito:</h4>
-                                <p class="font-dine-r text-zinc-800">
+                                <h4 class="font-dine-r font-semibold text-zinc-800">Distrito:</h4>
+                                <p class="font-dine-r text-zinc-600">
                                     {{ $user->customer->address->district ?? '---' }}
                                 </p>
                             </div>
