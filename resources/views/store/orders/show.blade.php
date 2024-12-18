@@ -11,7 +11,7 @@
                         icon="return" />
                 </div>
                 <div class="hidden sm:block">
-                    @if ($order->status != 'canceled')
+                    @if ($order->status != 'canceled' && $order->status != 'completed' && $order->payment_status !== 'paid')
                         <form action="{{ Route('order.cancel', $order->id) }}" id="formCancelOrder" method="POST">
                             @csrf
                             <x-button-store type="button" data-form="formCancelOrder" class="buttonDelete"
@@ -21,26 +21,19 @@
                 </div>
             </div>
         </div>
-
         <div class="mt-2 flex flex-col gap-4 lg:flex-row">
             <div class="flex flex-[2] flex-col gap-4">
                 <div
                     class="flex h-max w-full flex-col gap-2 rounded-xl border border-zinc-300 p-4 text-sm shadow sm:flex-row sm:text-base">
-                    <div class="flex flex-1 flex-col justify-between gap-2">
+                    <div class="flex flex-1 flex-col justify-between">
                         <h2 class="text-2xl font-bold text-zinc-800">
-                            <span class="">
+                            <span>
                                 <x-icon-store icon="hash" class="inline-block h-5 w-5 text-current" />
                             </span>
                             {{ $order->number_order }}
                         </h2>
-                        <h2 class="font-dine-r text-xl font-semibold text-zinc-600">
-                            <span>
-                                <x-icon-store icon="truck-delivery" class="inline-block h-5 w-5 text-current" />
-                            </span>
-                            {{ $order->tracking_number }}
-                        </h2>
                     </div>
-                    <div class="flex flex-1 justify-end">
+                    <div class="flex flex-1 items-center justify-end">
                         <div>
                             @switch($order->status)
                                 @case('pending')
@@ -226,25 +219,49 @@
                     <span class="font-bold text-zinc-800">
                         Notas para el pedido
                     </span>
-                    @if ($order->customer_notes)
-                        <div class="mt-2">
-                            <p class="font-dine-r text-sm text-zinc-600">
-                                Tu nota:
-                            </p>
-                            <p class="font-dine-r text-zinc-600">
-                                {{ $order->customer_notes }}
-                            </p>
-                            <form action="{{ Route('order.remove-comment', $order->id) }}" method="POST">
-                                @csrf
-                                <x-button-store type="submit" text="Eliminar" icon="delete" typeButton="danger"
-                                    class="mt-2" size="small" />
-                            </form>
-                        </div>
+                    @if ($order->customer_notes || $order->admin_notes)
+                        @if ($order->customer_notes)
+                            <div class="mt-2">
+                                <p class="font-dine-r text-sm text-zinc-600">
+                                    Tu nota:
+                                </p>
+                                <p class="font-dine-r text-zinc-600">
+                                    {{ $order->customer_notes }}
+                                </p>
+                                <form action="{{ Route('order.remove-comment', $order->id) }}" method="POST">
+                                    @csrf
+                                    <x-button-store type="submit" text="Eliminar" icon="delete" typeButton="danger"
+                                        class="mt-2" size="small" />
+                                </form>
+                            </div>
+                        @else
+                            <div class="pb-4">
+                                <p
+                                    class="my-4 rounded-xl border-2 border-dashed border-zinc-400 p-4 text-center font-dine-r text-zinc-600">
+                                    No has agregado ninguna nota
+                                </p>
+                                <div>
+                                    <x-button-store type="button" text="Agregar nota" class="btn-add-comment"
+                                        typeButton="secondary" icon="plus" data-modal-target="addComment"
+                                        data-modal-toggle="addComment" />
+                                </div>
+                            </div>
+                        @endif
+                        @if ($order->admin_notes)
+                            <div class="mt-2 border-t border-zinc-300 pt-4">
+                                <p class="font-dine-r text-sm text-zinc-600">
+                                    Nota del administrador:
+                                </p>
+                                <p class="font-dine-r text-zinc-600">
+                                    {{ $order->admin_notes }}
+                                </p>
+                            </div>
+                        @endif
                     @else
                         <div>
                             <p
                                 class="my-4 rounded-xl border-2 border-dashed border-zinc-400 p-4 text-center font-dine-r text-zinc-600">
-                                Sin notas
+                                Sin notas para el pedido
                             </p>
                             <div>
                                 <x-button-store type="button" text="Agregar nota" class="btn-add-comment w-max text-sm"
@@ -286,7 +303,7 @@
                 <!-- Payment alert -->
                 @if ($order->payment_status === 'paid' && $order->payments->count() > 0)
                     <div
-                        class="mt-4 flex items-center justify-between rounded-xl border border-green-500 bg-green-50 p-4 shadow">
+                        class="flex items-center justify-between rounded-xl border-2 border-dashed border-green-500 bg-green-50 p-4 shadow">
                         <p class="flex items-center gap-2 font-dine-r text-green-500">
                             <x-icon-store icon="check-bold" class="h-5 w-5 text-current" />
                             Esta orden ha sido pagada.
@@ -336,7 +353,7 @@
                                 Monto de envío
                             </div>
                             <div class="font-dine-r text-zinc-600">
-                                ${{ $order->shipping_method->cost }}
+                                ${{ $order->shipping_cost }}
                             </div>
                         </div>
 
@@ -442,7 +459,7 @@
                                     Cancelar pedido
                                 </h3>
                                 <div class="mt-2">
-                                    <p class="font-font-dine-r text-sm text-zinc-600">
+                                    <p class="font-dine-r text-sm text-zinc-600">
                                         ¿Estás seguro de que deseas cancelar el pedido? Esta acción no se puede deshacer.
                                     </p>
                                 </div>
