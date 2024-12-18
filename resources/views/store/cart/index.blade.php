@@ -173,10 +173,12 @@
                         </p>
                     </div>
                 </div>
-                <div class="mt-10 flex items-center justify-center">
-                    <x-button-store text="Finalizar compra" type="a" href="{{ Route('checkout') }}"
-                        typeButton="primary" />
-                </div>
+                @if ($cart && $cart->items->count() > 0)
+                    <div class="mt-10 flex items-center justify-center">
+                        <x-button-store text="Finalizar compra" type="a" href="{{ Route('checkout') }}"
+                            typeButton="primary" />
+                    </div>
+                @endif
             </div>
         </div>
 
