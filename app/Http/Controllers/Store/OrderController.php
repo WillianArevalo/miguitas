@@ -126,16 +126,6 @@ class OrderController extends Controller
         }
     }
 
-    public function generateNumberOrder()
-    {
-        return "ORD" . date("Ymd") . rand(1000, 9999);
-    }
-
-    public function generateTrackingNumber()
-    {
-        return "TRK" . date("Ymd") . rand(1000, 9999);
-    }
-
     public function search(Request $request)
     {
         $query = Order::query()->where("user_id", auth()->id());
