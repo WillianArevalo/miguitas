@@ -269,12 +269,13 @@
                         @endforeach
                     </div>
                 @else
-                    <div
-                        class="mt-3 flex items-center justify-center gap-2 rounded-xl border-2 border-dashed border-zinc-300 p-20 text-sm">
-                        <x-icon-store icon="information-circle" class="h-6 w-6 text-zinc-500" />
-                        <p class="text-center text-zinc-800">
-                            No tienes tickets de soporte técnico
-                        </p>
+                    <div class="my-4 flex h-full items-center justify-center gap-4 rounded-2xl p-20">
+                        <x-icon-store icon="alert" class="size-5 text-blue-store" />
+                        <div class="flex flex-col items-center gap-1">
+                            <p class="font-dine-r text-sm text-zinc-500">
+                                No tienes ningún ticket de soporte técnico.
+                            </p>
+                        </div>
                     </div>
                 @endif
             </div>
