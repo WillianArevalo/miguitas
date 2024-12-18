@@ -280,9 +280,8 @@ Breadcrumbs::for("home", function (BreadcrumbTrail $trail) {
 
 //Tienda
 Breadcrumbs::for("store", function (BreadcrumbTrail $trail) {
-    $trail->parent("home");
     $icon = Blade::render("<x-icon-store icon='shop' class='w-4 h-4' />");
-    $trail->push($icon . "Tienda", route("store"));
+    $trail->push($icon . "PAWstry eShop", route("store"));
 });
 
 //Products
@@ -351,7 +350,7 @@ Breadcrumbs::for("account.index", function (BreadcrumbTrail $trail) {
 //Order show
 Breadcrumbs::for("orders.show", function (BreadcrumbTrail $trail, $order) {
     $trail->parent("account.index");
-    $trail->push("Pedidos", route("account.index"));
+    $trail->push("Pedidos", route("orders.index"));
     $trail->push($order, route("orders.show", $order));
 });
 
@@ -468,9 +467,9 @@ Breadcrumbs::for("payments.index", function (BreadcrumbTrail $trail) {
     $trail->push("Pagos", route("payments.index"));
 });
 
-Breadcrumbs::for("payment", function (BreadcrumbTrail $trail) {
+Breadcrumbs::for("pay", function (BreadcrumbTrail $trail) {
     $trail->parent("store");
-    $trail->push("Pago", route("payment"));
+    $trail->push("Pago", route("pay"));
 });
 
 //Cookies
