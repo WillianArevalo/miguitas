@@ -81,7 +81,6 @@ $(document).ready(function () {
                         showTab(currentTab);
                         updateSteps(currentTab);
                     }
-                    $("#btn-completed-order").removeClass("hidden");
                 }
             },
             error: function (response) {
@@ -205,4 +204,10 @@ $(document).ready(function () {
             },
         });
     }
+
+    $("#pending_payment").on("click", function () {
+        if ($(this).is(":checked")) {
+            $("#btn-completed-order").removeClass("hidden");
+        }
+    });
 });

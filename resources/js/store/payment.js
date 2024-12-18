@@ -1,3 +1,5 @@
+import { showToast } from "./toast";
+
 $(document).ready(function () {
     const stripeKey = key;
     var stripe = Stripe(stripeKey); // Tu clave pública de Stripe
@@ -73,8 +75,11 @@ $(document).ready(function () {
 
             if (result.error) {
                 errorMessage.textContent = result.error;
-                console.log(result.error);
             } else {
+                showToast("Pago exitoso", "success");
+                setTimeout(() => {
+                    window.location.href = "/";
+                }, 2000);
             }
         }
     });
