@@ -1,4 +1,4 @@
-<footer class="w-full bg-light-blue">
+<footer class="w-full bg-blue-store">
     <div class="mx-auto w-full p-10 lg:w-[90%]">
         <div class="flex flex-col gap-8 sm:flex-row">
             <img src="{{ $logo ? Storage::url($logo) : asset('img/logo.png') }}" alt="Logo Miguitas"
