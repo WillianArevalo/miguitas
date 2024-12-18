@@ -118,7 +118,7 @@ Route::middleware("auth")->group(function () {
 
     // Payments
     Route::resource("/pagos", PaymentController::class)->names("payments");
-    Route::get('/payment', [PaymentController::class, 'showPaymentForm'])->name('payment');
+    Route::get('/payment', [PaymentController::class, 'showPaymentForm'])->name('pay');
     Route::post(
         '/payment/charge',
         [PaymentController::class, 'createPaymentIntent']
