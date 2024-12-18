@@ -16,14 +16,13 @@
         <div class="flex-[10]">
             <div class="flex items-center justify-end gap-4">
                 <!-- Input search -->
-                <div
-                    class="relative hidden h-14 flex-1 overflow-hidden rounded-2xl border-[3px] border-light-blue sm:block">
+                <div class="relative hidden h-14 flex-1 overflow-hidden rounded-2xl border border-zinc-400 sm:block">
                     <input type="search" placeholder="Buscar productos..."
-                        class="h-full w-full border-none px-6 py-2 outline-none" id="search-input">
+                        class="h-full w-full border-none px-6 py-2 font-din-r outline-none" id="search-input">
                     <button
-                        class="group absolute right-0 top-0 flex h-full w-14 items-center justify-center bg-light-pink hover:bg-pink-store sm:w-20"
+                        class="group absolute right-0 top-0 flex h-full w-14 items-center justify-center border-s border-zinc-400 text-blue-store hover:bg-blue-store hover:text-white sm:w-20"
                         id="search-btn">
-                        <x-icon-store icon="search" class="h-4 w-4 text-light-blue sm:h-6 sm:w-6"></x-icon-store>
+                        <x-icon-store icon="search" class="h-4 w-4 text-current sm:h-6 sm:w-6"></x-icon-store>
                     </button>
                 </div>
 
@@ -35,7 +34,7 @@
                                 <x-icon-store icon="bag"
                                     class="h-8 w-8 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
                                 <span
-                                    class="absolute -right-2 -top-2 rounded-full bg-blue-store px-1.5 py-0.5 text-xs text-white"
+                                    class="absolute -right-2 -top-2 rounded-full bg-dark-pink px-1.5 py-0.5 text-xs text-white"
                                     id="cart-count">
                                     {{ \App\Helpers\Cart::count() }}
                                 </span>
@@ -46,16 +45,10 @@
                                 <x-icon-store icon="heart"
                                     class="h-8 w-8 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
                                 <span
-                                    class="absolute -right-2 -top-2 rounded-full bg-blue-store px-1.5 py-0.5 text-xs text-white"
+                                    class="absolute -right-2 -top-2 rounded-full bg-dark-pink px-1.5 py-0.5 text-xs text-white"
                                     id="favorite-count">
                                     {{ \App\Helpers\Favorites::count() }}
                                 </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://wa.me/{{ $whatsapp }}" target="_blank" class="group">
-                                <x-icon-store icon="whatsapp"
-                                    class="h-8 w-8 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
                             </a>
                         </li>
                         <li>
@@ -251,19 +244,19 @@
                     <ul class="flex items-center justify-center gap-8 uppercase text-blue-store">
                         <li>
                             <a href="{{ Route('home') }}"
-                                class="rounded-xl px-4 py-2 hover:bg-blue-store hover:text-white">
+                                class="{{ Route::is('home') ? 'bg-blue-store text-white' : '' }} rounded-xl px-4 py-2 hover:bg-blue-store hover:text-white">
                                 Inicio
                             </a>
                         </li>
                         <li>
                             <a href="{{ Route('store') }}"
-                                class="rounded-xl px-4 py-2 hover:bg-blue-store hover:text-white">
+                                class="{{ Route::is('store') ? 'bg-blue-store text-white' : '' }} rounded-xl px-4 py-2 hover:bg-blue-store hover:text-white">
                                 Tienda
                             </a>
                         </li>
                         <li class="group relative">
                             <button type="button"
-                                class="order-link flex items-center gap-2 rounded-xl px-4 py-2 uppercase hover:bg-blue-store hover:text-white">
+                                class="order-link {{ Route::is('store.products') ? 'bg-blue-store text-white' : '' }} flex items-center gap-2 rounded-xl px-4 py-2 uppercase hover:bg-blue-store hover:text-white">
                                 Ordenar
                                 <x-icon-store icon="arrow-down" class="h-4 w-4 text-current"></x-icon-store>
                             </button>
@@ -309,13 +302,13 @@
                         </li>
                         <li>
                             <a href="{{ Route('faq') }}"
-                                class="group flex items-center gap-2 rounded-xl px-4 py-2 hover:bg-blue-store hover:text-white">
+                                class="{{ Route::is('faq') ? 'bg-blue-store text-white' : '' }} group flex items-center gap-2 rounded-xl px-4 py-2 hover:bg-blue-store hover:text-white">
                                 Preguntas frecuentes
                             </a>
                         </li>
                         <li>
                             <a href="{{ Route('about') }}"
-                                class="group rounded-xl px-4 py-2 hover:bg-blue-store hover:text-white">
+                                class="{{ Route::is('about') ? 'bg-blue-store text-white' : '' }} group rounded-xl px-4 py-2 hover:bg-blue-store hover:text-white">
                                 Conócenos
                             </a>
                         </li>
