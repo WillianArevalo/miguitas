@@ -11,7 +11,7 @@
             'url' => route('admin.orders.index'),
         ])
         <div class="p-4">
-            <div class="mb-4 flex flex-col justify-end gap-2 sm:flex-row">
+            <div class="mb-4 flex flex-col items-center justify-end gap-2 sm:flex-row">
                 @if ($order->status != 'completed' && $order->status != 'canceled')
                     <x-button type="button" typeButton="success" icon="shopping-bag-check" text="Completar pedido"
                         data-modal-target="order-completed" data-modal-toggle="order-completed" />
@@ -19,7 +19,7 @@
                 @if ($order->status === 'pending')
                     <x-button type="button" typeButton="danger" icon="shopping-bag-x" text="Cancelar pedido"
                         data-modal-target="order-canceled" data-modal-toggle="order-canceled" />
-                    <form action="{{ Route('admin.orders.status', $order->id) }}" method="POST" class="w-full">
+                    <form action="{{ Route('admin.orders.status', $order->id) }}" method="POST">
                         @csrf
                         <input type="hidden" name="status" value="sent">
                         <x-button type="submit" typeButton="primary" icon="truck" text="Enviar pedido"
@@ -115,9 +115,51 @@
                     @endswitch
                 </div>
             </div>
+
             <form action="{{ route('admin.orders.update', $order->id) }}" method="POST">
                 @csrf
                 @method('PUT')
+                @if (!$order->shipping_cost)
+                    <div
+                        class="mb-4 flex gap-2 rounded-xl border-2 border-dashed border-zinc-400 bg-zinc-50 p-4 dark:border-zinc-800/50 dark:bg-zinc-900 dark:bg-opacity-10">
+                        <div class="w-full">
+                            <div class="flex flex-col justify-between gap-2 md:flex-row">
+                                <div class="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
+                                    <x-icon icon="alert" class="h-5 w-5" />
+                                    No se ha definido un costo de envío. Define un costo de envío, al cliente se le enviará
+                                    un correo electrónico avisándole de la asignación del costo.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                <div class="mb-4 rounded-xl border border-zinc-400 p-4 dark:border-zinc-800">
+                    <div>
+                        <p class="text-sm uppercase text-zinc-500 dark:text-zinc-300">
+                            Dirección de envío del cliente:
+                        </p>
+                        <div class="mt-2 flex flex-col gap-1">
+                            <p class="text-sm text-zinc-500 dark:text-zinc-300">
+                                Departamento: {{ $address->department }}
+                            </p>
+                            <p class="text-sm text-zinc-500 dark:text-zinc-300">
+                                Municipio: {{ $address->municipality }}
+                            </p>
+                            <p class="text-sm text-zinc-500 dark:text-zinc-300">
+                                Distrito: {{ $address->district }}
+                            </p>
+                            <p class="text-sm text-zinc-500 dark:text-zinc-300">
+                                Dirección: {{ $address->address_line_1 . ' ' . $address->address_line_2 ?? '' }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <x-input type="number" name="shipping_cost" label="Costo de envío"
+                            value="{{ old('shipping_cost', $order->shipping_cost) }}" step="0.01"
+                            placeholder="Ingresa el costo de envío del pedido" icon="dollar" />
+                    </div>
+                </div>
+
                 <div class="flex flex-col gap-4 md:flex-row">
                     <div class="flex-1 lg:flex-[2]">
                         <div class="flex h-max flex-col gap-4 rounded-xl border border-zinc-400 dark:border-zinc-800">
@@ -125,7 +167,8 @@
                                 <div class="flex flex-col gap-4 lg:flex-row">
                                     <div class="flex-1">
                                         <x-input type="text" name="number_order" id="number_order"
-                                            label="Número de Orden" value="{{ old('number_order', $order->number_order) }}"
+                                            label="Número de Orden"
+                                            value="{{ old('number_order', $order->number_order) }}"
                                             placeholder="Número único de la orden" readonly />
                                     </div>
                                     <!-- Número de Tracking -->
