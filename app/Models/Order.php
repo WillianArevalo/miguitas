@@ -68,7 +68,6 @@ class Order extends Model
         "total",
         "tax",
         "discount",
-        "tracking_number",
         "shipped_at",
         "delivered_at",
         "customer_id",
@@ -85,5 +84,6 @@ class Order extends Model
         "estimated_delivery",
         "coupon_id",
         "payment_status",
+        "shipping_cost",
     ];
 }
