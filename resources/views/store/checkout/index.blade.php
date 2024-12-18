@@ -81,10 +81,8 @@
                                         <p class="font-dine-r text-sm">
                                             No se encontró una tarifa de envío para tu dirección.
                                             Miguitas Pet Treats se reserva el derecho de de modificar la tarifa de envío
-                                            y/o
-                                            realizar el cobro diferencial pertinente.
-                                            Mas información en nuestras <a
-                                                href="{{ Route('terms-and-conditions', 'politicas-de-envio') }}"
+                                            y/o realizar el cobro diferencial pertinente. Mas información en nuestras
+                                            <a href="{{ Route('terms-and-conditions', 'politicas-de-envio') }}"
                                                 class="text-dark-pink underline">políticas de envío</a>.
                                         </p>
                                     </div>
@@ -341,7 +339,7 @@
                                     @if ($payment_methods->count() > 0)
                                         @foreach ($payment_methods as $method)
                                             @if ($method->name === 'Tarjeta de crédito')
-                                                <a href="{{ Route('payment') }}"
+                                                <a href="{{ Route('pay', ['id' => $method->id]) }}"
                                                     class="flex w-96 items-center justify-center gap-4 rounded-full bg-[#f0f1eb] p-4 font-dine-r text-base text-blue-950 hover:bg-zinc-200">
                                                     <x-icon-store icon="visa" class="h-8 w-8 fill-current" />
                                                     <x-icon-store icon="mastercard" class="h-8 w-8 fill-current" />
@@ -391,18 +389,19 @@
                         <!-- END BUTTONS OF ACTIONS -->
 
                     </form>
-                    {{--    <div class="mt-4 flex w-full items-center justify-center">
-                        <form action="{{ Route('orders.store') }}" method="POST" class="w-full">
+                    <div class="mt-4 flex w-full items-center justify-center">
+                        <form action="{{ Route('orders.store') }}" method="POST"
+                            class="flex w-full items-center justify-center">
                             @csrf
                             <x-button-store id="btn-completed-order" class="hidden w-full sm:w-max" type="submit"
                                 text="Realizar pedido" typeButton="primary" size="large" />
                         </form>
-                    </div> --}}
+                    </div>
                 </div>
 
                 <!-- Order summary -->
                 <div class="flex-[1.5]">
-                    <div class="sticky top-10 rounded-2xl border-2 border-zinc-200 p-4 shadow-md">
+                    <div class="sticky top-10 rounded-2xl border border-zinc-300 p-4">
                         <div class="flex items-center justify-between gap-4">
                             <h3 class="text-lg uppercase text-blue-store sm:text-xl md:text-2xl">Su pedido</h3>
                             <x-button-store type="a" href="{{ Route('cart') }}" text="Editar carrito"
@@ -433,7 +432,7 @@
                                 @endforeach
                             </div>
                         </div>
-                        <div class="mt-4 border-t-2 border-zinc-200 pt-4">
+                        <div class="mt-4 border-t border-zinc-300 pt-4">
                             <div class="flex flex-col gap-4">
                                 <div class="flex justify-between gap-4">
                                     <p class="text-sm text-blue-store sm:text-base">Subtotal</p>
