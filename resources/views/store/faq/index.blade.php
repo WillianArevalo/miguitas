@@ -32,7 +32,7 @@
                                 <div id="panel-{{ $faq->id }}"
                                     class="hidden animate-fade-down transition-all animate-duration-300">
                                     <div class="p-6">
-                                        <p class="font-font-pluto-r text-sm text-zinc-700 sm:text-base">
+                                        <p class="font-dine-r text-sm text-zinc-700 sm:text-base">
                                             {{ $faq->answer }}
                                         </p>
                                     </div>
