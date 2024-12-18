@@ -79,7 +79,7 @@
     </h3>
     <div class="flex items-center">
         <p class="font-dine-r text-zinc-600">
-            {{ $cart->shippingMethod->name }}
+            {{ $cart->shippingMethod ? $cart->shippingMethod->name : 'No se ha seleccionado un método de envío' }}
         </p>
     </div>
     @if (!$cart->shipping_cost || !$rate)
