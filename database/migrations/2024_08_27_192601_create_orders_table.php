@@ -19,7 +19,6 @@ return new class extends Migration
             $table->decimal("subtotal", 10, 2);
             $table->decimal('tax', 10, 2)->default(0);
             $table->decimal('discount', 10, 2)->default(0);
-            $table->string('tracking_number')->nullable();
             $table->timestamp('shipped_at')->nullable();
             $table->timestamp('delivered_at')->nullable();
             $table->foreignId('customer_id')->constrained()->onDelete('cascade');
