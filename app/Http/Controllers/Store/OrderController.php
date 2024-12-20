@@ -64,7 +64,7 @@ class OrderController extends Controller
             "currency",
             "shipping_method",
             "payment_method",
-            "payments"
+            "payment"
         )->where("number_order", $numberOrder)->firstOrFail();
 
         $payment_methods = PaymentMethod::where("active", true)->get();
