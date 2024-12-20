@@ -19,10 +19,6 @@
                             <span>Fecha de creación:</span>
                             {{ \Carbon\Carbon::parse($order->created_at)->format('d M, Y H:i') }}
                         </div>
-                        <div class="text-sm uppercase text-zinc-500 dark:text-zinc-400">
-                            <span>Número de seguimiento:</span>
-                            {{ $order->tracking_number }}
-                        </div>
                     </div>
                     <div class="mb-4 flex flex-col gap-2 sm:mb-0">
                         <div class="flex justify-end gap-2">
@@ -33,13 +29,13 @@
                         </div>
                         <div class="flex justify-end gap-2">
                             <x-button type="a" href="{{ Route('admin.orders.edit', $order->id) }}" icon="edit"
-                                typeButton="success" class="h-max" onlyIcon="true" />
+                                typeButton="success" class="h-max" text="Editar orden" />
                             <form action="{{ route('admin.orders.destroy', $order->id) }}"
                                 id="formDeleteOrder-{{ $order->id }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <x-button type="button" data-form="formDeleteOrder-{{ $order->id }}"
-                                    class="buttonDelete" onlyIcon="true" icon="delete" typeButton="danger"
+                                    class="buttonDelete" text="Eliminar orden" icon="delete" typeButton="danger"
                                     data-modal-target="deleteModal" />
                             </form>
                         </div>
@@ -49,7 +45,6 @@
                     <div class="flex flex-col gap-4 lg:flex-row">
                         <div class="flex-[2]">
                             <x-table>
-
                                 <x-slot name="thead">
                                     <x-th class="flex w-14">
                                         <x-icon icon="hash" class="h-4 w-4" />
@@ -61,7 +56,7 @@
                                 </x-slot>
                                 <x-slot name="tbody">
                                     @foreach ($order->items as $item)
-                                        <x-tr section="body">
+                                        <x-tr section="body" :last="$loop->last">
                                             <x-td>
                                                 <div class="text-sm text-zinc-900 dark:text-white">
                                                     {{ $loop->iteration }}
@@ -143,14 +138,14 @@
                                                 Dirección:
                                             </span>
                                             <x-paragraph class="w-60 text-center sm:ms-4 sm:text-left">
-                                                {{ $order->address->address_line_1 .
+                                                {{ $order->address->department .
                                                     ', ' .
-                                                    $order->address->address_line_2 .
+                                                    $order->address->municipality .
                                                     ', ' .
-                                                    $order->address->city .
+                                                    $order->address->district .
                                                     ', ' .
-                                                    $order->address->state .
-                                                    $order->address->country }}
+                                                    $order->address->address_line_1 .
+                                                    $order->address->address_line_2 }}
                                             </x-paragraph>
                                         </div>
                                     </div>
@@ -273,7 +268,7 @@
                                             Monto de envío
                                         </div>
                                         <div class="text-sm text-zinc-800 dark:text-zinc-300">
-                                            ${{ $order->shipping_method->cost }}
+                                            ${{ $order->shipping_cost }}
                                         </div>
                                     </div>
 
