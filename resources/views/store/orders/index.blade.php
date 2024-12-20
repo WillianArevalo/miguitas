@@ -6,24 +6,21 @@
                 Mis pedidos
             </h2>
             <div class="mt-4">
-                <form action="{{ Route('orders.search') }}" method="POST"
-                    class="flex w-full flex-col flex-wrap gap-4 sm:flex-row sm:gap-8">
-                    @csrf
-                    <input type="hidden" name="type" value="orders">
+                <div class="flex w-full flex-col flex-wrap gap-4 sm:flex-row sm:gap-8">
                     <div class="flex w-full flex-[2]">
-                        <x-input-store type="search" icon="search" name="search-order" id="search-order"
+                        <x-input-store type="search" icon="search" name="search-order" id="inputSearchOrders"
                             placeholder="Buscar pedido..." value="{{ old('search-order') }}" />
                     </div>
                     <div class="font-secondary flex w-full flex-1 flex-col gap-2 sm:w-80">
-                        <x-select-store label="" id="order" name="order" :options="[
-                            'mas_reciente' => 'Más reciente',
-                            'mas_antiguo' => 'Más antiguo',
-                            'ultimo_mes' => 'Último mes',
-                            'ultimo_año' => 'Último año',
+                        <x-select-store label="" id="filter-status-orders" name="order" :options="[
+                            '' => 'Todos',
+                            'Pendiente' => 'Pendiente',
+                            'Enviado' => 'Enviado',
+                            'Completado' => 'Completado',
                         ]"
-                            value="{{ old('status-order') }}" selected="{{ old('status-order') }}" />
+                            text="Seleccionar estado" />
                     </div>
-                </form>
+                </div>
             </div>
         </div>
         @if ($orders->count() === 0)
@@ -39,7 +36,7 @@
             <div
                 class="my-4 hidden flex-col items-center justify-center gap-2 rounded-xl border border-zinc-200 px-4 shadow-sm lg:flex">
                 <div class="w-full">
-                    <table class="w-full font-dine-r">
+                    <table class="w-full font-dine-r" id="tableOrders">
                         <thead>
                             <tr class="border-b border-zinc-200">
                                 <th scope="col"
@@ -52,7 +49,7 @@
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-left font-dine-r text-xs font-medium uppercase tracking-wider text-zinc-500">
-                                    Fecha de compra
+                                    Fecha
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-left font-dine-r text-xs font-medium uppercase tracking-wider text-zinc-500">
@@ -68,12 +65,12 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-zinc-200 bg-white" id="orders-list">
+                        <tbody class="divide-y divide-zinc-200 bg-white">
                             @if ($orders->count() > 0)
                                 @foreach ($orders as $order)
                                     <tr class="hover:bg-zinc-50">
                                         <td class="whitespace-nowrap px-4 py-4">
-                                            <span class="text-sm text-blue-store">
+                                            <span class="font-pluto-r text-sm text-blue-store">
                                                 {{ $order->number_order }}
                                             </span>
                                         </td>
@@ -84,7 +81,7 @@
                                             </span>
                                         </td>
                                         <td class="whitespace nowrap px-4 py-4 font-pluto-r text-sm text-zinc-500">
-                                            {{ $order->created_at->format('d/m/Y') }}
+                                            {{ $order->created_at->setTimeZone('America/El_Salvador')->format('d/m/Y h:i A') }}
                                         </td>
                                         <td class="whitespace-nowrap px-4 py-4 text-sm text-zinc-500">
                                             @switch($order->status)
@@ -128,6 +125,13 @@
                                                     </span>
                                                 @break
                                             @endswitch
+                                            @if (!$order->shipping_cost || $order->shipping_cost === 0)
+                                                <span
+                                                    class="mt-2 flex w-max items-center justify-center gap-1 rounded-full bg-violet-100 px-2 py-1 font-dine-b text-xs font-medium text-violet-700">
+                                                    <x-icon-store icon="circle-info" class="h-4 w-4 text-violet-700" />
+                                                    Tarifa de envío en espera
+                                                </span>
+                                            @endif
                                         </td>
                                         <td class="whitespace-nowrap px-4 py-4 text-sm">
                                             @switch($order->payment_status)
@@ -255,4 +259,5 @@
 
 @push('scripts')
     @vite('resources/js/store/order.js')
+    @vite('resources/js/admin/order-table.js')
 @endpush
