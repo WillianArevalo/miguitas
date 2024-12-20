@@ -110,8 +110,10 @@
                         </div>
                         <div class="mt-2 flex items-center justify-start p-2 sm:justify-center">
                             @if ($order->payment_method)
-                                <img src="{{ Storage::url($order->payment_method->image) }}" alt=""
-                                    class="h-24 w-40 object-cover">
+                                @if ($order->payment_method->image)
+                                    <img src="{{ Storage::url($order->payment_method->image) }}" alt=""
+                                        class="h-24 w-40 object-cover">
+                                @endif
                             @else
                                 <p class="font-dine-r text-zinc-600">
                                     Sin especificar
@@ -301,7 +303,7 @@
                 <!-- End Payment button -->
 
                 <!-- Payment alert -->
-                @if ($order->payment_status === 'paid' && $order->payments->count() > 0)
+                @if ($order->payment_status === 'paid' && $order->payment)
                     <div
                         class="flex items-center justify-between rounded-xl border-2 border-dashed border-green-500 bg-green-50 p-4 shadow">
                         <p class="flex items-center gap-2 font-dine-r text-green-500">
