@@ -41,6 +41,7 @@ class ProductEditRequest extends FormRequest
             "is_top" => "nullable|boolean",
             "subcategories" => "nullable|array",
             "is_the_month" => "nullable|boolean",
+            "active_dedication" => "nullable|boolean",
         ];
     }
 }
