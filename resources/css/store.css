@@ -483,3 +483,23 @@ div[modal-backdrop] {
         @apply fill-yellow-400 text-yellow-400;
     }
 }
+
+div.dt-container div.dt-layout-row div.dt-layout-cell.dt-layout-end,
+#dt-search-0,
+.dt-search {
+    display: none;
+}
+
+div.dt-container div.dt-layout-row {
+    margin: 0px !important;
+}
+
+html.dark table.dataTable > thead > tr > th,
+html.dark table.dataTable > thead > tr > td {
+    border-bottom: 0px !important;
+}
+
+div.dt-container.dt-empty-footer tbody > tr:last-child > *,
+html.dark .dt-container.dt-empty-footer table.dataTable {
+    border-bottom: 0px !important;
+}
