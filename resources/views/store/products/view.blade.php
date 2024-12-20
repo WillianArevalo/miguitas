@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="lg:flex-[3] xl:flex-[4]">
-                <div>
+                <div class="w-3/4">
                     <div class="flex justify-between">
                         <div>
                             <h1 class="text2xl font-bold text-light-blue sm:text-3xl md:text-4xl">
@@ -115,7 +115,50 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="mt-4 flex flex-col items-center justify-between gap-4 md:flex-row">
+
+                        @if ($product->active_dedication)
+                            <div class="mt-2 flex flex-col gap-2">
+                                <div>
+                                    <x-input-store type="text" name="message" label="Dedicatoria" required
+                                        placeholder="Escribe una frase corta" />
+                                </div>
+                                <div>
+                                    <x-select-store id="color" label="Colores dedicatoria" name="color"
+                                        text="Selecciona la combinación de colores" :options="[
+                                            'Anaranjado y Café' => 'Anaranjado y Café',
+                                            'Azul y Amarillo' => 'Azul y Amarillo',
+                                            'Azul y Anaranjado' => 'Azul y Anaranjado',
+                                            'Azul y Café' => 'Azul y Café',
+                                            'Azul y Celesete' => 'Azul y Celesete',
+                                            'Azul y Negro' => 'Azul y Negro',
+                                            'Azul y Rojo' => 'Azul y Rojo',
+                                            'Azul únicamente' => 'Azul únicamente',
+                                            'Azul y Verde' => 'Azul y Verde',
+                                            'Café y Verde' => 'Café y Verde',
+                                            'Celeste y Rosado' => 'Celeste y Rosado',
+                                            'Celeste y Negro' => 'Celeste y Negro',
+                                            'Celeste y Verde' => 'Celeste y Verde',
+                                            'Morado y Verde' => 'Morado y Verde',
+                                            'Morado y Anaranjado' => 'Morado y Anaranjado',
+                                            'Negro y Café' => 'Negro y Café',
+                                            'Rojo y Negro' => 'Rojo y Negro',
+                                            'Rojo y Rosado' => 'Rojo y Rosado',
+                                            'Rojo y Verde' => 'Rojo y Verde',
+                                            'Rosado y Amarillo' => 'Rosado y Amarillo',
+                                            'Rosado y Anaranjado' => 'Rosado y Anaranjado',
+                                            'Rosado y Blanco' => 'Rosado y Blanco',
+                                            'Rosado y Cáfe' => 'Rosado y Cáfe',
+                                            'Rosado y Morado-Azul' => 'Rosado y Morado-Azul',
+                                            'Rosado y Negro' => 'Rosado y Negro',
+                                            'Rosado únicamente' => 'Rosado únicamente',
+                                            'Verde y Amarillo' => 'Verde y Amarillo',
+                                            'Verde y Rosado' => 'Verde y Rosado',
+                                        ]" />
+                                </div>
+                            </div>
+                        @endif
+
+                        <div class="mt-8 flex flex-col items-center justify-between gap-4 md:flex-row">
                             <div class="flex h-10 w-max items-center overflow-hidden rounded-xl border-2 border-blue-store">
                                 <button type="button"
                                     class="flex h-10 items-center justify-center border-e-2 border-blue-store px-3 text-blue-store hover:bg-blue-store hover:text-white"
@@ -142,17 +185,17 @@
                             <!-- Tabs Header -->
                             <div class="tabs-header flex justify-start gap-4 overflow-x-auto rounded-t-lg">
                                 <button
-                                    class="tab-btn active-tab text-nowrap px-6 py-2 text-base font-medium text-zinc-700 focus:outline-none sm:text-lg md:text-xl"
+                                    class="tab-btn active-tab text-nowrap px-6 py-2 text-sm font-medium text-zinc-700 focus:outline-none sm:text-base md:text-lg"
                                     data-target="#tab-description">
                                     Descripción
                                 </button>
-                                <button
-                                    class="tab-btn text-nowrap px-6 py-2 text-base font-medium text-zinc-700 focus:outline-none sm:text-lg md:text-xl"
+                                {{--                                 <button
+                                    class="tab-btn text-nowrap px-6 py-2 text-base font-medium text-zinc-700 focus:outline-none sm:text-md md:text-lg"
                                     data-target="#tab-information">
                                     Información adicional
-                                </button>
+                                </button> --}}
                                 <button
-                                    class="tab-btn text-nowrap px-6 py-2 text-base font-medium text-zinc-700 focus:outline-none sm:text-lg md:text-xl"
+                                    class="tab-btn text-nowrap px-6 py-2 text-sm font-medium text-zinc-700 focus:outline-none sm:text-base md:text-lg"
                                     data-target="#tab-reviews">
                                     Valoraciones
                                 </button>
@@ -165,17 +208,18 @@
                                         {!! $product->long_description !!}
                                     </p>
                                 </div>
-                                <div id="tab-information" class="tab-panel hidden">
+                                {{--       <div id="tab-information" class="tab-panel hidden">
                                     <p class="text-gray-700">Este es el contenido de la pestaña 2.</p>
-                                </div>
+                                </div> --}}
                                 <div id="tab-reviews" class="tab-panel hidden">
-
                                     @if (!$purchase)
-                                        <p class="text-gray-700">Debes comprar el producto para poder valorarlo.</p>
+                                        <p class="font-dine-r text-gray-700">Debes comprar el producto para poder
+                                            valorarlo.</p>
                                     @else
                                         @if (!$userReview)
                                             <div class="flex items-center gap-4">
-                                                <span class="text-start text-sm font-medium text-zinc-600 md:text-base">
+                                                <span
+                                                    class="text-start font-dine-r text-sm font-medium text-zinc-600 md:text-base">
                                                     Calificación
                                                 </span>
                                                 <div class="my-2 flex items-center gap-1" id="star-rating">
