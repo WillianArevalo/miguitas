@@ -59,6 +59,10 @@
                                                 <x-input type="checkbox" name="is_active" id="is_active"
                                                     label="Producto activo" value="0" />
                                             </div>
+                                            <div>
+                                                <x-input type="checkbox" name="active_dedication" id="active_dedication"
+                                                    label="Activar dedicatoria" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
