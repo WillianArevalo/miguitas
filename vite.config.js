@@ -48,6 +48,7 @@ export default defineConfig({
                 "resources/js/store/slider-pack.js",
                 "resources/js/store/password.js",
                 "resources/js/store/payment.js",
+                "resources/js/store/ticket.js",
             ],
             refresh: true,
         }),
