@@ -28,7 +28,10 @@
                     Martes a Viernes 10:00 a.m. a 3:00 p.m. y Sábados de 9:00 a.m. a 4:00 p.m.
                 </p>
                 <p class="mt-2 font-dine-r text-xs text-zinc-500 sm:text-sm md:text-base">
-                    En PAWstry en La Sultana Martes a Viernes 1100 a.m. a 6:00 p.m. y Sábados de 10:00 a.m. a 4:00 p.m.
+                    En PAWstry en La Sultana: Martes a Viernes 1100 a.m. a 6:00 p.m. y Sábados de 10:00 a.m. a 4:00 p.m.
+                </p>
+                <p class="mt-2 font-dine-r text-xs text-zinc-500 sm:text-sm md:text-base">
+                    Martes 24 y 31 de Diciembre 10:00 a.m. a 4:00 p.m.
                 </p>
             </div>
         </div>
@@ -78,6 +81,13 @@
                                             <p class="font-dine-r text-sm font-semibold text-blue-store">
                                                 $ {{ $item->price }}
                                             </p>
+                                            @if ($item->message_dedication && $item->color_dedication)
+                                                <span
+                                                    class="mt-2 block rounded-xl bg-violet-100 px-2 py-1 font-dine-r text-xs text-violet-500">
+                                                    Dedicatoria: {{ $item->message_dedication }}
+                                                    ({{ $item->color_dedication }})
+                                                </span>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -125,8 +135,8 @@
                         @endforeach
                     @else
                         <div class="flex h-96 flex-col items-center justify-center">
-                            <x-icon-store icon="cart" class="h-20 w-20 fill-current text-zinc-300" />
-                            <p class="font-pluto-r text-base text-zinc-300">
+                            <x-icon-store icon="cart" class="h-20 w-20 fill-current text-zinc-500" />
+                            <p class="font-dine-r text-base text-zinc-500">
                                 No hay productos en el carrito
                             </p>
                         </div>
