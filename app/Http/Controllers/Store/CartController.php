@@ -364,6 +364,7 @@ class CartController extends Controller
                 "message" => "Payment method removed",
             ]);
         }
+
         $payment_method = PaymentMethod::find($id);
         if (!$payment_method) return response()->json(["status" => "error", "message" => "Payment  method not found"]);
 
