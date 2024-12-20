@@ -328,14 +328,27 @@
                                     Selecciona un método de pago
                                 </h3>
                                 <div class="flex flex-col gap-4">
-                                    <div class="ms-4 flex items-center gap-2">
-                                        <input type = "checkbox" name="pending_payment" id="pending_payment"
-                                            value="1"
-                                            class="rounded-md border-2 border-zinc-300 p-2 text-blue-store focus:ring-blue-store">
-                                        <label class="block font-dine-r text-sm font-medium text-zinc-600 md:text-base">
-                                            Pagar después
-                                        </label>
-                                    </div>
+                                    @if (!$existingRate)
+                                        <div class="ms-4 flex items-center gap-2" id="checkbox-payment-method">
+                                            <input type="checkbox" name="pending_payment" id="pending_payment"
+                                                value="1"
+                                                class="rounded-md border-2 border-zinc-300 p-2 text-blue-store focus:ring-blue-store">
+                                            <label
+                                                class="block font-dine-r text-sm font-medium text-zinc-600 md:text-base">
+                                                Pagar después de recibir el importe de la tarifa de envío
+                                            </label>
+                                        </div>
+                                    @else
+                                        <div class="ms-4 flex items-center gap-2" id="checkbox-payment-method">
+                                            <input type="checkbox" name="pending_payment" id="pending_payment"
+                                                value="1"
+                                                class="rounded-md border-2 border-zinc-300 p-2 text-blue-store focus:ring-blue-store">
+                                            <label
+                                                class="block font-dine-r text-sm font-medium text-zinc-600 md:text-base">
+                                                Pagar después de recibir el importe de la tarifa de envío
+                                            </label>
+                                        </div>
+                                    @endif
                                     @if ($payment_methods->count() > 0)
                                         @foreach ($payment_methods as $method)
                                             @if ($method->name === 'Tarjeta de crédito')
@@ -357,15 +370,15 @@
                                             @endif
 
                                             @if ($method->name === 'Pago en efectivo')
-                                                <x-button-store type="button"
+                                                <x-button-store type="button" text="Pagar en efectivo"
                                                     data-url="{{ Route('cart.apply-payment-method', $method->id) }}"
-                                                    text="Pagar en efectivo" class="w-96 font-dine-r text-base"
-                                                    typeButton="secondary" size="large" />
+                                                    class="payment-cash w-96 font-dine-r text-base" typeButton="secondary"
+                                                    size="large" />
                                             @endif
 
                                             @if ($method->name === 'Transferencia bancaria')
-                                                <x-button-store type="button"
-                                                    data-url="{{ Route('cart.apply-payment-method', $method->id) }}"
+                                                <x-button-store type="a"
+                                                    href="{{ Route('pay', ['id' => $method->id]) }}"
                                                     text="Transferencia bancaria" class="w-96 font-dine-r text-base"
                                                     typeButton="secondary" size="large" />
                                             @endif
@@ -463,6 +476,43 @@
                     </div>
                 </div>
                 <!-- End Order summary -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal confirm -->
+    <div class="confirmModalPay fixed inset-0 z-50 hidden items-center justify-center bg-zinc-800 bg-opacity-75 transition-opacity"
+        aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-center justify-center px-4 pb-20 pt-4 text-center sm:block sm:p-0">
+            <div class="inline-block transform animate-jump-in overflow-hidden rounded-xl bg-white text-left align-bottom shadow-xl transition-all animate-duration-300 animate-once sm:my-8 sm:w-full sm:max-w-lg sm:align-middle"
+                role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+                <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div
+                            class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
+                            <x-icon-store icon="circle-check" class="h-6 w-6 text-green-600" />
+                        </div>
+                        <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                            <h3 class="text-lg font-medium leading-6 text-gray-900" id="modal-headline">
+                                Pago en efectivo
+                            </h3>
+                            <div class="mt-2">
+                                <p class="font-dine-r text-sm text-gray-500">
+                                    Asegurate que tus datos de facturación y envío sean correctos antes de continuar.
+                                    Verifica que tu dirección de envío, y que tengas un telefono de contacto registrado.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-end gap-4 bg-gray-50 px-4 py-3">
+                    <form action="{{ Route('orders.store') }}" method="POST"
+                        class="flex w-full items-center justify-center">
+                        @csrf
+                        <x-button-store type="submit" text="Aceptar" icon="check" class="confirmDelete w-max text-sm"
+                            typeButton="primary" />
+                    </form>
+                </div>
             </div>
         </div>
     </div>
