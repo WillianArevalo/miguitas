@@ -75,6 +75,13 @@
                                                             class="text-nowrap text-sm font-medium text-gray-900 dark:text-white">
                                                             {{ $item->product->name }}
                                                         </div>
+                                                        @if ($item->dedication)
+                                                            <div class="text-sm text-zinc-500 dark:text-white">
+                                                                <strong>Dedicatoria:</strong>
+                                                                {{ $item->dedication->message }} <br>
+                                                                <strong>Color:</strong> {{ $item->dedication->color }}
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </x-td>
