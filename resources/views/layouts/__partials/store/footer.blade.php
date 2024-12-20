@@ -164,7 +164,7 @@
                     @foreach ($paymentMethods as $paymentMethod)
                         @if ($paymentMethod->image !== null)
                             <img src="{{ Storage::url($paymentMethod->image) }}" alt="Logo Innovadesa"
-                                class="h-16 w-32 rounded-xl object-cover">
+                                class="h-10 w-20 rounded-xl object-cover">
                         @endif
                     @endforeach
                 @endif
