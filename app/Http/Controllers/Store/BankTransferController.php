@@ -49,11 +49,11 @@ class BankTransferController extends Controller
                 DB::commit();
                 return redirect()->route("account.orders")->with("success", "Transferencia bancaria registrada correctamente");
             } else {
-                return redirect()->route("checkout")->with("error", "¡Oops! No se ha encontrado la orden");
+                return redirect()->route("account.orders")->with("error", "¡Oops! No se ha encontrado la orden");
             }
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route("checkout")->with("error", "Error al procesar la transacción");
+            return redirect()->route("account.orders")->with("error", "Error al procesar la transacción.");
         }
     }
 }
