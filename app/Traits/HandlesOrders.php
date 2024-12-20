@@ -11,12 +11,11 @@ use Illuminate\Support\Facades\DB;
 
 trait HandlesOrders
 {
-    public function createOrder($statusPayment = "pending", $shippingCost = 0)
+    public function createOrder($statusPayment = "pending", $shippingCost = null)
     {
         DB::beginTransaction();
         $cart = Cart::get();
         $currency = session()->get("currency");
-
         try {
             $data = [
                 "number_order" => $this->generateNumberOrder(),
@@ -59,7 +58,6 @@ trait HandlesOrders
 
             Cart::clear();
             DB::commit();
-
             return $order;
         } catch (\Exception $e) {
             DB::rollBack();
