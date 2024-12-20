@@ -86,7 +86,6 @@ $(document).ready(function () {
             error: function (response) {
                 if (response.status === "error") {
                     showToast(response.message, "error");
-                    console.log(response);
                 }
                 console.log(response);
             },
@@ -140,14 +139,14 @@ $(document).ready(function () {
     showTab(currentTab);
 
     // Formato de tarjeta de crédito
-    $("#card_number").on("input", function () {
+    /*   $("#card_number").on("input", function () {
         let input = $(this).val().replace(/\D/g, "");
         let cardType = "";
         for (let i = 0; i < input.length; i += 4) {
             cardType += input.substr(i, 4) + " ";
         }
         $(this).val(cardType.trim());
-    });
+    }); */
 
     $("input[name='shipping_method']").on("change", function () {
         const id = $(this).val();
@@ -194,13 +193,12 @@ $(document).ready(function () {
                     $("#shipping-rate-info").addClass("hidden");
                     $("#price-shipping-method").text(response.price);
                     $("#checkout-total").text(response.total);
+                    $("#checkbox-payment-method").addClass("hidden");
                 }
-                console.log(response);
             },
             error: function (response) {
                 $("#shipping-rate-info").removeClass("hidden");
                 $("#price-shipping-method").text(response.responseJSON.price);
-                console.log(response);
             },
         });
     }
@@ -208,6 +206,24 @@ $(document).ready(function () {
     $("#pending_payment").on("click", function () {
         if ($(this).is(":checked")) {
             $("#btn-completed-order").removeClass("hidden");
+        } else {
+            $("#btn-completed-order").addClass("hidden");
         }
+    });
+
+    $(".payment-cash").on("click", function () {
+        const url = $(this).data("url");
+
+        $.ajax({
+            url: url,
+            method: "GET",
+            success: function (response) {
+                if (response.status === "success") {
+                    $(".confirmModalPay")
+                        .removeClass("hidden")
+                        .addClass("flex");
+                }
+            },
+        });
     });
 });
