@@ -121,10 +121,10 @@
                 @method('PUT')
                 @if (!$order->shipping_cost)
                     <div
-                        class="mb-4 flex gap-2 rounded-xl border-2 border-dashed border-zinc-400 bg-zinc-50 p-4 dark:border-zinc-800/50 dark:bg-zinc-900 dark:bg-opacity-10">
+                        class="mb-4 flex gap-2 rounded-xl border-2 border-dashed border-blue-400 bg-blue-50 p-4 dark:border-blue-800/50 dark:bg-blue-900 dark:bg-opacity-10">
                         <div class="w-full">
                             <div class="flex flex-col justify-between gap-2 md:flex-row">
-                                <div class="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
+                                <div class="flex items-center gap-2 text-sm text-blue-500 dark:text-blue-400">
                                     <x-icon icon="alert" class="h-5 w-5" />
                                     No se ha definido un costo de envío. Define un costo de envío, al cliente se le enviará
                                     un correo electrónico avisándole de la asignación del costo.
@@ -231,7 +231,6 @@
                     <div class="flex-1">
                         <!-- Subtotal, Descuento, Impuesto, Total -->
                         <div class="flex flex-col gap-4 rounded-xl border border-zinc-400 p-4 dark:border-zinc-800">
-
                             <div class="flex-1">
                                 <x-input icon="dollar" type="number" step="0.01" name="subtotal" id="subtotal"
                                     label="Subtotal" value="{{ old('subtotal', $order->subtotal) }}"
@@ -295,10 +294,15 @@
                                     Método de pago:
                                     {{ $order->payment_method ? $order->payment_method->name : 'Sin definir' }}
                                 </p>
-                                @if ($order->payment_method)
+                                @if ($order->payment_method && $order->payment_method->image)
                                     <img src="{{ Storage::url($order->payment_method->image) }}"
                                         alt="{{ $order->payment_method->name }}"
-                                        class="w-30 mt-2 aspect-auto h-20 rounded-xl object-cover">
+                                        class="w-30 mt-2 aspect-auto h-20 rounded-xl object-cover" />
+                                @endif
+                                @if ($order->payment_method && $order->payment_method->name === 'Transferencia bancaria')
+                                    <x-button type="a"
+                                        href="{{ asset('storage/' . $order->bankTransfer->document) }}"
+                                        typeButton="primary" text="Ver comprobante" class="mt-4" target="_blank" />
                                 @endif
                             </div>
                             <div>
@@ -308,52 +312,56 @@
                                 </p>
                             </div>
                             <div class="absolute right-0 top-0 m-4">
-                                <div class="relative w-max">
+                                <div class="relative">
                                     <x-button type="button" icon="refresh" typeButton="secondary" onlyIcon="true"
-                                        class="show-options" data-target="#filterDropdown" />
-                                    <div class="options absolute right-0 top-11 z-10 hidden w-40 rounded-lg border border-zinc-400 bg-white p-2 dark:border-zinc-800 dark:bg-zinc-950"
-                                        id="filterDropdown">
+                                        class="show-options" data-target="#options-order-{{ $order->id }}" />
+                                    <div class="options absolute right-0 top-11 z-10 hidden w-40 animate-jump-in rounded-lg border border-zinc-400 bg-white p-2 animate-duration-200 dark:border-zinc-800 dark:bg-zinc-950"
+                                        id="options-order-{{ $order->id }}">
                                         <p class="font-semibold text-zinc-800 dark:text-zinc-300">
                                             Cambiar estado
                                         </p>
-                                        <ul class="mt-2 flex flex-col text-sm">
-                                            <li>
-                                                <button type="button"
-                                                    class="change-status-payment flex w-full items-center gap-1 rounded-lg px-2 py-2 text-emerald-700 hover:bg-emerald-100 dark:text-emerald-400 dark:hover:bg-emerald-950 dark:hover:bg-opacity-20"
-                                                    data-status="paid">
-                                                    <x-icon icon="check-circle" class="h-4 w-4" />
-                                                    Pagado
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button type="button"
-                                                    class="change-status-payment flex w-full items-center gap-1 rounded-lg px-2 py-2 text-blue-700 hover:bg-blue-100 dark:text-blue-400 dark:hover:bg-blue-950 dark:hover:bg-opacity-20"
-                                                    data-status="refunded">
-                                                    <x-icon icon="credit-card-refund" class="h-4 w-4" />
-                                                    Reembolsado
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button type="button"
-                                                    class="change-status-payment flex w-full items-center gap-1 rounded-lg px-2 py-2 text-yellow-700 hover:bg-yellow-100 dark:text-yellow-400 dark:hover:bg-yellow-950 dark:hover:bg-opacity-20"
-                                                    data-status="pending">
-                                                    <x-icon icon="clock" class="h-4 w-4" />
-                                                    Pendiente
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button type="button" href="#"
-                                                    class="change-status-payment flex w-full items-center gap-1 rounded-lg px-2 py-2 text-red-700 hover:bg-red-100 dark:text-red-400 dark:hover:bg-red-950 dark:hover:bg-opacity-20"
-                                                    data-status="failed">
-                                                    <x-icon icon="circle-x" class="h-4 w-4" />
-                                                    Cancelado
-                                                </button>
-                                            </li>
-                                        </ul>
+                                        <form action="{{ Route('admin.orders.payment-status', $order->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            <input type="hidden" name="status">
+                                            <ul class="mt-2 flex flex-col text-sm">
+                                                <li>
+                                                    <button type="button"
+                                                        class="change-status-payment flex w-full items-center gap-1 rounded-lg px-2 py-2 text-emerald-700 hover:bg-emerald-100 dark:text-emerald-400 dark:hover:bg-emerald-950 dark:hover:bg-opacity-20"
+                                                        data-status="paid">
+                                                        <x-icon icon="check" class="h-4 w-4" />
+                                                        Pagado
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button type="button"
+                                                        class="change-status-payment flex w-full items-center gap-1 rounded-lg px-2 py-2 text-blue-700 hover:bg-blue-100 dark:text-blue-400 dark:hover:bg-blue-950 dark:hover:bg-opacity-20"
+                                                        data-status="refunded">
+                                                        <x-icon icon="package-import" class="h-4 w-4" />
+                                                        Reembolsado
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button type="button"
+                                                        class="change-status-payment flex w-full items-center gap-1 rounded-lg px-2 py-2 text-yellow-700 hover:bg-yellow-100 dark:text-yellow-400 dark:hover:bg-yellow-950 dark:hover:bg-opacity-20"
+                                                        data-status="pending">
+                                                        <x-icon icon="reload" class="h-4 w-4" />
+                                                        Pendiente
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button type="button" href="#"
+                                                        class="change-status-payment flex w-full items-center gap-1 rounded-lg px-2 py-2 text-red-700 hover:bg-red-100 dark:text-red-400 dark:hover:bg-red-950 dark:hover:bg-opacity-20"
+                                                        data-status="failed">
+                                                        <x-icon icon="x" class="h-4 w-4" />
+                                                        Fallido
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -479,3 +487,7 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/admin/order.js')
+@endpush
