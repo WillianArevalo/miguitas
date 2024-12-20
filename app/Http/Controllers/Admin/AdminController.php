@@ -34,7 +34,7 @@ class AdminController extends Controller
             ->orderBy("month")
             ->get()
             ->mapWithKeys(function ($sale) {
-                return [Carbon::create()->month($sale->month)->translateFormat("F") => $sale->total];
+                return [Carbon::create()->month($sale->month)->translatedFormat("F") => $sale->total];
             });
 
         $salesTotal = Payment::sum('amount');
