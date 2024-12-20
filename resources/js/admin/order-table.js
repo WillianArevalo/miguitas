@@ -12,6 +12,7 @@ $(document).ready(function () {
     const tables = [
         { id: "#tableProduct", searchInput: "#inputSearchProducts" },
         { id: "#tableOrders", searchInput: "#inputSearchOrders" },
+        { id: "#tablePayments", searchInput: "#inputSearchPayments" },
         {
             id: "#tableContactMessages",
             searchInput: "#inputSearchContactMessages",
@@ -54,10 +55,25 @@ $(document).ready(function () {
             tableId: "#tableSupportTickets",
             filterInput: "#filter-status-tickets",
         },
+        {
+            tableId: "#tableOrders",
+            filterInput: "#filter-status-orders",
+        },
+        {
+            tableId: "#tablePayments",
+            filterInput: "#filter-status-payments",
+        },
     ];
 
     filters.forEach(({ tableId, filterInput }) => {
         $(filterInput).on("change", function () {
+            const value = $(this).val();
+            initializedTables[tableId].search(value).draw();
+        });
+    });
+
+    filters.forEach(({ tableId, filterInput }) => {
+        $(filterInput).on("Changed", function () {
             const value = $(this).val();
             initializedTables[tableId].search(value).draw();
         });
