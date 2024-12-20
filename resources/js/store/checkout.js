@@ -195,10 +195,12 @@ $(document).ready(function () {
                     $("#checkout-total").text(response.total);
                     $("#checkbox-payment-method").addClass("hidden");
                 }
+                console.log(response);
             },
             error: function (response) {
                 $("#shipping-rate-info").removeClass("hidden");
                 $("#price-shipping-method").text(response.responseJSON.price);
+                console.log(response);
             },
         });
     }
