@@ -74,15 +74,15 @@
                             </p>
                             <div class="mt-4 flex flex-col justify-center gap-4">
                                 <a href="{{ Route('auth.google') }}"
-                                    class="flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-2 font-pluto-r text-sm text-zinc-500 hover:bg-zinc-200">
+                                    class="flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-2 font-dine-r text-sm text-zinc-500 hover:bg-zinc-200">
                                     <x-icon-store icon="google" class="size-5 text-current" />
                                     Iniciar sesión con Google
                                 </a>
                             </div>
                         </div>
-                        <p class="font-pluto-r text-white">
+                        <p class="font-dine-r text-white">
                             ¿No tienes una cuenta? <a href="{{ Route('register') }}"
-                                class="font-dine-r text-white underline">Regístrate</a>
+                                class="font-dine-r text-pink-store hover:underline">Regístrate</a>
                         </p>
                     </div>
                 </form>
