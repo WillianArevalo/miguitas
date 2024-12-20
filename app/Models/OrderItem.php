@@ -19,6 +19,11 @@ class OrderItem extends Model
         return $this->belongsTo(Product::class);
     }
 
+    public function dedication()
+    {
+        return $this->hasOne(Dedication::class, "product_id", "product_id")->where("order_id", $this->order_id);
+    }
+
     protected $fillable = [
         'order_id',
         'product_id',
