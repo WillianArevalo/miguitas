@@ -12,6 +12,7 @@ use App\Http\Controllers\Store\{
     AboutController,
     AccountController,
     AddressController,
+    BankTransferController,
     BlogController,
     CheckoutController,
     ContactController,
@@ -123,6 +124,9 @@ Route::middleware("auth")->group(function () {
         '/payment/charge',
         [PaymentController::class, 'createPaymentIntent']
     )->name('payment.charge');
+
+    //Transfers
+    Route::resource("/bank-transfers", BankTransferController::class);
 
     // Favorites
     Route::controller(FavoriteController::class)->group(function () {
