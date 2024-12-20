@@ -43,6 +43,14 @@ trait HandlesOrders
                     "price" => $item->price,
                     "total" => $item->price * $item->quantity
                 ]);
+
+                if ($item->message_dedication) {
+                    $order->dedications()->create([
+                        "message" => $item->message_dedication,
+                        "product_id" => $item->product->id,
+                        "color" => $item->color_dedication
+                    ]);
+                }
             }
 
             $admins = User::where("role", "admin")->get();
