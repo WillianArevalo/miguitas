@@ -118,6 +118,7 @@ $(document).ready(function () {
 
             const currentDay = new Date(year, month, day).getDay();
             const isWeekend = currentDay === 0 || currentDay === 6; // Domingo o Sábado
+            const isRestrictedDay = currentDay === 0 || currentDay === 1; // Domingo o Lunes
 
             const isToday =
                 day === today.getDate() &&
@@ -131,13 +132,11 @@ $(document).ready(function () {
                 year === selectedDate.getFullYear();
 
             const cellClass = isToday
-                ? !allowWeekendSelection || isWeekend
-                    ? "text-gray-400 cursor-not-allowed"
-                    : "bg-blue-500 text-white hover:bg-blue-600"
+                ? "text-gray-400 cursor-not-allowed" // Siempre deshabilitar el día actual
                 : isSelected
                 ? "bg-green-500 text-white hover:bg-green-600"
-                : isWeekend && !allowWeekendSelection
-                ? "text-gray-400 cursor-not-allowed"
+                : isRestrictedDay
+                ? "text-gray-400 cursor-not-allowed" // Deshabilitar Domingo y Lunes
                 : "hover:bg-gray-200 text-zinc-800";
 
             const cell = $(
@@ -146,10 +145,7 @@ $(document).ready(function () {
                 }" data-year="${year}">${day}</td>`
             );
 
-            if (
-                (!isWeekend || allowWeekendSelection) &&
-                (!isToday || (allowWeekendSelection && !isWeekend))
-            ) {
+            if (!isRestrictedDay && !isToday) {
                 cell.click(function () {
                     $calendar
                         .find("td.bg-green-500")
