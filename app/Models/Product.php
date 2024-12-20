@@ -85,6 +85,7 @@ class Product extends Model
         "is_top",
         "is_the_month",
         "categorie_id",
+        "active_dedication",
     ];
 
     protected static function boot()
