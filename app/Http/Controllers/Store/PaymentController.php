@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Store;
 
 use App\Helpers\Cart;
 use App\Http\Controllers\Controller;
+use App\Models\BankDetail;
 use App\Models\Payment;
 use App\Models\PaymentMethod;
 use App\Traits\HandlesOrders;
+use App\Traits\HandlesPayments;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Stripe\Exception\ApiErrorException;
@@ -16,6 +18,7 @@ use Stripe\Stripe;
 class PaymentController extends Controller
 {
     use HandlesOrders;
+    use HandlesPayments;
 
     public  function __construct()
     {
@@ -29,6 +32,7 @@ class PaymentController extends Controller
 
         $id = $request->input("id");
         $paymentMethod = PaymentMethod::find($id);
+        $banks = BankDetail::first();
         if (!$paymentMethod) {
             return redirect()->route('cart')->with('info', 'Método de pago no encontrado.');
         }
@@ -39,7 +43,9 @@ class PaymentController extends Controller
         return view("store.account.payments.create", [
             'cart' => $cart,
             'stripeKey' => $stripeKey,
+            'paymentMethod' => $paymentMethod,
             "cart_totals" => Cart::totals(),
+            "bank" => $banks
         ]);
     }
 
@@ -68,22 +74,11 @@ class PaymentController extends Controller
                 'return_url' => route('home'), // URL para redirección
             ]);
 
-
             if ($paymentIntent->status === 'succeeded') {
                 try {
                     DB::beginTransaction();
                     $order = $this->createOrder("paid", $cart->shipping_cost);
-                    $payment = new Payment();
-                    $payment->user_id = auth()->id();
-                    $payment->order_id = $order->id;
-                    $payment->payment_method_id = $cart->payment_method_id;
-                    $payment->amount = $amount / 100;
-                    $payment->status = "approved";
-                    $payment->transaction_id = $paymentIntent->id;
-                    $payment->reference_number = $order->number_order;
-                    $payment->paid_at = now();
-                    $payment->data = $paymentIntent->toArray();
-                    $payment->save();
+                    $this->createPayment($order, $amount, $paymentIntent->id, $paymentIntent->toArray());
                     DB::commit();
                 } catch (\Exception $e) {
                     DB::rollBack();
