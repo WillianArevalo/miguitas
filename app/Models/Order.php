@@ -59,6 +59,11 @@ class Order extends Model
         return $this->hasOne(BankTransfer::class);
     }
 
+    public function dedications()
+    {
+        return $this->hasMany(Dedication::class);
+    }
+
     protected $casts = [
         "shipped_at" => "datetime",
         "delivered_at" => "datetime",
