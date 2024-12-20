@@ -56,6 +56,8 @@ class CartController extends Controller
         $optionValues = $request->input("options_values", []);
         $quantity = $request->input("quantity") ?? 1;
         $price = $request->input("price") ?? 0;
+        $dedication = $request->input("message") ?? null;
+        $colorDedication = $request->input("color") ?? null;
         DB::beginTransaction();
 
         try {
@@ -100,11 +102,15 @@ class CartController extends Controller
                 DB::commit();
                 return $this->responseJson("success", "Cantidad de producto actualizada");
             } else {
+
+
                 $cartItem = $cart->items()->create([
                     "product_id" => $product->id,
                     "quantity" => $quantity,
                     "sub_total" => $subTotal,
-                    "price" => $itemPrice
+                    "price" => $itemPrice,
+                    "message_dedication" => $dedication,
+                    "color_dedication" => $colorDedication
                 ]);
 
                 if (!empty($optionValues)) {
@@ -295,63 +301,79 @@ class CartController extends Controller
 
     public function applyShippingMethod(string $id, Request $request)
     {
+        DB::beginTransaction();
         $user = auth()->user();
         $shipping_method = ShippingMethod::find($id);
-        if (!$shipping_method) return response()->json(["status" => "error", "message" => "Shipping method not found"]);
-        $cart = CartHelper::get();
-
-        $cost = null;
-        parse_str($request->input("form"), $form);
-
-        if ($user->customer) {
-            $addressShipping = Address::where("customer_id", $user->customer->id)->where("type", "shipping_address")->first();
-            if (!$addressShipping && $shipping_method->name === "Envío a domicilio") {
-                return response()->json([
-                    "status" => "error",
-                    "message" => "Debes tener una dirección de envío para calcular la tarifa de envío a tu dirección."
-                ], 400);
-            } else if ($addressShipping && $shipping_method->name === "Envío a domicilio") {
-                $department = $form["department"];
-                $municipality = $form["municipality"];
-                $district = $form["district"];
-
-                $rate = Rate::where("department", $department)
-                    ->where("municipality", $municipality)
-                    ->where("district", $district)
-                    ->first();
-
-                if ($rate) {
-                    $cost = $rate->cost;
-                } else {
-                    return response()->json([
-                        "status" => "error",
-                        "price" => $this->priceFormat(0),
-                        "message" => "No se encontró una tarifa de envío para tu dirección."
-                    ], 400);
-                }
-            }
+        if (!$shipping_method) {
+            return response()->json(["status" => "error", "message" => "Shipping method not found"]);
         }
 
-        DB::beginTransaction();
+        $cart = CartHelper::get();
+        $cost = null;
+        $rate = null;
+        parse_str($request->input("form"), $form);
+
         try {
             $cart->shippingMethod()->associate($shipping_method);
-            $cart->shipping_cost = $cost;
+            $cart->shipping_cost = null;
             $cart->save();
+
+            if ($user->customer) {
+                $addressShipping = Address::where("customer_id", $user->customer->id)
+                    ->where("type", "shipping_address")
+                    ->first();
+
+                if (!$addressShipping && $shipping_method->name === "Envío a domicilio") {
+                    DB::commit();
+                    return response()->json([
+                        "status" => "error",
+                        "message" => "Debes tener una dirección de envío para calcular la tarifa de envío a tu dirección.",
+                        "price" => $this->priceFormat(0),
+                        "total" => $this->priceFormat(CartHelper::totalWithShippingMethod()),
+                    ], 400);
+                } else if ($addressShipping && $shipping_method->name === "Envío a domicilio") {
+                    $department = $form["department"] ?? null;
+                    $municipality = $form["municipality"] ?? null;
+                    $district = $form["district"] ?? null;
+
+                    $rate = Rate::where("department", $department)
+                        ->where("municipality", $municipality)
+                        ->where("district", $district)
+                        ->first();
+
+                    if ($rate) {
+                        $cost = $rate->cost;
+                        $cart->shipping_cost = $cost;
+                        $cart->save();
+                    } else {
+                        DB::commit();
+                        return response()->json([
+                            "status" => "error",
+                            "price" => $this->priceFormat(0),
+                            "message" => "No se encontró una tarifa de envío para tu dirección.",
+                            "total" => $this->priceFormat(CartHelper::totalWithShippingMethod()),
+                        ], 400);
+                    }
+                }
+            }
+
             DB::commit();
             return response()->json([
                 "status" => "success",
                 "message" => "Shipping method applied",
                 "price" => $this->priceFormat($cost),
                 "total" => $this->priceFormat(CartHelper::totalWithShippingMethod()),
-                "rate" => $rate ?? null,
+                "rate" => $rate,
             ]);
         } catch (\Exception $e) {
+            DB::rollBack();
             return response()->json([
                 "status" => "error",
-                "message" => "An error occurred while applying the shipping method. Error: " . $e->getMessage()
+                "message" => "An error occurred while applying the shipping method. Error: " . $e->getMessage(),
             ]);
         }
     }
+
 
     public function applyPaymentMethod(string $id)
     {
