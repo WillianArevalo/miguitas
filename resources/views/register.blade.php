@@ -19,7 +19,7 @@
                 <div>
                     <div class="mt-4 flex flex-col justify-center gap-4">
                         <a href="{{ Route('auth.google') }}"
-                            class="flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 font-pluto-r text-sm text-zinc-500 hover:bg-zinc-200">
+                            class="flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 font-dine-r text-sm text-zinc-500 hover:bg-zinc-200">
                             <x-icon-store icon="google" class="size-5 text-current" />
                             Registrate con Google
                         </a>
@@ -64,7 +64,7 @@
                     </div>
                     <div class="mt-4 flex flex-col items-center justify-center gap-4">
                         <x-button-store type="submit" text="Registrarse" typeButton="tertiary" class="mt-4" />
-                        <p class="font-pluto-r text-white">
+                        <p class="font-dine-r text-white">
                             ¿Ya tienes una cuenta? <a href="{{ Route('login') }}" class="font-dine-r text-white underline">
                                 Inicia sesión
                             </a>
