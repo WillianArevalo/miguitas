@@ -15,6 +15,8 @@ class CartItem extends Model
         "quantity",
         "sub_total",
         "price",
+        "message_dedication",
+        "color_dedication",
     ];
 
     public function cart()
@@ -35,5 +37,10 @@ class CartItem extends Model
     public function options()
     {
         return $this->hasMany(CartItemOption::class, "cart_item_id");
+    }
+
+    public function dedication()
+    {
+        return $this->hasOne(Dedication::class);
     }
 }
