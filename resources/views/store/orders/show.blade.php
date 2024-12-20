@@ -151,7 +151,8 @@
                                 <tr class="hover:bg-zinc-50">
                                     <td class="whitespace-nowrap px-4 py-4">
                                         <div class="flex items-center">
-                                            <div class="h-14 w-14 flex-shrink-0 border border-zinc-100">
+                                            <div
+                                                class="h-14 w-14 flex-shrink-0 overflow-hidden rounded-xl border border-zinc-100">
                                                 <img class="h-full w-full rounded-lg"
                                                     src="{{ Storage::url($item->product->main_image) }}"
                                                     alt="{{ $item->product->name }}">
@@ -159,10 +160,16 @@
                                             <div class="ml-4">
                                                 <div class="text-sm font-medium text-zinc-600">
                                                     <a href="{{ Route('products.details', $item->product->slug) }}"
-                                                        class="font-din-r hover:text-blue-store">
+                                                        class="font-din-r font-bold hover:text-blue-store">
                                                         {{ $item->product->name }}
                                                     </a>
                                                 </div>
+                                                @if ($item->dedication)
+                                                    <div class="font-din-r text-sm text-zinc-500">
+                                                        <strong>Dedicatoria:</strong> {{ $item->dedication->message }} <br>
+                                                        <strong>Color:</strong> {{ $item->dedication->color }}
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </td>
