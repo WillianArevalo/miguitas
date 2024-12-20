@@ -21,12 +21,6 @@ use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
-
-    public function showOrdersStore()
-    {
-        return view("orders.index");
-    }
-
     public function index()
     {
         $orders = Order::with("customer", "currency", "shipping_method", "payment_method")->get();
@@ -48,7 +42,15 @@ class OrderController extends Controller
 
     public function edit(string $id)
     {
-        $order = Order::with("items.product", "customer", "address", "currency", "shipping_method", "payment_method")->find($id);
+        $order = Order::with(
+            "items.product",
+            "customer",
+            "address",
+            "currency",
+            "shipping_method",
+            "payment_method",
+            "bankTransfer"
+        )->find($id);
         $customers = Customer::with("user")->get();
         $paymentMethods = PaymentMethod::all();
         $shippingMethods = ShippingMethod::all();
@@ -56,6 +58,7 @@ class OrderController extends Controller
 
         $customer = $order->customer;
         $address = $customer ? $customer->address()->where("type", "shipping_address")->first() : null;
+
 
         return view("admin.orders.edit", compact(
             "order",
@@ -154,6 +157,10 @@ class OrderController extends Controller
         try {
             $order = Order::find($id);
             if ($order) {
+                if ($order->bankTransfer) {
+                    $order->bankTransfer->update(["status" => "approved"]);
+                    $order->payment->update(["status" => "approved"]);
+                }
                 $order->update(["payment_status" => $request->status]);
                 DB::commit();
                 return redirect()->route("admin.orders.index")->with("success", "Estado de pago de la orden actualizado correctamente");
