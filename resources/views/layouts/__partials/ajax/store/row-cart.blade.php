@@ -13,7 +13,7 @@
                         </h3>
                         <ul>
                             @foreach ($item->options as $option)
-                                <li class="font-pluto-r text-sm text-zinc-700">
+                                <li class="font-dine-r text-sm text-zinc-500">
                                     <span class="font-medium">
                                         {{ $option->productOptionValue->option->name }}:
                                     </span>
@@ -21,9 +21,16 @@
                                 </li>
                             @endforeach
                         </ul>
-                        <p class="font-dine-r text-sm text-zinc-700">
+                        <p class="font-dine-r text-sm font-semibold text-blue-store">
                             $ {{ $item->price }}
                         </p>
+                        @if ($item->message_dedication && $item->color_dedication)
+                            <span
+                                class="mt-2 block rounded-xl bg-violet-100 px-2 py-1 font-dine-r text-xs text-violet-500">
+                                Dedicatoria: {{ $item->message_dedication }}
+                                ({{ $item->color_dedication }})
+                            </span>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -69,8 +76,8 @@
     @endforeach
 @else
     <div class="flex h-96 flex-col items-center justify-center">
-        <x-icon-store icon="cart" class="h-20 w-20 fill-current text-zinc-200" />
-        <p class="text-lg text-zinc-200">
+        <x-icon-store icon="cart" class="h-20 w-20 fill-current text-zinc-500" />
+        <p class="font-dine-r text-base text-zinc-500">
             No hay productos en el carrito
         </p>
     </div>
