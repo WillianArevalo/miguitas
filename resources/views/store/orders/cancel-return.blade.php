@@ -1,29 +1,24 @@
 @extends('layouts.__partials.store.template-profile')
 @section('profile-content')
-    <div class="overflow-x-hidden">
+    <div>
         <div class="py-1">
             <h2 class="text-xl font-bold text-blue-store sm:text-2xl md:text-3xl">
                 Devoluciones y cancelaciones
             </h2>
             <div class="mt-4">
-                <form action="{{ Route('orders.search') }}" method="POST"
-                    class="flex w-full flex-col flex-wrap gap-4 sm:flex-row sm:gap-8">
-                    @csrf
-                    <input type="hidden" name="type" value="orders">
+                <div class="flex w-full flex-col flex-wrap gap-4 sm:flex-row sm:gap-8">
                     <div class="flex w-full flex-[2]">
-                        <x-input-store type="search" icon="search" name="search-order" id="search-order"
+                        <x-input-store type="search" icon="search" name="search-order" id="inputSearchOrders"
                             placeholder="Buscar pedido..." value="{{ old('search-order') }}" />
                     </div>
                     <div class="font-secondary flex w-full flex-1 flex-col gap-2 sm:w-80">
-                        <x-select-store label="" id="order" name="order" :options="[
-                            'mas_reciente' => 'Más reciente',
-                            'mas_antiguo' => 'Más antiguo',
-                            'ultimo_mes' => 'Último mes',
-                            'ultimo_año' => 'Último año',
+                        <x-select-store label="" id="filter-status-orders" name="order" :options="[
+                            'Cancelado' => 'Cancelado',
+                            'Reembolsado' => 'Reembolsado',
                         ]"
-                            value="{{ old('status-order') }}" selected="{{ old('status-order') }}" />
+                            tex="Seleccionar estado" />
                     </div>
-                </form>
+                </div>
             </div>
         </div>
         @if ($orders->count() === 0)
@@ -39,7 +34,7 @@
             <div
                 class="my-4 hidden flex-col items-center justify-center gap-2 rounded-xl border border-zinc-200 px-4 shadow-sm lg:flex">
                 <div class="w-full overflow-x-auto">
-                    <table class="w-full table-auto font-dine-r">
+                    <table class="w-full table-auto font-dine-r" id="tableOrders">
                         <thead>
                             <tr class="border-b border-zinc-200">
                                 <th scope="col"
@@ -64,7 +59,7 @@
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-left font-dine-r text-xs font-medium uppercase tracking-wider text-zinc-500">
-                                    Pago
+                                    Fecha de cancelación
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-left font-dine-r text-xs font-medium uppercase tracking-wider text-zinc-500">
@@ -108,7 +103,7 @@
 
                                                 @case('sent')
                                                     <span
-                                                        class="flex items-center justify-center gap-1 rounded-full bg-blue-100 px-2 py-1 font-dine-b text-xs font-medium text-blue-700">
+                                                        class="flex w-max items-center justify-center gap-1 rounded-full bg-blue-100 px-2 py-1 font-dine-b text-xs font-medium text-blue-700">
                                                         <x-icon icon="truck" class="h-4 w-4 text-blue-700" />
                                                         Enviado
                                                     </span>
@@ -116,7 +111,7 @@
 
                                                 @case('completed')
                                                     <span
-                                                        class="flex items-center justify-center gap-1 rounded-full bg-green-100 px-2 py-1 font-dine-b text-xs font-medium text-green-700">
+                                                        class="flex w-max items-center justify-center gap-1 rounded-full bg-green-100 px-2 py-1 font-dine-b text-xs font-medium text-green-700">
                                                         <x-icon icon="check-circle" class="h-4 w-4 text-green-700" />
                                                         Completado
                                                     </span>
@@ -124,15 +119,15 @@
 
                                                 @case('canceled')
                                                     <span
-                                                        class="flex items-center justify-center gap-1 rounded-full bg-red-100 px-2 py-1 font-dine-b text-xs font-medium text-red-700">
-                                                        <x-icon icon="check-circle" class="h-4 w-4 text-red-700" />
+                                                        class="flex w-max items-center justify-center gap-1 rounded-full bg-red-100 px-2 py-1 font-dine-b text-xs font-medium text-red-700">
+                                                        <x-icon icon="circle-x" class="h-4 w-4 text-red-700" />
                                                         Cancelado
                                                     </span>
                                                 @break
 
                                                 @case('pending')
                                                     <span
-                                                        class="flex items-center justify-center gap-1 rounded-full bg-yellow-100 px-2 py-1 font-dine-b text-xs font-medium text-yellow-700">
+                                                        class="flex w-max items-center justify-center gap-1 rounded-full bg-yellow-100 px-2 py-1 font-dine-b text-xs font-medium text-yellow-700">
                                                         <x-icon-store icon="clock" class="h-4 w-4 text-yellow-700" />
                                                         Pendiente
                                                     </span>
@@ -140,92 +135,16 @@
                                             @endswitch
                                         </td>
                                         <td class="whitespace-nowrap px-4 py-4 text-sm">
-                                            @switch($order->payment_status)
-                                                @case('pending')
-                                                    <span
-                                                        class="rounded-full bg-yellow-100 px-2 py-1 font-dine-b text-xs font-medium text-yellow-700">
-                                                        Pendiente
-                                                    </span>
-                                                @break
-
-                                                @case('refunded')
-                                                    <span
-                                                        class="rounded-full bg-blue-100 px-2 py-1 font-dine-b text-xs font-medium text-blue-700">
-                                                        Reembolsado
-                                                    </span>
-                                                @break
-
-                                                @case('paid')
-                                                    <span
-                                                        class="rounded-full bg-green-100 px-2 py-1 font-dine-b text-xs font-medium text-green-700">
-                                                        Pagado
-                                                    </span>
-                                                @break
-
-                                                @case('failed')
-                                                    <span
-                                                        class="rounded-full bg-red-100 px-2 py-1 font-dine-b text-xs font-medium text-red-700">
-                                                        Fallido
-                                                    </span>
-                                                @break
-
-                                                @default
-                                                    <span
-                                                        class="rounded-full bg-yellow-100 px-2 py-1 font-dine-b text-xs font-medium text-yellow-700">
-                                                        Pendiente
-                                                    </span>
-                                                @break
-                                            @endswitch
+                                            <span class="font-pluto-r text-sm text-zinc-500">
+                                                {{ $order->cancelled_at ? $order->cancelled_at->toFormattedDateString() : 'N/A' }}
+                                            </span>
                                         </td>
                                         <td class="whitespace-nowrap px-4 py-4 text-sm">
 
                                             <div class="flex items-center gap-2">
-                                                @if ($order->payment_status === 'pending')
-                                                    <div>
-                                                        <form action="{{ Route('link.wompi') }}" method="POST"
-                                                            class="form-paid">
-                                                            @csrf
-                                                            <input type="hidden" name="number_order"
-                                                                value="{{ $order->number_order }}">
-                                                            <button type="submit"
-                                                                data-tooltip-target="tooltip-pay-wompi-{{ $order->id }}"
-                                                                class="flex h-12 items-center justify-center gap-2 rounded-full bg-transparent px-2 text-white">
-                                                                <x-icon-store icon="wompi"
-                                                                    class="h-full w-14 text-current" />
-                                                            </button>
-                                                            <div id="tooltip-pay-wompi-{{ $order->id }}" role="tooltip"
-                                                                class="tooltip invisible absolute z-10 inline-block rounded-lg bg-[#4865ff] px-3 py-2 font-dine-r text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300">
-                                                                Pagar con Wompi
-                                                                <div class="tooltip-arrow" data-popper-arrow></div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                @endif
-
                                                 <x-button-store icon="eye" type="a"
                                                     href="{{ Route('orders.show', $order->number_order) }}"
                                                     typeButton="secondary" onlyIcon="true" class="w-max" />
-
-                                                @if ($order->status !== 'completed' && $order->status !== 'canceled' && $order->status !== 'sent')
-                                                    <div>
-                                                        <form action="{{ Route('order.cancel', $order->id) }}"
-                                                            method="POST" id="formCancelOrder-{{ $order->id }}">
-                                                            @csrf
-                                                            <x-button-store icon="delete" type="button"
-                                                                href="{{ Route('account.tickets.show', $order->id) }}"
-                                                                typeButton="danger" onlyIcon="true"
-                                                                class="buttonDelete w-max"
-                                                                data-tooltip-target="tooltip-cancel-ticket-{{ $order->id }}"
-                                                                data-form="formCancelOrder-{{ $order->id }}" />
-                                                        </form>
-                                                        <div id="tooltip-cancel-ticket-{{ $order->id }}"
-                                                            role="tooltip"
-                                                            class="tooltip invisible absolute z-10 inline-block rounded-lg bg-red-500 px-3 py-2 font-dine-r text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300">
-                                                            Cancelar pedido
-                                                            <div class="tooltip-arrow" data-popper-arrow></div>
-                                                        </div>
-                                                    </div>
-                                                @endif
                                             </div>
                                         </td>
                                     </tr>
@@ -287,4 +206,5 @@
 
 @push('scripts')
     @vite('resources/js/store/order.js')
+    @vite('resources/js/admin/order-table.js')
 @endpush
