@@ -75,6 +75,12 @@
                                                         value="{{ $product->is_the_month }}"
                                                         checked="{{ $product->is_the_month === 1 }}" />
                                                 </div>
+                                                <div>
+                                                    <x-input type="checkbox" name="active_dedication" id="active_dedication"
+                                                        label="Activar dedicatoria"
+                                                        value="{{ $product->active_dedication }}"
+                                                        checked="{{ $product->active_dedication === 1 }}" />
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="">
