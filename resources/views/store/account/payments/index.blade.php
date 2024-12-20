@@ -8,17 +8,16 @@
              </h2>
              <div class="mt-4 flex w-full flex-col flex-wrap gap-4 sm:flex-row sm:gap-8">
                  <div class="flex w-full flex-[2]">
-                     <x-input-store type="search" icon="search" name="search-order" id="search-order"
+                     <x-input-store type="search" icon="search" name="search-order" id="inputSearchPayments"
                          placeholder="Buscar pedido..." />
                  </div>
                  <div class="font-secondary flex w-full flex-1 flex-col gap-2 sm:w-80">
-                     <x-select-store label="" id="status-order" name="status-order" :options="[
-                         'mas_reciente' => 'Más reciente',
-                         'mas_antiguo' => 'Más antiguo',
-                         'ultimo_mes' => 'Último mes',
-                         'ultimo_año' => 'Último año',
+                     <x-select-store label="" id="filter-status-payments" name="status-payment" :options="[
+                         'Aprobado' => 'Aprobado',
+                         'Pendiente' => 'Pendiente',
+                         'Reembolsado' => 'Reembolsado',
                      ]"
-                         value="{{ old('status-order') }}" selected="{{ old('status-order') }}" />
+                         text="Seleccionar estado" />
                  </div>
              </div>
          </div>
@@ -35,7 +34,7 @@
              <div
                  class="mt-4 flex flex-col items-center justify-center gap-2 rounded-xl border border-zinc-200 px-4 shadow-sm">
                  <div class="w-full overflow-x-auto">
-                     <table class="w-full table-auto font-dine-r">
+                     <table class="w-full table-auto font-dine-r" id="tablePayments">
                          <thead>
                              <tr class="border-b border-zinc-200">
                                  <th scope="col"
@@ -113,32 +112,9 @@
                                      </td>
                                      <td class="whitespace-nowrap px-4 py-4 text-sm">
                                          <div class="flex items-center gap-2">
-                                             @if ($payment->status === 'pending')
-                                                 <div>
-                                                     <form action="{{ Route('link.wompi') }}" method="POST"
-                                                         class="form-paid">
-                                                         @csrf
-                                                         <input type="hidden" name="number_order"
-                                                             value="{{ $order->number_order }}">
-                                                         <button type="submit"
-                                                             data-tooltip-target="tooltip-pay-wompi-{{ $order->id }}"
-                                                             class="flex h-12 items-center justify-center gap-2 rounded-full bg-transparent px-2 text-white">
-                                                             <x-icon-store icon="wompi"
-                                                                 class="h-full w-14 text-current" />
-                                                         </button>
-                                                         <div id="tooltip-pay-wompi-{{ $order->id }}" role="tooltip"
-                                                             class="tooltip invisible absolute z-10 inline-block rounded-lg bg-[#4865ff] px-3 py-2 font-dine-r text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300">
-                                                             Pagar con Wompi
-                                                             <div class="tooltip-arrow" data-popper-arrow></div>
-                                                         </div>
-                                                     </form>
-                                                 </div>
-                                             @endif
-
                                              <x-button-store icon="eye" type="a"
                                                  href="{{ Route('orders.show', $payment->order->number_order) }}"
                                                  typeButton="secondary" onlyIcon="true" class="w-max" />
-
                                          </div>
                                      </td>
                                  </tr>
@@ -150,3 +126,7 @@
          @endif
      </div>
  @endsection
+
+ @push('scripts')
+     @vite('resources/js/admin/order-table.js')
+ @endpush
