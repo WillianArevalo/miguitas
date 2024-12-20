@@ -42,6 +42,7 @@ class ProductRequest extends FormRequest
             "categorie_id" => "required|numeric",
             "subcategories" => "nullable|array",
             "is_the_month" => "nullable|boolean",
+            "active_dedication" => "nullable|boolean",
         ];
     }
 }
