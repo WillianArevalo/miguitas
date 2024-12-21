@@ -80,12 +80,12 @@
                                 id="container-file">
                                 <div class="flex items-center gap-2">
                                     <label
-                                        class="disabled:text-zincaret-red-400 flex w-max cursor-pointer items-center justify-center gap-2 rounded-full border border-zinc-300 bg-white px-4 py-2 font-din-r text-sm text-zinc-600 transition-colors duration-300 hover:bg-zinc-200/50 disabled:cursor-not-allowed disabled:bg-zinc-100/50">
+                                        class="disabled:text-zincaret-red-400 text-nowrap flex w-max cursor-pointer items-center justify-center gap-2 rounded-full border border-zinc-300 bg-white px-4 py-2 font-din-r text-xs text-zinc-600 transition-colors duration-300 hover:bg-zinc-200/50 disabled:cursor-not-allowed disabled:bg-zinc-100/50 sm:text-sm">
                                         <input type="file" name="file" id="proof-payment" class="hidden"
                                             accept=".jpg, .jpeg, .png, .pdf">
                                         Adjuntar archivo
                                     </label>
-                                    <p id="file-name" class="font-dine-r text-xs text-zinc-600">
+                                    <p id="file-name" class="font-dine-r text-[10px] text-zinc-600 sm:text-xs">
                                         Formatos permitidos: .jpg, .jpeg, .png,.pdf
                                     </p>
                                 </div>
