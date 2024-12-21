@@ -14,6 +14,45 @@ $(document).ready(function () {
         }
     );
 
+    $(document).on("click", ".btn-add-favorite-product", function () {
+        const form = $(this).closest("form");
+        const hearIconFill = $("#heart-icon-fill");
+        const hearIcon = $("#heart-icon-outline");
+        const textBtnFavorite = $("#text-btn-favorite");
+        if (hearIconFill.hasClass("hidden")) {
+            hearIconFill.removeClass("hidden");
+            hearIcon.addClass("hidden");
+            textBtnFavorite.text("Quitar de favoritos");
+        } else {
+            hearIconFill.addClass("hidden");
+            hearIcon.removeClass("hidden");
+            textBtnFavorite.text("Agregar a favoritos");
+        }
+
+        handleRequesFavorite(form);
+    });
+
+    function handleRequesFavorite(form, container = null) {
+        $.ajax({
+            url: form.attr("action"),
+            method: "POST",
+            data: form.serialize(),
+            success: function (data) {
+                console.log(data);
+                if (data.status === "auth") window.location.href = "/login";
+                if (data.status === "success" || data.status === "info") {
+                    $("#favorite-count").text(data.count);
+                    if (container) {
+                        $(container).html(data.html);
+                    }
+                }
+            },
+            error: function (error) {
+                window.location.href = "/login";
+            },
+        });
+    }
+
     $(document).on("click", ".btn-add-favorite", function () {
         const form = $(this).closest("form");
         const favorite = $(this).data("is-favorite");
@@ -30,25 +69,7 @@ $(document).ready(function () {
             `);
         }
 
-        $.ajax({
-            url: form.attr("action"),
-            method: "POST",
-            data: form.serialize(),
-            success: function (data) {
-                console.log(data);
-                if (data.status === "auth") window.location.href = "/login";
-                if (data.status === "success" || data.status === "info") {
-                    if (data.message) {
-                        showToast(data.message, data.status);
-                    }
-                    $("#favorite-count").text(data.count);
-                    $(container).html(data.html);
-                }
-            },
-            error: function (error) {
-                console.log(error);
-            },
-        });
+        handleRequesFavorite(form, container);
     });
 
     function handleAjaxRequest(url, data) {
