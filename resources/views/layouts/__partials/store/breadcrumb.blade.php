@@ -10,7 +10,7 @@
                         <li>
                             <div class="flex items-center gap-1 sm:gap-4">
                                 <a href="{{ $breadcrumb->url }}"
-                                    class="flex items-center gap-1 rounded-lg px-2 py-1 font-dine-r font-semibold text-zinc-500 hover:bg-purple-50 hover:text-blue-store">
+                                    class="flex items-center gap-1 rounded-lg px-2 py-1 font-dinc-r text-sm font-semibold text-zinc-500 underline-offset-2 hover:text-blue-store hover:underline sm:text-base">
                                     {!! $breadcrumb->title !!}
                                 </a>
                                 <x-icon-store icon="arrow-badge-right"
@@ -21,7 +21,7 @@
                         <li aria-current="page">
                             <div class="flex items-center">
                                 <span
-                                    class="ms-1 flex items-center gap-2 rounded-lg bg-purple-50 px-2 py-1 font-dine-r font-semibold text-blue-store md:ms-2">
+                                    class="ms-1 flex items-center gap-2 rounded-lg px-2 py-1 font-dinc-r text-sm font-semibold text-blue-store underline underline-offset-2 sm:text-base md:ms-2">
                                     {!! $breadcrumb->title !!}
                                 </span>
                             </div>
