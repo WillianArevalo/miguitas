@@ -31,7 +31,7 @@
                     <ul class="flex items-center gap-4 px-4 py-2">
                         <li>
                             <a href="{{ Route('cart') }}" class="group relative">
-                                <x-icon-store icon="bag"
+                                <x-icon-store icon="cart"
                                     class="h-8 w-8 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
                                 <span
                                     class="absolute -right-2 -top-2 rounded-full bg-dark-pink px-1.5 py-0.5 text-xs text-white"
@@ -74,7 +74,7 @@
                                     <ul class="flex flex-col p-2 font-medium">
                                         <li class="w-full">
                                             <a href="{{ Route('account.index') }}"
-                                                class="flex w-full items-center justify-start rounded-xl px-4 py-2 text-blue-store hover:bg-purple-100">
+                                                class="flex w-full items-center justify-start rounded-xl px-4 py-2 font-dine-r text-blue-store hover:bg-purple-100">
                                                 <x-icon-store icon="user"
                                                     class="mr-2 inline-block h-4 w-4 text-current" />
                                                 Mi cuenta
@@ -82,7 +82,7 @@
                                         </li>
                                         <li class="w-full">
                                             <a href="{{ Route('orders.index') }}"
-                                                class="flex w-full items-center justify-start rounded-xl px-4 py-2 text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
+                                                class="flex w-full items-center justify-start rounded-xl px-4 py-2 font-dine-r text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
                                                 <x-icon-store icon="bag"
                                                     class="mr-2 inline-block h-4 w-4 text-current" />
                                                 Mis pedidos
@@ -90,7 +90,7 @@
                                         </li>
                                         <li class="mb-2 w-full">
                                             <a href="{{ Route('favorites') }}"
-                                                class="group flex w-full items-center justify-start rounded-xl px-4 py-2 text-zinc-700 hover:bg-rose-50 hover:text-rose-500">
+                                                class="group flex w-full items-center justify-start rounded-xl px-4 py-2 font-dine-r text-zinc-700 hover:bg-rose-50 hover:text-rose-500">
                                                 <x-icon-store icon="heart"
                                                     class="mr-2 inline-block h-4 w-4 text-current group-hover:fill-rose-500" />
                                                 Favoritos
@@ -100,7 +100,7 @@
                                         @if (auth()->user()->role === 'admin')
                                             <li class="mt-2 w-full">
                                                 <a href="{{ Route('admin.index') }}" target="_blank"
-                                                    class="flex w-full items-center justify-start rounded-xl px-4 py-2 text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
+                                                    class="flex w-full items-center justify-start rounded-xl px-4 py-2 font-dine-r text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
                                                     <x-icon-store icon="user"
                                                         class="mr-2 inline-block h-4 w-4 text-current" />
                                                     Administrador
@@ -109,7 +109,7 @@
                                         @endif
                                         <li class="@if (auth()->user()->role !== 'admin') mt-2 @endif mb-2 w-full">
                                             <a href="{{ Route('account.index') }}"
-                                                class="flex w-full items-center justify-start rounded-xl px-4 py-2 text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
+                                                class="flex w-full items-center justify-start rounded-xl px-4 py-2 font-dine-r text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
                                                 <x-icon-store icon="settings"
                                                     class="mr-2 inline-block h-4 w-4 text-current" />
                                                 Configuración
@@ -120,7 +120,7 @@
                                             <form action="{{ Route('logout') }}" method="POST">
                                                 @csrf
                                                 <button type="submit"
-                                                    class="flex w-full items-center justify-start rounded-xl px-4 py-2 text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
+                                                    class="flex w-full items-center justify-start rounded-xl px-4 py-2 font-dine-r text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
                                                     <x-icon-store icon="logout"
                                                         class="mr-2 inline-block h-4 w-4 text-current" />
                                                     Cerrar sesión
@@ -132,7 +132,7 @@
                             @else
                                 <a href="{{ Route('login') }}"
                                     class="font-font-din-b text-sm text-blue-store hover:underline">
-                                    Iniciar sesión
+                                    <x-icon-store icon="user" class="h-8 w-8 text-light-blue"></x-icon-store>
                                 </a>
                             @endif
                         </li>
@@ -140,22 +140,29 @@
                 </div>
 
                 <!-- Icons mobile -->
-                <div class="flex items-center justify-center lg:hidden">
-                    <button class="flex h-12 w-12 items-center justify-center sm:hidden"
+                <div class="flex items-center justify-center gap-4 lg:hidden">
+                    <button class="size-12 flex items-center justify-center sm:hidden"
                         data-drawer-target="nav-mobile-search" data-drawer-show="nav-mobile-search">
                         <x-icon-store icon="search" class="h-6 w-6 text-light-blue"></x-icon-store>
                     </button>
-
-                    <a href="{{ Route('cart') }}" class="group relative me-4">
-                        <x-icon-store icon="bag"
+                    <a href="{{ Route('cart') }}" class="group relative">
+                        <x-icon-store icon="cart"
                             class="h-8 w-8 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
                         <span
-                            class="absolute -right-2 -top-2 rounded-full bg-blue-store px-1.5 py-0.5 text-xs text-white"
+                            class="absolute -right-2 -top-2 rounded-full bg-dark-pink px-1.5 py-0.5 text-xs text-white"
                             id="cart-count-mobile">
                             {{ \App\Helpers\Cart::count() }}
                         </span>
                     </a>
-
+                    <a href="{{ Route('favorites') }}" class="group relative">
+                        <x-icon-store icon="heart"
+                            class="h-8 w-8 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
+                        <span
+                            class="absolute -right-2 -top-2 rounded-full bg-dark-pink px-1.5 py-0.5 text-xs text-white"
+                            id="favorite-count">
+                            {{ \App\Helpers\Favorites::count() }}
+                        </span>
+                    </a>
                     <div class="relative">
                         @if ($user = auth()->user())
                             <button type="button" class="profile-user flex items-center justify-center gap-1">
@@ -172,7 +179,7 @@
                                 <ul class="flex flex-col p-2 font-medium">
                                     <li class="w-full">
                                         <a href="{{ Route('account.index') }}"
-                                            class="flex w-full items-center justify-start rounded-xl px-4 py-2 text-blue-store hover:bg-purple-100">
+                                            class="flex w-full items-center justify-start rounded-xl px-4 py-2 font-dine-r text-blue-store hover:bg-purple-100">
                                             <x-icon-store icon="user"
                                                 class="mr-2 inline-block h-4 w-4 text-current" />
                                             Mi cuenta
@@ -180,7 +187,7 @@
                                     </li>
                                     <li class="w-full">
                                         <a href="{{ Route('orders.index') }}"
-                                            class="flex w-full items-center justify-start rounded-xl px-4 py-2 text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
+                                            class="flex w-full items-center justify-start rounded-xl px-4 py-2 font-dine-r text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
                                             <x-icon-store icon="bag"
                                                 class="mr-2 inline-block h-4 w-4 text-current" />
                                             Mis pedidos
@@ -188,7 +195,7 @@
                                     </li>
                                     <li class="mb-2 w-full">
                                         <a href="{{ Route('favorites') }}"
-                                            class="group flex w-full items-center justify-start rounded-xl px-4 py-2 text-zinc-700 hover:bg-rose-50 hover:text-rose-500">
+                                            class="group flex w-full items-center justify-start rounded-xl px-4 py-2 font-dine-r text-zinc-700 hover:bg-rose-50 hover:text-rose-500">
                                             <x-icon-store icon="heart"
                                                 class="mr-2 inline-block h-4 w-4 text-current group-hover:fill-rose-500" />
                                             Favoritos
@@ -198,7 +205,7 @@
                                     @if (auth()->user()->role === 'admin')
                                         <li class="mt-2 w-full">
                                             <a href="{{ Route('admin.index') }}" target="_blank"
-                                                class="flex w-full items-center justify-start rounded-xl px-4 py-2 text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
+                                                class="flex w-full items-center justify-start rounded-xl px-4 py-2 font-dine-r text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
                                                 <x-icon-store icon="user"
                                                     class="mr-2 inline-block h-4 w-4 text-current" />
                                                 Administrador
@@ -207,7 +214,7 @@
                                     @endif
                                     <li class="@if (auth()->user()->role !== 'admin') mt-2 @endif mb-2 w-full">
                                         <a href="{{ Route('account.index') }}"
-                                            class="flex w-full items-center justify-start rounded-xl px-4 py-2 text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
+                                            class="flex w-full items-center justify-start rounded-xl px-4 py-2 font-dine-r text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
                                             <x-icon-store icon="settings"
                                                 class="mr-2 inline-block h-4 w-4 text-current" />
                                             Configuración
@@ -218,7 +225,7 @@
                                         <form action="{{ Route('logout') }}" method="POST">
                                             @csrf
                                             <button type="submit"
-                                                class="flex w-full items-center justify-start rounded-xl px-4 py-2 text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
+                                                class="flex w-full items-center justify-start rounded-xl px-4 py-2 font-dine-r text-zinc-700 hover:bg-purple-50 hover:text-blue-store">
                                                 <x-icon-store icon="logout"
                                                     class="mr-2 inline-block h-4 w-4 text-current" />
                                                 Cerrar sesión
@@ -230,11 +237,10 @@
                         @else
                             <a href="{{ Route('login') }}"
                                 class="font-font-din-b text-sm text-blue-store hover:underline">
-                                Iniciar sesión
+                                <x-icon-store icon="user" class="h-8 w-8 text-light-blue"></x-icon-store>
                             </a>
                         @endif
                     </div>
-
                 </div>
             </div>
 
@@ -332,33 +338,10 @@
             <span class="sr-only">Close menu</span>
         </button>
         <div class="mt-8">
-            <div class="flex h-12 items-center justify-center rounded-2xl">
-                <ul class="flex justify-center gap-4 px-4 py-2">
-                    <li>
-                        <a href="{{ Route('favorites') }}" class="group relative">
-                            <x-icon-store icon="heart"
-                                class="h-6 w-6 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
-                            <span
-                                class="absolute -right-2 -top-2 rounded-full bg-blue-store px-1 py-0.5 text-xs text-white"
-                                id="favorite-count">
-                                {{ \App\Helpers\Favorites::count() }}
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://wa.me/{{ $whatsapp }}" target="_blank" class="group">
-                            <x-icon-store icon="whatsapp"
-                                class="h-6 w-6 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ $location }}" target="_blank"class="group">
-                            <x-icon-store icon="location"
-                                class="h-6 w-6 text-light-blue transition-transform group-hover:scale-110">
-                            </x-icon-store>
-                        </a>
-                    </li>
-                </ul>
+            <div class="mt-4 flex items-center justify-center gap-4">
+                <img src="{{ $logo ? Storage::url($logo) : asset('img/logo.png') }}" alt="Logo"
+                    class="min-h-12 min-w-12 h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20 lg:h-24 lg:w-24">
+                <h1 class="font-secondary text-2xl text-blue-store">Miguitas</h1>
             </div>
             <nav class="mt-4">
                 <ul class="flex flex-col gap-4 text-blue-store">
@@ -427,6 +410,23 @@
                     </li>
                 </ul>
             </nav>
+            <div class="mt-10 flex items-center justify-center rounded-2xl">
+                <ul class="flex justify-center gap-4 px-4 py-2">
+                    <li>
+                        <a href="https://wa.me/{{ $whatsapp }}" target="_blank" class="group">
+                            <x-icon-store icon="whatsapp"
+                                class="size-8 text-light-blue transition-transform group-hover:scale-110"></x-icon-store>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ $location }}" target="_blank"class="group">
+                            <x-icon-store icon="location"
+                                class="size-8 text-light-blue transition-transform group-hover:scale-110">
+                            </x-icon-store>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
