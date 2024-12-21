@@ -2,31 +2,31 @@
     <h3 class="text-lg font-medium uppercase text-blue-store sm:text-xl md:text-2xl">
         Datos de facturación
     </h3>
-    <div class="flex items-center gap-2">
-        <h5 class="flex items-center gap-1 font-dine-r text-zinc-800">
+    <div class="flex flex-col items-start gap-2 sm:flex-row sm:items-center">
+        <h5 class="flex items-center gap-1 font-dine-r text-sm text-zinc-800 sm:text-base">
             <x-icon-store icon="user" class="h-5 w-5 text-current" />
             Nombre completo:
         </h5>
-        <p class="font-dine-r text-zinc-600">
+        <p class="font-dine-r text-sm text-zinc-600 sm:text-base">
             {{ $user->fullName }}
         </p>
     </div>
     <div class="flex flex-col items-start gap-y-2 sm:flex-row sm:items-center">
-        <div class="flex flex-[2] items-center gap-2">
-            <h5 class="flex items-center gap-1 font-dine-r text-zinc-800">
+        <div class="flex flex-[2] flex-wrap items-center gap-2">
+            <h5 class="flex items-center gap-1 font-dine-r text-sm text-zinc-800 sm:text-base">
                 <x-icon-store icon="email" class="h-5 w-5 text-current" />
                 Correo electrónico:
             </h5>
-            <p class="font-dine-r text-zinc-600">
+            <p class="font-dine-r text-sm text-zinc-600 sm:text-base">
                 {{ $user->email }}
             </p>
         </div>
-        <div class="flex flex-1 items-center gap-2">
-            <h5 class="flex items-center gap-1 font-dine-r text-zinc-800">
+        <div class="flex flex-1 flex-wrap items-center gap-2">
+            <h5 class="flex items-center gap-1 font-dine-r text-sm text-zinc-800 sm:text-base">
                 <x-icon-store icon="phone" class="h-5 w-5 text-current" />
                 Teléfono:
             </h5>
-            <p class="font-dine-r text-zinc-600">
+            <p class="font-dine-r text-sm text-zinc-600 sm:text-base">
                 {{ $user->customer ? $user->customer->phone : '' }}
             </p>
         </div>
@@ -37,10 +37,10 @@
         Dirección de envío
     </h3>
     <div class="flex items-center gap-2">
-        <h5 class="font-dine-r text-zinc-800">
+        <h5 class="font-dine-r text-sm text-zinc-800 sm:text-base">
             Dirección:
         </h5>
-        <p class="font-dine-r text-zinc-600">
+        <p class="text-wrap font-dine-r text-sm text-zinc-600 sm:text-base">
             {{ $address->address_line_1 }}@if ($address->address_line_2)
                 {{ ', ' . $address->address_line_2 }}
             @endif
@@ -48,27 +48,27 @@
     </div>
     <div class="flex flex-col items-start gap-y-2 sm:flex-row sm:items-center">
         <div class="flex flex-[2] items-center gap-2">
-            <h5 class="font-dine-r text-zinc-800">
+            <h5 class="font-dine-r text-sm text-zinc-800 sm:text-base">
                 Departamento:
             </h5>
-            <p class="font-dine-r text-zinc-600">
+            <p class="font-dine-r text-sm text-zinc-600 sm:text-base">
                 {{ $address->department }}
             </p>
         </div>
         <div class="flex flex-1 items-center gap-2">
-            <h5 class="font-dine-r text-zinc-800">
+            <h5 class="font-dine-r text-sm text-zinc-800 sm:text-base">
                 Municipio:
             </h5>
-            <p class="font-dine-r text-zinc-600">
+            <p class="font-dine-r text-sm text-zinc-600 sm:text-base">
                 {{ $address->municipality }}
             </p>
         </div>
     </div>
     <div class="flex items-center gap-2">
-        <h5 class="font-dine-r text-zinc-800">
+        <h5 class="font-dine-r text-sm text-zinc-800 sm:text-base">
             Distrito:
         </h5>
-        <p class="font-dine-r text-zinc-600">
+        <p class="font-dine-r text-sm text-zinc-600 sm:text-base">
             {{ $address->district }}
         </p>
     </div>
@@ -78,7 +78,7 @@
         Método de envío
     </h3>
     <div class="flex items-center">
-        <p class="font-dine-r text-zinc-600">
+        <p class="font-dine-r text-sm text-zinc-600 sm:text-base">
             {{ $cart->shippingMethod ? $cart->shippingMethod->name : 'No se ha seleccionado un método de envío' }}
         </p>
     </div>
