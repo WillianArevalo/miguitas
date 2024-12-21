@@ -1,9 +1,9 @@
 @extends('layouts.template')
 @section('title', 'Miguitas | Facturación')
 @section('content')
-    <div class="my-10">
-        <div class="mx-auto mt-20 w-full px-4 sm:px-6 xl:w-4/5">
-            <div class="flex flex-col gap-8 lg:flex-row">
+    <div class="mb-10">
+        <div class="mx-auto w-full px-4 sm:px-6 xl:w-4/5">
+            <div class="flex flex-col-reverse gap-8 lg:flex-row">
                 <div class="flex-1 gap-4 lg:flex-[2] xl:flex-[3]">
                     <form action="{{ Route('checkout.update') }}" method="POST" id="checkout-form">
                         @csrf
@@ -203,121 +203,7 @@
                             <h3 class="text-2xl font-bold uppercase text-blue-store sm:text-3xl md:text-4xl">
                                 Confirmar datos
                             </h3>
-                            <div class="mt-4" id="confirm-data">
-                                <div class="flex flex-col gap-2">
-                                    <h3 class="text-sm uppercase text-blue-store sm:text-base md:text-lg">
-                                        Datos de facturación
-                                    </h3>
-                                    <div class="flex items-center gap-2">
-                                        <h5 class="flex items-center gap-1 text-zinc-800">
-                                            <x-icon-store icon="user" class="h-5 w-5 text-current" />
-                                            Nombre completo:
-                                        </h5>
-                                        <p class="font-pluto-r text-zinc-600">
-                                            {{ $user->fullName }}
-                                        </p>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <div class="flex flex-[2] items-center gap-2">
-                                            <h5 class="flex items-center gap-1 text-zinc-800">
-                                                <x-icon-store icon="email" class="h-5 w-5 text-current" />
-                                                Correo electrónico:
-                                            </h5>
-                                            <p class="font-pluto-r text-zinc-600">
-                                                {{ $user->email }}
-                                            </p>
-                                        </div>
-                                        <div class="flex flex-1 items-center gap-2">
-                                            <h5 class="flex items-center gap-1 text-zinc-800">
-                                                <x-icon-store icon="phone" class="h-5 w-5 text-current" />
-                                                Teléfono:
-                                            </h5>
-                                            <p class="font-pluto-r text-zinc-600">
-                                                {{ $user->customer ? $user->customer->phone : '' }}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mt-8 flex flex-col gap-2">
-                                    <h3 class="text-sm uppercase text-blue-store sm:text-base md:text-lg">
-                                        Dirección de envío
-                                    </h3>
-                                    @if ($address)
-                                        <div class="flex items-center gap-2">
-                                            <h5 class="text-zinc-800">
-                                                Dirección:
-                                            </h5>
-                                            <p class="font-pluto-r text-zinc-600">
-                                                {{ $address->address_line_1 }}
-                                            </p>
-                                        </div>
-                                        <div class="flex items-center">
-                                            <div class="flex flex-[2] items-center gap-2">
-                                                <h5 class="text-zinc-800">
-                                                    Ciudad:
-                                                </h5>
-                                                <p class="font-pluto-r text-zinc-600">
-                                                    {{ $address->city }}
-                                                </p>
-                                            </div>
-                                            <div class="flex flex-1 items-center gap-2">
-                                                <h5 class="text-zinc-800">
-                                                    Departamento:
-                                                </h5>
-                                                <p class="font-pluto-r text-zinc-600">
-                                                    {{ $address->state }}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    @else
-                                        <div>
-                                            <div
-                                                class="flex items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-zinc-200 p-10">
-                                                <x-icon-store icon="map-point" class="h-8 w-8 text-blue-store" />
-                                                <div class="flex flex-col items-center gap-1">
-                                                    <p class="font-pluto-r text-sm text-zinc-500">
-                                                        No tienes ninguna dirección registrada
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="mt-4 flex items-center justify-center">
-                                                <x-button-store type="a" href="{{ Route('account.index') }}"
-                                                    icon="map-point-add" typeButton="secondary"
-                                                    text="Agregar dirección" />
-                                            </div>
-                                        </div>
-                                    @endif
-                                </div>
-                                <div class="mt-8 flex flex-col gap-2">
-                                    <h3 class="text-sm uppercase text-blue-store sm:text-base md:text-lg">
-                                        Método de envío
-                                    </h3>
-                                    <div class="flex items-center">
-                                        <p class="font-pluto-r text-zinc-600">
-                                            {{ $cart->shippingMethod->name ?? 'Sin especificar' }}
-                                        </p>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <div class="flex items-center gap-2">
-                                            <h5 class="text-zinc-800">
-                                                Precio:
-                                            </h5>
-                                            <p class="font-pluto-r text-zinc-600">
-                                                ${{ $cart->shippingMethod->cost ?? '0.00' }}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mt-8 flex flex-col gap-2">
-                                    <h3 class="text-sm uppercase text-blue-store sm:text-base md:text-lg">
-                                        Método de pago
-                                    </h3>
-                                    <div class="flex items-center">
-                                        <p class="font-pluto-r text-zinc-600">
-                                            {{ $cart->paymentMethod->name ?? 'Sin especificar' }}
-                                        </p>
-                                    </div>
-                                </div>
+                            <div class="mt-4 px-4" id="confirm-data">
                             </div>
                         </div>
                         <!-- End Confirm data -->
@@ -353,7 +239,7 @@
                                         @foreach ($payment_methods as $method)
                                             @if ($method->name === 'Tarjeta de crédito')
                                                 <a href="{{ Route('pay', ['id' => $method->id]) }}"
-                                                    class="flex w-96 items-center justify-center gap-4 rounded-full bg-[#f0f1eb] p-4 font-dine-r text-base text-blue-950 hover:bg-zinc-200">
+                                                    class="flex w-full items-center justify-center gap-4 rounded-full bg-[#f0f1eb] p-4 font-dine-r text-base text-blue-950 hover:bg-zinc-200 sm:w-96">
                                                     <x-icon-store icon="visa" class="h-8 w-8 fill-current" />
                                                     <x-icon-store icon="mastercard" class="h-8 w-8 fill-current" />
                                                     Pagar con tarjeta de crédito
@@ -362,7 +248,7 @@
 
                                             @if ($method->name === 'Wompi')
                                                 <button data-url="{{ Route('cart.apply-payment-method', $method->id) }}"
-                                                    class="flex w-96 items-center justify-center rounded-full bg-[#4865ff] p-4 font-dine-r text-base text-white">
+                                                    class="flex w-full items-center justify-center rounded-full bg-[#4865ff] p-4 font-dine-r text-base text-white sm:w-96">
                                                     <img src="{{ Storage::url($method->image) }}" alt="Wompi"
                                                         class="h-8 w-20 object-cover">
                                                     Pagar con Wompi
@@ -372,14 +258,14 @@
                                             @if ($method->name === 'Pago en efectivo')
                                                 <x-button-store type="button" text="Pagar en efectivo"
                                                     data-url="{{ Route('cart.apply-payment-method', $method->id) }}"
-                                                    class="payment-cash w-96 font-dine-r text-base" typeButton="secondary"
-                                                    size="large" />
+                                                    class="payment-cash w-full font-dine-r text-base sm:w-96"
+                                                    typeButton="secondary" size="large" />
                                             @endif
 
                                             @if ($method->name === 'Transferencia bancaria')
                                                 <x-button-store type="a"
                                                     href="{{ Route('pay', ['id' => $method->id]) }}"
-                                                    text="Transferencia bancaria" class="w-96 font-dine-r text-base"
+                                                    text="Transferencia bancaria" class="w-full sm:w-96"
                                                     typeButton="secondary" size="large" />
                                             @endif
                                         @endforeach
@@ -392,7 +278,7 @@
                         <div class="mt-4 flex flex-col items-center justify-between gap-4 pt-4 sm:flex-row">
                             <x-button-store type="a" href="{{ Route('cart') }}" text="Regresar al carrito"
                                 typeButton="secondary" icon="cart" size="normal" class="h-max w-full sm:w-max" />
-                            <div class="flex flex-wrap items-center justify-end gap-4">
+                            <div class="flex w-full flex-wrap items-center justify-end gap-4 sm:w-auto">
                                 <x-button-store type="button" text="Regresar" class="w-full sm:w-max"
                                     typeButton="secondary" id="prev-step" />
                                 <x-button-store type="button" text="Continuar" class="w-full uppercase sm:w-max"
