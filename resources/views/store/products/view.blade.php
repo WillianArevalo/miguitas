@@ -2,14 +2,11 @@
 @section('title', 'Detalles del producto')
 @section('content')
     <div class="my-4">
-        <div class="flex flex-col gap-8 px-8 lg:flex-row lg:px-10">
+        <div class="flex flex-col gap-8 px-4 lg:flex-row lg:px-10">
             <div class="flex flex-1 flex-col items-center lg:items-start">
-                <div class="main-image relative flex w-full items-center justify-center">
+                <div class="main-image flex w-full items-center justify-center">
                     <img src="{{ Storage::url($product->main_image) }}" alt="Imagen {{ $product->name }}"
                         class="h-96 w-full max-w-xl rounded-2xl object-cover">
-                    <button class="absolute right-0 top-0 m-4 rounded-full bg-white p-2">
-                        <x-icon-store icon="heart" class="h-4 w-4 fill-rose-400 sm:w-6 md:h-6" />
-                    </button>
                 </div>
                 <div class="flex h-20 w-max items-center justify-center gap-2 overflow-hidden py-20">
                     <button class="button-prev-images cursor-pointer rounded-full fill-dark-blue p-1">
@@ -35,15 +32,15 @@
                 </div>
             </div>
             <div class="lg:flex-[3] xl:flex-[4]">
-                <div class="w-3/4">
-                    <div class="flex justify-between">
+                <div class="w-full 2xl:w-3/4">
+                    <div class="flex flex-col justify-between gap-y-2 sm:flex-row">
                         <div>
-                            <h1 class="text2xl font-bold text-light-blue sm:text-3xl md:text-4xl">
+                            <h1 class="text-2xl font-bold text-light-blue sm:text-3xl md:text-4xl">
                                 {{ $product->name }}
                             </h1>
                         </div>
                         <div class="flex items-center gap-2">
-                            <p class="text-lg font-semibold text-light-blue sm:text-xl md:text-2xl">
+                            <p class="mt-1 text-lg font-semibold text-light-blue sm:text-xl md:text-2xl">
                                 {{ number_format($product->rating, 1) }}
                             </p>
                             <div class="flex items-center gap-2">
@@ -59,7 +56,7 @@
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <div class="mt-4">
                         <div class="flex gap-4">
                             <p class="font-dine-r text-xl text-gray-500 sm:text-2xl md:text-3xl">
                                 $ {{ $product->price }}
@@ -75,13 +72,16 @@
                         </p>
                     </div>
                     <div class="mt-4 flex items-center">
-                        <h2 class="text-lg font-semibold text-light-blue sm:text-xl md:text-2xl">
+                        <h2 class="font-din-r text-lg font-normal uppercase text-light-blue sm:text-xl md:text-2xl">
                             Categoría:
                         </h2>
                         <div class="flex items-center gap-2">
                             @foreach ($product->subcategories as $category)
-                                <p class="ml-2 font-dine-r text-sm uppercase text-gray-400 sm:text-base md:text-lg">
-                                    {{ $category->name }},
+                                <p class="ml-2 font-din-r text-sm uppercase text-gray-400 sm:text-base md:text-lg">
+                                    {{ $category->name }}
+                                    @if (!$loop->last)
+                                        ,
+                                    @endif
                                 </p>
                             @endforeach
                         </div>
@@ -90,8 +90,8 @@
                         @csrf
                         <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}">
                         <input type="hidden" name="price" id="price">
-                        <div class="mt-4 flex flex-col items-center justify-start gap-4 sm:flex-row">
-                            <div class="w-72">
+                        <div class="mt-4 flex flex-col items-center justify-center gap-4 sm:flex-row sm:justify-start">
+                            <div class="w-full sm:w-72">
                                 @if ($product->options->count() > 0)
                                     @php
                                         $groupedOptions = $product->options->groupBy(function ($item) {
@@ -110,7 +110,6 @@
                                         @endforeach
                                     </div>
                                     <div id="info-variation" class="mt-4">
-
                                     </div>
                                 @endif
                             </div>
@@ -158,8 +157,10 @@
                             </div>
                         @endif
 
-                        <div class="mt-8 flex flex-col items-center justify-between gap-4 md:flex-row">
-                            <div class="flex h-10 w-max items-center overflow-hidden rounded-xl border-2 border-blue-store">
+                        <div
+                            class="mt-8 flex w-full flex-col flex-wrap items-start justify-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+                            <div
+                                class="mx-auto flex h-10 w-max items-center overflow-hidden rounded-xl border-2 border-blue-store sm:mx-0">
                                 <button type="button"
                                     class="flex h-10 items-center justify-center border-e-2 border-blue-store px-3 text-blue-store hover:bg-blue-store hover:text-white"
                                     id="btn-minus">
@@ -180,6 +181,33 @@
                                 typeButton="primary" size="large" id="buy-now" />
                         </div>
                     </form>
+
+                    <div class="mt-4">
+                        <form action="{{ Route('favorites.add', $product->id) }}" method="POST">
+                            @csrf
+                            <div class="favorite-container">
+                                <button type="button"
+                                    data-is-favorite="{{ $product->is_favorite ? 'favorite' : 'no-favorite' }}"
+                                    class="btn-add-favorite-product flex items-center justify-center gap-2 font-din-r text-sm text-gray-500 hover:text-dark-pink sm:text-base">
+
+                                    <span id="heart-icon-fill" class="{{ $product->is_favorite ? 'block' : 'hidden' }}">
+                                        <x-icon-store icon="heart-fill" class="h-5 w-5 fill-dark-pink sm:h-7 sm:w-7"
+                                            data-heart="filled" />
+                                    </span>
+
+                                    <span id="heart-icon-outline"
+                                        class="{{ $product->is_favorite ? 'hidden' : 'block' }}">
+                                        <x-icon-store icon="heart" class="h-5 w-5 text-current sm:h-7 sm:w-7"
+                                            data-heart="outline" />
+                                    </span>
+
+                                    <span id="text-btn-favorite">
+                                        {{ $product->is_favorite ? 'Quitar de favoritos' : 'Agregar a favoritos' }}
+                                    </span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                     <div class="mt-8">
                         <div class="mx-auto mt-8 w-full">
                             <!-- Tabs Header -->
