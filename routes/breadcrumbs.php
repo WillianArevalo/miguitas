@@ -292,11 +292,10 @@ Breadcrumbs::for("store.products", function (BreadcrumbTrail $trail) {
 
 //Products > {product}
 Breadcrumbs::for("products.details", function (BreadcrumbTrail $trail, $product) {
-    $trail->parent("store.products");
+    $trail->parent("store");
     $product = Product::where('slug', $product)->first()->name;
     $trail->push($product, route("products.details", $product));
 });
-
 
 //Cart
 Breadcrumbs::for("cart", function (BreadcrumbTrail $trail) {
