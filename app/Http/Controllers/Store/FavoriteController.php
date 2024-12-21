@@ -31,7 +31,6 @@ class FavoriteController extends Controller
                 return response()->json([
                     'message' => 'Inicia sesión para guardar tus favoritos',
                     'status' => 'auth',
-                    'redirect'
                 ]);
             }
 
@@ -55,7 +54,7 @@ class FavoriteController extends Controller
                 'message' => $message,
                 'status' => $status,
                 'html' => view("layouts.__partials.ajax.store.card-footer", compact("product"))->render(),
-                "count" => Favorites::count()
+                "count" => Favorites::count(),
             ]);
         } catch (\Exception $e) {
             Log::error('Error al agregar o remover de favoritos: ' . $e->getMessage());
